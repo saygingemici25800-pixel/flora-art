@@ -186,6 +186,92 @@
     "homeCta": "Ana Sayfaya Dön",
     "whatsappCta": "WhatsApp'tan Takip Et"
   },
+  "services": {
+    "title": "Hizmetler",
+    "subtitle": "Her özel an için, her ölçekte.",
+    "breadcrumb": "Hizmetler",
+    "items": [
+      {
+        "id": "wedding",
+        "title": "Düğün & Nişan & Söz",
+        "description": "Hayatınızın en özel günü için, her detay özenle düşünülmüş çiçek tasarımları. Gelin buketinden masa süslemelerine, mekânı bir sanat eserine çeviriyoruz.",
+        "features": ["Gelin buketi", "Masa süslemeleri", "Kır çiçeği aranjmanları", "Konsültasyon"],
+        "cta": "Teklif Al",
+        "whatsappTopic": "Düğün organizasyonu için teklif almak istiyorum."
+      },
+      {
+        "id": "corporate",
+        "title": "Kurumsal & Açılış",
+        "description": "Şirketinizin imajını yansıtan zarif çiçek aranjmanları. Açılış çelenkleri, ofis düzenlemeleri, periyodik tazeleme — kurumsal her ihtiyaca özel çözümler.",
+        "features": ["Açılış çelenkleri", "Ofis aranjmanları", "Periyodik teslimat", "Markaya özel tasarım"],
+        "cta": "Kurumsal Teklif",
+        "whatsappTopic": "Kurumsal çiçek hizmeti için teklif almak istiyorum."
+      },
+      {
+        "id": "hotel",
+        "title": "Otel & Restoran",
+        "description": "Lobby aranjmanlarından restoran masa çiçeklerine. Fethiye'nin önde gelen otelleri ve restoranlarıyla çalışıyoruz. Her gün taze, her gün özel.",
+        "features": ["Lobby aranjmanları", "Masa çiçekleri", "Event dekorasyonu", "Günlük tazeleme"],
+        "cta": "İletişime Geç",
+        "whatsappTopic": "Otel/restoran çiçek hizmeti hakkında bilgi almak istiyorum."
+      },
+      {
+        "id": "daily",
+        "title": "Günlük & Hediye",
+        "description": "Doğum günü, sevgililer günü, taziye, kutlama — hayatın her özel anı için. Fethiye içinde 2 saatte kapınızda, Türkiye'ye aynı gün teslimat.",
+        "features": ["Doğum günü", "Sevgililer günü", "Taziye çelenkleri", "Aynı gün teslimat"],
+        "cta": "Sipariş Ver",
+        "linkType": "shop"
+      }
+    ],
+    "banner": {
+      "title": "Hayalinizdeki çiçek aranjmanı için",
+      "subtitle": "Tasarım, üretim, teslimat — her aşamada yanınızdayız.",
+      "cta": "Hemen WhatsApp'tan Yazın",
+      "whatsappTopic": "Flora Art hizmetleri hakkında bilgi almak istiyorum."
+    }
+  },
+  "delivery": {
+    "title": "Teslimat",
+    "subtitle": "Holland'dan kapınıza, garantili.",
+    "breadcrumb": "Teslimat",
+    "howItWorks": {
+      "title": "Nasıl Çalışır",
+      "steps": [
+        { "id": "order",   "number": "01", "title": "Sipariş Ver",           "description": "Online sipariş veya WhatsApp üzerinden — istediğiniz çiçeği, tarihi ve teslimat adresini bize iletin." },
+        { "id": "source",  "number": "02", "title": "Holland'dan Seçilir",   "description": "Her sabah Amsterdam Aalsmeer müzayedesinden seçilen Holland Premium çiçekler atölyemize ulaşır." },
+        { "id": "pack",    "number": "03", "title": "Özenle Paketlenir",     "description": "Markamıza özel ambalaj, nem korumalı tasarım. Her buket elle, özenle hazırlanır." },
+        { "id": "deliver", "number": "04", "title": "Kapınızda",             "description": "Soğuk zincir kırılmadan kapınıza. Memnuniyet garantili — bir gülümseme yaratıncaya kadar." }
+      ]
+    },
+    "zones": {
+      "title": "Teslimat Bölgeleri",
+      "subtitle": "Üç farklı bölge, üç farklı süre — kalite her yerde aynı.",
+      "items": [
+        { "id": "local",  "icon": "📍", "title": "Fethiye & Çevresi", "eta": "2 saat",        "fee": "Ücretsiz",     "scope": "Fethiye merkez, Ölüdeniz, Göcek, Çalış", "highlighted": true },
+        { "id": "turkey", "icon": "🇹🇷", "title": "Türkiye Geneli",   "eta": "Aynı gün",      "fee": "150₺",         "scope": "81 il, kapıya teslim" },
+        { "id": "intl",   "icon": "🌍", "title": "Uluslararası",       "eta": "1 iş günü",    "fee": "Fiyat sorun",  "scope": "Avrupa, Rusya, Orta Doğu, dünya geneli" }
+      ],
+      "labels": { "eta": "Süre", "fee": "Ücret", "scope": "Kapsam" }
+    },
+    "faq": {
+      "title": "Sık Sorulan Sorular",
+      "items": [
+        { "q": "Aynı gün teslimat mümkün mü?",            "a": "Evet. Fethiye ve çevresinde 2 saat içinde, Türkiye geneline aynı gün teslimat sağlıyoruz. Saat 14:00'e kadar verilen siparişler aynı gün ulaşır." },
+        { "q": "Uluslararası teslimat nasıl yapılıyor?",  "a": "Avrupa, Rusya, Orta Doğu ve dünya geneline 1 iş günü içinde teslimat sunuyoruz. Ücret ülkeye göre değişir — WhatsApp üzerinden teklif alabilirsiniz." },
+        { "q": "Çiçekler taze mi garanti?",                "a": "Tüm çiçekler Holland Premium kalitesinde, Amsterdam müzayedesinden direkt temin edilir. Soğuk zincir kırılmadan atölyemizde elle hazırlanır." },
+        { "q": "Teslimat saatini seçebilir miyim?",        "a": "Evet. Sabah (08:00–12:00), Öğle (12:00–16:00), Akşam (16:00–20:00) dilimlerinden istediğinizi seçebilirsiniz. Özel saatler için bize yazın." },
+        { "q": "İade veya değişim mümkün mü?",            "a": "Teslimat sonrası 4 saat içinde bildirilen kalite şikayetlerinde yenisini ücretsiz gönderiyoruz. Tüm ürünlerde yerinde memnuniyet garantisi sunuyoruz." }
+      ]
+    },
+    "bottomCta": {
+      "title": "Sipariş vermek için",
+      "subtitle": "Online koleksiyondan seçin veya WhatsApp'tan bizimle iletişime geçin.",
+      "whatsappCta": "WhatsApp ile İletişim",
+      "or": "veya",
+      "shopCta": "Koleksiyona Bak"
+    }
+  },
   "testimonials": {
     "rating": "5.0",
     "stars": "★★★★★",

@@ -186,6 +186,92 @@
     "homeCta": "Back to Home",
     "whatsappCta": "Track via WhatsApp"
   },
+  "services": {
+    "title": "Services",
+    "subtitle": "For every special moment, at every scale.",
+    "breadcrumb": "Services",
+    "items": [
+      {
+        "id": "wedding",
+        "title": "Wedding & Engagement",
+        "description": "For the most special day of your life — floral designs where every detail is considered. From the bridal bouquet to the table arrangements, we turn the venue into a piece of art.",
+        "features": ["Bridal bouquet", "Table arrangements", "Wildflower compositions", "Consultation"],
+        "cta": "Request a Quote",
+        "whatsappTopic": "I would like a quote for a wedding."
+      },
+      {
+        "id": "corporate",
+        "title": "Corporate & Openings",
+        "description": "Elegant floral arrangements that reflect your brand. Opening wreaths, office programs, periodic refreshes — tailored solutions for every corporate need.",
+        "features": ["Opening wreaths", "Office arrangements", "Periodic delivery", "Brand-specific design"],
+        "cta": "Corporate Quote",
+        "whatsappTopic": "I would like a quote for a corporate flower programme."
+      },
+      {
+        "id": "hotel",
+        "title": "Hotels & Restaurants",
+        "description": "From lobby arrangements to restaurant table flowers. We partner with Fethiye's leading hotels and restaurants. Fresh every day, special every day.",
+        "features": ["Lobby arrangements", "Table flowers", "Event decoration", "Daily refresh"],
+        "cta": "Get in Touch",
+        "whatsappTopic": "I would like information about hotel/restaurant flower service."
+      },
+      {
+        "id": "daily",
+        "title": "Daily & Gifting",
+        "description": "Birthdays, Valentine's Day, condolences, celebrations — for every special moment in life. Within 2 hours in Fethiye, same-day across Turkey.",
+        "features": ["Birthday", "Valentine's Day", "Condolence wreaths", "Same-day delivery"],
+        "cta": "Order Now",
+        "linkType": "shop"
+      }
+    ],
+    "banner": {
+      "title": "For the flower arrangement of your dreams",
+      "subtitle": "Design, production, delivery — we are with you at every step.",
+      "cta": "Message Us on WhatsApp",
+      "whatsappTopic": "I would like information about Flora Art services."
+    }
+  },
+  "delivery": {
+    "title": "Delivery",
+    "subtitle": "From Holland to your door, guaranteed.",
+    "breadcrumb": "Delivery",
+    "howItWorks": {
+      "title": "How It Works",
+      "steps": [
+        { "id": "order",   "number": "01", "title": "Place the Order",     "description": "Online or via WhatsApp — share the flower, the date, and the delivery address with us." },
+        { "id": "source",  "number": "02", "title": "Sourced from Holland", "description": "Every morning Holland Premium flowers are hand-picked at Amsterdam's Aalsmeer auction and shipped to our atelier." },
+        { "id": "pack",    "number": "03", "title": "Carefully Packaged",  "description": "Branded packaging with moisture protection. Each bouquet is arranged by hand, with care." },
+        { "id": "deliver", "number": "04", "title": "At Your Door",         "description": "Delivered on an unbroken cold chain. Satisfaction guaranteed — until a smile is born." }
+      ]
+    },
+    "zones": {
+      "title": "Delivery Regions",
+      "subtitle": "Three regions, three timeframes — the same quality everywhere.",
+      "items": [
+        { "id": "local",  "icon": "📍", "title": "Fethiye & Surroundings", "eta": "2 hours",    "fee": "Free",       "scope": "Fethiye centre, Ölüdeniz, Göcek, Çalış", "highlighted": true },
+        { "id": "turkey", "icon": "🇹🇷", "title": "Across Turkey",         "eta": "Same day",   "fee": "150₺",       "scope": "81 cities, door-to-door" },
+        { "id": "intl",   "icon": "🌍", "title": "International",          "eta": "1 business day", "fee": "On request", "scope": "Europe, Russia, Middle East, worldwide" }
+      ],
+      "labels": { "eta": "Time", "fee": "Fee", "scope": "Coverage" }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        { "q": "Is same-day delivery available?",          "a": "Yes. We deliver within 2 hours around Fethiye and same-day across Turkey. Orders placed before 14:00 arrive on the same day." },
+        { "q": "How does international delivery work?",    "a": "We deliver to Europe, Russia, the Middle East, and worldwide within 1 business day. Pricing depends on the country — request a quote via WhatsApp." },
+        { "q": "Are the flowers freshness-guaranteed?",    "a": "All flowers are Holland Premium quality, sourced directly from Amsterdam's auction. Hand-arranged in our atelier on an unbroken cold chain." },
+        { "q": "Can I choose the delivery time?",          "a": "Yes. You can choose between Morning (08:00–12:00), Midday (12:00–16:00), or Evening (16:00–20:00). For a specific hour, just write to us." },
+        { "q": "Are returns or exchanges possible?",       "a": "For quality issues reported within 4 hours after delivery, we send a free replacement. All products carry an on-site satisfaction guarantee." }
+      ]
+    },
+    "bottomCta": {
+      "title": "Ready to place an order?",
+      "subtitle": "Pick from the online collection or reach us on WhatsApp.",
+      "whatsappCta": "Contact via WhatsApp",
+      "or": "or",
+      "shopCta": "View Collection"
+    }
+  },
   "testimonials": {
     "rating": "5.0",
     "stars": "★★★★★",
