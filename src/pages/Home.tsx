@@ -4,6 +4,9 @@ import { motion } from 'framer-motion'
 import MarqueeTicker from '../components/sections/MarqueeTicker'
 import USPCards from '../components/sections/USPCards'
 import CategoryGrid from '../components/sections/CategoryGrid'
+import FeaturedProducts from '../components/sections/FeaturedProducts'
+import Testimonials from '../components/sections/Testimonials'
+import HollandStory from '../components/sections/HollandStory'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -199,6 +202,9 @@ export default function Home() {
       <MarqueeTicker />
       <USPCards />
       <CategoryGrid />
+      <FeaturedProducts />
+      <Testimonials />
+      <HollandStory />
     </>
   )
 }

@@ -52,6 +52,43 @@
     { "id": "plant",         "name": "Saksı & Bitki" },
     { "id": "international", "name": "Uluslararası" }
   ],
+  "featured": {
+    "title": "Öne Çıkanlar",
+    "viewAll": "Tümünü Gör",
+    "addToCart": "Sepete Ekle",
+    "currency": "₺",
+    "badges": {
+      "holland": "HOLLAND",
+      "new": "YENİ",
+      "fast": "HIZLI"
+    }
+  },
+  "testimonials": {
+    "rating": "5.0",
+    "stars": "★★★★★",
+    "count": "122 Google Yorumu",
+    "subtitle": "Google'da Fethiye'nin En İyi Çiçekçisi",
+    "items": [
+      {
+        "quote": "Yeni açılmasına rağmen Fethiye'deki en iyi çiçekçilerden birisi. Çiçekler taptaze, hizmet birinci sınıf.",
+        "author": "Gezgin Dünyası"
+      },
+      {
+        "quote": "Güler yüzlü esnaflığı bilen kaliteli hizmet veren bir Aile işletmesi. Her detay düşünülmüş.",
+        "author": "Hkn Koçalan"
+      },
+      {
+        "quote": "Çiçeklerin hepsi birbirinden güzel artık buradan başka yerden almam. Tavsiye ediyorum.",
+        "author": "Berivan"
+      }
+    ]
+  },
+  "story": {
+    "title": "Amsterdam'dan\nkapınıza.",
+    "p1": "Her sabah Amsterdam'ın Aalsmeer müzayedesinden seçilen en taze, en nadide çiçekler — Holland Premium kalitesiyle, soğuk zincir kırılmadan Fethiye'ye ulaşıyor.",
+    "p2": "Her buket, atölyemizde elle hazırlanır. Mevsiminde, taze, doğru çiçek. Türkiye'nin her noktasına 2 saatte, dünyaya 1 günde teslimat.",
+    "cta": "Teslimat Bilgisi"
+  },
   "footer": {
     "tagline": "Çiçeğin sanatı, kapınıza kadar.",
     "subtitle": "Holland Premium Florist",

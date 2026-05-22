@@ -52,6 +52,43 @@
     { "id": "plant",         "name": "Plants & Pots" },
     { "id": "international", "name": "International" }
   ],
+  "featured": {
+    "title": "Featured",
+    "viewAll": "View All",
+    "addToCart": "Add to Cart",
+    "currency": "₺",
+    "badges": {
+      "holland": "HOLLAND",
+      "new": "NEW",
+      "fast": "FAST"
+    }
+  },
+  "testimonials": {
+    "rating": "5.0",
+    "stars": "★★★★★",
+    "count": "122 Google Reviews",
+    "subtitle": "The Best Florist in Fethiye on Google",
+    "items": [
+      {
+        "quote": "Even though they just opened, one of the best florists in Fethiye. Flowers are fresh, service is first-class.",
+        "author": "Gezgin Dünyası"
+      },
+      {
+        "quote": "A family-run business that knows hospitality and quality service. Every detail is thoughtful.",
+        "author": "Hkn Koçalan"
+      },
+      {
+        "quote": "Every flower is more beautiful than the last — I won't buy from anywhere else now. Highly recommend.",
+        "author": "Berivan"
+      }
+    ]
+  },
+  "story": {
+    "title": "From Amsterdam\nto your door.",
+    "p1": "Every morning the freshest, rarest flowers are hand-picked at Amsterdam's Aalsmeer auction — Holland Premium quality, delivered to Fethiye with an unbroken cold chain.",
+    "p2": "Each bouquet is arranged by hand in our atelier. In-season, fresh, and exactly right. Anywhere in Turkey within 2 hours; worldwide within 1 day.",
+    "cta": "Delivery Info"
+  },
   "footer": {
     "tagline": "The art of flowers, at your door.",
     "subtitle": "Holland Premium Florist",
