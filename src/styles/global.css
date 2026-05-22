@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
+@theme {
+  --color-forest:  #1C2B1A;
+  --color-gold:    #C8A96E;
+  --color-cream:   #F5F0E8;
+  --color-beige:   #E8DDD0;
+  --color-ink:     #2C2C2C;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body:    "DM Sans", system-ui, sans-serif;
+
+  --spacing-section:   7.5rem;
+  --spacing-component: 3rem;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  overflow-x: hidden;
+}
+
+/* ─── Custom Cursor ──────────────────────────────────────────── */
+* { cursor: none; }
+
+.cursor {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.3s var(--ease-out-expo),
+    height 0.3s var(--ease-out-expo),
+    opacity 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor--large {
+  width: 40px;
+  height: 40px;
+  opacity: 0.5;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-thumb { background: var(--color-gold); border-radius: 2px; }
+
+/* ─── Selection ──────────────────────────────────────────────── */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-forest);
+}
+
+/* ─── Typography Base ────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Lenis ──────────────────────────────────────────────────── */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}

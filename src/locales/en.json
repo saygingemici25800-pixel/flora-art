@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "shop": "Collection",
+    "services": "Services",
+    "delivery": "Delivery",
+    "about": "About",
+    "contact": "Contact",
+    "cart": "Cart"
+  },
+  "hero": {
+    "headline": "The Art\nof Flowers.",
+    "sub": "From Holland to Fethiye. To the World.",
+    "cta": "View Collection",
+    "badge": "Holland Sourced"
+  },
+  "ticker": {
+    "items": [
+      "Holland Premium",
+      "2-Hour Turkey Delivery",
+      "Worldwide in 1 Day",
+      "5★ 122 Reviews",
+      "Unique Flowers",
+      "Fethiye's Finest"
+    ]
+  },
+  "usp": {
+    "holland": {
+      "title": "Holland Sourced",
+      "desc": "Directly selected from Amsterdam's finest auction houses."
+    },
+    "fast": {
+      "title": "2-Hour Delivery",
+      "desc": "Same day, within 2 hours, anywhere in Turkey."
+    },
+    "world": {
+      "title": "Worldwide Delivery",
+      "desc": "Delivered to any destination in the world within 1 day."
+    }
+  },
+  "footer": {
+    "tagline": "The art of flowers, at your door.",
+    "subtitle": "Holland Premium Florist",
+    "address": "Atatürk Cd. 98/a, Kesikkapı, Fethiye/Muğla",
+    "hours": "Every day 08:00 – 20:00",
+    "rights": "All rights reserved.",
+    "phone": "+90 533 533 53 80",
+    "whatsapp": "Order via WhatsApp",
+    "quickLinks": "Quick Links",
+    "contactTitle": "Contact"
+  },
+  "common": {
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "pages": {
+    "home": "Home",
+    "shop": "Collection",
+    "services": "Services",
+    "delivery": "Delivery",
+    "about": "About",
+    "contact": "Contact",
+    "checkout": "Checkout",
+    "orderSuccess": "Order Confirmed"
+  }
+}

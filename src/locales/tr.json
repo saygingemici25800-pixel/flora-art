@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "shop": "Koleksiyon",
+    "services": "Hizmetler",
+    "delivery": "Teslimat",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "cart": "Sepet"
+  },
+  "hero": {
+    "headline": "Çiçeğin\nSanatı.",
+    "sub": "Holland'dan Fethiye'ye. Dünyaya.",
+    "cta": "Koleksiyona Bak",
+    "badge": "Holland Kaynağı"
+  },
+  "ticker": {
+    "items": [
+      "Holland Premium",
+      "2 Saatte Türkiye",
+      "1 Günde Dünya",
+      "5★ 122 Yorum",
+      "Benzersiz Çiçekler",
+      "Fethiye'nin En İyisi"
+    ]
+  },
+  "usp": {
+    "holland": {
+      "title": "Holland Kaynağı",
+      "desc": "Amsterdam müzayede pazarından direkt seçilmiş, eşsiz çiçekler."
+    },
+    "fast": {
+      "title": "2 Saat Teslimat",
+      "desc": "Tüm Türkiye'ye aynı gün, 2 saat içinde kapınızda."
+    },
+    "world": {
+      "title": "Dünyaya Teslimat",
+      "desc": "Dünyanın herhangi bir noktasına 1 gün içinde ulaştırıyoruz."
+    }
+  },
+  "footer": {
+    "tagline": "Çiçeğin sanatı, kapınıza kadar.",
+    "subtitle": "Holland Premium Florist",
+    "address": "Atatürk Cd. 98/a, Kesikkapı, Fethiye/Muğla",
+    "hours": "Her gün 08:00 – 20:00",
+    "rights": "Tüm hakları saklıdır.",
+    "phone": "+90 533 533 53 80",
+    "whatsapp": "WhatsApp ile Sipariş",
+    "quickLinks": "Hızlı Bağlantılar",
+    "contactTitle": "İletişim"
+  },
+  "common": {
+    "menu": "Menü",
+    "close": "Kapat"
+  },
+  "pages": {
+    "home": "Anasayfa",
+    "shop": "Koleksiyon",
+    "services": "Hizmetler",
+    "delivery": "Teslimat",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "checkout": "Ödeme",
+    "orderSuccess": "Sipariş Alındı"
+  }
+}
