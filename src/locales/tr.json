@@ -120,6 +120,72 @@
     "totalLabel": "Toplam",
     "whatsappTemplate": "Merhaba, {{name}} sipariş vermek istiyorum. Miktar: {{qty}}. Bölge: {{region}}. Teslimat: {{date}}. Not: {{note}}."
   },
+  "checkout": {
+    "title": "Ödeme",
+    "steps": ["Teslimat", "Özet", "Ödeme"],
+    "back": "Geri",
+    "step1": {
+      "title": "Teslimat Bilgileri",
+      "fullName": "Ad Soyad",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "region": "Teslimat Bölgesi",
+      "country": "Ülke",
+      "city": "Şehir",
+      "address": "Adres",
+      "addressPlaceholder": "Mahalle, sokak, bina no, daire no…",
+      "date": "Teslimat Tarihi",
+      "time": "Teslimat Saati",
+      "times": [
+        { "id": "morning", "label": "Sabah 08:00 – 12:00" },
+        { "id": "noon",    "label": "Öğle 12:00 – 16:00" },
+        { "id": "evening", "label": "Akşam 16:00 – 20:00" }
+      ],
+      "giftNote": "Hediye Notu (opsiyonel)",
+      "giftPlaceholder": "Karta yazılacak mesajınız…",
+      "continue": "Devam Et"
+    },
+    "step2": {
+      "title": "Sipariş Özeti",
+      "edit": "Düzenle",
+      "proceed": "Ödemeye Geç",
+      "deliveryTo": "Teslimat Adresi",
+      "scheduledFor": "Planlanan Teslimat"
+    },
+    "step3": {
+      "title": "Ödeme Bilgileri",
+      "cardNumber": "Kart Numarası",
+      "cardName": "Kart Üzerindeki İsim",
+      "expiry": "Son Kullanma",
+      "expiryPlaceholder": "AA/YY",
+      "cvv": "CVV",
+      "complete": "Siparişi Tamamla",
+      "or": "veya",
+      "whatsappComplete": "WhatsApp ile Tamamla",
+      "whatsappTemplate": "Sipariş tamamlamak istiyorum.\n\nÜrünler:\n{{items}}\n\nAd: {{name}}\nTelefon: {{phone}}\nAdres: {{address}}\nTeslimat: {{date}} · {{time}}\nToplam: ₺{{total}}"
+    },
+    "summary": {
+      "title": "Sipariş Özeti",
+      "subtotal": "Ara Toplam",
+      "delivery": "Teslimat",
+      "total": "Toplam",
+      "items": "Ürünler",
+      "qualityNote": "Holland'dan seçilmiş premium çiçeklerle hazırlanır."
+    },
+    "trustBadges": ["Güvenli Ödeme", "İade Garantisi"],
+    "empty": {
+      "title": "Sepetiniz Boş",
+      "hint": "Önce koleksiyondan bir çiçek seçin.",
+      "cta": "Koleksiyona Git"
+    }
+  },
+  "orderSuccess": {
+    "title": "Siparişiniz Alındı!",
+    "orderNoLabel": "Sipariş No",
+    "message": "En kısa sürede sizinle iletişime geçeceğiz.",
+    "homeCta": "Ana Sayfaya Dön",
+    "whatsappCta": "WhatsApp'tan Takip Et"
+  },
   "testimonials": {
     "rating": "5.0",
     "stars": "★★★★★",

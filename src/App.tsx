@@ -8,6 +8,8 @@ import Layout from './components/layout/Layout'
 import Home from './pages/Home'
 import Shop from './pages/Shop'
 import ProductDetail from './pages/ProductDetail'
+import Checkout from './pages/Checkout'
+import OrderSuccess from './pages/OrderSuccess'
 
 function AppInner() {
   useLenis()
@@ -24,8 +26,12 @@ function AppInner() {
         <Route path="/delivery" element={<PlaceholderPage name="Teslimat" />} />
         <Route path="/about" element={<PlaceholderPage name="Hakkımızda" />} />
         <Route path="/contact" element={<PlaceholderPage name="İletişim" />} />
-        <Route path="/checkout" element={<PlaceholderPage name="Ödeme" />} />
-        <Route path="/order-success" element={<PlaceholderPage name="Sipariş Alındı" />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order-success" element={<OrderSuccess />} />
+        <Route path="/en/checkout" element={<Checkout />} />
+        <Route path="/en/order-success" element={<OrderSuccess />} />
+        <Route path="/ru/checkout" element={<Checkout />} />
+        <Route path="/ru/order-success" element={<OrderSuccess />} />
 
         <Route path="/en" element={<Home />} />
         <Route path="/en/shop" element={<Shop />} />

@@ -120,6 +120,72 @@
     "totalLabel": "Итого",
     "whatsappTemplate": "Здравствуйте, я хочу заказать {{name}}. Количество: {{qty}}. Регион: {{region}}. Дата: {{date}}. Примечание: {{note}}."
   },
+  "checkout": {
+    "title": "Оплата",
+    "steps": ["Доставка", "Проверка", "Оплата"],
+    "back": "Назад",
+    "step1": {
+      "title": "Данные для доставки",
+      "fullName": "Имя и фамилия",
+      "phone": "Телефон",
+      "email": "E-mail",
+      "region": "Регион доставки",
+      "country": "Страна",
+      "city": "Город",
+      "address": "Адрес",
+      "addressPlaceholder": "Улица, дом, квартира…",
+      "date": "Дата доставки",
+      "time": "Время доставки",
+      "times": [
+        { "id": "morning", "label": "Утром 08:00 – 12:00" },
+        { "id": "noon",    "label": "Днём 12:00 – 16:00" },
+        { "id": "evening", "label": "Вечером 16:00 – 20:00" }
+      ],
+      "giftNote": "Подарочная записка (опц.)",
+      "giftPlaceholder": "Ваше сообщение для открытки…",
+      "continue": "Продолжить"
+    },
+    "step2": {
+      "title": "Проверка заказа",
+      "edit": "Изменить",
+      "proceed": "Перейти к оплате",
+      "deliveryTo": "Адрес доставки",
+      "scheduledFor": "Запланировано на"
+    },
+    "step3": {
+      "title": "Оплата",
+      "cardNumber": "Номер карты",
+      "cardName": "Имя владельца",
+      "expiry": "Срок действия",
+      "expiryPlaceholder": "ММ/ГГ",
+      "cvv": "CVV",
+      "complete": "Завершить заказ",
+      "or": "или",
+      "whatsappComplete": "Завершить через WhatsApp",
+      "whatsappTemplate": "Хочу оформить заказ.\n\nТовары:\n{{items}}\n\nИмя: {{name}}\nТелефон: {{phone}}\nАдрес: {{address}}\nДоставка: {{date}} · {{time}}\nИтого: ₺{{total}}"
+    },
+    "summary": {
+      "title": "Итог заказа",
+      "subtotal": "Подытог",
+      "delivery": "Доставка",
+      "total": "Итого",
+      "items": "Товары",
+      "qualityNote": "Собирается из премиальных цветов, отобранных в Голландии."
+    },
+    "trustBadges": ["Безопасная оплата", "Гарантия возврата"],
+    "empty": {
+      "title": "Корзина пуста",
+      "hint": "Сначала выберите цветок из коллекции.",
+      "cta": "В коллекцию"
+    }
+  },
+  "orderSuccess": {
+    "title": "Заказ принят!",
+    "orderNoLabel": "Номер заказа",
+    "message": "Мы свяжемся с вами в ближайшее время.",
+    "homeCta": "На главную",
+    "whatsappCta": "Отслеживать в WhatsApp"
+  },
   "testimonials": {
     "rating": "5.0",
     "stars": "★★★★★",

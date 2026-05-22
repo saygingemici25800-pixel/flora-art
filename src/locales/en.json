@@ -120,6 +120,72 @@
     "totalLabel": "Total",
     "whatsappTemplate": "Hello, I would like to order {{name}}. Quantity: {{qty}}. Region: {{region}}. Delivery: {{date}}. Note: {{note}}."
   },
+  "checkout": {
+    "title": "Checkout",
+    "steps": ["Delivery", "Review", "Payment"],
+    "back": "Back",
+    "step1": {
+      "title": "Delivery Details",
+      "fullName": "Full Name",
+      "phone": "Phone",
+      "email": "Email",
+      "region": "Delivery Region",
+      "country": "Country",
+      "city": "City",
+      "address": "Address",
+      "addressPlaceholder": "Street, building, apartment…",
+      "date": "Delivery Date",
+      "time": "Delivery Time",
+      "times": [
+        { "id": "morning", "label": "Morning 08:00 – 12:00" },
+        { "id": "noon",    "label": "Midday 12:00 – 16:00" },
+        { "id": "evening", "label": "Evening 16:00 – 20:00" }
+      ],
+      "giftNote": "Gift Note (optional)",
+      "giftPlaceholder": "Your message for the card…",
+      "continue": "Continue"
+    },
+    "step2": {
+      "title": "Review Order",
+      "edit": "Edit",
+      "proceed": "Proceed to Payment",
+      "deliveryTo": "Delivery Address",
+      "scheduledFor": "Scheduled Delivery"
+    },
+    "step3": {
+      "title": "Payment Details",
+      "cardNumber": "Card Number",
+      "cardName": "Name on Card",
+      "expiry": "Expiry",
+      "expiryPlaceholder": "MM/YY",
+      "cvv": "CVV",
+      "complete": "Complete Order",
+      "or": "or",
+      "whatsappComplete": "Complete via WhatsApp",
+      "whatsappTemplate": "I would like to complete an order.\n\nItems:\n{{items}}\n\nName: {{name}}\nPhone: {{phone}}\nAddress: {{address}}\nDelivery: {{date}} · {{time}}\nTotal: ₺{{total}}"
+    },
+    "summary": {
+      "title": "Order Summary",
+      "subtotal": "Subtotal",
+      "delivery": "Delivery",
+      "total": "Total",
+      "items": "Items",
+      "qualityNote": "Hand-arranged with premium flowers sourced from Holland."
+    },
+    "trustBadges": ["Secure Payment", "Return Guarantee"],
+    "empty": {
+      "title": "Your Cart Is Empty",
+      "hint": "Pick a flower from the collection first.",
+      "cta": "Go to Collection"
+    }
+  },
+  "orderSuccess": {
+    "title": "Your Order Is Confirmed!",
+    "orderNoLabel": "Order No.",
+    "message": "We'll be in touch with you shortly.",
+    "homeCta": "Back to Home",
+    "whatsappCta": "Track via WhatsApp"
+  },
   "testimonials": {
     "rating": "5.0",
     "stars": "★★★★★",
