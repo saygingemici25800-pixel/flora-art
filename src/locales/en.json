@@ -25,6 +25,7 @@
     ]
   },
   "usp": {
+    "title": "Why Flora Art?",
     "holland": {
       "title": "Holland Sourced",
       "desc": "Directly selected from Amsterdam's finest auction houses."
@@ -38,6 +39,19 @@
       "desc": "Delivered to any destination in the world within 1 day."
     }
   },
+  "collection": {
+    "title": "Collection",
+    "sub": "Holland's rarest flowers, from Fethiye to the world.",
+    "discover": "Discover"
+  },
+  "categories": [
+    { "id": "bouquet",       "name": "Bouquets" },
+    { "id": "box",           "name": "Box Arrangements" },
+    { "id": "wedding",       "name": "Wedding & Engagement" },
+    { "id": "corporate",     "name": "Corporate" },
+    { "id": "plant",         "name": "Plants & Pots" },
+    { "id": "international", "name": "International" }
+  ],
   "footer": {
     "tagline": "The art of flowers, at your door.",
     "subtitle": "Holland Premium Florist",

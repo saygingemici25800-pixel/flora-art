@@ -25,6 +25,7 @@
     ]
   },
   "usp": {
+    "title": "Neden Flora Art?",
     "holland": {
       "title": "Holland Kaynağı",
       "desc": "Amsterdam müzayede pazarından direkt seçilmiş, eşsiz çiçekler."
@@ -38,6 +39,19 @@
       "desc": "Dünyanın herhangi bir noktasına 1 gün içinde ulaştırıyoruz."
     }
   },
+  "collection": {
+    "title": "Koleksiyon",
+    "sub": "Holland'ın en nadide çiçekleri, Fethiye'den dünyaya.",
+    "discover": "Keşfet"
+  },
+  "categories": [
+    { "id": "bouquet",       "name": "Buket" },
+    { "id": "box",           "name": "Kutu Çiçek" },
+    { "id": "wedding",       "name": "Düğün & Nişan" },
+    { "id": "corporate",     "name": "Kurumsal" },
+    { "id": "plant",         "name": "Saksı & Bitki" },
+    { "id": "international", "name": "Uluslararası" }
+  ],
   "footer": {
     "tagline": "Çiçeğin sanatı, kapınıza kadar.",
     "subtitle": "Holland Premium Florist",

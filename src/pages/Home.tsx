@@ -1,6 +1,9 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
+import MarqueeTicker from '../components/sections/MarqueeTicker'
+import USPCards from '../components/sections/USPCards'
+import CategoryGrid from '../components/sections/CategoryGrid'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -19,7 +22,8 @@ export default function Home() {
   const stats = t('hero.stats', { returnObjects: true }) as string[]
 
   return (
-    <section
+    <>
+      <section
       className="relative w-full overflow-hidden"
       style={{
         minHeight: '100dvh',
@@ -190,7 +194,12 @@ export default function Home() {
       </div>
 
       <ScrollIndicator />
-    </section>
+      </section>
+
+      <MarqueeTicker />
+      <USPCards />
+      <CategoryGrid />
+    </>
   )
 }
 
