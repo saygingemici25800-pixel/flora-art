@@ -88,6 +88,38 @@
     "decrement": "Azalt",
     "increment": "Artır"
   },
+  "product": {
+    "quantity": "Miktar",
+    "delivery": "Teslimat Bölgesi",
+    "giftNote": "Hediye Notu",
+    "giftPlaceholder": "Karta yazılacak mesajınız...",
+    "deliveryDate": "Teslimat Tarihi",
+    "addToCart": "Sepete Ekle",
+    "whatsappOrder": "WhatsApp ile Sipariş",
+    "features": [
+      "Holland kaynaklı, taze garanti",
+      "Aynı gün hazırlanır",
+      "Özel hediye notu eklenebilir",
+      "Profesyonel paketleme"
+    ],
+    "regions": {
+      "local":   { "label": "Fethiye & Çevresi", "icon": "📍", "fee": "Ücretsiz",         "eta": "2 saat içinde",     "feeNumber": 0 },
+      "turkey":  { "label": "Türkiye Geneli",     "icon": "🇹🇷", "fee": "150₺",            "eta": "Aynı gün",           "feeNumber": 150 },
+      "intl":    { "label": "Uluslararası",       "icon": "🌍", "fee": "Fiyat sorun",     "eta": "1 gün içinde",       "feeNumber": 0 }
+    },
+    "trustBadges": ["Güvenli Ödeme", "İade Garantisi", "7/24 Destek"],
+    "descriptionTitle": "Ürün Hakkında",
+    "descriptionBody": "Her bir çiçek, Amsterdam Aalsmeer müzayedesinden seçilmiş Holland Premium kalitesindedir. Atölyemizde elle hazırlanır, soğuk zincir kırılmadan kapınıza ulaşır. Her detayda Flora Art imzası.",
+    "certTitle": "Holland Sertifikası",
+    "certBody": "Bu ürün Amsterdam çiçek müzayedesinden temin edilmiştir.",
+    "certNote": "Aalsmeer Royal FloraHolland · Premium Selection",
+    "similarTitle": "Benzer Ürünler",
+    "notFoundTitle": "Ürün Bulunamadı",
+    "notFoundHint": "Aradığınız ürün artık mevcut değil olabilir.",
+    "notFoundCta": "Koleksiyona Dön",
+    "totalLabel": "Toplam",
+    "whatsappTemplate": "Merhaba, {{name}} sipariş vermek istiyorum. Miktar: {{qty}}. Bölge: {{region}}. Teslimat: {{date}}. Not: {{note}}."
+  },
   "testimonials": {
     "rating": "5.0",
     "stars": "★★★★★",

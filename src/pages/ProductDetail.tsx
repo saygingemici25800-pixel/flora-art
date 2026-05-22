@@ -1,0 +1,688 @@
+import { useMemo, useState } from 'react'
+import { Link, useLocation, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { AnimatePresence, motion } from 'framer-motion'
+import { products, type Product } from '../data/products'
+import { useCartStore } from '../store/cartStore'
+import ProductMotif from '../components/ui/ProductMotif'
+import ProductCard from '../components/ui/ProductCard'
+
+const EASE = [0.16, 1, 0.3, 1] as const
+
+type RegionKey = 'local' | 'turkey' | 'intl'
+const REGION_KEYS: RegionKey[] = ['local', 'turkey', 'intl']
+
+interface ImageVariant {
+  color: string
+  opacity: number
+}
+
+const VARIANTS: ImageVariant[] = [
+  { color: 'var(--color-forest)', opacity: 0.55 },
+  { color: 'var(--color-gold)',   opacity: 0.6 },
+  { color: 'var(--color-forest)', opacity: 0.85 },
+]
+
+const CATEGORY_ORDER = [
+  'bouquet',
+  'box',
+  'wedding',
+  'corporate',
+  'plant',
+  'international',
+] as const
+
+function categoryIndex(id: string): number {
+  const idx = (CATEGORY_ORDER as readonly string[]).indexOf(id)
+  return idx === -1 ? 0 : idx
+}
+
+function langPrefix(pathname: string): string {
+  if (pathname.startsWith('/en')) return '/en'
+  if (pathname.startsWith('/ru')) return '/ru'
+  return ''
+}
+
+function todayIso(): string {
+  const d = new Date()
+  const yyyy = d.getFullYear()
+  const mm = String(d.getMonth() + 1).padStart(2, '0')
+  const dd = String(d.getDate()).padStart(2, '0')
+  return `${yyyy}-${mm}-${dd}`
+}
+
+const WHATSAPP_NUMBER = '905335335380'
+
+export default function ProductDetail() {
+  const { id } = useParams<{ id: string }>()
+  const { t } = useTranslation()
+  const location = useLocation()
+  const prefix = langPrefix(location.pathname)
+  const addItem = useCartStore((s) => s.addItem)
+
+  const product = useMemo(() => products.find((p) => p.id === id), [id])
+
+  if (!product) {
+    return <NotFound prefix={prefix} />
+  }
+
+  return <ProductDetailContent key={product.id} product={product} prefix={prefix} addItem={addItem} t={t} />
+}
+
+interface ContentProps {
+  product: Product
+  prefix: string
+  addItem: (p: Product) => void
+  t: ReturnType<typeof useTranslation>['t']
+}
+
+function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
+  const [variant, setVariant] = useState(0)
+  const [quantity, setQuantity] = useState(1)
+  const [region, setRegion] = useState<RegionKey>('local')
+  const [note, setNote] = useState('')
+  const [date, setDate] = useState(todayIso())
+
+  const currency = t('featured.currency') as string
+  const features = t('product.features', { returnObjects: true }) as string[]
+  const trustBadges = t('product.trustBadges', { returnObjects: true }) as string[]
+  const categoryName = t(`categories.${categoryIndex(product.category)}.name`) as string
+
+  const regionFeeRaw = t(`product.regions.${region}.feeNumber`) as unknown
+  const regionFee = typeof regionFeeRaw === 'number' ? regionFeeRaw : 0
+  const total = product.price * quantity + regionFee
+
+  const whatsappMessage = t('product.whatsappTemplate', {
+    name: product.name,
+    qty: quantity,
+    region: t(`product.regions.${region}.label`),
+    date,
+    note: note || '—',
+  }) as string
+  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`
+
+  const similar = useMemo(
+    () =>
+      products
+        .filter((p) => p.id !== product.id && p.category === product.category)
+        .slice(0, 4),
+    [product.id, product.category],
+  )
+
+  return (
+    <>
+      <section className="relative w-full" style={{ background: 'var(--color-cream)' }}>
+        <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-[110px] md:pt-[140px] pb-16 md:pb-24 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="md:col-span-7"
+          >
+            <div
+              className="relative overflow-hidden"
+              style={{ background: 'var(--color-beige)', aspectRatio: '4 / 5' }}
+            >
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={variant}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.45, ease: EASE }}
+                  className="absolute inset-0"
+                >
+                  <ProductMotif
+                    kind={product.motif}
+                    color={VARIANTS[variant].color}
+                    opacity={VARIANTS[variant].opacity}
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {product.badge && (
+                <span
+                  className="absolute top-4 left-4 px-3 py-1 text-[10px] tracking-[0.25em] uppercase z-[2]"
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontVariant: 'small-caps',
+                    background: 'var(--color-gold)',
+                    color: 'var(--color-forest)',
+                    fontWeight: 500,
+                  }}
+                >
+                  {t(`featured.badges.${product.badge}`)}
+                </span>
+              )}
+              <span
+                aria-hidden="true"
+                className="absolute bottom-4 right-4 italic"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  color: 'var(--color-gold)',
+                  opacity: 0.6,
+                  fontSize: '1.2rem',
+                }}
+              >
+                ✦
+              </span>
+            </div>
+
+            <div className="mt-4 flex gap-3">
+              {VARIANTS.map((v, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setVariant(i)}
+                  aria-label={`Variant ${i + 1}`}
+                  aria-pressed={variant === i}
+                  className="relative w-20 h-20 md:w-24 md:h-24 overflow-hidden transition-all"
+                  style={{
+                    background: 'var(--color-beige)',
+                    outline:
+                      variant === i ? '2px solid var(--color-gold)' : '2px solid transparent',
+                    outlineOffset: '2px',
+                  }}
+                >
+                  <ProductMotif kind={product.motif} color={v.color} opacity={v.opacity} />
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="md:col-span-5 flex flex-col"
+          >
+            <nav
+              aria-label="Breadcrumb"
+              className="text-[11px] tracking-[0.22em] uppercase mb-5 flex items-center gap-2 flex-wrap"
+              style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.65 }}
+            >
+              <Link to={prefix || '/'} className="hover:text-[var(--color-gold)] transition-colors">
+                {t('shop.breadcrumbHome')}
+              </Link>
+              <span aria-hidden="true">·</span>
+              <Link to={`${prefix}/shop`} className="hover:text-[var(--color-gold)] transition-colors">
+                {t('shop.title')}
+              </Link>
+              <span aria-hidden="true">·</span>
+              <span style={{ color: 'var(--color-forest)', opacity: 0.85 }}>{product.name}</span>
+            </nav>
+
+            <p
+              className="text-[11px] tracking-[0.32em] uppercase mb-3"
+              style={{
+                color: 'var(--color-gold)',
+                fontFamily: 'var(--font-display)',
+                fontVariant: 'small-caps',
+              }}
+            >
+              {categoryName}
+            </p>
+
+            <h1
+              className="italic mb-5"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                color: 'var(--color-forest)',
+                letterSpacing: '-0.015em',
+                lineHeight: 1.02,
+              }}
+            >
+              {product.name}
+            </h1>
+
+            <p
+              className="mb-6"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '2rem',
+                fontWeight: 700,
+                color: 'var(--color-gold)',
+                letterSpacing: '0.01em',
+              }}
+            >
+              {currency}
+              {product.price}
+            </p>
+
+            <span
+              aria-hidden="true"
+              className="block h-px w-full mb-6"
+              style={{ background: 'var(--color-gold)', opacity: 0.4 }}
+            />
+
+            <ul className="space-y-2 mb-8">
+              {features.map((f, i) => (
+                <li
+                  key={i}
+                  className="flex items-start gap-3 text-[14px] leading-relaxed"
+                  style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)' }}
+                >
+                  <span aria-hidden="true" className="leading-none mt-[2px]" style={{ color: 'var(--color-gold)' }}>
+                    ✦
+                  </span>
+                  <span style={{ opacity: 0.85 }}>{f}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mb-7">
+              <p
+                className="text-[10px] tracking-[0.3em] uppercase mb-2"
+                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.6 }}
+              >
+                {t('product.quantity')}
+              </p>
+              <div
+                className="inline-flex items-center"
+                style={{ border: '1px solid var(--color-gold)' }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  aria-label={t('cart.decrement') as string}
+                  className="w-10 h-10 grid place-items-center transition-colors hover:bg-[var(--color-beige)]"
+                  style={{ color: 'var(--color-forest)' }}
+                >
+                  −
+                </button>
+                <span
+                  className="w-12 text-center text-[15px]"
+                  style={{ color: 'var(--color-forest)', fontFamily: 'var(--font-body)' }}
+                >
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => q + 1)}
+                  aria-label={t('cart.increment') as string}
+                  className="w-10 h-10 grid place-items-center transition-colors hover:bg-[var(--color-beige)]"
+                  style={{ color: 'var(--color-forest)' }}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="mb-7">
+              <p
+                className="text-[10px] tracking-[0.3em] uppercase mb-3"
+                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.6 }}
+              >
+                {t('product.delivery')}
+              </p>
+              <ul className="flex flex-col gap-2">
+                {REGION_KEYS.map((key) => {
+                  const active = region === key
+                  return (
+                    <li key={key}>
+                      <button
+                        type="button"
+                        onClick={() => setRegion(key)}
+                        aria-pressed={active}
+                        className="w-full flex items-center justify-between gap-3 px-4 py-3 transition-colors"
+                        style={{
+                          background: active ? 'var(--color-forest)' : 'transparent',
+                          color: active ? 'var(--color-cream)' : 'var(--color-forest)',
+                          border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(28,43,26,0.18)'}`,
+                          fontFamily: 'var(--font-body)',
+                        }}
+                      >
+                        <span className="flex items-center gap-3 text-[13px]">
+                          <span aria-hidden="true" className="text-[16px]">
+                            {t(`product.regions.${key}.icon`)}
+                          </span>
+                          <span>{t(`product.regions.${key}.label`)}</span>
+                        </span>
+                        <span
+                          className="text-[11px] tracking-[0.15em] uppercase opacity-85"
+                          style={{ color: 'var(--color-gold)' }}
+                        >
+                          {t(`product.regions.${key}.fee`)} · {t(`product.regions.${key}.eta`)}
+                        </span>
+                      </button>
+                    </li>
+                  )
+                })}
+              </ul>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={region}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.35, ease: EASE }}
+                  className="mt-3 flex items-baseline justify-between gap-3 text-[12px] tracking-[0.18em] uppercase"
+                  style={{ fontFamily: 'var(--font-body)' }}
+                >
+                  <span style={{ color: 'var(--color-ink)', opacity: 0.6 }}>
+                    {t('product.totalLabel')}
+                  </span>
+                  <span style={{ color: 'var(--color-forest)', fontWeight: 600, letterSpacing: '0.02em' }}>
+                    {currency}
+                    {total}
+                  </span>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="mb-5">
+              <label
+                className="text-[10px] tracking-[0.3em] uppercase block mb-2"
+                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.6 }}
+              >
+                {t('product.giftNote')}
+              </label>
+              <textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                placeholder={t('product.giftPlaceholder') as string}
+                rows={3}
+                className="w-full p-3 italic resize-none transition-colors"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1rem',
+                  color: 'var(--color-forest)',
+                  background: 'transparent',
+                  border: '1px solid rgba(28,43,26,0.18)',
+                  outline: 'none',
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-gold)')}
+                onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(28,43,26,0.18)')}
+              />
+            </div>
+
+            <div className="mb-7">
+              <label
+                className="text-[10px] tracking-[0.3em] uppercase block mb-2"
+                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.6 }}
+              >
+                {t('product.deliveryDate')}
+              </label>
+              <input
+                type="date"
+                value={date}
+                min={todayIso()}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full px-3 py-3 transition-colors"
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.95rem',
+                  color: 'var(--color-forest)',
+                  background: 'transparent',
+                  border: '1px solid var(--color-gold)',
+                  outline: 'none',
+                }}
+              />
+            </div>
+
+            <div className="flex flex-col gap-3 mb-6">
+              <button
+                type="button"
+                onClick={() => {
+                  for (let i = 0; i < quantity; i++) addItem(product)
+                }}
+                className="pd-cta-primary w-full py-4 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
+                style={{
+                  background: 'var(--color-gold)',
+                  color: 'var(--color-forest)',
+                  fontFamily: 'var(--font-body)',
+                }}
+              >
+                {t('product.addToCart')}
+              </button>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pd-cta-secondary w-full py-4 text-[12px] tracking-[0.3em] uppercase text-center transition-colors duration-300 border"
+                style={{
+                  background: 'transparent',
+                  color: 'var(--color-forest)',
+                  borderColor: 'var(--color-forest)',
+                  fontFamily: 'var(--font-body)',
+                }}
+              >
+                {t('product.whatsappOrder')}
+              </a>
+            </div>
+
+            <ul
+              className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-2 text-[11px] tracking-[0.18em] uppercase"
+              style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.65 }}
+            >
+              {trustBadges.map((b, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <TrustIcon idx={i} />
+                  <span>{b}</span>
+                </li>
+              ))}
+            </ul>
+
+            <style>{`
+              .pd-cta-primary:hover {
+                background: var(--color-forest) !important;
+                color: var(--color-cream) !important;
+              }
+              .pd-cta-secondary:hover {
+                background: var(--color-forest) !important;
+                color: var(--color-cream) !important;
+                border-color: var(--color-forest) !important;
+              }
+            `}</style>
+          </motion.div>
+        </div>
+      </section>
+
+      <section
+        className="relative w-full"
+        style={{
+          background: 'var(--color-cream)',
+          paddingBlock: 'var(--spacing-component)',
+        }}
+      >
+        <div className="mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14">
+          <div className="md:col-span-7">
+            <h2
+              className="italic mb-5"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(1.75rem, 3vw, 2.5rem)',
+                color: 'var(--color-forest)',
+                letterSpacing: '-0.01em',
+                lineHeight: 1,
+              }}
+            >
+              {t('product.descriptionTitle')}
+            </h2>
+            <p
+              className="leading-relaxed max-w-[58ch]"
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.95rem',
+                color: 'var(--color-ink)',
+                opacity: 0.8,
+              }}
+            >
+              {t('product.descriptionBody')}
+            </p>
+          </div>
+
+          <div className="md:col-span-5">
+            <div
+              className="p-6 md:p-8 relative"
+              style={{ border: '1px solid var(--color-gold)', background: 'transparent' }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute top-4 right-5 italic text-[20px]"
+                style={{ fontFamily: 'var(--font-display)', color: 'var(--color-gold)', opacity: 0.7 }}
+              >
+                ✦
+              </span>
+              <p
+                className="text-[10px] tracking-[0.32em] uppercase mb-3"
+                style={{
+                  color: 'var(--color-gold)',
+                  fontFamily: 'var(--font-display)',
+                  fontVariant: 'small-caps',
+                }}
+              >
+                {t('product.certTitle')}
+              </p>
+              <p
+                className="leading-relaxed mb-4"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.15rem',
+                  color: 'var(--color-forest)',
+                  fontStyle: 'italic',
+                  letterSpacing: '-0.005em',
+                }}
+              >
+                {t('product.certBody')}
+              </p>
+              <p
+                className="text-[11px] tracking-[0.22em] uppercase"
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  color: 'var(--color-ink)',
+                  opacity: 0.6,
+                }}
+              >
+                {t('product.certNote')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {similar.length > 0 && (
+        <section
+          className="relative w-full"
+          style={{
+            background: 'var(--color-cream)',
+            paddingBlock: 'var(--spacing-section)',
+          }}
+        >
+          <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+            <h2
+              className="italic mb-10 md:mb-14"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2rem, 4vw, 3rem)',
+                color: 'var(--color-forest)',
+                letterSpacing: '-0.015em',
+                lineHeight: 1,
+              }}
+            >
+              {t('product.similarTitle')}
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-8 md:gap-y-16">
+              {similar.map((p, i) => (
+                <ProductCard key={p.id} product={p} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  )
+}
+
+function NotFound({ prefix }: { prefix: string }) {
+  const { t } = useTranslation()
+  return (
+    <section
+      className="relative w-full grid place-items-center px-6 text-center"
+      style={{
+        background: 'var(--color-cream)',
+        minHeight: 'calc(100dvh - 78px)',
+        paddingTop: '120px',
+        paddingBottom: '120px',
+      }}
+    >
+      <div>
+        <p
+          className="italic"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+            color: 'var(--color-forest)',
+            letterSpacing: '-0.015em',
+            lineHeight: 1,
+          }}
+        >
+          {t('product.notFoundTitle')}
+        </p>
+        <p
+          className="mt-4 max-w-[40ch] mx-auto"
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.95rem',
+            color: 'var(--color-ink)',
+            opacity: 0.65,
+          }}
+        >
+          {t('product.notFoundHint')}
+        </p>
+        <Link
+          to={`${prefix}/shop`}
+          className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-[12px] tracking-[0.28em] uppercase transition-colors"
+          style={{
+            background: 'var(--color-forest)',
+            color: 'var(--color-cream)',
+            fontFamily: 'var(--font-body)',
+          }}
+        >
+          {t('product.notFoundCta')} <span aria-hidden="true">→</span>
+        </Link>
+      </div>
+    </section>
+  )
+}
+
+function TrustIcon({ idx }: { idx: number }) {
+  const props = {
+    width: 14,
+    height: 14,
+    viewBox: '0 0 24 24',
+    fill: 'none' as const,
+    stroke: 'currentColor',
+    strokeWidth: 1.5,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+    style: { color: 'var(--color-gold)' } as React.CSSProperties,
+  }
+  if (idx === 0) {
+    return (
+      <svg {...props}>
+        <path d="M12 2 L20 6 V12 C20 17, 16 21, 12 22 C8 21, 4 17, 4 12 V6 Z" />
+        <path d="M9 12 L11 14 L15 10" />
+      </svg>
+    )
+  }
+  if (idx === 1) {
+    return (
+      <svg {...props}>
+        <path d="M3 12 A9 9 0 0 1 21 12" />
+        <path d="M21 4 V12 H13" />
+        <path d="M21 12 A9 9 0 0 1 3 12" />
+        <path d="M3 20 V12 H11" />
+      </svg>
+    )
+  }
+  return (
+    <svg {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 7 V12 L15 14" />
+    </svg>
+  )
+}

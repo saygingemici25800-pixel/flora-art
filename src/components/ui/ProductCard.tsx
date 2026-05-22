@@ -1,9 +1,16 @@
 import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useCartStore } from '../../store/cartStore'
 import type { Product } from '../../data/products'
 import ProductMotif from './ProductMotif'
+
+function langPrefix(pathname: string): string {
+  if (pathname.startsWith('/en')) return '/en'
+  if (pathname.startsWith('/ru')) return '/ru'
+  return ''
+}
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -29,9 +36,12 @@ interface Props {
 
 export default function ProductCard({ product, index = 0, onQuickView }: Props) {
   const { t } = useTranslation()
+  const location = useLocation()
   const addItem = useCartStore((s) => s.addItem)
   const [wished, setWished] = useState(false)
 
+  const prefix = langPrefix(location.pathname)
+  const productHref = `${prefix}/product/${product.id}`
   const currency = t('featured.currency') as string
   const badgeLabel = product.badge
     ? (t(`featured.badges.${product.badge}`) as string)
@@ -47,8 +57,9 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
       whileHover={{ y: -4 }}
       className="group relative flex flex-col transition-shadow duration-500 hover:shadow-[0_24px_60px_-24px_rgba(28,43,26,0.32)]"
     >
-      <div
-        className="relative overflow-hidden"
+      <Link
+        to={productHref}
+        className="relative block overflow-hidden"
         style={{
           background: 'var(--color-beige)',
           aspectRatio: '3 / 4',
@@ -97,6 +108,7 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
             type="button"
             onClick={(e) => {
               e.preventDefault()
+              e.stopPropagation()
               onQuickView(product)
             }}
             className="absolute left-1/2 bottom-3 -translate-x-1/2 px-4 py-2 text-[10px] tracking-[0.28em] uppercase opacity-0 translate-y-2 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
@@ -110,7 +122,7 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
             {t('shop.quickView')}
           </button>
         )}
-      </div>
+      </Link>
 
       <div className="pt-5 pb-1 flex flex-col flex-1">
         <p
@@ -125,16 +137,19 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
         </p>
 
         <div className="flex items-baseline justify-between gap-3 mb-4">
-          <h3
-            className="leading-snug"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '1.2rem',
-              color: 'var(--color-forest)',
-              letterSpacing: '-0.005em',
-            }}
-          >
-            {product.name}
+          <h3 className="leading-snug">
+            <Link
+              to={productHref}
+              className="transition-colors hover:text-[var(--color-gold)]"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.2rem',
+                color: 'var(--color-forest)',
+                letterSpacing: '-0.005em',
+              }}
+            >
+              {product.name}
+            </Link>
           </h3>
           <span
             className="whitespace-nowrap"

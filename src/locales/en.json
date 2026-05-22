@@ -88,6 +88,38 @@
     "decrement": "Decrease",
     "increment": "Increase"
   },
+  "product": {
+    "quantity": "Quantity",
+    "delivery": "Delivery Region",
+    "giftNote": "Gift Note",
+    "giftPlaceholder": "Your message for the card...",
+    "deliveryDate": "Delivery Date",
+    "addToCart": "Add to Cart",
+    "whatsappOrder": "Order via WhatsApp",
+    "features": [
+      "Sourced from Holland, freshness guaranteed",
+      "Prepared on the same day",
+      "Personal gift note available",
+      "Professional packaging"
+    ],
+    "regions": {
+      "local":   { "label": "Fethiye & Surroundings", "icon": "📍", "fee": "Free",        "eta": "Within 2 hours", "feeNumber": 0 },
+      "turkey":  { "label": "Across Turkey",          "icon": "🇹🇷", "fee": "150₺",        "eta": "Same day",       "feeNumber": 150 },
+      "intl":    { "label": "International",          "icon": "🌍", "fee": "On request",   "eta": "Within 1 day",   "feeNumber": 0 }
+    },
+    "trustBadges": ["Secure Payment", "Return Guarantee", "24/7 Support"],
+    "descriptionTitle": "About This Arrangement",
+    "descriptionBody": "Every flower is sourced from Amsterdam's Aalsmeer auction — Holland Premium quality. Hand-arranged in our atelier and delivered to your door on an unbroken cold chain. Flora Art in every detail.",
+    "certTitle": "Holland Certificate",
+    "certBody": "This product is sourced from the Amsterdam flower auction.",
+    "certNote": "Aalsmeer Royal FloraHolland · Premium Selection",
+    "similarTitle": "Similar Pieces",
+    "notFoundTitle": "Product Not Found",
+    "notFoundHint": "The product you are looking for may no longer be available.",
+    "notFoundCta": "Back to Collection",
+    "totalLabel": "Total",
+    "whatsappTemplate": "Hello, I would like to order {{name}}. Quantity: {{qty}}. Region: {{region}}. Delivery: {{date}}. Note: {{note}}."
+  },
   "testimonials": {
     "rating": "5.0",
     "stars": "★★★★★",
