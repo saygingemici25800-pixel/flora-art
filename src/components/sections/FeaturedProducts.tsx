@@ -2,11 +2,8 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import {
-  featuredProducts,
-  type MotifKind,
-  type Product,
-} from '../../data/products'
+import { featuredProducts, type Product } from '../../data/products'
+import ProductMotif from '../ui/ProductMotif'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -216,110 +213,3 @@ function ProductCard({
   )
 }
 
-function ProductMotif({ kind }: { kind: MotifKind }) {
-  const common = {
-    width: '100%',
-    height: '100%',
-    fill: 'none' as const,
-    stroke: 'currentColor',
-    strokeWidth: 1,
-    strokeLinecap: 'round' as const,
-    strokeLinejoin: 'round' as const,
-    style: { color: 'var(--color-forest)', opacity: 0.5 } as React.CSSProperties,
-    'aria-hidden': true,
-  }
-  switch (kind) {
-    case 'rose':
-      return (
-        <svg viewBox="0 0 300 320" preserveAspectRatio="xMidYMid slice" {...common}>
-          <g transform="translate(150 170)">
-            <circle r="14" />
-            <circle r="26" />
-            <circle r="40" />
-            <circle r="54" />
-            <path d="M 0 60 C -10 100, -40 130, -50 150" />
-            <path d="M 0 60 C 10 100, 40 130, 50 150" />
-            <ellipse cx="-40" cy="120" rx="22" ry="9" transform="rotate(-35 -40 120)" />
-            <ellipse cx="40" cy="120" rx="22" ry="9" transform="rotate(35 40 120)" />
-          </g>
-        </svg>
-      )
-    case 'tulip':
-      return (
-        <svg viewBox="0 0 300 320" preserveAspectRatio="xMidYMid slice" {...common}>
-          <g transform="translate(150 200)">
-            <path d="M -30 -50 C -30 -90, -10 -110, 0 -110 C 10 -110, 30 -90, 30 -50 L 30 -10 C 30 0, 20 10, 0 10 C -20 10, -30 0, -30 -10 Z" />
-            <path d="M -16 -50 C -16 -90, 0 -110, 0 -110" opacity="0.5" />
-            <path d="M 16 -50 C 16 -90, 0 -110, 0 -110" opacity="0.5" />
-            <path d="M 0 10 L 0 110" />
-            <path d="M 0 40 C -25 50, -50 70, -70 110" />
-            <path d="M 0 70 C 25 80, 50 100, 65 130" />
-          </g>
-        </svg>
-      )
-    case 'peony':
-      return (
-        <svg viewBox="0 0 300 320" preserveAspectRatio="xMidYMid slice" {...common}>
-          <g transform="translate(150 160)">
-            {[0, 45, 90, 135, 180, 225, 270, 315].map((rot) => (
-              <ellipse key={rot} cx="0" cy="-32" rx="22" ry="34" transform={`rotate(${rot})`} />
-            ))}
-            <circle r="20" fill="currentColor" opacity="0.15" />
-            <circle r="8" />
-            <path d="M 0 60 C -8 100, -8 130, -8 160" />
-            <path d="M 0 60 C 8 100, 8 130, 8 160" />
-          </g>
-        </svg>
-      )
-    case 'box':
-      return (
-        <svg viewBox="0 0 300 320" preserveAspectRatio="xMidYMid slice" {...common}>
-          <g transform="translate(150 180)">
-            <rect x="-110" y="-30" width="220" height="120" rx="4" />
-            <line x1="-110" y1="0" x2="110" y2="0" />
-            <g transform="translate(0 -30)">
-              {[-80, -40, 0, 40, 80].map((x, idx) => (
-                <g key={idx} transform={`translate(${x} -20)`}>
-                  <circle r="14" />
-                  <circle r="6" opacity="0.5" />
-                  <circle r="2" fill="currentColor" />
-                </g>
-              ))}
-            </g>
-          </g>
-        </svg>
-      )
-    case 'wedding':
-      return (
-        <svg viewBox="0 0 300 320" preserveAspectRatio="xMidYMid slice" {...common}>
-          <g transform="translate(150 170)">
-            {[0, 60, 120, 180, 240, 300].map((rot) => (
-              <g key={rot} transform={`rotate(${rot})`}>
-                <ellipse cx="0" cy="-48" rx="16" ry="26" />
-              </g>
-            ))}
-            <circle r="14" fill="currentColor" opacity="0.2" />
-            <path d="M 0 30 C -5 70, -5 110, -5 150" />
-            <path d="M 0 30 C 5 70, 5 110, 5 150" />
-            <path d="M -30 130 C -20 140, 20 140, 30 130" />
-          </g>
-        </svg>
-      )
-    case 'orchid':
-      return (
-        <svg viewBox="0 0 300 320" preserveAspectRatio="xMidYMid slice" {...common}>
-          <g transform="translate(150 160)">
-            <ellipse cx="-25" cy="-30" rx="22" ry="40" transform="rotate(-25 -25 -30)" />
-            <ellipse cx="25" cy="-30" rx="22" ry="40" transform="rotate(25 25 -30)" />
-            <ellipse cx="0" cy="-50" rx="18" ry="34" />
-            <ellipse cx="-12" cy="10" rx="14" ry="22" transform="rotate(-30 -12 10)" />
-            <ellipse cx="12" cy="10" rx="14" ry="22" transform="rotate(30 12 10)" />
-            <circle r="6" fill="currentColor" opacity="0.4" />
-            <path d="M 0 30 L 0 130" />
-            <ellipse cx="-40" cy="120" rx="40" ry="14" />
-            <ellipse cx="40" cy="120" rx="40" ry="14" />
-          </g>
-        </svg>
-      )
-  }
-}

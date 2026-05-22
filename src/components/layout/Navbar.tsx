@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { getLenis } from '../../hooks/useLenis'
+import { selectItemCount, useCartStore } from '../../store/cartStore'
 
 type Lang = 'tr' | 'en' | 'ru'
 
@@ -37,6 +38,8 @@ export default function Navbar() {
 
   const lang = detectLangFromPath(location.pathname)
   const prefix = langPrefix(lang)
+  const cartCount = useCartStore(selectItemCount)
+  const openCart = useCartStore((s) => s.open)
 
   useEffect(() => {
     if (i18n.language !== lang) {
@@ -161,19 +164,29 @@ export default function Navbar() {
             <button
               type="button"
               aria-label={t('nav.cart')}
+              onClick={openCart}
               className="relative text-white/90 hover:text-[var(--color-gold)] transition-colors"
             >
               <ShoppingBagIcon />
-              <span
-                className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full grid place-items-center text-[10px] font-medium"
-                style={{
-                  background: 'var(--color-gold)',
-                  color: 'var(--color-forest)',
-                  fontFamily: 'var(--font-body)',
-                }}
-              >
-                122
-              </span>
+              <AnimatePresence>
+                {cartCount > 0 && (
+                  <motion.span
+                    key="cart-badge"
+                    initial={{ opacity: 0, scale: 0.6 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.6 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full grid place-items-center text-[10px] font-medium"
+                    style={{
+                      background: 'var(--color-gold)',
+                      color: 'var(--color-forest)',
+                      fontFamily: 'var(--font-body)',
+                    }}
+                  >
+                    {cartCount}
+                  </motion.span>
+                )}
+              </AnimatePresence>
             </button>
           </div>
 

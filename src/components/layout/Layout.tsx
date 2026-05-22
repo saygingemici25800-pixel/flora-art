@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import CartDrawer from '../ui/CartDrawer'
 
 interface LayoutProps {
   children: ReactNode
@@ -29,6 +30,7 @@ export default function Layout({ children }: LayoutProps) {
       </AnimatePresence>
 
       <Footer />
+      <CartDrawer />
     </div>
   )
 }

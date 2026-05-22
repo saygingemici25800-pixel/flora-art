@@ -60,8 +60,33 @@
     "badges": {
       "holland": "HOLLAND",
       "new": "NEW",
-      "fast": "FAST"
+      "fast": "FAST",
+      "premium": "PREMIUM"
     }
+  },
+  "shop": {
+    "title": "Collection",
+    "subtitle": "Unique flowers, hand-picked from Holland.",
+    "breadcrumbHome": "Home",
+    "filterAll": "All",
+    "sortLabel": "Sort",
+    "sortNewest": "Newest",
+    "sortPriceAsc": "Price ↑",
+    "sortPriceDesc": "Price ↓",
+    "quickView": "Quick View",
+    "empty": "No products in this category yet."
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "emptyHint": "Add your favourite flowers from the collection.",
+    "browseCta": "View Collection",
+    "subtotal": "Subtotal",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "close": "Close",
+    "decrement": "Decrease",
+    "increment": "Increase"
   },
   "testimonials": {
     "rating": "5.0",

@@ -60,8 +60,33 @@
     "badges": {
       "holland": "HOLLAND",
       "new": "НОВОЕ",
-      "fast": "БЫСТРО"
+      "fast": "БЫСТРО",
+      "premium": "PREMIUM"
     }
+  },
+  "shop": {
+    "title": "Коллекция",
+    "subtitle": "Уникальные цветы, отобранные в Голландии.",
+    "breadcrumbHome": "Главная",
+    "filterAll": "Все",
+    "sortLabel": "Сортировка",
+    "sortNewest": "Новые",
+    "sortPriceAsc": "Цена ↑",
+    "sortPriceDesc": "Цена ↓",
+    "quickView": "Быстрый просмотр",
+    "empty": "В этой категории пока нет товаров."
+  },
+  "cart": {
+    "title": "Корзина",
+    "empty": "Ваша корзина пуста",
+    "emptyHint": "Добавьте любимые цветы из коллекции.",
+    "browseCta": "Смотреть коллекцию",
+    "subtotal": "Итого",
+    "checkout": "Оформить заказ",
+    "remove": "Удалить",
+    "close": "Закрыть",
+    "decrement": "Уменьшить",
+    "increment": "Увеличить"
   },
   "testimonials": {
     "rating": "5.0",

@@ -6,6 +6,7 @@ import { useCursor } from './hooks/useCursor'
 import PlaceholderPage from './components/PlaceholderPage'
 import Layout from './components/layout/Layout'
 import Home from './pages/Home'
+import Shop from './pages/Shop'
 
 function AppInner() {
   useLenis()
@@ -16,7 +17,7 @@ function AppInner() {
     <Layout>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<PlaceholderPage name="Koleksiyon" />} />
+        <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<PlaceholderPage name="Ürün Detay" />} />
         <Route path="/services" element={<PlaceholderPage name="Hizmetler" />} />
         <Route path="/delivery" element={<PlaceholderPage name="Teslimat" />} />
@@ -26,14 +27,14 @@ function AppInner() {
         <Route path="/order-success" element={<PlaceholderPage name="Sipariş Alındı" />} />
 
         <Route path="/en" element={<Home />} />
-        <Route path="/en/shop" element={<PlaceholderPage name="Collection" />} />
+        <Route path="/en/shop" element={<Shop />} />
         <Route path="/en/services" element={<PlaceholderPage name="Services" />} />
         <Route path="/en/delivery" element={<PlaceholderPage name="Delivery" />} />
         <Route path="/en/about" element={<PlaceholderPage name="About" />} />
         <Route path="/en/contact" element={<PlaceholderPage name="Contact" />} />
 
         <Route path="/ru" element={<Home />} />
-        <Route path="/ru/shop" element={<PlaceholderPage name="Коллекция" />} />
+        <Route path="/ru/shop" element={<Shop />} />
         <Route path="/ru/services" element={<PlaceholderPage name="Услуги" />} />
         <Route path="/ru/delivery" element={<PlaceholderPage name="Доставка" />} />
         <Route path="/ru/about" element={<PlaceholderPage name="О нас" />} />

@@ -60,8 +60,33 @@
     "badges": {
       "holland": "HOLLAND",
       "new": "YENİ",
-      "fast": "HIZLI"
+      "fast": "HIZLI",
+      "premium": "PREMIUM"
     }
+  },
+  "shop": {
+    "title": "Koleksiyon",
+    "subtitle": "Holland'dan seçilmiş, benzersiz çiçekler.",
+    "breadcrumbHome": "Ana Sayfa",
+    "filterAll": "Tümü",
+    "sortLabel": "Sırala",
+    "sortNewest": "Yeni",
+    "sortPriceAsc": "Fiyat ↑",
+    "sortPriceDesc": "Fiyat ↓",
+    "quickView": "Hızlı Bakış",
+    "empty": "Bu kategoride henüz ürün yok."
+  },
+  "cart": {
+    "title": "Sepetim",
+    "empty": "Sepetiniz boş",
+    "emptyHint": "Koleksiyondan favori çiçeklerinizi ekleyin.",
+    "browseCta": "Koleksiyona Bak",
+    "subtotal": "Ara Toplam",
+    "checkout": "Ödemeye Geç",
+    "remove": "Sil",
+    "close": "Kapat",
+    "decrement": "Azalt",
+    "increment": "Artır"
   },
   "testimonials": {
     "rating": "5.0",
