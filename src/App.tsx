@@ -12,6 +12,8 @@ import Checkout from './pages/Checkout'
 import OrderSuccess from './pages/OrderSuccess'
 import Services from './pages/Services'
 import Delivery from './pages/Delivery'
+import About from './pages/About'
+import Contact from './pages/Contact'
 
 function AppInner() {
   useLenis()
@@ -26,8 +28,8 @@ function AppInner() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/services" element={<Services />} />
         <Route path="/delivery" element={<Delivery />} />
-        <Route path="/about" element={<PlaceholderPage name="Hakkımızda" />} />
-        <Route path="/contact" element={<PlaceholderPage name="İletişim" />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/order-success" element={<OrderSuccess />} />
         <Route path="/en/checkout" element={<Checkout />} />
@@ -40,16 +42,16 @@ function AppInner() {
         <Route path="/en/product/:id" element={<ProductDetail />} />
         <Route path="/en/services" element={<Services />} />
         <Route path="/en/delivery" element={<Delivery />} />
-        <Route path="/en/about" element={<PlaceholderPage name="About" />} />
-        <Route path="/en/contact" element={<PlaceholderPage name="Contact" />} />
+        <Route path="/en/about" element={<About />} />
+        <Route path="/en/contact" element={<Contact />} />
 
         <Route path="/ru" element={<Home />} />
         <Route path="/ru/shop" element={<Shop />} />
         <Route path="/ru/product/:id" element={<ProductDetail />} />
         <Route path="/ru/services" element={<Services />} />
         <Route path="/ru/delivery" element={<Delivery />} />
-        <Route path="/ru/about" element={<PlaceholderPage name="О нас" />} />
-        <Route path="/ru/contact" element={<PlaceholderPage name="Контакты" />} />
+        <Route path="/ru/about" element={<About />} />
+        <Route path="/ru/contact" element={<Contact />} />
 
         <Route path="*" element={<PlaceholderPage name="404" />} />
       </Routes>

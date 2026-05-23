@@ -231,6 +231,85 @@
       "whatsappTopic": "I would like information about Flora Art services."
     }
   },
+  "about": {
+    "title": "About Us",
+    "subtitle": "A story devoted to the art of flowers.",
+    "breadcrumb": "About",
+    "story": {
+      "badge": "Fethiye · Kesikkapı",
+      "title": "At the heart\nof Fethiye,\nfrom the soul\nof Holland.",
+      "p1": "Flora Art is a young and passionate florist founded in the heart of Fethiye, on Atatürk Avenue. Born from the power of women's entrepreneurship, the brand sees floristry not as a craft but as an art.",
+      "p2": "Flowers sourced directly from Amsterdam's famous auctions meet the Mediterranean warmth of Fethiye. Every bouquet, every arrangement — tells a feeling, a moment, a story.",
+      "quote": "To give a flower is to say everything words cannot.",
+      "quoteAuthor": "— Flora Art"
+    },
+    "values": {
+      "title": "Our Values",
+      "items": [
+        { "icon": "🌷", "title": "Quality",     "description": "Holland's finest flowers — no compromise." },
+        { "icon": "⚡", "title": "Speed",        "description": "On time, every time, as promised." },
+        { "icon": "✦",  "title": "Uniqueness",  "description": "Every arrangement unique, every customer special." }
+      ]
+    },
+    "founder": {
+      "kicker": "Our Founder",
+      "name": "Saygın Gemici",
+      "p1": "Her passion for flowers turned her into Fethiye's most refined florist. Blending Dutch training with Mediterranean aesthetics, she created Flora Art with a singular point of view.",
+      "p2": "Every morning starts in the atelier with her team; she checks each bouquet by hand. She redefines, every day, how a Fethiye brand can open to the world.",
+      "stats": "5.0 ★ Google · 122 Reviews · Holland Certified",
+      "imagePlaceholder": "Photo coming soon"
+    },
+    "numbers": {
+      "items": [
+        { "value": 122, "suffix": "+",  "label": "Happy Customers" },
+        { "value": 5,   "suffix": ".0", "label": "Google Rating" },
+        { "value": 2,   "suffix": "h",  "label": "Max Delivery" },
+        { "value": 100, "suffix": "%",  "label": "Holland Quality" }
+      ]
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We get back to you as soon as possible.",
+    "breadcrumb": "Contact",
+    "info": {
+      "title": "Get in Touch",
+      "addressLabel": "Address",
+      "address": "Atatürk Cd. 98/a, Kesikkapı, Fethiye/Muğla",
+      "phoneLabel": "Phone",
+      "phone": "+90 501 531 77 48",
+      "phoneTel": "+905015317748",
+      "hoursLabel": "Opening Hours",
+      "hours": "Every day 08:00 – 20:00",
+      "whatsappLabel": "WhatsApp",
+      "whatsappCta": "Message Us",
+      "instagramLabel": "Instagram",
+      "instagramHandle": "@floraart.fethiye",
+      "instagramUrl": "https://instagram.com/floraart.fethiye"
+    },
+    "form": {
+      "title": "Leave a Message",
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "subject": "Subject",
+      "subjects": [
+        { "id": "order",     "label": "Order" },
+        { "id": "wedding",   "label": "Wedding & Engagement" },
+        { "id": "corporate", "label": "Corporate" },
+        { "id": "other",     "label": "Other" }
+      ],
+      "message": "Your Message",
+      "messagePlaceholder": "Tell us…",
+      "submit": "Send",
+      "languageNote": "🇹🇷 · 🇬🇧 · 🇷🇺  We reply in TR · EN · RU.",
+      "successMessage": "Message received ✓"
+    },
+    "map": {
+      "title": "Visit Us",
+      "subtitle": "Atatürk Avenue, Kesikkapı — at the heart of Fethiye."
+    }
+  },
   "delivery": {
     "title": "Delivery",
     "subtitle": "From Holland to your door, guaranteed.",
