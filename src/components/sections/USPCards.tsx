@@ -5,81 +5,119 @@ import { motion } from 'framer-motion'
 const EASE = [0.16, 1, 0.3, 1] as const
 
 type USPKey = 'holland' | 'fast' | 'world'
+type EnterDir = 'left' | 'up' | 'right'
 
 interface UspCardConfig {
   key: USPKey
   number: string
   videoSrc: string
-  /** Card height in pixels — desktop only; mobile is uniform 480 */
-  desktopHeight: number
+  /** Desktop card height, e.g. "85vh" */
+  desktopHeight: string
+  /** Desktop top offset to create the triptych offset */
+  desktopMarginTop: string
+  enter: EnterDir
 }
 
 const CARDS: UspCardConfig[] = [
-  { key: 'holland', number: '01', videoSrc: '/videos/holland-source.mp4', desktopHeight: 520 },
-  { key: 'fast',    number: '02', videoSrc: '/videos/fast-delivery.mp4',  desktopHeight: 620 },
-  { key: 'world',   number: '03', videoSrc: '/videos/worldwide.mp4',      desktopHeight: 520 },
+  {
+    key: 'holland',
+    number: '01',
+    videoSrc: '/videos/holland-source.mp4',
+    desktopHeight: '85vh',
+    desktopMarginTop: '0vh',
+    enter: 'left',
+  },
+  {
+    key: 'fast',
+    number: '02',
+    videoSrc: '/videos/fast-delivery.mp4',
+    desktopHeight: '70vh',
+    desktopMarginTop: '8vh',
+    enter: 'up',
+  },
+  {
+    key: 'world',
+    number: '03',
+    videoSrc: '/videos/worldwide.mp4',
+    desktopHeight: '78vh',
+    desktopMarginTop: '4vh',
+    enter: 'right',
+  },
 ]
 
 export default function USPCards() {
   const { t } = useTranslation()
+  const [hovered, setHovered] = useState<number | null>(null)
+  const sectionTitle = t('usp.title') as string
 
   return (
     <section
-      className="relative w-full"
+      className="relative w-full overflow-hidden flex flex-col items-stretch justify-center"
       style={{
-        background: 'var(--color-cream)',
-        paddingBlock: 'var(--spacing-section)',
+        background: 'var(--color-forest)',
+        minHeight: '100vh',
+        paddingBlock: '3vh',
       }}
     >
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <div className="text-center mb-14 md:mb-20">
-          <span className="block overflow-hidden" style={{ paddingBottom: '0.12em' }}>
-            <motion.h2
-              initial={{ y: '110%' }}
-              whileInView={{ y: '0%' }}
-              viewport={{ once: true, margin: '-15% 0px' }}
-              transition={{ duration: 0.9, ease: EASE }}
-              className="italic"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                color: 'var(--color-forest)',
-                letterSpacing: '-0.01em',
-                lineHeight: 1,
-              }}
-            >
-              {t('usp.title')}
-            </motion.h2>
-          </span>
-          <motion.span
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, margin: '-15% 0px' }}
-            transition={{ duration: 0.8, ease: EASE, delay: 0.25 }}
-            className="block h-px w-16 mx-auto mt-8"
-            style={{ background: 'var(--color-gold)', transformOrigin: 'center' }}
+      <div
+        className="
+          w-full
+          flex flex-col gap-[2px]
+          md:grid md:gap-[3px] md:items-start
+          md:grid-cols-[1.2fr_0.9fr_1fr]
+        "
+        style={{ background: 'var(--color-gold)' }}
+      >
+        {CARDS.map((card, i) => (
+          <VideoCard
+            key={card.key}
+            card={card}
+            index={i}
+            isHovered={hovered === i}
+            isDimmed={hovered !== null && hovered !== i}
+            onEnter={() => setHovered(i)}
+            onLeave={() => setHovered(null)}
+            sectionTitle={i === 1 ? sectionTitle : null}
           />
-        </div>
-
-        <ul className="flex flex-col md:flex-row md:items-end gap-6 md:gap-6">
-          {CARDS.map((card, i) => (
-            <VideoCard key={card.key} card={card} index={i} />
-          ))}
-        </ul>
+        ))}
       </div>
     </section>
   )
 }
 
-function VideoCard({ card, index }: { card: UspCardConfig; index: number }) {
+interface CardProps {
+  card: UspCardConfig
+  index: number
+  isHovered: boolean
+  isDimmed: boolean
+  onEnter: () => void
+  onLeave: () => void
+  sectionTitle: string | null
+}
+
+function VideoCard({
+  card,
+  index,
+  isHovered,
+  isDimmed,
+  onEnter,
+  onLeave,
+  sectionTitle,
+}: CardProps) {
   const { t } = useTranslation()
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [muted, setMuted] = useState(true)
   const [loaded, setLoaded] = useState(false)
 
-  const title = t(`usp.${card.key}.title`) as string
-  const desc = t(`usp.${card.key}.desc`) as string
-  const question = t(`usp.${card.key}.question`) as string
+  const cardDelay = index * 0.15
+  const titleLines = (t(`usp.${card.key}.title`) as string).split('\n')
+
+  const enterInitial =
+    card.enter === 'left'
+      ? { x: -60, opacity: 0 }
+      : card.enter === 'right'
+      ? { x: 60, opacity: 0 }
+      : { y: 60, opacity: 0 }
 
   function toggleMute() {
     const v = videoRef.current
@@ -93,178 +131,250 @@ function VideoCard({ card, index }: { card: UspCardConfig; index: number }) {
   }
 
   return (
-    <motion.li
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+    <motion.article
+      initial={enterInitial}
+      whileInView={{ x: 0, y: 0, opacity: 1 }}
       viewport={{ once: true, margin: '-8% 0px' }}
-      transition={{ duration: 0.6, ease: EASE, delay: index * 0.15 }}
-      className="usp-video-card group relative flex-1 overflow-hidden flex flex-col transition-transform duration-500 ease-out hover:scale-[1.01]"
+      transition={{ duration: 0.9, ease: EASE, delay: cardDelay }}
+      animate={{
+        opacity: isDimmed ? 0.7 : 1,
+        scale: isDimmed ? 0.99 : 1,
+      }}
+      onHoverStart={onEnter}
+      onHoverEnd={onLeave}
+      onFocus={onEnter}
+      onBlur={onLeave}
+      className="usp-card relative overflow-hidden"
       style={
         {
           background: 'var(--color-forest)',
-          borderRadius: '4px',
-          height: '480px',
-          ['--card-md-height' as string]: `${card.desktopHeight}px`,
+          ['--h' as string]: card.desktopHeight,
+          ['--mt' as string]: card.desktopMarginTop,
         } as React.CSSProperties
       }
     >
-      <div className="relative overflow-hidden" style={{ height: '65%' }}>
-        <div
-          className={`absolute inset-0 grid place-items-center transition-opacity duration-500 ${
-            loaded ? 'opacity-0' : 'opacity-100'
-          }`}
-          style={{ background: 'var(--color-forest)' }}
-          aria-hidden={loaded}
-        >
-          <div className="flex flex-col items-center gap-3 px-6 text-center">
-            <CameraIcon />
-            <p
-              className="text-[11px] tracking-[0.32em] uppercase"
-              style={{
-                color: 'var(--color-cream)',
-                opacity: 0.4,
-                fontFamily: 'var(--font-body)',
-              }}
-            >
-              {t('usp.videoSoon')}
-            </p>
-          </div>
-        </div>
-
-        <video
-          ref={videoRef}
-          src={card.videoSrc}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          onLoadedData={() => setLoaded(true)}
-          className="absolute inset-0 w-full h-full"
-          style={{ objectFit: 'cover' }}
-        />
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
-          style={{
-            background:
-              'linear-gradient(to top, rgba(28,43,26,0.4) 0%, rgba(28,43,26,0) 100%)',
-          }}
-        />
-
-        <motion.button
-          type="button"
-          onClick={toggleMute}
-          whileTap={{ scale: 0.9 }}
-          aria-label={t(muted ? 'usp.muteOn' : 'usp.muteOff') as string}
-          aria-pressed={!muted}
-          className="absolute top-3 right-3 grid place-items-center w-9 h-9 rounded-full transition-colors"
-          style={{
-            background: 'rgba(245, 240, 232, 0.15)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            color: 'var(--color-gold)',
-          }}
-        >
-          {muted ? <MuteIcon /> : <UnmuteIcon />}
-        </motion.button>
+      {/* Subtle botanical pattern — visible until video loads */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-700 ${
+          loaded ? 'opacity-0' : 'opacity-100'
+        }`}
+        aria-hidden="true"
+      >
+        <SubtleBotanical />
       </div>
 
-      <div className="flex flex-col flex-1 p-6" style={{ background: 'var(--color-forest)' }}>
-        <span
-          className="self-end italic leading-none"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.75rem',
-            color: 'var(--color-gold)',
-            opacity: 0.3,
-            letterSpacing: '-0.02em',
-          }}
-        >
-          {card.number}
-        </span>
+      {/* Video */}
+      <video
+        ref={videoRef}
+        src={card.videoSrc}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        onLoadedData={() => setLoaded(true)}
+        className="usp-video absolute inset-0 w-full h-full"
+        style={{ objectFit: 'cover' }}
+      />
 
-        <h3
-          className="mt-1 mb-2"
+      {/* Bottom forest gradient — first 50% from bottom */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
+        style={{
+          background:
+            'linear-gradient(to top, rgba(28,43,26,1) 0%, rgba(28,43,26,0) 100%)',
+        }}
+      />
+
+      {/* Vignette */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, transparent 40%, rgba(28,43,26,0.4) 100%)',
+        }}
+      />
+
+      {/* Hover dark overlay */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        animate={{ opacity: isHovered ? 0.3 : 0 }}
+        transition={{ duration: 0.6, ease: EASE }}
+        style={{ background: 'var(--color-forest)' }}
+      />
+
+      {/* Number — top-left */}
+      <span
+        className="absolute italic leading-none select-none"
+        style={{
+          top: '32px',
+          left: '36px',
+          fontFamily: 'var(--font-display)',
+          fontSize: '1rem',
+          color: 'var(--color-gold)',
+          opacity: 0.5,
+          letterSpacing: '0.05em',
+        }}
+      >
+        {card.number}
+      </span>
+
+      {/* Mute toggle — top-right */}
+      <motion.button
+        type="button"
+        onClick={toggleMute}
+        whileTap={{ scale: 0.9 }}
+        aria-label={t(muted ? 'usp.muteOn' : 'usp.muteOff') as string}
+        aria-pressed={!muted}
+        className="absolute grid place-items-center rounded-full transition-colors"
+        style={{
+          top: '24px',
+          right: '24px',
+          width: '40px',
+          height: '40px',
+          background: 'rgba(245, 240, 232, 0.1)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          border: '1px solid rgba(200, 169, 110, 0.3)',
+          color: 'var(--color-gold)',
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.background = 'rgba(245, 240, 232, 0.2)')
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.background = 'rgba(245, 240, 232, 0.1)')
+        }
+      >
+        {muted ? <MuteIcon /> : <UnmuteIcon />}
+      </motion.button>
+
+      {/* Section heading — only on card 2, top-center */}
+      {sectionTitle && (
+        <motion.h2
+          initial={{ opacity: 0, y: -8 }}
+          whileInView={{ opacity: 0.9, y: 0 }}
+          viewport={{ once: true, margin: '-8% 0px' }}
+          transition={{ duration: 0.9, ease: EASE, delay: cardDelay + 0.2 }}
+          className="absolute italic text-center whitespace-nowrap"
           style={{
+            top: '36px',
+            left: '50%',
+            transform: 'translateX(-50%)',
             fontFamily: 'var(--font-display)',
-            fontSize: '1.3rem',
             color: 'var(--color-cream)',
-            letterSpacing: '-0.005em',
-            lineHeight: 1.15,
+            fontSize: 'clamp(1rem, 1.8vw, 1.4rem)',
+            letterSpacing: '0.05em',
           }}
         >
-          {title}
-        </h3>
+          {sectionTitle}
+        </motion.h2>
+      )}
 
-        <p
-          className="leading-snug"
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.8rem',
-            color: 'var(--color-cream)',
-            opacity: 0.6,
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-          }}
+      {/* Title block — bottom */}
+      <motion.div
+        className="absolute"
+        style={{ bottom: '48px', left: '40px', right: '40px' }}
+        animate={{ y: isHovered ? -6 : 0 }}
+        transition={{ duration: 0.6, ease: EASE }}
+      >
+        <motion.div
+          initial={{ clipPath: 'inset(0 0 100% 0)' }}
+          whileInView={{ clipPath: 'inset(0 0 0% 0)' }}
+          viewport={{ once: true, margin: '-8% 0px' }}
+          transition={{ duration: 0.9, ease: EASE, delay: cardDelay + 0.4 }}
         >
-          {desc}
-        </p>
+          <h3
+            className="italic"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(2.2rem, 6vw, 5.5rem)',
+              color: 'var(--color-cream)',
+              lineHeight: 0.95,
+              letterSpacing: '-0.02em',
+              fontWeight: 300,
+            }}
+          >
+            {titleLines.map((line, i) => (
+              <span key={i} className="block">
+                {line}
+              </span>
+            ))}
+          </h3>
 
-        <span
-          aria-hidden="true"
-          className="block h-px w-full my-4"
-          style={{ background: 'var(--color-gold)', opacity: 0.2 }}
-        />
-
-        <p
-          className="mt-auto italic flex items-start gap-2 leading-snug"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1rem',
-            color: 'var(--color-gold)',
-            letterSpacing: '-0.005em',
-          }}
-        >
-          <span aria-hidden="true" className="shrink-0" style={{ opacity: 0.7 }}>
-            ?
-          </span>
-          <span>{question}</span>
-        </p>
-      </div>
+          <motion.span
+            aria-hidden="true"
+            className="block"
+            animate={{ width: isHovered ? 80 : 40 }}
+            transition={{ duration: 0.4, ease: EASE }}
+            style={{
+              marginTop: '16px',
+              height: '1px',
+              background: 'var(--color-gold)',
+            }}
+          />
+        </motion.div>
+      </motion.div>
 
       <style>{`
+        .usp-card {
+          height: 60vh;
+        }
+        .usp-card .usp-video {
+          transition: transform 6s ease;
+        }
+        .usp-card:hover .usp-video {
+          transform: scale(1.04);
+        }
         @media (min-width: 768px) {
-          .usp-video-card {
-            height: var(--card-md-height) !important;
+          .usp-card {
+            height: var(--h);
+            margin-top: var(--mt);
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .usp-card .usp-video,
+          .usp-card:hover .usp-video {
+            transition: none !important;
+            transform: none !important;
           }
         }
       `}</style>
-    </motion.li>
+    </motion.article>
   )
 }
 
-function CameraIcon() {
+function SubtleBotanical() {
   return (
     <svg
-      width="36"
-      height="36"
-      viewBox="0 0 24 24"
+      viewBox="0 0 400 600"
+      preserveAspectRatio="xMidYMid slice"
+      className="w-full h-full"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.2"
+      strokeWidth="1"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      style={{ color: 'var(--color-gold)', opacity: 0.5 }}
+      style={{ color: 'var(--color-gold)', opacity: 0.06 }}
     >
-      <path d="M3 7 H8 L10 5 H14 L16 7 H21 V19 H3 Z" />
-      <circle cx="12" cy="13" r="4" />
-      <circle cx="12" cy="13" r="1.6" fill="currentColor" />
-      <circle cx="18" cy="9.5" r="0.6" fill="currentColor" />
+      <g transform="translate(280 540)">
+        <path d="M 0 0 C 0 -120, -10 -240, 5 -380 C 20 -480, 50 -520, 40 -540" />
+        <path d="M -3 -180 C -50 -190, -100 -180, -150 -200" />
+        <path d="M 5 -300 C 60 -310, 110 -300, 160 -320" />
+        <path d="M 8 -420 C -50 -430, -110 -440, -160 -470" />
+        <ellipse cx="-110" cy="-195" rx="44" ry="12" transform="rotate(-18 -110 -195)" />
+        <ellipse cx="120" cy="-310" rx="48" ry="14" transform="rotate(15 120 -310)" />
+        <ellipse cx="-110" cy="-450" rx="42" ry="12" transform="rotate(-25 -110 -450)" />
+      </g>
+      <g>
+        <circle cx="60"  cy="80"  r="2" fill="currentColor" />
+        <circle cx="350" cy="120" r="2" fill="currentColor" />
+        <circle cx="80"  cy="430" r="2" fill="currentColor" />
+        <circle cx="380" cy="500" r="2" fill="currentColor" />
+      </g>
     </svg>
   )
 }

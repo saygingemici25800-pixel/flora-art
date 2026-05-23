@@ -30,17 +30,17 @@
     "muteOn": "Sesi aç",
     "muteOff": "Sesi kapat",
     "holland": {
-      "title": "Holland Kaynağı",
+      "title": "Holland\nKaynağı",
       "desc": "Amsterdam müzayede pazarından direkt seçilmiş, eşsiz çiçekler.",
       "question": "Çiçeklerimiz neden başka hiçbir yerde bulunamıyor?"
     },
     "fast": {
-      "title": "2 Saat Teslimat",
+      "title": "2 Saat\nTeslimat",
       "desc": "Tüm Türkiye'ye aynı gün, 2 saat içinde kapınızda.",
       "question": "2 saatte teslimat gerçekten mümkün mü?"
     },
     "world": {
-      "title": "Dünyaya Teslimat",
+      "title": "Dünyaya\nTeslimat",
       "desc": "Dünyanın herhangi bir noktasına 1 gün içinde ulaştırıyoruz.",
       "question": "Dünyanın öte ucuna çiçek ulaşabilir mi?"
     }
