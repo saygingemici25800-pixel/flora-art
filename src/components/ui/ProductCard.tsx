@@ -78,7 +78,7 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
             e.stopPropagation()
             setWished((v) => !v)
           }}
-          className="absolute top-3 left-3 grid place-items-center w-9 h-9 rounded-full transition-colors"
+          className="absolute top-4 left-4 grid place-items-center w-10 h-10 rounded-full transition-colors"
           style={{
             background: 'rgba(245, 240, 232, 0.85)',
             color: wished ? 'var(--color-gold)' : 'var(--color-forest)',
@@ -90,7 +90,7 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
 
         {badgeLabel && (
           <span
-            className="absolute top-3 right-3 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"
+            className="absolute top-4 right-4 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"
             style={{
               fontFamily: 'var(--font-display)',
               fontVariant: 'small-caps',
@@ -124,9 +124,9 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
         )}
       </Link>
 
-      <div className="pt-5 pb-1 flex flex-col flex-1">
+      <div className="px-5 pt-4 pb-6 flex flex-col flex-1">
         <p
-          className="text-[10px] tracking-[0.3em] uppercase mb-2"
+          className="text-[0.75rem] tracking-[0.3em] uppercase mb-2"
           style={{
             color: 'var(--color-gold)',
             fontFamily: 'var(--font-display)',
@@ -136,35 +136,35 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
           {categoryName}
         </p>
 
-        <div className="flex items-baseline justify-between gap-3 mb-4">
-          <h3 className="leading-snug">
-            <Link
-              to={productHref}
-              className="transition-colors hover:text-[var(--color-gold)]"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.2rem',
-                color: 'var(--color-forest)',
-                letterSpacing: '-0.005em',
-              }}
-            >
-              {product.name}
-            </Link>
-          </h3>
-          <span
-            className="whitespace-nowrap"
+        <h3 className="mb-3">
+          <Link
+            to={productHref}
+            className="transition-colors hover:text-[var(--color-gold)]"
             style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.95rem',
-              fontWeight: 600,
-              color: 'var(--color-gold)',
-              letterSpacing: '0.02em',
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.1rem',
+              color: 'var(--color-forest)',
+              letterSpacing: '-0.005em',
+              lineHeight: 1.2,
             }}
           >
-            {currency}
-            {product.price}
-          </span>
-        </div>
+            {product.name}
+          </Link>
+        </h3>
+
+        <p
+          className="mb-4 whitespace-nowrap"
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '1.2rem',
+            fontWeight: 600,
+            color: 'var(--color-gold)',
+            letterSpacing: '0.02em',
+          }}
+        >
+          {currency}
+          {product.price}
+        </p>
 
         <button
           type="button"
@@ -172,7 +172,7 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
             e.preventDefault()
             addItem(product)
           }}
-          className="add-to-cart-btn w-full py-3 text-[11px] tracking-[0.28em] uppercase transition-colors duration-300 border mt-auto"
+          className="add-to-cart-btn w-full py-3 text-[0.8rem] tracking-[0.12em] uppercase transition-colors duration-300 border mt-auto"
           style={{
             background: 'transparent',
             color: 'var(--color-forest)',
@@ -198,8 +198,8 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
 function HeartIcon({ filled }: { filled: boolean }) {
   return (
     <svg
-      width="18"
-      height="18"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill={filled ? 'currentColor' : 'none'}
       stroke="currentColor"
