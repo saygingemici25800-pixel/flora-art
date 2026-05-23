@@ -26,17 +26,23 @@
   },
   "usp": {
     "title": "Why Flora Art?",
+    "videoSoon": "Video coming soon",
+    "muteOn": "Unmute",
+    "muteOff": "Mute",
     "holland": {
       "title": "Holland Sourced",
-      "desc": "Directly selected from Amsterdam's finest auction houses."
+      "desc": "Directly selected from Amsterdam's finest auction houses.",
+      "question": "Why can our flowers be found nowhere else?"
     },
     "fast": {
       "title": "2-Hour Delivery",
-      "desc": "Same day, within 2 hours, anywhere in Turkey."
+      "desc": "Same day, within 2 hours, anywhere in Turkey.",
+      "question": "Is 2-hour delivery actually possible?"
     },
     "world": {
       "title": "Worldwide Delivery",
-      "desc": "Delivered to any destination in the world within 1 day."
+      "desc": "Delivered to any destination in the world within 1 day.",
+      "question": "Can flowers reach the other side of the world?"
     }
   },
   "collection": {
