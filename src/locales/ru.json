@@ -392,6 +392,39 @@
     "menu": "Меню",
     "close": "Закрыть"
   },
+  "seo": {
+    "siteName": "Flora Art Fethiye",
+    "siteUrl": "https://floraart.com.tr",
+    "image": "https://floraart.com.tr/og-image.svg",
+    "home": {
+      "title": "Flora Art Fethiye | Цветы из Голландии",
+      "description": "Премиум-флорист Фетхие с поставкой из Голландии. По Турции за 2 часа, по миру за 1 день. Букеты, цветы в коробке, свадебная и корпоративная флористика."
+    },
+    "shop": {
+      "title": "Коллекция | Flora Art Fethiye",
+      "description": "Премиальные цветы, отобранные в Голландии. Букеты, коробки, свадьбы, корпоратив и международная флористика — из Фетхие в мир."
+    },
+    "product": {
+      "titleTemplate": "{{name}} | Flora Art Fethiye",
+      "description": "Цветочная композиция премиум-качества из Голландии. 2-часовая доставка по Фетхие, в тот же день по Турции."
+    },
+    "services": {
+      "title": "Услуги | Flora Art Fethiye",
+      "description": "Свадьбы, помолвки, корпоратив, отели и повседневная флористика. Композиция вашей мечты — Flora Art."
+    },
+    "delivery": {
+      "title": "Доставка | Flora Art Fethiye",
+      "description": "2 часа по Фетхие, в тот же день по Турции, 1 рабочий день по миру. Холодовая цепь, премиум-качество Голландии."
+    },
+    "about": {
+      "title": "О нас | Flora Art Fethiye",
+      "description": "В сердце Фетхие, с духом Голландии. Бренд, основанный женщиной, относящийся к флористике как к искусству."
+    },
+    "contact": {
+      "title": "Контакты | Flora Art Fethiye",
+      "description": "Atatürk Cd. 98/a, Kesikkapı, Fethiye. Каждый день 08:00–20:00. TR · EN · RU. Свяжитесь с нами в WhatsApp."
+    }
+  },
   "pages": {
     "home": "Главная",
     "shop": "Коллекция",

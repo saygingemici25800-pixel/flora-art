@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
+import { useSEO } from '../hooks/useSEO'
 import ProductMotif from '../components/ui/ProductMotif'
 import type { MotifKind } from '../data/products'
 
@@ -38,6 +39,12 @@ export default function Services() {
   const { t } = useTranslation()
   const location = useLocation()
   const prefix = langPrefix(location.pathname)
+
+  useSEO({
+    title: t('seo.services.title') as string,
+    description: t('seo.services.description') as string,
+  })
+
   const items = t('services.items', { returnObjects: true }) as ServiceItem[]
   const banner = t('services.banner', { returnObjects: true }) as {
     title: string

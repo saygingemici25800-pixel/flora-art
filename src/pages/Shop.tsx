@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { products, type CategoryId, type Product } from '../data/products'
+import { useSEO } from '../hooks/useSEO'
 import ProductCard from '../components/ui/ProductCard'
 import QuickViewModal from '../components/ui/QuickViewModal'
 
@@ -30,6 +31,11 @@ export default function Shop() {
   const { t } = useTranslation()
   const location = useLocation()
   const prefix = langPrefix(location.pathname)
+
+  useSEO({
+    title: t('seo.shop.title') as string,
+    description: t('seo.shop.description') as string,
+  })
 
   const [filter, setFilter] = useState<Filter>('all')
   const [sort, setSort] = useState<SortKey>('newest')

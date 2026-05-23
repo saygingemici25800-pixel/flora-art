@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /checkout
+Disallow: /en/checkout
+Disallow: /ru/checkout
+Disallow: /order-success
+Disallow: /en/order-success
+Disallow: /ru/order-success
+
+Sitemap: https://floraart.com.tr/sitemap.xml

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { products, type Product } from '../data/products'
 import { useCartStore } from '../store/cartStore'
+import { useSEO } from '../hooks/useSEO'
 import ProductMotif from '../components/ui/ProductMotif'
 import ProductCard from '../components/ui/ProductCard'
 
@@ -77,6 +78,11 @@ interface ContentProps {
 }
 
 function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
+  useSEO({
+    title: t('seo.product.titleTemplate', { name: product.name }) as string,
+    description: t('seo.product.description') as string,
+  })
+
   const [variant, setVariant] = useState(0)
   const [quantity, setQuantity] = useState(1)
   const [region, setRegion] = useState<RegionKey>('local')

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion, useInView } from 'framer-motion'
+import { useSEO } from '../hooks/useSEO'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -24,6 +25,11 @@ function langPrefix(pathname: string): string {
 }
 
 export default function About() {
+  const { t } = useTranslation()
+  useSEO({
+    title: t('seo.about.title') as string,
+    description: t('seo.about.description') as string,
+  })
   return (
     <>
       <AboutHero />

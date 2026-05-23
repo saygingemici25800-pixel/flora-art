@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useSEO } from '../hooks/useSEO'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const WHATSAPP_NUMBER = '905335335380'
@@ -42,6 +43,12 @@ export default function Delivery() {
   const { t } = useTranslation()
   const location = useLocation()
   const prefix = langPrefix(location.pathname)
+
+  useSEO({
+    title: t('seo.delivery.title') as string,
+    description: t('seo.delivery.description') as string,
+  })
+
   const steps = t('delivery.howItWorks.steps', { returnObjects: true }) as Step[]
   const zones = t('delivery.zones.items', { returnObjects: true }) as Zone[]
   const zoneLabels = t('delivery.zones.labels', { returnObjects: true }) as {

@@ -392,6 +392,39 @@
     "menu": "Menu",
     "close": "Close"
   },
+  "seo": {
+    "siteName": "Flora Art Fethiye",
+    "siteUrl": "https://floraart.com.tr",
+    "image": "https://floraart.com.tr/og-image.svg",
+    "home": {
+      "title": "Flora Art Fethiye | Holland Premium Florist",
+      "description": "Fethiye's Holland-sourced premium florist. 2-hour delivery in Turkey, worldwide in 1 day. Bouquets, box arrangements, wedding and corporate florals."
+    },
+    "shop": {
+      "title": "Collection | Flora Art Fethiye",
+      "description": "Premium flowers hand-picked from Holland. Bouquets, box arrangements, weddings, corporate and international — from Fethiye to the world."
+    },
+    "product": {
+      "titleTemplate": "{{name}} | Flora Art Fethiye",
+      "description": "Holland Premium quality floral arrangement. 2-hour delivery in Fethiye, same-day across Turkey."
+    },
+    "services": {
+      "title": "Services | Flora Art Fethiye",
+      "description": "Wedding, engagement, corporate, hotel and daily floral services. For the arrangement of your dreams — Flora Art."
+    },
+    "delivery": {
+      "title": "Delivery | Flora Art Fethiye",
+      "description": "2 hours in Fethiye, same day across Turkey, 1 business day worldwide. Cold-chain protected, Holland Premium quality."
+    },
+    "about": {
+      "title": "About | Flora Art Fethiye",
+      "description": "At the heart of Fethiye, from the soul of Holland. A woman-founded brand that treats floristry as an art."
+    },
+    "contact": {
+      "title": "Contact | Flora Art Fethiye",
+      "description": "Atatürk Cd. 98/a, Kesikkapı, Fethiye. Every day 08:00–20:00. TR · EN · RU. Reach us instantly on WhatsApp."
+    }
+  },
   "pages": {
     "home": "Home",
     "shop": "Collection",

@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
+import { useSEO } from '../hooks/useSEO'
 import MarqueeTicker from '../components/sections/MarqueeTicker'
 import USPCards from '../components/sections/USPCards'
 import CategoryGrid from '../components/sections/CategoryGrid'
@@ -20,6 +21,11 @@ export default function Home() {
   const { t } = useTranslation()
   const location = useLocation()
   const prefix = langPrefix(location.pathname)
+
+  useSEO({
+    title: t('seo.home.title') as string,
+    description: t('seo.home.description') as string,
+  })
 
   const headline = (t('hero.headline') as string).split('\n')
   const stats = t('hero.stats', { returnObjects: true }) as string[]
