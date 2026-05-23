@@ -52,13 +52,31 @@ export default function USPCards() {
 
   return (
     <section
-      className="relative w-full overflow-hidden flex flex-col items-stretch justify-center"
+      className="relative w-full overflow-hidden"
       style={{
-        background: 'var(--color-forest)',
-        minHeight: '100vh',
-        paddingBlock: '3vh',
+        background: 'var(--color-cream)',
+        paddingBlock: '80px',
       }}
     >
+      <div className="mx-auto max-w-[1400px] px-6 md:px-10 text-center mb-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-15% 0px' }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="italic"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            color: 'var(--color-forest)',
+            letterSpacing: '-0.01em',
+            lineHeight: 1,
+          }}
+        >
+          {sectionTitle}
+        </motion.h2>
+      </div>
+
       <div
         className="
           w-full
@@ -66,7 +84,7 @@ export default function USPCards() {
           md:grid md:gap-[3px] md:items-start
           md:grid-cols-[1.2fr_0.9fr_1fr]
         "
-        style={{ background: 'var(--color-gold)' }}
+        style={{ background: 'var(--color-beige)' }}
       >
         {CARDS.map((card, i) => (
           <VideoCard
@@ -77,7 +95,6 @@ export default function USPCards() {
             isDimmed={hovered !== null && hovered !== i}
             onEnter={() => setHovered(i)}
             onLeave={() => setHovered(null)}
-            sectionTitle={i === 1 ? sectionTitle : null}
           />
         ))}
       </div>
@@ -92,7 +109,6 @@ interface CardProps {
   isDimmed: boolean
   onEnter: () => void
   onLeave: () => void
-  sectionTitle: string | null
 }
 
 function VideoCard({
@@ -102,7 +118,6 @@ function VideoCard({
   isDimmed,
   onEnter,
   onLeave,
-  sectionTitle,
 }: CardProps) {
   const { t } = useTranslation()
   const videoRef = useRef<HTMLVideoElement | null>(null)
@@ -250,28 +265,6 @@ function VideoCard({
       >
         {muted ? <MuteIcon /> : <UnmuteIcon />}
       </motion.button>
-
-      {/* Section heading — only on card 2, top-center */}
-      {sectionTitle && (
-        <motion.h2
-          initial={{ opacity: 0, y: -8 }}
-          whileInView={{ opacity: 0.9, y: 0 }}
-          viewport={{ once: true, margin: '-8% 0px' }}
-          transition={{ duration: 0.9, ease: EASE, delay: cardDelay + 0.2 }}
-          className="absolute italic text-center whitespace-nowrap"
-          style={{
-            top: '36px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            fontFamily: 'var(--font-display)',
-            color: 'var(--color-cream)',
-            fontSize: 'clamp(1rem, 1.8vw, 1.4rem)',
-            letterSpacing: '0.05em',
-          }}
-        >
-          {sectionTitle}
-        </motion.h2>
-      )}
 
       {/* Title block — bottom */}
       <motion.div

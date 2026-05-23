@@ -6,7 +6,7 @@ export default function MarqueeTicker() {
 
   return (
     <div
-      className="relative w-full overflow-hidden py-3"
+      className="relative w-full overflow-hidden py-[14px]"
       style={{ background: 'var(--color-gold)' }}
     >
       <div className="ticker-track flex w-max items-center">
@@ -19,16 +19,16 @@ export default function MarqueeTicker() {
             {items.map((item, i) => (
               <li
                 key={`${dup}-${i}`}
-                className="flex items-center shrink-0 px-8 md:px-12"
+                className="flex items-center shrink-0 mx-8"
               >
                 <span
                   className="uppercase whitespace-nowrap"
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontVariant: 'small-caps',
-                    letterSpacing: '0.32em',
+                    letterSpacing: '0.15em',
                     color: 'var(--color-forest)',
-                    fontSize: '14px',
+                    fontSize: '1rem',
                     fontWeight: 500,
                   }}
                 >
@@ -36,7 +36,7 @@ export default function MarqueeTicker() {
                 </span>
                 <span
                   aria-hidden="true"
-                  className="ml-8 md:ml-12 inline-block"
+                  className="ml-8 inline-block"
                   style={{ color: 'var(--color-forest)', opacity: 0.55 }}
                 >
                   ✦
