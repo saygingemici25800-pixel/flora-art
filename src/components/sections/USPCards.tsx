@@ -162,7 +162,7 @@ function VideoCard({
       className="usp-card relative overflow-hidden"
       style={
         {
-          background: 'var(--color-forest)',
+          background: '#1C2B1A',
           ['--h' as string]: card.desktopHeight,
           ['--mt' as string]: card.desktopMarginTop,
         } as React.CSSProperties
@@ -174,6 +174,7 @@ function VideoCard({
           loaded ? 'opacity-0' : 'opacity-100'
         }`}
         aria-hidden="true"
+        style={{ background: '#1C2B1A' }}
       >
         <SubtleBotanical />
       </div>
@@ -218,7 +219,7 @@ function VideoCard({
         className="pointer-events-none absolute inset-0"
         animate={{ opacity: isHovered ? 0.3 : 0 }}
         transition={{ duration: 0.6, ease: EASE }}
-        style={{ background: 'var(--color-forest)' }}
+        style={{ background: '#1C2B1A' }}
       />
 
       {/* Number — top-left */}
@@ -351,7 +352,7 @@ function SubtleBotanical() {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      style={{ color: 'var(--color-gold)', opacity: 0.06 }}
+      style={{ color: 'var(--color-gold)', opacity: 0.04 }}
     >
       <g transform="translate(280 540)">
         <path d="M 0 0 C 0 -120, -10 -240, 5 -380 C 20 -480, 50 -520, 40 -540" />

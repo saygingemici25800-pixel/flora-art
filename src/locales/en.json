@@ -252,9 +252,9 @@
     "values": {
       "title": "Our Values",
       "items": [
-        { "icon": "🌷", "title": "Quality",     "description": "Holland's finest flowers — no compromise." },
-        { "icon": "⚡", "title": "Speed",        "description": "On time, every time, as promised." },
-        { "icon": "✦",  "title": "Uniqueness",  "description": "Every arrangement unique, every customer special." }
+        { "icon": "flower", "title": "Quality",     "description": "Holland's finest flowers — no compromise." },
+        { "icon": "bolt",   "title": "Speed",        "description": "On time, every time, as promised." },
+        { "icon": "star",   "title": "Uniqueness",  "description": "Every arrangement unique, every customer special." }
       ]
     },
     "founder": {
@@ -270,7 +270,7 @@
         { "value": 122, "suffix": "+",  "label": "Happy Customers" },
         { "value": 5,   "suffix": ".0", "label": "Google Rating" },
         { "value": 2,   "suffix": "h",  "label": "Max Delivery" },
-        { "value": 100, "suffix": "%",  "label": "Holland Quality" }
+        { "value": 100, "suffix": "%",  "label": "Holland" }
       ]
     }
   },
@@ -333,9 +333,9 @@
       "title": "Delivery Regions",
       "subtitle": "Three regions, three timeframes — the same quality everywhere.",
       "items": [
-        { "id": "local",  "icon": "📍", "title": "Fethiye & Surroundings", "eta": "2 hours",    "fee": "Free",       "scope": "Fethiye centre, Ölüdeniz, Göcek, Çalış", "highlighted": true },
-        { "id": "turkey", "icon": "🇹🇷", "title": "Across Turkey",         "eta": "Same day",   "fee": "150₺",       "scope": "81 cities, door-to-door" },
-        { "id": "intl",   "icon": "🌍", "title": "International",          "eta": "1 business day", "fee": "On request", "scope": "Europe, Russia, Middle East, worldwide" }
+        { "id": "local",  "icon": "pin",   "title": "Fethiye & Surroundings", "eta": "2 hours",        "fee": "Free",       "scope": "Fethiye centre, Ölüdeniz, Göcek, Çalış", "highlighted": true },
+        { "id": "turkey", "icon": "tr",    "title": "Across Turkey",          "eta": "Same day",       "fee": "150₺",       "scope": "81 cities, door-to-door" },
+        { "id": "intl",   "icon": "globe", "title": "International",          "eta": "1 business day", "fee": "On request", "scope": "Europe, Russia, Middle East, worldwide" }
       ],
       "labels": { "eta": "Time", "fee": "Fee", "scope": "Coverage" }
     },

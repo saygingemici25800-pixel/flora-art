@@ -115,10 +115,12 @@ export default function Home() {
           >
             <Link
               to={`${prefix}/shop`}
-              className="group inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 text-[12px] md:text-[13px] tracking-[0.28em] uppercase transition-transform duration-300 ease-out hover:scale-[1.03]"
+              data-cursor-large
+              className="hero-cta group inline-flex items-center gap-3 px-8 md:px-10 py-4 md:py-5 text-[12px] md:text-[13px] tracking-[0.2em] uppercase transition-colors duration-300 ease-out"
               style={{
-                background: 'var(--color-gold)',
-                color: 'var(--color-forest)',
+                background: 'transparent',
+                color: 'var(--color-cream)',
+                border: '1px solid var(--color-gold)',
                 fontFamily: 'var(--font-body)',
               }}
             >
@@ -130,13 +132,19 @@ export default function Home() {
                 →
               </span>
             </Link>
+            <style>{`
+              .hero-cta:hover {
+                background: var(--color-gold) !important;
+                color: var(--color-forest) !important;
+              }
+            `}</style>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
+            animate={{ opacity: 0.6 }}
             transition={{ duration: 0.8, ease: EASE, delay: 1.1 }}
-            className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] tracking-[0.12em]"
+            className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9rem] tracking-[0.1em]"
             style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
           >
             {stats.map((s, i) => (

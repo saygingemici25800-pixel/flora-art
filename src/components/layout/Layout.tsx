@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import CartDrawer from '../ui/CartDrawer'
+import ScrollProgress from '../ui/ScrollProgress'
+import BackToTop from '../ui/BackToTop'
 import JsonLd from '../seo/JsonLd'
 
 interface LayoutProps {
@@ -15,6 +17,7 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollProgress />
       <Navbar />
 
       <AnimatePresence mode="wait" initial={false}>
@@ -32,6 +35,7 @@ export default function Layout({ children }: LayoutProps) {
 
       <Footer />
       <CartDrawer />
+      <BackToTop />
       <JsonLd />
     </div>
   )

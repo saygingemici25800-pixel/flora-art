@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 
-const linkKeys = ['shop', 'services', 'delivery', 'about', 'contact'] as const
+const linkKeys = ['shop', 'delivery', 'about', 'contact'] as const
 
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'
@@ -159,29 +159,71 @@ export default function Footer() {
 
 function FloatingWhatsApp() {
   const { t } = useTranslation()
+  const label = t('footer.whatsapp') as string
   return (
-    <motion.a
-      href={WHATSAPP_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={t('footer.whatsapp')}
-      initial={{ opacity: 0, scale: 0.7 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.6, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      whileHover={{ scale: 1.06 }}
-      whileTap={{ scale: 0.94 }}
-      className="fixed bottom-6 right-6 z-[80] grid place-items-center w-14 h-14 rounded-full text-white shadow-lg"
-      style={{ background: '#25D366' }}
-    >
-      <motion.span
-        aria-hidden="true"
-        className="absolute inset-0 rounded-full"
+    <div className="fixed bottom-6 right-6 z-[80] wa-float-group">
+      <motion.a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={label}
+        data-cursor-large
+        initial={{ opacity: 0, scale: 0.7 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.6, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        whileHover={{ scale: 1.06 }}
+        whileTap={{ scale: 0.94 }}
+        className="relative grid place-items-center w-14 h-14 rounded-full text-white shadow-lg"
         style={{ background: '#25D366' }}
-        animate={{ scale: [1, 1.5, 1.8], opacity: [0.45, 0.1, 0] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut' }}
-      />
-      <WhatsAppIcon size={26} />
-    </motion.a>
+      >
+        <motion.span
+          aria-hidden="true"
+          className="absolute inset-0 rounded-full"
+          style={{ background: '#25D366' }}
+          animate={{ scale: [1, 1.5, 1.8], opacity: [0.45, 0.1, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut' }}
+        />
+        <WhatsAppIcon size={26} />
+      </motion.a>
+
+      <span
+        role="tooltip"
+        className="wa-tooltip absolute right-full mr-4 top-1/2 -translate-y-1/2 whitespace-nowrap px-4 py-2 text-[11px] tracking-[0.22em] uppercase pointer-events-none"
+        style={{
+          background: 'var(--color-cream)',
+          color: 'var(--color-forest)',
+          fontFamily: 'var(--font-body)',
+          boxShadow: '0 12px 24px -10px rgba(28,43,26,0.25)',
+        }}
+      >
+        {label}
+        <span
+          aria-hidden="true"
+          className="absolute top-1/2 -translate-y-1/2"
+          style={{
+            right: '-5px',
+            width: 0,
+            height: 0,
+            borderTop: '5px solid transparent',
+            borderBottom: '5px solid transparent',
+            borderLeft: '6px solid var(--color-cream)',
+          }}
+        />
+      </span>
+
+      <style>{`
+        .wa-tooltip {
+          opacity: 0;
+          transform: translate(8px, -50%);
+          transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
+        }
+        .wa-float-group:hover .wa-tooltip,
+        .wa-float-group:focus-within .wa-tooltip {
+          opacity: 1;
+          transform: translate(0, -50%);
+        }
+      `}</style>
+    </div>
   )
 }
 

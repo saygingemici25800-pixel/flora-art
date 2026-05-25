@@ -252,9 +252,9 @@
     "values": {
       "title": "Değerlerimiz",
       "items": [
-        { "icon": "🌷", "title": "Kalite",    "description": "Holland'ın en iyi çiçekleri, taviz yok." },
-        { "icon": "⚡", "title": "Hız",       "description": "Söz verilen sürede, her zaman." },
-        { "icon": "✦",  "title": "Özgünlük",  "description": "Her aranjman benzersiz, her müşteri özel." }
+        { "icon": "flower", "title": "Kalite",    "description": "Holland'ın en iyi çiçekleri, taviz yok." },
+        { "icon": "bolt",   "title": "Hız",       "description": "Söz verilen sürede, her zaman." },
+        { "icon": "star",   "title": "Özgünlük",  "description": "Her aranjman benzersiz, her müşteri özel." }
       ]
     },
     "founder": {
@@ -269,8 +269,8 @@
       "items": [
         { "value": 122, "suffix": "+",  "label": "Mutlu Müşteri" },
         { "value": 5,   "suffix": ".0", "label": "Google Puanı" },
-        { "value": 2,   "suffix": "h",  "label": "Maks Teslimat" },
-        { "value": 100, "suffix": "%",  "label": "Holland Kalitesi" }
+        { "value": 2,   "suffix": "s",  "label": "Maks Teslimat" },
+        { "value": 100, "suffix": "%",  "label": "Holland" }
       ]
     }
   },
@@ -333,9 +333,9 @@
       "title": "Teslimat Bölgeleri",
       "subtitle": "Üç farklı bölge, üç farklı süre — kalite her yerde aynı.",
       "items": [
-        { "id": "local",  "icon": "📍", "title": "Fethiye & Çevresi", "eta": "2 saat",        "fee": "Ücretsiz",     "scope": "Fethiye merkez, Ölüdeniz, Göcek, Çalış", "highlighted": true },
-        { "id": "turkey", "icon": "🇹🇷", "title": "Türkiye Geneli",   "eta": "Aynı gün",      "fee": "150₺",         "scope": "81 il, kapıya teslim" },
-        { "id": "intl",   "icon": "🌍", "title": "Uluslararası",       "eta": "1 iş günü",    "fee": "Fiyat sorun",  "scope": "Avrupa, Rusya, Orta Doğu, dünya geneli" }
+        { "id": "local",  "icon": "pin",   "title": "Fethiye & Çevresi", "eta": "2 saat",     "fee": "Ücretsiz",     "scope": "Fethiye merkez, Ölüdeniz, Göcek, Çalış", "highlighted": true },
+        { "id": "turkey", "icon": "tr",    "title": "Türkiye Geneli",   "eta": "Aynı gün",   "fee": "150₺",         "scope": "81 il, kapıya teslim" },
+        { "id": "intl",   "icon": "globe", "title": "Uluslararası",     "eta": "1 iş günü",  "fee": "Fiyat sorun",  "scope": "Avrupa, Rusya, Orta Doğu, dünya geneli" }
       ],
       "labels": { "eta": "Süre", "fee": "Ücret", "scope": "Kapsam" }
     },

@@ -163,8 +163,8 @@ function ContactBody() {
             </motion.h2>
           </span>
 
-          <ul className="mt-10 space-y-7">
-            <InfoRow icon="📍" label={info.addressLabel}>
+          <ul className="mt-10 space-y-9">
+            <InfoRow iconKind="pin" label={info.addressLabel}>
               <a
                 href={`https://maps.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}`}
                 target="_blank"
@@ -174,20 +174,21 @@ function ContactBody() {
                 {info.address}
               </a>
             </InfoRow>
-            <InfoRow icon="📞" label={info.phoneLabel}>
+            <InfoRow iconKind="phone" label={info.phoneLabel}>
               <a href={`tel:${info.phoneTel}`} className="info-link">
                 {info.phone}
               </a>
             </InfoRow>
-            <InfoRow icon="🕐" label={info.hoursLabel}>
+            <InfoRow iconKind="clock" label={info.hoursLabel}>
               <span>{info.hours}</span>
             </InfoRow>
-            <InfoRow icon="📸" label={info.instagramLabel}>
+            <InfoRow iconKind="instagram" label={info.instagramLabel}>
               <a
                 href={info.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="info-link"
+                className="instagram-link"
+                style={{ color: 'var(--color-gold)' }}
               >
                 {info.instagramHandle}
               </a>
@@ -200,8 +201,8 @@ function ContactBody() {
             rel="noopener noreferrer"
             className="contact-whatsapp mt-10 inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
             style={{
-              background: '#25D366',
-              color: '#FFFFFF',
+              background: 'var(--color-forest)',
+              color: 'var(--color-gold)',
               fontFamily: 'var(--font-body)',
             }}
           >
@@ -217,8 +218,29 @@ function ContactBody() {
             .info-link:hover {
               color: var(--color-gold);
             }
+            .instagram-link {
+              position: relative;
+              padding-bottom: 2px;
+              transition: color 0.25s ease;
+            }
+            .instagram-link::after {
+              content: '';
+              position: absolute;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              height: 1px;
+              background: currentColor;
+              transform: scaleX(0);
+              transform-origin: left center;
+              transition: transform 0.35s ease;
+            }
+            .instagram-link:hover::after {
+              transform: scaleX(1);
+            }
             .contact-whatsapp:hover {
-              filter: brightness(1.05);
+              background: var(--color-gold) !important;
+              color: var(--color-forest) !important;
             }
           `}</style>
         </motion.div>
@@ -237,30 +259,32 @@ function ContactBody() {
   )
 }
 
+type ContactIconKind = 'pin' | 'phone' | 'clock' | 'instagram'
+
 function InfoRow({
-  icon,
+  iconKind,
   label,
   children,
 }: {
-  icon: string
+  iconKind: ContactIconKind
   label: string
   children: React.ReactNode
 }) {
   return (
-    <li className="flex items-start gap-4">
+    <li className="flex items-start gap-5">
       <span
         aria-hidden="true"
-        className="grid place-items-center w-10 h-10 rounded-full shrink-0"
+        className="grid place-items-center w-12 h-12 rounded-full shrink-0"
         style={{
           background: 'var(--color-beige)',
-          fontSize: '16px',
+          color: 'var(--color-gold)',
         }}
       >
-        {icon}
+        <ContactIcon kind={iconKind} />
       </span>
       <div className="flex-1 min-w-0">
         <p
-          className="text-[10px] tracking-[0.3em] uppercase mb-1"
+          className="text-[10px] tracking-[0.3em] uppercase mb-2"
           style={{ fontFamily: 'var(--font-body)', color: 'var(--color-gold)' }}
         >
           {label}
@@ -268,7 +292,7 @@ function InfoRow({
         <div
           style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '0.95rem',
+            fontSize: '0.97rem',
             color: 'var(--color-forest)',
             lineHeight: 1.6,
           }}
@@ -574,6 +598,51 @@ function MapBlock() {
         </motion.div>
       </div>
     </section>
+  )
+}
+
+function ContactIcon({ kind }: { kind: ContactIconKind }) {
+  const common = {
+    width: 22,
+    height: 22,
+    viewBox: '0 0 24 24',
+    fill: 'none' as const,
+    stroke: 'currentColor',
+    strokeWidth: 1.5,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+  }
+  if (kind === 'pin') {
+    return (
+      <svg {...common}>
+        <path d="M12 22 C 6 14, 4 11, 4 8 A 8 8 0 0 1 20 8 C 20 11, 18 14, 12 22 Z" />
+        <circle cx="12" cy="8.5" r="2.4" fill="currentColor" />
+      </svg>
+    )
+  }
+  if (kind === 'phone') {
+    return (
+      <svg {...common}>
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z" />
+      </svg>
+    )
+  }
+  if (kind === 'clock') {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="9.5" />
+        <path d="M12 7 V12 L15 14" />
+      </svg>
+    )
+  }
+  // instagram
+  return (
+    <svg {...common}>
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.7" fill="currentColor" />
+    </svg>
   )
 }
 

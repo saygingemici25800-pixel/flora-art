@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useAnimationControls } from 'framer-motion'
 import { getLenis } from '../../hooks/useLenis'
 import { selectItemCount, useCartStore } from '../../store/cartStore'
 
@@ -40,6 +40,18 @@ export default function Navbar() {
   const prefix = langPrefix(lang)
   const cartCount = useCartStore(selectItemCount)
   const openCart = useCartStore((s) => s.open)
+  const bagControls = useAnimationControls()
+  const prevCount = useRef(cartCount)
+
+  useEffect(() => {
+    if (cartCount > prevCount.current) {
+      bagControls.start({
+        scale: [1, 1.3, 1],
+        transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+      })
+    }
+    prevCount.current = cartCount
+  }, [cartCount, bagControls])
 
   useEffect(() => {
     if (i18n.language !== lang) {
@@ -161,10 +173,12 @@ export default function Navbar() {
               ))}
             </div>
 
-            <button
+            <motion.button
               type="button"
               aria-label={t('nav.cart')}
               onClick={openCart}
+              animate={bagControls}
+              data-cursor-large
               className="relative text-white/90 hover:text-[var(--color-gold)] transition-colors"
             >
               <ShoppingBagIcon />
@@ -187,7 +201,7 @@ export default function Navbar() {
                   </motion.span>
                 )}
               </AnimatePresence>
-            </button>
+            </motion.button>
           </div>
 
           <button

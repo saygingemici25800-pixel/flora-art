@@ -77,11 +77,11 @@ function DeliveryHero({ prefix }: { prefix: string }) {
       style={{
         background: 'var(--color-forest)',
         color: 'var(--color-cream)',
-        minHeight: '50vh',
+        minHeight: '40vh',
       }}
     >
       <HeroBotanical />
-      <div className="relative z-[2] mx-auto max-w-[1400px] px-6 md:px-10 pt-[120px] md:pt-[140px] pb-12 md:pb-16 min-h-[50vh] flex flex-col justify-end">
+      <div className="relative z-[2] mx-auto max-w-[1400px] px-6 md:px-10 pt-[110px] md:pt-[130px] pb-10 md:pb-12 min-h-[40vh] flex flex-col justify-end">
         <nav
           aria-label="Breadcrumb"
           className="text-[11px] tracking-[0.25em] uppercase mb-6 flex items-center gap-3"
@@ -136,10 +136,10 @@ function HowItWorks({ steps }: { steps: Step[] }) {
   return (
     <section
       className="relative w-full"
-      style={{ background: 'var(--color-cream)', paddingBlock: 'var(--spacing-section)' }}
+      style={{ background: 'var(--color-cream)', paddingBlock: 'calc(var(--spacing-section) * 0.7)' }}
     >
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <header className="mb-14 md:mb-20 max-w-[44ch]">
+        <header className="mb-12 md:mb-16 max-w-[44ch]">
           <span className="block overflow-hidden" style={{ paddingBottom: '0.12em' }}>
             <motion.h2
               initial={{ y: '110%' }}
@@ -289,20 +289,22 @@ function Zones({
                 viewport={{ once: true, margin: '-8% 0px' }}
                 transition={{ duration: 0.7, ease: EASE, delay: i * 0.12 }}
                 whileHover={{ y: -4 }}
-                className="group p-7 md:p-8 transition-shadow duration-500"
+                className="zone-card group p-7 md:p-8 transition-all duration-500"
                 style={{
-                  background: 'var(--color-cream)',
-                  border: highlighted
-                    ? '1px solid var(--color-gold)'
-                    : '1px solid rgba(28,43,26,0.10)',
+                  background: 'var(--color-beige)',
+                  borderTop: '3px solid var(--color-gold)',
                   boxShadow: highlighted
-                    ? '0 30px 60px -30px rgba(200,169,110,0.35)'
+                    ? '0 30px 60px -30px rgba(200,169,110,0.4)'
                     : undefined,
                 }}
               >
                 <div className="flex items-start justify-between gap-4 mb-6">
-                  <span aria-hidden="true" className="text-[26px] leading-none">
-                    {zone.icon}
+                  <span
+                    aria-hidden="true"
+                    className="grid place-items-center"
+                    style={{ color: 'var(--color-gold)' }}
+                  >
+                    <ZoneIcon kind={zone.icon} />
                   </span>
                   {highlighted && (
                     <span
@@ -320,7 +322,7 @@ function Zones({
                 </div>
 
                 <h3
-                  className="mb-6"
+                  className="mb-4"
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontSize: 'clamp(1.5rem, 2.5vw, 1.85rem)',
@@ -332,8 +334,19 @@ function Zones({
                   {zone.title}
                 </h3>
 
+                <p
+                  className="italic leading-none mb-6"
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(2.25rem, 4vw, 3rem)',
+                    color: 'var(--color-gold)',
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  {zone.eta}
+                </p>
+
                 <dl className="space-y-3">
-                  <ZoneRow label={labels.eta} value={zone.eta} />
                   <ZoneRow label={labels.fee} value={zone.fee} accent />
                   <div>
                     <dt
@@ -365,7 +378,65 @@ function Zones({
           })}
         </ul>
       </div>
+
+      <style>{`
+        .zone-card:hover {
+          background: var(--color-cream) !important;
+          box-shadow: 0 30px 60px -30px rgba(200,169,110,0.45);
+        }
+      `}</style>
     </section>
+  )
+}
+
+function ZoneIcon({ kind }: { kind: string }) {
+  const common = {
+    width: 22,
+    height: 22,
+    viewBox: '0 0 24 24',
+    fill: 'none' as const,
+    stroke: 'currentColor',
+    strokeWidth: 1.4,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+  }
+  if (kind === 'pin') {
+    return (
+      <svg {...common}>
+        <path d="M12 22 C 6 14, 4 11, 4 8 A 8 8 0 0 1 20 8 C 20 11, 18 14, 12 22 Z" />
+        <circle cx="12" cy="8.5" r="2.6" fill="currentColor" />
+      </svg>
+    )
+  }
+  if (kind === 'tr') {
+    return (
+      <span
+        aria-hidden="true"
+        className="inline-grid place-items-center"
+        style={{
+          width: '34px',
+          height: '22px',
+          border: '1px solid var(--color-gold)',
+          color: 'var(--color-forest)',
+          fontFamily: 'var(--font-body)',
+          fontSize: '11px',
+          letterSpacing: '0.18em',
+          fontWeight: 600,
+        }}
+      >
+        TR
+      </span>
+    )
+  }
+  // globe
+  return (
+    <svg {...common}>
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="M2.5 12 L21.5 12" />
+      <path d="M12 2.5 C 16 7, 16 17, 12 21.5" />
+      <path d="M12 2.5 C 8 7, 8 17, 12 21.5" />
+    </svg>
   )
 }
 

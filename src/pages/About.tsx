@@ -242,6 +242,46 @@ function Story() {
   )
 }
 
+function ValueIcon({ kind }: { kind: string }) {
+  const common = {
+    width: 24,
+    height: 24,
+    viewBox: '0 0 24 24',
+    fill: 'none' as const,
+    stroke: 'currentColor',
+    strokeWidth: 1.4,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+  }
+  if (kind === 'flower') {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="1.8" />
+        <ellipse cx="12" cy="6.4" rx="2.2" ry="3.4" />
+        <ellipse cx="12" cy="17.6" rx="2.2" ry="3.4" />
+        <ellipse cx="6.4" cy="12" rx="3.4" ry="2.2" />
+        <ellipse cx="17.6" cy="12" rx="3.4" ry="2.2" />
+        <ellipse cx="8.2" cy="8.2" rx="2" ry="2.8" transform="rotate(-45 8.2 8.2)" />
+        <ellipse cx="15.8" cy="15.8" rx="2" ry="2.8" transform="rotate(-45 15.8 15.8)" />
+      </svg>
+    )
+  }
+  if (kind === 'bolt') {
+    return (
+      <svg {...common}>
+        <path d="M14 2 L5 14 L11 14 L10 22 L19 10 L13 10 Z" />
+      </svg>
+    )
+  }
+  // 'star' — 4-point star (compass rose)
+  return (
+    <svg {...common}>
+      <path d="M12 2 L13.4 10.6 L22 12 L13.4 13.4 L12 22 L10.6 13.4 L2 12 L10.6 10.6 Z" />
+    </svg>
+  )
+}
+
 function Values() {
   const { t } = useTranslation()
   const items = t('about.values.items', { returnObjects: true }) as ValueItem[]
@@ -295,8 +335,12 @@ function Values() {
                 border: '1px solid rgba(28,43,26,0.10)',
               }}
             >
-              <span aria-hidden="true" className="text-[2.5rem] leading-none block mb-5">
-                {item.icon}
+              <span
+                aria-hidden="true"
+                className="inline-grid place-items-center mb-6"
+                style={{ color: 'var(--color-gold)' }}
+              >
+                <ValueIcon kind={item.icon} />
               </span>
               <h3
                 className="mb-3"
