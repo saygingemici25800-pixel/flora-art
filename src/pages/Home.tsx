@@ -43,7 +43,10 @@ export default function Home() {
       <BotanicalOverlay />
       <GrainTexture />
 
-      <div className="relative z-[2] mx-auto max-w-[1400px] px-6 md:px-10 pt-[120px] md:pt-[140px] pb-24 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-center min-h-[100dvh]">
+      <div
+        className="relative z-[2] mx-auto max-w-[1400px] pr-6 md:pr-10 pt-[120px] md:pt-[140px] pb-24 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-center min-h-[100dvh]"
+        style={{ paddingLeft: '4vw' }}
+      >
         <div className="md:col-span-7 relative">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -68,11 +71,11 @@ export default function Home() {
           </motion.div>
 
           <h1
-            className="italic leading-[0.95] mb-8 md:mb-10"
+            className="italic leading-[0.92] mb-8 md:mb-10"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(4.25rem, 11vw, 9rem)',
-              letterSpacing: '-0.015em',
+              fontSize: 'clamp(5rem, 13vw, 11rem)',
+              letterSpacing: '-0.02em',
               color: 'var(--color-cream)',
             }}
           >
@@ -91,6 +94,7 @@ export default function Home() {
                     ease: EASE,
                     delay: 0.25 + i * 0.15,
                   }}
+                  style={{ fontWeight: i === 1 ? 200 : 400 }}
                 >
                   {line}
                 </motion.span>
@@ -109,9 +113,30 @@ export default function Home() {
           </motion.p>
 
           <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.85 }}
+            className="flex flex-wrap items-center gap-x-5 gap-y-3 text-[0.9rem] tracking-[0.08em] mb-10"
+            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
+          >
+            {stats.map((s, i) => (
+              <span key={i} className="inline-flex items-center gap-5">
+                <span>{s}</span>
+                {i < stats.length - 1 && (
+                  <span
+                    aria-hidden="true"
+                    className="block w-px h-4"
+                    style={{ background: 'var(--color-gold)', opacity: 0.4 }}
+                  />
+                )}
+              </span>
+            ))}
+          </motion.div>
+
+          <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.9 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 1.05 }}
           >
             <Link
               to={`${prefix}/shop`}
@@ -138,21 +163,6 @@ export default function Home() {
                 color: var(--color-forest) !important;
               }
             `}</style>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 1.1 }}
-            className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9rem] tracking-[0.1em]"
-            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
-          >
-            {stats.map((s, i) => (
-              <span key={i} className="flex items-center gap-5">
-                <span>{s}</span>
-                {i < stats.length - 1 && <span className="opacity-50">·</span>}
-              </span>
-            ))}
           </motion.div>
         </div>
 

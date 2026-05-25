@@ -27,7 +27,7 @@ export default function HollandStory() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
         <div className="md:col-span-7">
           <h2
-            className="italic mb-10 md:mb-12"
+            className="italic mb-10 md:mb-12 md:-ml-10"
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(3rem, 7.5vw, 6rem)',
@@ -105,7 +105,7 @@ export default function HollandStory() {
           </motion.div>
         </div>
 
-        <div className="md:col-span-5">
+        <div className="md:col-span-5 md:-ml-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}

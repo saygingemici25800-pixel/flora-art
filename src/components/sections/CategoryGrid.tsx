@@ -80,32 +80,52 @@ export default function CategoryGrid() {
           </motion.p>
         </div>
 
+        {/* Bento: Buket 2x2 dominant sol; sağda 4 küçük kart.
+            Saksı bu grid'den çıkarıldı (data'da kalıyor — Shop'tan erişilebilir). */}
         <div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5"
-          style={{ gridAutoRows: 'minmax(220px, 1fr)' }}
+          className="grid grid-cols-1 gap-[2px] md:grid-cols-4"
+          style={{
+            background: 'var(--color-forest)',
+            gridTemplateAreas: `
+              "buket buket kutu dugum"
+              "buket buket kurumsal uluslararasi"
+            `,
+            gridAutoRows: 'minmax(220px, 1fr)',
+          }}
         >
-          {categories.map((cat, i) => {
-            const isFirst = i === 0
-            const id = cat.id as CategoryId
-            return (
-              <motion.div
-                key={cat.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-8% 0px' }}
-                transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
-                className={isFirst ? 'md:col-span-2 md:row-span-2' : ''}
-              >
-                <CategoryCard
-                  to={`${prefix}/shop`}
-                  name={cat.name}
-                  discoverLabel={t('collection.discover')}
-                  id={id}
-                  big={isFirst}
-                />
-              </motion.div>
-            )
-          })}
+          {categories
+            .filter((c) => c.id !== 'plant')
+            .map((cat, i) => {
+              const id = cat.id as CategoryId
+              const areaMap: Record<string, string> = {
+                bouquet: 'buket',
+                box: 'kutu',
+                wedding: 'dugum',
+                corporate: 'kurumsal',
+                international: 'uluslararasi',
+              }
+              const area = areaMap[cat.id] ?? ''
+              const isBig = cat.id === 'bouquet'
+              return (
+                <motion.div
+                  key={cat.id}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-8% 0px' }}
+                  transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
+                  style={{ gridArea: area }}
+                  className="min-h-[220px]"
+                >
+                  <CategoryCard
+                    to={`${prefix}/shop`}
+                    name={cat.name}
+                    discoverLabel={t('collection.discover')}
+                    id={id}
+                    big={isBig}
+                  />
+                </motion.div>
+              )
+            })}
         </div>
       </div>
     </section>
@@ -155,7 +175,7 @@ function CategoryCard({ to, name, discoverLabel, id, big }: CardProps) {
           className="transition-colors duration-500"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: big ? 'clamp(2rem, 4vw, 3.25rem)' : '1.5rem',
+            fontSize: big ? 'clamp(3rem, 5vw, 6rem)' : 'clamp(1.5rem, 2.5vw, 2.5rem)',
             color: 'var(--color-forest)',
             letterSpacing: '-0.01em',
             lineHeight: 1.05,

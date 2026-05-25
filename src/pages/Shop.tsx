@@ -9,6 +9,16 @@ import QuickViewModal from '../components/ui/QuickViewModal'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
+// Aspect-ratio rotation across the product grid for editorial rhythm.
+// Pattern repeats every 5 cards: 3/4, 4/5 (taller), 1/1 (square), 3/4, 3/4.
+function cardAspect(index: number): string {
+  switch (index % 5) {
+    case 1: return '4 / 5'
+    case 2: return '1 / 1'
+    default: return '3 / 4'
+  }
+}
+
 type SortKey = 'newest' | 'priceAsc' | 'priceDesc'
 type Filter = 'all' | CategoryId
 
@@ -85,13 +95,13 @@ export default function Shop() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: EASE }}
-                className="italic"
+                className="italic md:-ml-10"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(3rem, 8vw, 6rem)',
+                  fontSize: 'clamp(5rem, 12vw, 10rem)',
                   color: 'var(--color-cream)',
-                  letterSpacing: '-0.02em',
-                  lineHeight: 0.98,
+                  letterSpacing: '-0.025em',
+                  lineHeight: 0.95,
                 }}
               >
                 {t('shop.title')}
@@ -141,13 +151,14 @@ export default function Shop() {
               {t('shop.empty')}
             </p>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-8 md:gap-y-16">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-8 md:gap-y-16 items-start">
               {visible.map((p, i) => (
                 <ProductCard
                   key={p.id}
                   product={p}
                   index={i}
                   onQuickView={setQuickView}
+                  aspectRatio={cardAspect(i)}
                 />
               ))}
             </div>

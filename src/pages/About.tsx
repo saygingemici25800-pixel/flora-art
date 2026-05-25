@@ -81,13 +81,13 @@ function AboutHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE }}
-            className="italic md:col-span-8"
+            className="italic md:col-span-8 md:-ml-10"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(3rem, 8vw, 6.5rem)',
+              fontSize: 'clamp(5rem, 12vw, 10rem)',
               color: 'var(--color-cream)',
-              letterSpacing: '-0.02em',
-              lineHeight: 0.98,
+              letterSpacing: '-0.025em',
+              lineHeight: 0.95,
             }}
           >
             {t('about.title')}
@@ -544,7 +544,7 @@ function Founder() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 1, ease: EASE }}
-          className="md:col-span-5 flex justify-center md:justify-start"
+          className="md:col-span-5 md:order-2 flex justify-center md:justify-end"
         >
           <div
             className="relative grid place-items-center"
@@ -577,11 +577,11 @@ function Founder() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, x: 30 }}
+          initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
-          className="md:col-span-7"
+          className="md:col-span-7 md:order-1"
         >
           <p
             className="text-[11px] tracking-[0.32em] uppercase mb-4"
@@ -598,9 +598,9 @@ function Founder() {
             className="italic mb-8"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+              fontSize: 'clamp(3rem, 6vw, 5rem)',
               color: 'var(--color-cream)',
-              letterSpacing: '-0.015em',
+              letterSpacing: '-0.02em',
               lineHeight: 1,
             }}
           >

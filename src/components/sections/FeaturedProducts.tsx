@@ -42,32 +42,48 @@ export default function FeaturedProducts() {
         paddingBlock: 'var(--spacing-section)',
       }}
     >
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <div className="flex items-end justify-between gap-6 mb-10 md:mb-14">
-          <span className="block overflow-hidden" style={{ paddingBottom: '0.12em' }}>
-            <motion.h2
-              initial={{ y: '110%' }}
-              whileInView={{ y: '0%' }}
-              viewport={{ once: true, margin: '-15% 0px' }}
-              transition={{ duration: 0.9, ease: EASE }}
-              className="italic"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                color: 'var(--color-forest)',
-                letterSpacing: '-0.015em',
-                lineHeight: 1,
-              }}
-            >
-              {t('featured.title')}
-            </motion.h2>
-          </span>
+      <div className="mx-auto max-w-[1400px] pl-6 md:pl-10 pr-6 md:pr-10 relative z-[2]">
+        <div className="flex items-end justify-between gap-6">
+          <h2
+            className="italic"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(4rem, 8vw, 7rem)',
+              color: 'var(--color-forest)',
+              letterSpacing: '-0.02em',
+              lineHeight: 0.9,
+            }}
+          >
+            {(() => {
+              const words = (t('featured.title') as string).split(' ')
+              const lines = words.length > 1 ? words : [t('featured.title') as string]
+              return lines.map((word, i) => (
+                <span
+                  key={i}
+                  className="block overflow-hidden"
+                  style={{ paddingBottom: '0.06em' }}
+                >
+                  <motion.span
+                    className="block"
+                    initial={{ y: '110%' }}
+                    whileInView={{ y: '0%' }}
+                    viewport={{ once: true, margin: '-15% 0px' }}
+                    transition={{ duration: 0.9, ease: EASE, delay: i * 0.12 }}
+                    style={lines.length > 1 && i === 1 ? { fontWeight: 200 } : undefined}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))
+            })()}
+          </h2>
 
           <motion.div
             initial={{ opacity: 0, x: 10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-10% 0px' }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.3 }}
+            className="pb-2"
           >
             <Link
               to={`${prefix}/shop`}
@@ -86,7 +102,11 @@ export default function FeaturedProducts() {
         </div>
       </div>
 
-      <div className="relative w-full overflow-hidden" ref={viewportRef}>
+      {/* Slider overlap: negative margin-top başlık alt kenarına girer */}
+      <div
+        className="relative w-full overflow-hidden md:-mt-12"
+        ref={viewportRef}
+      >
         <motion.div
           ref={trackRef}
           className="flex gap-5 md:gap-6 pl-6 md:pl-10 pr-6 md:pr-10 cursor-grab active:cursor-grabbing select-none"

@@ -142,7 +142,8 @@ function ContactBody() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.8, ease: EASE }}
-          className="md:col-span-6"
+          className="md:col-span-4 md:border-r md:pr-10"
+          style={{ borderColor: 'var(--color-gold)' }}
         >
           <span className="block overflow-hidden" style={{ paddingBottom: '0.1em' }}>
             <motion.h2
@@ -250,7 +251,7 @@ function ContactBody() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-          className="md:col-span-6"
+          className="md:col-span-8 md:mt-10"
         >
           <ContactForm />
         </motion.div>

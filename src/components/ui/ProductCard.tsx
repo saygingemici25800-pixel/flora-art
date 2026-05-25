@@ -32,9 +32,16 @@ interface Props {
   product: Product
   index?: number
   onQuickView?: (product: Product) => void
+  /** Override the default 3/4 image aspect-ratio (e.g. '4 / 5', '1 / 1') */
+  aspectRatio?: string
 }
 
-export default function ProductCard({ product, index = 0, onQuickView }: Props) {
+export default function ProductCard({
+  product,
+  index = 0,
+  onQuickView,
+  aspectRatio = '3 / 4',
+}: Props) {
   const { t } = useTranslation()
   const location = useLocation()
   const addItem = useCartStore((s) => s.addItem)
@@ -62,7 +69,7 @@ export default function ProductCard({ product, index = 0, onQuickView }: Props) 
         className="relative block overflow-hidden"
         style={{
           background: 'var(--color-beige)',
-          aspectRatio: '3 / 4',
+          aspectRatio,
         }}
       >
         <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.06]">

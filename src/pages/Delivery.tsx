@@ -181,10 +181,10 @@ function HowItWorks({ steps }: { steps: Step[] }) {
                   className="italic leading-none"
                   style={{
                     fontFamily: 'var(--font-display)',
-                    fontSize: 'clamp(3.5rem, 6vw, 5.5rem)',
+                    fontSize: 'clamp(4.5rem, 7vw, 6rem)',
                     color: 'var(--color-gold)',
-                    opacity: 0.3,
-                    letterSpacing: '-0.02em',
+                    opacity: 0.12,
+                    letterSpacing: '-0.025em',
                   }}
                 >
                   {step.number}
@@ -278,9 +278,12 @@ function Zones({
           </motion.p>
         </header>
 
-        <ul className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 md:items-end">
           {items.map((zone, i) => {
             const highlighted = !!zone.highlighted
+            // Asimetrik yükseklikler: Fethiye 280, Türkiye 240 (en kısa),
+            // Uluslararası 320 (en yüksek)
+            const desktopMinHeights = ['280px', '240px', '320px']
             return (
               <motion.li
                 key={zone.id}
@@ -289,14 +292,17 @@ function Zones({
                 viewport={{ once: true, margin: '-8% 0px' }}
                 transition={{ duration: 0.7, ease: EASE, delay: i * 0.12 }}
                 whileHover={{ y: -4 }}
-                className="zone-card group p-7 md:p-8 transition-all duration-500"
-                style={{
-                  background: 'var(--color-beige)',
-                  borderTop: '3px solid var(--color-gold)',
-                  boxShadow: highlighted
-                    ? '0 30px 60px -30px rgba(200,169,110,0.4)'
-                    : undefined,
-                }}
+                className="zone-card group p-7 md:p-8 transition-all duration-500 md:min-h-[var(--zone-h)]"
+                style={
+                  {
+                    background: 'var(--color-beige)',
+                    borderTop: '3px solid var(--color-gold)',
+                    boxShadow: highlighted
+                      ? '0 30px 60px -30px rgba(200,169,110,0.4)'
+                      : undefined,
+                    ['--zone-h' as string]: desktopMinHeights[i] ?? '280px',
+                  } as React.CSSProperties
+                }
               >
                 <div className="flex items-start justify-between gap-4 mb-6">
                   <span

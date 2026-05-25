@@ -14,54 +14,80 @@ export default function Testimonials() {
 
   return (
     <section
-      className="relative w-full"
+      className="relative w-full overflow-hidden"
       style={{
         background: 'var(--color-forest)',
         color: 'var(--color-cream)',
         paddingBlock: 'var(--spacing-section)',
       }}
     >
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
-        <div className="md:col-span-5">
+      {/* Ghost "5.0" — devasa arka plan, sol-ortada, opacity 0.15 */}
+      <motion.span
+        aria-hidden="true"
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 0.15, x: 0 }}
+        viewport={{ once: true, margin: '-10% 0px' }}
+        transition={{ duration: 1.2, ease: EASE }}
+        className="absolute italic leading-none select-none pointer-events-none"
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 'clamp(8rem, 20vw, 18rem)',
+          color: 'var(--color-gold)',
+          letterSpacing: '-0.04em',
+          left: '2vw',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          fontWeight: 200,
+        }}
+      >
+        {t('testimonials.rating')}
+      </motion.span>
+
+      <div className="relative z-[2] mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
+        {/* Sol %60 boş — sadece ghost rakam görünür */}
+        <div className="hidden md:block md:col-span-5" />
+
+        {/* Sağ %40 — gerçek rating header + yorumlar */}
+        <div className="md:col-span-7 flex flex-col">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-15% 0px' }}
-            transition={{ duration: 1, ease: EASE }}
+            transition={{ duration: 0.8, ease: EASE }}
+            className="mb-10"
           >
             <p
-              className="italic leading-none"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(5rem, 12vw, 9rem)',
-                color: 'var(--color-gold)',
-                letterSpacing: '-0.03em',
-              }}
-            >
-              {t('testimonials.rating')}
-            </p>
-
-            <p
-              className="mt-4 flex items-center gap-3"
+              className="flex items-baseline gap-3 mb-3"
               style={{ fontFamily: 'var(--font-body)' }}
             >
               <span
+                className="italic"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.5rem',
+                  color: 'var(--color-gold)',
+                  letterSpacing: '-0.01em',
+                  lineHeight: 1,
+                }}
+              >
+                {t('testimonials.rating')}
+              </span>
+              <span
                 aria-hidden="true"
-                className="text-[18px] tracking-[0.25em]"
+                className="text-[14px] tracking-[0.25em]"
                 style={{ color: 'var(--color-gold)' }}
               >
                 {t('testimonials.stars')}
               </span>
               <span
-                className="text-[14px] tracking-[0.12em]"
-                style={{ color: 'var(--color-cream)' }}
+                className="text-[12px] tracking-[0.18em]"
+                style={{ color: 'var(--color-cream)', opacity: 0.85 }}
               >
                 {t('testimonials.count')}
               </span>
             </p>
-
             <p
-              className="mt-3 max-w-[34ch] text-[14px] leading-relaxed"
+              className="max-w-[44ch] text-[13px] leading-relaxed"
               style={{
                 fontFamily: 'var(--font-body)',
                 color: 'var(--color-cream)',
@@ -71,9 +97,8 @@ export default function Testimonials() {
               {t('testimonials.subtitle')}
             </p>
           </motion.div>
-        </div>
 
-        <div className="md:col-span-7 flex flex-col gap-5">
+          <div className="flex flex-col gap-5">
           {items.map((item, i) => (
             <motion.figure
               key={i}
@@ -129,6 +154,7 @@ export default function Testimonials() {
               </figcaption>
             </motion.figure>
           ))}
+          </div>
         </div>
       </div>
     </section>
