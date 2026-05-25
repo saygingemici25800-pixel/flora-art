@@ -80,7 +80,18 @@
     "sortPriceAsc": "Price ↑",
     "sortPriceDesc": "Price ↓",
     "quickView": "Quick View",
-    "empty": "No products in this category yet."
+    "empty": "No products in this category yet.",
+    "howMade": {
+      "title": "How They Come Together",
+      "subtitle": "From Holland to our atelier, from our atelier to you.",
+      "muteOn": "Unmute",
+      "muteOff": "Mute",
+      "items": [
+        { "id": "selection", "src": "/videos/process-selection.mp4", "caption": "Selection" },
+        { "id": "packaging", "src": "/videos/process-packaging.mp4", "caption": "Packaging" },
+        { "id": "delivery",  "src": "/videos/process-delivery.mp4",  "caption": "Delivery" }
+      ]
+    }
   },
   "cart": {
     "title": "Your Cart",
@@ -247,7 +258,9 @@
       "p1": "Flora Art is a young and passionate florist founded in the heart of Fethiye, on Atatürk Avenue. Born from the power of women's entrepreneurship, the brand sees floristry not as a craft but as an art.",
       "p2": "Flowers sourced directly from Amsterdam's famous auctions meet the Mediterranean warmth of Fethiye. Every bouquet, every arrangement — tells a feeling, a moment, a story.",
       "quote": "To give a flower is to say everything words cannot.",
-      "quoteAuthor": "— Flora Art"
+      "quoteAuthor": "— Flora Art",
+      "videoCaption": "Flora Art Atelier · Fethiye",
+      "videoSoon": "Atelier video coming soon"
     },
     "values": {
       "title": "Our Values",
@@ -259,7 +272,7 @@
     },
     "founder": {
       "kicker": "Our Founder",
-      "name": "Saygın Gemici",
+      "name": "Vahap Bey",
       "p1": "Her passion for flowers turned her into Fethiye's most refined florist. Blending Dutch training with Mediterranean aesthetics, she created Flora Art with a singular point of view.",
       "p2": "Every morning starts in the atelier with her team; she checks each bouquet by hand. She redefines, every day, how a Fethiye brand can open to the world.",
       "stats": "5.0 ★ Google · 122 Reviews · Holland Certified",

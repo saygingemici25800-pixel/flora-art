@@ -80,7 +80,18 @@
     "sortPriceAsc": "Fiyat ↑",
     "sortPriceDesc": "Fiyat ↓",
     "quickView": "Hızlı Bakış",
-    "empty": "Bu kategoride henüz ürün yok."
+    "empty": "Bu kategoride henüz ürün yok.",
+    "howMade": {
+      "title": "Çiçekler Nasıl Hazırlanıyor?",
+      "subtitle": "Holland'dan atölyemize, atölyemizden size.",
+      "muteOn": "Sesi aç",
+      "muteOff": "Sesi kapat",
+      "items": [
+        { "id": "selection", "src": "/videos/process-selection.mp4", "caption": "Seçim" },
+        { "id": "packaging", "src": "/videos/process-packaging.mp4", "caption": "Paketleme" },
+        { "id": "delivery",  "src": "/videos/process-delivery.mp4",  "caption": "Teslimat" }
+      ]
+    }
   },
   "cart": {
     "title": "Sepetim",
@@ -247,7 +258,9 @@
       "p1": "Flora Art, Fethiye'nin merkezinde, Atatürk Caddesi üzerinde kurulmuş genç ve tutkulu bir çiçekçidir. Kadın girişimciliğinin gücüyle hayata geçirilen bu marka, çiçekçiliği bir zanaat değil, bir sanat olarak görür.",
       "p2": "Amsterdam'ın ünlü çiçek müzayedelerinden direkt temin ettiğimiz çiçekler, Fethiye'ye özgü Akdeniz sıcaklığıyla buluşuyor. Her buket, her aranjman — bir his, bir an, bir hikaye anlatır.",
       "quote": "Bir çiçek vermek, kelimelerle anlatılamayan her şeyi söylemektir.",
-      "quoteAuthor": "— Flora Art"
+      "quoteAuthor": "— Flora Art",
+      "videoCaption": "Flora Art Atölyesi · Fethiye",
+      "videoSoon": "Atölye videosu yakında"
     },
     "values": {
       "title": "Değerlerimiz",
@@ -259,7 +272,7 @@
     },
     "founder": {
       "kicker": "Kurucumuz",
-      "name": "Saygın Gemici",
+      "name": "Vahap Bey",
       "p1": "Çiçeklere olan tutkusu onu Fethiye'nin en seçkin floristine dönüştürdü. Holland'daki eğitimi ve Akdeniz estetiğini harmanlayan özgün yaklaşımıyla Flora Art'ı yarattı.",
       "p2": "Her güne, ekibiyle birlikte atölyede başlar; her buketi kendi elleriyle kontrol eder. Bir Fethiye markasının, dünyaya nasıl açılabileceğini her gün yeniden tanımlıyor.",
       "stats": "5.0 ★ Google · 122 Yorum · Holland Sertifikalı",

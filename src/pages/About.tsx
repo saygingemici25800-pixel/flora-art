@@ -118,6 +118,8 @@ function Story() {
     p2: string
     quote: string
     quoteAuthor: string
+    videoCaption: string
+    videoSoon: string
   }
   const lines = story.title.split('\n')
 
@@ -236,9 +238,156 @@ function Story() {
           >
             {story.quoteAuthor}
           </p>
+
+          <StoryVideo
+            src="/videos/about-story.mp4"
+            caption={story.videoCaption}
+            placeholder={story.videoSoon}
+          />
         </motion.div>
       </div>
     </section>
+  )
+}
+
+function StoryVideo({
+  src,
+  caption,
+  placeholder,
+}: {
+  src: string
+  caption: string
+  placeholder: string
+}) {
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const [muted, setMuted] = useState(true)
+  const [loaded, setLoaded] = useState(false)
+
+  function toggleMute() {
+    const v = videoRef.current
+    if (!v) {
+      setMuted((m) => !m)
+      return
+    }
+    const next = !v.muted
+    v.muted = next
+    setMuted(next)
+  }
+
+  return (
+    <motion.figure
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-10% 0px' }}
+      transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
+      className="mt-10 max-w-[380px]"
+    >
+      <div
+        className="relative overflow-hidden"
+        style={{
+          aspectRatio: '16 / 9',
+          background: '#1C2B1A',
+          border: '1px solid rgba(200, 169, 110, 0.2)',
+        }}
+      >
+        <div
+          className={`absolute inset-0 grid place-items-center transition-opacity duration-500 ${
+            loaded ? 'opacity-0' : 'opacity-100'
+          }`}
+          aria-hidden={loaded}
+        >
+          <div className="flex flex-col items-center gap-3 px-6 text-center">
+            <PlayGlyph />
+            <p
+              className="text-[11px] tracking-[0.28em] uppercase"
+              style={{
+                color: 'var(--color-cream)',
+                opacity: 0.4,
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              {placeholder}
+            </p>
+          </div>
+        </div>
+
+        <video
+          ref={videoRef}
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onLoadedData={() => setLoaded(true)}
+          className="absolute inset-0 w-full h-full"
+          style={{ objectFit: 'cover' }}
+        />
+
+        <motion.button
+          type="button"
+          onClick={toggleMute}
+          whileTap={{ scale: 0.9 }}
+          aria-label={muted ? 'Unmute' : 'Mute'}
+          aria-pressed={!muted}
+          className="absolute top-3 left-3 grid place-items-center w-8 h-8 rounded-full"
+          style={{
+            background: 'rgba(245, 240, 232, 0.15)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            border: '1px solid rgba(200, 169, 110, 0.3)',
+            color: 'var(--color-gold)',
+          }}
+        >
+          {muted ? <MuteGlyph /> : <UnmuteGlyph />}
+        </motion.button>
+      </div>
+
+      <span
+        aria-hidden="true"
+        className="block h-px w-full mt-4"
+        style={{ background: 'var(--color-gold)', opacity: 0.4 }}
+      />
+      <figcaption
+        className="mt-3 text-[11px] tracking-[0.28em] uppercase"
+        style={{
+          fontFamily: 'var(--font-body)',
+          color: 'var(--color-ink)',
+          opacity: 0.65,
+        }}
+      >
+        {caption}
+      </figcaption>
+    </motion.figure>
+  )
+}
+
+function PlayGlyph() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: 'var(--color-gold)' }}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M10 8 L16 12 L10 16 Z" fill="currentColor" />
+    </svg>
+  )
+}
+
+function MuteGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 9 H9 L14 5 V19 L9 15 H5 Z" />
+      <line x1="17" y1="9" x2="22" y2="14" />
+      <line x1="22" y1="9" x2="17" y2="14" />
+    </svg>
+  )
+}
+
+function UnmuteGlyph() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 9 H9 L14 5 V19 L9 15 H5 Z" />
+      <path d="M17 8 C19 10, 19 14, 17 16" />
+      <path d="M19.5 6 C22.5 9, 22.5 15, 19.5 18" />
+    </svg>
   )
 }
 
