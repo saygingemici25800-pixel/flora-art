@@ -97,7 +97,7 @@ export default function AdminLayout() {
           </span>
         </header>
 
-        <main className="mx-auto max-w-6xl px-5 py-8 sm:px-8">
+        <main className="mx-auto max-w-6xl px-6 py-10 sm:px-10">
           <Outlet />
         </main>
       </div>
@@ -127,7 +127,7 @@ function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLo
             to={item.to}
             end={item.end}
             onClick={onNavigate}
-            className="admin-nav-link relative flex items-center gap-3 px-3 py-2.5 text-[0.85rem] transition-colors"
+            className="admin-nav-link relative flex items-center gap-3 px-3 py-3 text-[0.85rem] transition-colors"
             style={{ fontFamily: 'var(--font-body)', borderRadius: 2 }}
           >
             <span className="admin-nav-icon grid h-5 w-5 place-items-center">{item.icon}</span>
@@ -141,7 +141,7 @@ function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLo
           href="/"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-3 px-3 py-2.5 text-[0.8rem] transition-colors hover:text-[var(--color-gold)]"
+          className="flex items-center gap-3 px-3 py-3 text-[0.8rem] transition-colors hover:text-[var(--color-gold)]"
           style={{ color: 'rgba(245,240,232,0.7)', fontFamily: 'var(--font-body)', borderRadius: 2 }}
         >
           <span className="grid h-5 w-5 place-items-center"><ExternalIcon /></span>
@@ -150,7 +150,7 @@ function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLo
         <button
           type="button"
           onClick={onLogout}
-          className="flex w-full items-center gap-3 px-3 py-2.5 text-[0.8rem] transition-colors hover:text-[var(--color-gold)]"
+          className="flex w-full items-center gap-3 px-3 py-3 text-[0.8rem] transition-colors hover:text-[var(--color-gold)]"
           style={{ color: 'rgba(245,240,232,0.7)', fontFamily: 'var(--font-body)', borderRadius: 2 }}
         >
           <span className="grid h-5 w-5 place-items-center"><LogoutIcon /></span>

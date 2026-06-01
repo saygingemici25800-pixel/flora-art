@@ -33,27 +33,27 @@ export default function Dashboard() {
 
   return (
     <div>
-      <PageHeader title="Panel" subtitle="Mağazanın genel durumu" />
+      <PageHeader title="Panel" subtitle="Mağazanın genel durumu" className="mb-10" />
 
       {/* Metric cards */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
         <Metric label="Toplam Gelir" value={money(stats.revenue)} accent />
         <Metric label="Sipariş" value={number(stats.orderCount)} />
         <Metric label="Aktif" value={number(active)} />
         <Metric label="Teslim Edildi" value={number(stats.statusBreakdown.delivered)} />
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Status breakdown */}
         <Card>
           <SectionTitle>Durum Dağılımı</SectionTitle>
-          <div className="mt-4 flex flex-col gap-3">
+          <div className="mt-5 flex flex-col">
             {ORDER_STATUSES.map((s) => {
               const count = stats.statusBreakdown[s]
               const pct = Math.round((count / totalForBar) * 100)
               const meta = STATUS_META[s]
               return (
-                <div key={s} className="flex items-center gap-3">
+                <div key={s} className="flex items-center gap-3 py-2.5">
                   <span className="w-28 shrink-0 text-[0.78rem]" style={{ color: 'var(--color-ink)' }}>
                     {meta.label}
                   </span>
@@ -78,15 +78,15 @@ export default function Dashboard() {
         <Card>
           <SectionTitle>Çok Satanlar</SectionTitle>
           {stats.topProducts.length === 0 ? (
-            <p className="mt-4 text-[0.82rem]" style={{ color: 'var(--color-ink)', opacity: 0.55 }}>
+            <p className="mt-5 text-[0.82rem]" style={{ color: 'var(--color-ink)', opacity: 0.55 }}>
               Henüz satış yok.
             </p>
           ) : (
-            <div className="mt-4 flex flex-col">
+            <div className="mt-5 flex flex-col">
               {stats.topProducts.map((p, i) => (
                 <div
                   key={p.productId}
-                  className="flex items-center justify-between py-2.5"
+                  className="flex items-center justify-between py-3"
                   style={{ borderTop: i === 0 ? 'none' : '1px solid var(--color-beige)' }}
                 >
                   <div className="flex items-center gap-3">
@@ -116,8 +116,8 @@ export default function Dashboard() {
       </div>
 
       {/* Recent orders */}
-      <Card className="mt-6" padded={false}>
-        <div className="flex items-center justify-between px-5 pt-5">
+      <Card className="mt-12" padded={false}>
+        <div className="flex items-center justify-between px-6 pt-6">
           <SectionTitle>Son Siparişler</SectionTitle>
           <button
             type="button"
@@ -129,13 +129,13 @@ export default function Dashboard() {
           </button>
         </div>
         {stats.recentOrders.length === 0 ? (
-          <div className="px-5 pb-5">
-            <p className="mt-3 text-[0.82rem]" style={{ color: 'var(--color-ink)', opacity: 0.55 }}>
+          <div className="px-6 pb-6">
+            <p className="mt-5 text-[0.82rem]" style={{ color: 'var(--color-ink)', opacity: 0.55 }}>
               Sipariş yok.
             </p>
           </div>
         ) : (
-          <div className="mt-3 overflow-x-auto">
+          <div className="mt-5 overflow-x-auto">
             <table className="w-full text-left">
               <tbody>
                 {stats.recentOrders.map((o) => (
@@ -145,19 +145,19 @@ export default function Dashboard() {
                     className="cursor-pointer transition-colors hover:bg-black/[0.02]"
                     style={{ borderTop: '1px solid var(--color-beige)' }}
                   >
-                    <td className="px-5 py-3 text-[0.82rem]" style={{ color: 'var(--color-forest)', fontWeight: 600 }}>
+                    <td className="px-6 py-4 text-[0.82rem]" style={{ color: 'var(--color-forest)', fontWeight: 600 }}>
                       {o.orderNumber}
                     </td>
-                    <td className="px-5 py-3 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
+                    <td className="px-6 py-4 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
                       {o.customer.name}
                     </td>
-                    <td className="px-5 py-3 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
+                    <td className="px-6 py-4 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
                       {money(o.total)}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <StatusBadge status={o.status} />
                     </td>
-                    <td className="px-5 py-3 text-right text-[0.74rem] whitespace-nowrap" style={{ color: 'var(--color-ink)', opacity: 0.5 }}>
+                    <td className="px-6 py-4 text-right text-[0.74rem] whitespace-nowrap" style={{ color: 'var(--color-ink)', opacity: 0.5 }}>
                       {timeAgo(o.createdAt)}
                     </td>
                   </tr>
@@ -178,15 +178,15 @@ function Metric({ label, value, accent = false }: { label: string; value: string
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: EASE }}
     >
-      <Card>
+      <Card padded={false} className="p-8">
         <p className="text-[0.66rem] uppercase tracking-[0.18em]" style={{ color: 'var(--color-ink)', opacity: 0.5 }}>
           {label}
         </p>
         <p
-          className="mt-2"
+          className="mt-3"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: '1.7rem',
+            fontSize: '1.6rem',
             color: accent ? 'var(--color-gold)' : 'var(--color-forest)',
             lineHeight: 1,
           }}

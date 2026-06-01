@@ -251,7 +251,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`bg-white ${padded ? 'p-5' : ''} ${className}`}
+      className={`bg-white ${padded ? 'p-6' : ''} ${className}`}
       style={{ border: '1px solid var(--color-beige)', borderRadius: 3 }}
     >
       {children}
@@ -263,13 +263,16 @@ export function PageHeader({
   title,
   subtitle,
   actions,
+  className = 'mb-8',
 }: {
   title: string
   subtitle?: string
   actions?: ReactNode
+  /** Bottom-margin (and any extra) for the header block. Defaults to mb-8. */
+  className?: string
 }) {
   return (
-    <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
+    <div className={`flex flex-wrap items-end justify-between gap-4 ${className}`}>
       <div>
         <h1
           style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--color-forest)', lineHeight: 1.1 }}
@@ -277,7 +280,7 @@ export function PageHeader({
           {title}
         </h1>
         {subtitle && (
-          <p className="mt-1 text-[0.85rem]" style={{ color: 'var(--color-ink)', opacity: 0.6 }}>
+          <p className="mt-2 text-[0.85rem]" style={{ color: 'var(--color-ink)', opacity: 0.6 }}>
             {subtitle}
           </p>
         )}

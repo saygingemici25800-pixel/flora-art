@@ -117,7 +117,7 @@ export default function Coupons() {
                     transition={{ duration: 0.3, ease: EASE, delay: Math.min(i, 10) * 0.02 }}
                     style={{ borderBottom: '1px solid var(--color-beige)' }}
                   >
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <span
                         className="text-[0.84rem] tracking-[0.05em]"
                         style={{ color: 'var(--color-forest)', fontWeight: 600, fontFamily: 'var(--font-body)' }}
@@ -125,23 +125,23 @@ export default function Coupons() {
                         {c.code}
                       </span>
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <Tag tone="gold">{c.type === 'percent' ? `%${c.value}` : money(c.value)}</Tag>
                     </td>
-                    <td className="px-5 py-3 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
+                    <td className="px-6 py-4 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
                       {c.minOrder != null ? money(c.minOrder) : '—'}
                     </td>
-                    <td className="px-5 py-3 text-[0.8rem]" style={{ color: 'var(--color-ink)', opacity: 0.7 }}>
+                    <td className="px-6 py-4 text-[0.8rem]" style={{ color: 'var(--color-ink)', opacity: 0.7 }}>
                       {c.expiresAt ? date(c.expiresAt) : 'Süresiz'}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       {busyCode === c.code ? (
                         <Spinner size={16} />
                       ) : (
                         <Toggle checked={c.active} onChange={() => toggleActive(c)} />
                       )}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-1">
                         <IconButton
                           label="Düzenle"
@@ -316,7 +316,7 @@ function CouponFormModal({
 function Th({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
     <th
-      className={`px-5 py-3 text-[0.64rem] font-normal uppercase tracking-[0.16em] ${className}`}
+      className={`px-6 py-4 text-[0.64rem] font-normal uppercase tracking-[0.16em] ${className}`}
       style={{ color: 'var(--color-ink)', opacity: 0.5, fontFamily: 'var(--font-body)' }}
     >
       {children}

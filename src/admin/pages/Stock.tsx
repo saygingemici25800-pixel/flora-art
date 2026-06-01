@@ -92,7 +92,7 @@ export default function Stock() {
         <EmptyState title="Ürün yok" hint="Önce ürün ekleyin." />
       ) : (
         <>
-          <div className="mb-4 flex gap-2">
+          <div className="mb-6 flex gap-2">
             <Button variant="ghost" size="sm" onClick={selectAll}>
               Tümünü Seç
             </Button>
@@ -101,7 +101,7 @@ export default function Stock() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((p, i) => {
               const on = selected.has(p.id)
               return (
@@ -115,7 +115,7 @@ export default function Stock() {
                     <button
                       type="button"
                       onClick={() => toggle(p.id)}
-                      className="flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left transition-colors hover:bg-black/[0.02]"
+                      className="flex w-full items-center justify-between gap-3 px-6 py-4 text-left transition-colors hover:bg-black/[0.02]"
                     >
                       <div className="min-w-0">
                         <p className="truncate text-[0.86rem]" style={{ color: 'var(--color-forest)', fontWeight: 600 }}>

@@ -48,7 +48,7 @@ export default function Orders() {
       <PageHeader title="Siparişler" subtitle={`${orders.length} sipariş`} />
 
       {/* Status filter tabs */}
-      <div className="mb-5 flex flex-wrap gap-2">
+      <div className="mb-6 flex flex-wrap gap-2">
         <FilterChip label="Tümü" count={counts.all} active={filter === 'all'} onClick={() => setFilter('all')} />
         {ORDER_STATUSES.map((s) => (
           <FilterChip
@@ -93,7 +93,7 @@ export default function Orders() {
                     className="cursor-pointer transition-colors hover:bg-black/[0.02]"
                     style={{ borderBottom: '1px solid var(--color-beige)' }}
                   >
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <p className="text-[0.84rem]" style={{ color: 'var(--color-forest)', fontWeight: 600 }}>
                         {o.orderNumber}
                       </p>
@@ -101,16 +101,16 @@ export default function Orders() {
                         {o.items.length} kalem · {PAYMENT_LABELS[o.paymentMethod]}
                       </p>
                     </td>
-                    <td className="px-5 py-3 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
+                    <td className="px-6 py-4 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
                       {o.customer.name}
                     </td>
-                    <td className="px-5 py-3 text-[0.85rem]" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>
+                    <td className="px-6 py-4 text-[0.85rem]" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>
                       {money(o.total)}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <StatusBadge status={o.status} />
                     </td>
-                    <td className="px-5 py-3 text-right text-[0.74rem] whitespace-nowrap" style={{ color: 'var(--color-ink)', opacity: 0.5 }}>
+                    <td className="px-6 py-4 text-right text-[0.74rem] whitespace-nowrap" style={{ color: 'var(--color-ink)', opacity: 0.5 }}>
                       {timeAgo(o.createdAt)}
                     </td>
                   </motion.tr>
@@ -304,7 +304,7 @@ function FilterChip({
 function Th({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
     <th
-      className={`px-5 py-3 text-[0.64rem] font-normal uppercase tracking-[0.16em] ${className}`}
+      className={`px-6 py-4 text-[0.64rem] font-normal uppercase tracking-[0.16em] ${className}`}
       style={{ color: 'var(--color-ink)', opacity: 0.5, fontFamily: 'var(--font-body)' }}
     >
       {children}

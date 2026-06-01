@@ -95,7 +95,7 @@ export default function Products() {
         }
       />
 
-      <div className="mb-5 flex flex-wrap gap-3">
+      <div className="mb-6 flex flex-wrap gap-3">
         <div className="w-48">
           <Select
             value={category}
@@ -138,7 +138,7 @@ export default function Products() {
                     transition={{ duration: 0.3, ease: EASE, delay: Math.min(i, 10) * 0.02 }}
                     style={{ borderBottom: '1px solid var(--color-beige)' }}
                   >
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <Thumb product={p} />
                         <div>
@@ -152,10 +152,10 @@ export default function Products() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-5 py-3 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
+                    <td className="px-6 py-4 text-[0.82rem]" style={{ color: 'var(--color-ink)' }}>
                       {CATEGORY_LABELS[p.category]}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <span className="text-[0.85rem]" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>
                         {money(p.price)}
                       </span>
@@ -165,14 +165,14 @@ export default function Products() {
                         </span>
                       )}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       {busyId === p.id ? (
                         <Spinner size={16} />
                       ) : (
                         <Toggle checked={p.available} onChange={() => toggleAvailable(p)} />
                       )}
                     </td>
-                    <td className="px-5 py-3">
+                    <td className="px-6 py-4">
                       <div className="flex items-center justify-end gap-1">
                         <IconButton label="Düzenle" onClick={() => openEdit(p)}>
                           <EditIcon />
@@ -213,7 +213,7 @@ export default function Products() {
 function Th({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
     <th
-      className={`px-5 py-3 text-[0.64rem] font-normal uppercase tracking-[0.16em] ${className}`}
+      className={`px-6 py-4 text-[0.64rem] font-normal uppercase tracking-[0.16em] ${className}`}
       style={{ color: 'var(--color-ink)', opacity: 0.5, fontFamily: 'var(--font-body)' }}
     >
       {children}
