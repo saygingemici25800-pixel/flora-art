@@ -1,12 +1,16 @@
 /**
- * Admin shell: fixed 240px sidebar + offset content column + sticky topbar +
- * routed <Outlet/>. Layout offsets are driven by explicit CSS (admin.css,
- * `.admin-sidebar` / `.admin-main`) with a 768px breakpoint rather than
- * Tailwind responsive utilities, so the content can never slide under the
- * fixed sidebar. Below 768px the sidebar collapses to a hamburger drawer.
+ * Admin shell: fixed 240px sidebar + offset content column + routed <Outlet/>.
+ *
+ * Spacing is enforced with explicit CSS (admin.css) rather than Tailwind
+ * utilities so it can never be purged or overridden:
+ *   .admin-sidebar  → fixed 240px, padding 32/24, forest, border-right
+ *   .admin-main     → margin-left 240px, padding 40/48 (content breathes)
+ *   .admin-nav-link → padded pills (14/16, radius 8)
+ * Chromeless: no topbar. Below 768px the sidebar collapses to a drawer
+ * opened by a floating hamburger.
  */
 import { useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { useAuth } from '../lib/useAuth'
@@ -26,27 +30,18 @@ const NAV: NavItem[] = [
   { to: '/admin/stock', label: 'Günlük Stok', icon: <CalendarIcon /> },
 ]
 
-const TODAY = new Intl.DateTimeFormat('tr-TR', {
-  weekday: 'long',
-  day: 'numeric',
-  month: 'long',
-}).format(new Date())
-
 export default function AdminLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const location = useLocation()
   const logout = useAuth((s) => s.logout)
-
-  const current = NAV.find((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to)))
 
   return (
     <div className="admin-shell">
-      {/* Desktop sidebar — fixed, 240px, shown ≥768px via .admin-sidebar */}
+      {/* Desktop sidebar — padding/forest/border supplied by .admin-sidebar */}
       <aside className="admin-sidebar">
         <SidebarContent onNavigate={() => {}} onLogout={logout} />
       </aside>
 
-      {/* Mobile drawer (<768px) */}
+      {/* Mobile drawer (<768px) — mirrors the sidebar's forest + padding inline */}
       <AnimatePresence>
         {drawerOpen && (
           <>
@@ -60,7 +55,13 @@ export default function AdminLayout() {
             />
             <motion.aside
               className="admin-drawer fixed inset-y-0 left-0 z-50"
-              style={{ width: 240 }}
+              style={{
+                width: 240,
+                background: 'var(--color-forest)',
+                padding: '32px 24px',
+                borderRight: '1px solid rgba(200,169,110,0.15)',
+                overflowY: 'auto',
+              }}
               initial={{ x: -260 }}
               animate={{ x: 0 }}
               exit={{ x: -260 }}
@@ -72,34 +73,17 @@ export default function AdminLayout() {
         )}
       </AnimatePresence>
 
-      {/* Content column — offset by the sidebar width (margin-left:240px ≥768px) */}
-      <div className="admin-main">
-        <header
-          className="sticky top-0 z-20 flex h-16 items-center justify-between gap-4 bg-white/85 px-4 backdrop-blur sm:px-7"
-          style={{ borderBottom: '1px solid var(--color-beige)' }}
-        >
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setDrawerOpen(true)}
-              aria-label="Menüyü aç"
-              className="admin-menu-btn h-9 w-9 items-center justify-center"
-              style={{ border: '1px solid var(--color-beige)', borderRadius: 2, color: 'var(--color-forest)' }}
-            >
-              <MenuIcon />
-            </button>
-            <span className="text-[0.95rem]" style={{ fontFamily: 'var(--font-display)', color: 'var(--color-forest)' }}>
-              {current?.label ?? 'Panel'}
-            </span>
-          </div>
-          <span className="hidden text-[0.78rem] capitalize sm:block" style={{ color: 'var(--color-ink)', opacity: 0.55 }}>
-            {TODAY}
-          </span>
-        </header>
+      {/* Floating hamburger — mobile only (.admin-menu-btn hides ≥768px) */}
+      <button type="button" onClick={() => setDrawerOpen(true)} aria-label="Menüyü aç" className="admin-menu-btn">
+        <MenuIcon />
+      </button>
 
-        <main className="mx-auto max-w-6xl px-6 py-10 sm:px-10">
+      {/* Content column — padding 40/48 supplied by .admin-main; inner wrapper
+          caps the content width so wide monitors don't spread tables edge-to-edge */}
+      <div className="admin-main">
+        <div style={{ maxWidth: '80rem', marginInline: 'auto', width: '100%' }}>
           <Outlet />
-        </main>
+        </div>
       </div>
     </div>
   )
@@ -107,8 +91,8 @@ export default function AdminLayout() {
 
 function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLogout: () => void }) {
   return (
-    <div className="flex h-full flex-col" style={{ background: 'var(--color-forest)' }}>
-      <div className="px-6 pb-6 pt-7">
+    <div className="flex h-full flex-col">
+      <div style={{ marginBottom: '28px' }}>
         <p style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--color-cream)', lineHeight: 1 }}>
           Flora Art
         </p>
@@ -120,15 +104,15 @@ function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLo
         </p>
       </div>
 
-      <nav className="flex-1 px-3">
+      <nav className="flex-1">
         {NAV.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.end}
             onClick={onNavigate}
-            className="admin-nav-link relative flex items-center gap-3 px-3 py-3 text-[0.85rem] transition-colors"
-            style={{ fontFamily: 'var(--font-body)', borderRadius: 2 }}
+            className="admin-nav-link flex items-center gap-3 text-[0.85rem] transition-colors"
+            style={{ fontFamily: 'var(--font-body)' }}
           >
             <span className="admin-nav-icon grid h-5 w-5 place-items-center">{item.icon}</span>
             {item.label}
@@ -136,13 +120,13 @@ function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLo
         ))}
       </nav>
 
-      <div className="px-3 pb-5">
+      <div style={{ marginTop: '8px' }}>
         <a
           href="/"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-3 px-3 py-3 text-[0.8rem] transition-colors hover:text-[var(--color-gold)]"
-          style={{ color: 'rgba(245,240,232,0.7)', fontFamily: 'var(--font-body)', borderRadius: 2 }}
+          className="flex items-center gap-3 text-[0.8rem] transition-colors hover:text-[var(--color-gold)]"
+          style={{ color: 'rgba(245,240,232,0.7)', fontFamily: 'var(--font-body)', padding: '12px 16px', borderRadius: 8 }}
         >
           <span className="grid h-5 w-5 place-items-center"><ExternalIcon /></span>
           Siteye Dön
@@ -150,8 +134,8 @@ function SidebarContent({ onNavigate, onLogout }: { onNavigate: () => void; onLo
         <button
           type="button"
           onClick={onLogout}
-          className="flex w-full items-center gap-3 px-3 py-3 text-[0.8rem] transition-colors hover:text-[var(--color-gold)]"
-          style={{ color: 'rgba(245,240,232,0.7)', fontFamily: 'var(--font-body)', borderRadius: 2 }}
+          className="flex w-full items-center gap-3 text-[0.8rem] transition-colors hover:text-[var(--color-gold)]"
+          style={{ color: 'rgba(245,240,232,0.7)', fontFamily: 'var(--font-body)', padding: '12px 16px', borderRadius: 8 }}
         >
           <span className="grid h-5 w-5 place-items-center"><LogoutIcon /></span>
           Çıkış Yap
@@ -202,7 +186,7 @@ function CalendarIcon() {
 }
 function MenuIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">
       <path d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   )

@@ -68,24 +68,17 @@
 /* ── Sidebar nav ───────────────────────────────────────────────── */
 .admin-nav-link {
   color: rgba(245, 240, 232, 0.72);
+  padding: 14px 16px;
+  margin-bottom: 4px;
+  border-radius: 8px;
 }
-.admin-nav-link:hover {
+.admin-nav-link:not(.active):hover {
   color: var(--color-cream);
   background: rgba(255, 255, 255, 0.05);
 }
 .admin-nav-link.active {
   color: var(--color-cream);
-  background: rgba(200, 169, 110, 0.15);
-}
-.admin-nav-link.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 6px;
-  bottom: 6px;
-  width: 3px;
-  background: var(--color-gold);
-  border-radius: 0 2px 2px 0;
+  background: rgba(200, 169, 110, 0.18);
 }
 .admin-nav-link .admin-nav-icon {
   color: rgba(245, 240, 232, 0.6);
@@ -113,16 +106,45 @@
   height: 100vh;
   z-index: 50;
   display: none; /* mobile: hidden, replaced by the drawer */
+  background: var(--color-forest);
+  padding: 32px 24px; /* logo + links breathe away from the edges */
+  border-right: 1px solid rgba(200, 169, 110, 0.15);
+  overflow-y: auto; /* short viewports: keep footer actions reachable */
 }
 
 .admin-main {
   min-height: 100vh;
   background: var(--color-cream);
   margin-left: 0; /* mobile: full width */
+  padding: 88px 20px 40px; /* mobile: top room for the floating hamburger */
 }
 
+/* Floating hamburger — mobile only */
 .admin-menu-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 30;
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--color-forest);
+  color: var(--color-cream);
+  border-radius: 10px;
+}
+
+/* Dashboard grids — generous, enforced gaps */
+.admin-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.admin-two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
 }
 
 @media (min-width: 768px) {
@@ -131,11 +153,21 @@
   }
   .admin-main {
     margin-left: 240px; /* offset by the sidebar width — the critical rule */
+    padding: 40px 48px; /* content separated from the sidebar edge + right */
   }
   .admin-menu-btn {
     display: none; /* hamburger only on mobile */
   }
   .admin-drawer {
     display: none !important; /* never show the mobile drawer ≥768px */
+  }
+  .admin-stat-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .admin-two-col {
+    grid-template-columns: 1fr 1fr;
   }
 }
