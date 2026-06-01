@@ -1,0 +1,141 @@
+/**
+ * Admin-scoped styles. Loaded by AdminApp and confined to `.admin-scope`
+ * so none of it leaks into the storefront. Covers: cursor reset (the global
+ * site hides the cursor), button variants, control focus, and nav states.
+ */
+
+/* The storefront hides the native cursor (`* { cursor: none }`). The admin
+   is a form-heavy tool — restore real cursors within its scope. */
+.admin-scope,
+.admin-scope * {
+  cursor: auto;
+}
+.admin-scope a,
+.admin-scope button,
+.admin-scope select,
+.admin-scope [role='switch'] {
+  cursor: pointer;
+}
+.admin-scope input,
+.admin-scope textarea {
+  cursor: text;
+}
+.admin-scope button:disabled,
+.admin-scope [role='switch']:disabled {
+  cursor: not-allowed;
+}
+
+/* ── Button variants ───────────────────────────────────────────── */
+.admin-btn[data-variant='primary'] {
+  background: var(--color-forest);
+  color: var(--color-cream);
+  border-color: var(--color-forest);
+}
+.admin-btn[data-variant='primary']:hover:not(:disabled) {
+  background: var(--color-gold);
+  color: var(--color-forest);
+  border-color: var(--color-gold);
+}
+.admin-btn[data-variant='ghost'] {
+  background: transparent;
+  color: var(--color-forest);
+  border-color: rgba(28, 43, 26, 0.25);
+}
+.admin-btn[data-variant='ghost']:hover:not(:disabled) {
+  background: rgba(28, 43, 26, 0.06);
+  border-color: rgba(28, 43, 26, 0.4);
+}
+.admin-btn[data-variant='danger'] {
+  background: transparent;
+  color: #8a3b30;
+  border-color: rgba(138, 59, 48, 0.4);
+}
+.admin-btn[data-variant='danger']:hover:not(:disabled) {
+  background: #8a3b30;
+  color: var(--color-cream);
+  border-color: #8a3b30;
+}
+
+/* ── Form controls ─────────────────────────────────────────────── */
+.admin-control:focus {
+  border-color: var(--color-gold) !important;
+  box-shadow: 0 0 0 3px rgba(200, 169, 110, 0.18);
+}
+.admin-control::placeholder {
+  color: rgba(44, 44, 44, 0.4);
+}
+
+/* ── Sidebar nav ───────────────────────────────────────────────── */
+.admin-nav-link {
+  color: rgba(245, 240, 232, 0.72);
+}
+.admin-nav-link:hover {
+  color: var(--color-cream);
+  background: rgba(255, 255, 255, 0.05);
+}
+.admin-nav-link.active {
+  color: var(--color-cream);
+  background: rgba(200, 169, 110, 0.15);
+}
+.admin-nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: var(--color-gold);
+  border-radius: 0 2px 2px 0;
+}
+.admin-nav-link .admin-nav-icon {
+  color: rgba(245, 240, 232, 0.6);
+  transition: color 0.2s ease;
+}
+.admin-nav-link:hover .admin-nav-icon,
+.admin-nav-link.active .admin-nav-icon {
+  color: var(--color-gold);
+}
+
+/* ── Layout shell ──────────────────────────────────────────────── */
+/* The fixed sidebar is out of flow, so the content column must be offset
+   by its width. Driven here with an explicit 768px breakpoint instead of
+   Tailwind utilities so content can never slide under the sidebar. */
+.admin-shell {
+  min-height: 100vh;
+  background: var(--color-cream);
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  z-index: 50;
+  display: none; /* mobile: hidden, replaced by the drawer */
+}
+
+.admin-main {
+  min-height: 100vh;
+  background: var(--color-cream);
+  margin-left: 0; /* mobile: full width */
+}
+
+.admin-menu-btn {
+  display: inline-flex;
+}
+
+@media (min-width: 768px) {
+  .admin-sidebar {
+    display: block;
+  }
+  .admin-main {
+    margin-left: 240px; /* offset by the sidebar width — the critical rule */
+  }
+  .admin-menu-btn {
+    display: none; /* hamburger only on mobile */
+  }
+  .admin-drawer {
+    display: none !important; /* never show the mobile drawer ≥768px */
+  }
+}

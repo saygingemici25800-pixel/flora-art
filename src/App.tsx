@@ -18,7 +18,11 @@ const Delivery = lazy(() => import('./pages/Delivery'))
 const About = lazy(() => import('./pages/About'))
 const Contact = lazy(() => import('./pages/Contact'))
 
-function AppInner() {
+// The admin panel is a self-contained app, lazily loaded so none of it ships
+// in the storefront bundle. Mounted outside the storefront Layout.
+const AdminApp = lazy(() => import('./admin/AdminApp'))
+
+function Storefront() {
   useLenis()
   useCursor()
   const location = useLocation()
@@ -62,6 +66,21 @@ function AppInner() {
       </Suspense>
     </Layout>
   )
+}
+
+function AppInner() {
+  const location = useLocation()
+  const isAdmin = location.pathname === '/admin' || location.pathname.startsWith('/admin/')
+
+  if (isAdmin) {
+    return (
+      <Suspense fallback={<PageLoader />}>
+        <AdminApp />
+      </Suspense>
+    )
+  }
+
+  return <Storefront />
 }
 
 export default function App() {
