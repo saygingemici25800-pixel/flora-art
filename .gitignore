@@ -13,6 +13,14 @@ dist-ssr
 .vite
 *.local
 
+# Local env files (keep .env.example tracked)
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
