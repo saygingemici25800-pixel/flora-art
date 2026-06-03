@@ -7,6 +7,7 @@ import { useCartStore } from '../store/cartStore'
 import { useSEO } from '../hooks/useSEO'
 import ProductMotif from '../components/ui/ProductMotif'
 import ProductCard from '../components/ui/ProductCard'
+import TiltCard from '../components/ui/TiltCard'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -142,26 +143,33 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
             transition={{ duration: 0.7, ease: EASE }}
             className="md:col-span-7"
           >
-            <div
-              className="relative overflow-hidden"
+            <TiltCard
+              className="relative"
               style={{ background: 'var(--color-beige)', aspectRatio: '4 / 5' }}
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={variant}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.45, ease: EASE }}
-                  className="absolute inset-0"
-                >
-                  <ProductMotif
-                    kind={product.motif}
-                    color={VARIANTS[variant].color}
-                    opacity={VARIANTS[variant].opacity}
-                  />
-                </motion.div>
-              </AnimatePresence>
+              {/* Motif layer — clipped HERE (not on the tilting card, which must
+                  stay overflow:visible so preserve-3d isn't flattened). */}
+              <div
+                className="absolute inset-0 overflow-hidden"
+                style={{ transform: 'translateZ(40px)' }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={variant}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.45, ease: EASE }}
+                    className="absolute inset-0"
+                  >
+                    <ProductMotif
+                      kind={product.motif}
+                      color={VARIANTS[variant].color}
+                      opacity={VARIANTS[variant].opacity}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
 
               {product.badge && (
                 <span
@@ -172,6 +180,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                     background: 'var(--color-gold)',
                     color: 'var(--color-forest)',
                     fontWeight: 500,
+                    transform: 'translateZ(60px)',
                   }}
                 >
                   {t(`featured.badges.${product.badge}`)}
@@ -185,11 +194,12 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                   color: 'var(--color-gold)',
                   opacity: 0.6,
                   fontSize: '1.2rem',
+                  transform: 'translateZ(50px)',
                 }}
               >
                 ✦
               </span>
-            </div>
+            </TiltCard>
 
             <div className="mt-4 flex gap-3">
               {VARIANTS.map((v, i) => (
