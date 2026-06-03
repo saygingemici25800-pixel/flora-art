@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useCartStore } from '../../store/cartStore'
-import type { Product } from '../../data/products'
+import type { StoreProduct } from '../../hooks/useProducts'
 import ProductMotif from './ProductMotif'
 
 function langPrefix(pathname: string): string {
@@ -29,9 +29,9 @@ function categoryIndex(id: string): number {
 }
 
 interface Props {
-  product: Product
+  product: StoreProduct
   index?: number
-  onQuickView?: (product: Product) => void
+  onQuickView?: (product: StoreProduct) => void
   /** Override the default 3/4 image aspect-ratio (e.g. '4 / 5', '1 / 1') */
   aspectRatio?: string
 }
@@ -50,6 +50,7 @@ export default function ProductCard({
   const prefix = langPrefix(location.pathname)
   const productHref = `${prefix}/product/${product.id}`
   const currency = t('featured.currency') as string
+  const soldOut = !product.available
   const badgeLabel = product.badge
     ? (t(`featured.badges.${product.badge}`) as string)
     : undefined
@@ -72,7 +73,10 @@ export default function ProductCard({
           aspectRatio,
         }}
       >
-        <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.06]">
+        <div
+          className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+          style={soldOut ? { filter: 'grayscale(0.4)', opacity: 0.8 } : undefined}
+        >
           <ProductMotif kind={product.motif} />
         </div>
 
@@ -95,22 +99,37 @@ export default function ProductCard({
           <HeartIcon filled={wished} />
         </button>
 
-        {badgeLabel && (
+        {soldOut ? (
           <span
             className="absolute top-4 right-4 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"
             style={{
               fontFamily: 'var(--font-display)',
               fontVariant: 'small-caps',
-              background: 'var(--color-gold)',
-              color: 'var(--color-forest)',
+              background: 'var(--color-forest)',
+              color: 'var(--color-cream)',
               fontWeight: 500,
             }}
           >
-            {badgeLabel}
+            {t('featured.soldOut')}
           </span>
+        ) : (
+          badgeLabel && (
+            <span
+              className="absolute top-4 right-4 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontVariant: 'small-caps',
+                background: 'var(--color-gold)',
+                color: 'var(--color-forest)',
+                fontWeight: 500,
+              }}
+            >
+              {badgeLabel}
+            </span>
+          )
         )}
 
-        {onQuickView && (
+        {onQuickView && !soldOut && (
           <button
             type="button"
             onClick={(e) => {
@@ -160,7 +179,7 @@ export default function ProductCard({
         </h3>
 
         <p
-          className="mb-4 whitespace-nowrap"
+          className="mb-4 whitespace-nowrap flex items-baseline gap-2"
           style={{
             fontFamily: 'var(--font-body)',
             fontSize: '1.2rem',
@@ -169,17 +188,31 @@ export default function ProductCard({
             letterSpacing: '0.02em',
           }}
         >
-          {currency}
-          {product.price}
+          <span>
+            {currency}
+            {product.price}
+          </span>
+          {product.oldPrice != null && (
+            <span
+              className="line-through"
+              style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--color-ink)', opacity: 0.45 }}
+            >
+              {currency}
+              {product.oldPrice}
+            </span>
+          )}
         </p>
 
         <button
           type="button"
+          disabled={soldOut}
           onClick={(e) => {
             e.preventDefault()
-            addItem(product)
+            if (!soldOut) addItem(product)
           }}
-          className="add-to-cart-btn w-full py-3 text-[0.8rem] tracking-[0.12em] uppercase transition-colors duration-300 border mt-auto"
+          className={`add-to-cart-btn w-full py-3 text-[0.8rem] tracking-[0.12em] uppercase transition-colors duration-300 border mt-auto ${
+            soldOut ? 'cursor-not-allowed opacity-50' : ''
+          }`}
           style={{
             background: 'transparent',
             color: 'var(--color-forest)',
@@ -187,12 +220,12 @@ export default function ProductCard({
             fontFamily: 'var(--font-body)',
           }}
         >
-          {t('featured.addToCart')}
+          {soldOut ? t('featured.soldOut') : t('featured.addToCart')}
         </button>
       </div>
 
       <style>{`
-        .add-to-cart-btn:hover {
+        .add-to-cart-btn:hover:not(:disabled) {
           background: var(--color-gold) !important;
           border-color: var(--color-gold) !important;
           color: var(--color-forest) !important;

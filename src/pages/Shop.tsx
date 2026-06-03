@@ -2,9 +2,11 @@ import { useMemo, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import { products, type CategoryId, type Product } from '../data/products'
+import type { CategoryId } from '../types'
+import { useProducts, type StoreProduct } from '../hooks/useProducts'
 import { useSEO } from '../hooks/useSEO'
 import ProductCard from '../components/ui/ProductCard'
+import { ProductGridSkeleton } from '../components/ui/ProductSkeleton'
 import QuickViewModal from '../components/ui/QuickViewModal'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -47,16 +49,17 @@ export default function Shop() {
     description: t('seo.shop.description') as string,
   })
 
+  const { products: allProducts, loading, error } = useProducts()
   const [filter, setFilter] = useState<Filter>('all')
   const [sort, setSort] = useState<SortKey>('newest')
-  const [quickView, setQuickView] = useState<Product | null>(null)
+  const [quickView, setQuickView] = useState<StoreProduct | null>(null)
 
   const visible = useMemo(() => {
-    let list = filter === 'all' ? products : products.filter((p) => p.category === filter)
+    let list = filter === 'all' ? allProducts : allProducts.filter((p) => p.category === filter)
     if (sort === 'priceAsc') list = [...list].sort((a, b) => a.price - b.price)
     else if (sort === 'priceDesc') list = [...list].sort((a, b) => b.price - a.price)
     return list
-  }, [filter, sort])
+  }, [allProducts, filter, sort])
 
   return (
     <>
@@ -98,7 +101,7 @@ export default function Shop() {
                 className="italic md:-ml-10"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: 'clamp(5rem, 12vw, 10rem)',
+                  fontSize: 'clamp(3.25rem, 12vw, 10rem)',
                   color: 'var(--color-cream)',
                   letterSpacing: '-0.025em',
                   lineHeight: 0.95,
@@ -138,7 +141,21 @@ export default function Shop() {
         }}
       >
         <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-          {visible.length === 0 ? (
+          {loading ? (
+            <ProductGridSkeleton count={8} />
+          ) : error ? (
+            <p
+              className="text-center py-20"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '1.5rem',
+                color: 'var(--color-forest)',
+                opacity: 0.7,
+              }}
+            >
+              {error}
+            </p>
+          ) : visible.length === 0 ? (
             <p
               className="text-center py-20"
               style={{

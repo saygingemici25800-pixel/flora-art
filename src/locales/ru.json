@@ -63,6 +63,7 @@
     "viewAll": "Смотреть все",
     "addToCart": "В корзину",
     "currency": "₺",
+    "soldOut": "Распродано",
     "badges": {
       "holland": "HOLLAND",
       "new": "НОВОЕ",
@@ -81,6 +82,7 @@
     "sortPriceDesc": "Цена ↓",
     "quickView": "Быстрый просмотр",
     "empty": "В этой категории пока нет товаров.",
+    "loadError": "Не удалось загрузить товары",
     "howMade": {
       "title": "Как они собираются",
       "subtitle": "Из Голландии в нашу мастерскую, из мастерской — к вам.",
@@ -131,6 +133,7 @@
     "certBody": "Этот товар поставлен с цветочного аукциона Амстердама.",
     "certNote": "Aalsmeer Royal FloraHolland · Premium Selection",
     "similarTitle": "Похожие товары",
+    "backToCollection": "Вернуться в коллекцию",
     "notFoundTitle": "Товар не найден",
     "notFoundHint": "Возможно, искомого товара больше нет в наличии.",
     "notFoundCta": "В коллекцию",

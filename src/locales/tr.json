@@ -63,6 +63,7 @@
     "viewAll": "Tümünü Gör",
     "addToCart": "Sepete Ekle",
     "currency": "₺",
+    "soldOut": "Tükendi",
     "badges": {
       "holland": "HOLLAND",
       "new": "YENİ",
@@ -81,6 +82,7 @@
     "sortPriceDesc": "Fiyat ↓",
     "quickView": "Hızlı Bakış",
     "empty": "Bu kategoride henüz ürün yok.",
+    "loadError": "Ürünler yüklenemedi",
     "howMade": {
       "title": "Çiçekler Nasıl Hazırlanıyor?",
       "subtitle": "Holland'dan atölyemize, atölyemizden size.",
@@ -131,6 +133,7 @@
     "certBody": "Bu ürün Amsterdam çiçek müzayedesinden temin edilmiştir.",
     "certNote": "Aalsmeer Royal FloraHolland · Premium Selection",
     "similarTitle": "Benzer Ürünler",
+    "backToCollection": "Koleksiyona Dön",
     "notFoundTitle": "Ürün Bulunamadı",
     "notFoundHint": "Aradığınız ürün artık mevcut değil olabilir.",
     "notFoundCta": "Koleksiyona Dön",

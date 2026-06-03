@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
-import { products, type Product } from '../data/products'
+import { useProducts, type StoreProduct } from '../hooks/useProducts'
 import { useCartStore } from '../store/cartStore'
 import { useSEO } from '../hooks/useSEO'
 import ProductMotif from '../components/ui/ProductMotif'
@@ -60,24 +60,49 @@ export default function ProductDetail() {
   const location = useLocation()
   const prefix = langPrefix(location.pathname)
   const addItem = useCartStore((s) => s.addItem)
+  const { products, loading, error } = useProducts()
 
-  const product = useMemo(() => products.find((p) => p.id === id), [id])
+  const product = useMemo(() => products.find((p) => p.id === id), [products, id])
+  const similar = useMemo(
+    () =>
+      product
+        ? products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 4)
+        : [],
+    [products, product],
+  )
 
+  if (loading) {
+    return <ProductDetailSkeleton />
+  }
+  // A fetch failure must not be reported as a non-existent product.
+  if (error) {
+    return <LoadError prefix={prefix} message={error} />
+  }
   if (!product) {
     return <NotFound prefix={prefix} />
   }
 
-  return <ProductDetailContent key={product.id} product={product} prefix={prefix} addItem={addItem} t={t} />
+  return (
+    <ProductDetailContent
+      key={product.id}
+      product={product}
+      similar={similar}
+      prefix={prefix}
+      addItem={addItem}
+      t={t}
+    />
+  )
 }
 
 interface ContentProps {
-  product: Product
+  product: StoreProduct
+  similar: StoreProduct[]
   prefix: string
-  addItem: (p: Product) => void
+  addItem: (p: StoreProduct) => void
   t: ReturnType<typeof useTranslation>['t']
 }
 
-function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
+function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentProps) {
   useSEO({
     title: t('seo.product.titleTemplate', { name: product.name }) as string,
     description: t('seo.product.description') as string,
@@ -106,14 +131,6 @@ function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
     note: note || '—',
   }) as string
   const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`
-
-  const similar = useMemo(
-    () =>
-      products
-        .filter((p) => p.id !== product.id && p.category === product.category)
-        .slice(0, 4),
-    [product.id, product.category],
-  )
 
   return (
     <>
@@ -243,7 +260,7 @@ function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
             </h1>
 
             <p
-              className="mb-6"
+              className="mb-6 flex items-baseline gap-3"
               style={{
                 fontFamily: 'var(--font-body)',
                 fontSize: '2rem',
@@ -252,8 +269,19 @@ function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
                 letterSpacing: '0.01em',
               }}
             >
-              {currency}
-              {product.price}
+              <span>
+                {currency}
+                {product.price}
+              </span>
+              {product.oldPrice != null && (
+                <span
+                  className="line-through"
+                  style={{ fontSize: '1.1rem', fontWeight: 400, color: 'var(--color-ink)', opacity: 0.45 }}
+                >
+                  {currency}
+                  {product.oldPrice}
+                </span>
+              )}
             </p>
 
             <span
@@ -431,17 +459,21 @@ function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
             <div className="flex flex-col gap-3 mb-6">
               <button
                 type="button"
+                disabled={!product.available}
                 onClick={() => {
+                  if (!product.available) return
                   for (let i = 0; i < quantity; i++) addItem(product)
                 }}
-                className="pd-cta-primary w-full py-4 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
+                className={`pd-cta-primary w-full py-4 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300 ${
+                  product.available ? '' : 'cursor-not-allowed opacity-50'
+                }`}
                 style={{
                   background: 'var(--color-gold)',
                   color: 'var(--color-forest)',
                   fontFamily: 'var(--font-body)',
                 }}
               >
-                {t('product.addToCart')}
+                {product.available ? t('product.addToCart') : t('featured.soldOut')}
               </button>
               <a
                 href={whatsappHref}
@@ -472,7 +504,7 @@ function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
             </ul>
 
             <style>{`
-              .pd-cta-primary:hover {
+              .pd-cta-primary:hover:not(:disabled) {
                 background: var(--color-forest) !important;
                 color: var(--color-cream) !important;
               }
@@ -578,27 +610,116 @@ function ProductDetailContent({ product, prefix, addItem, t }: ContentProps) {
           }}
         >
           <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-            <h2
-              className="italic mb-10 md:mb-14"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2rem, 4vw, 3rem)',
-                color: 'var(--color-forest)',
-                letterSpacing: '-0.015em',
-                lineHeight: 1,
-              }}
-            >
-              {t('product.similarTitle')}
-            </h2>
+            <div className="mb-10 md:mb-14 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <h2
+                className="italic"
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: 'clamp(2rem, 4vw, 3rem)',
+                  color: 'var(--color-forest)',
+                  letterSpacing: '-0.015em',
+                  lineHeight: 1,
+                }}
+              >
+                {t('product.similarTitle')}
+              </h2>
+              <Link
+                to={`${prefix}/shop`}
+                className="back-to-collection group inline-flex w-full items-center justify-center gap-2 px-7 py-3 text-[12px] tracking-[0.2em] uppercase transition-colors duration-300 sm:w-auto"
+                style={{
+                  background: 'transparent',
+                  color: 'var(--color-forest)',
+                  border: '1px solid var(--color-gold)',
+                  fontFamily: 'var(--font-body)',
+                }}
+              >
+                <span>{t('product.backToCollection')}</span>
+                <span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
+            </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-8 md:gap-y-16">
               {similar.map((p, i) => (
                 <ProductCard key={p.id} product={p} index={i} />
               ))}
             </div>
+            <style>{`
+              .back-to-collection:hover {
+                background: var(--color-gold) !important;
+                color: var(--color-forest) !important;
+                border-color: var(--color-gold) !important;
+              }
+            `}</style>
           </div>
         </section>
       )}
     </>
+  )
+}
+
+function LoadError({ prefix, message }: { prefix: string; message: string }) {
+  const { t } = useTranslation()
+  return (
+    <section
+      className="relative w-full grid place-items-center px-6 text-center"
+      style={{
+        background: 'var(--color-cream)',
+        minHeight: 'calc(100dvh - 78px)',
+        paddingTop: '120px',
+        paddingBottom: '120px',
+      }}
+    >
+      <div>
+        <p
+          className="italic"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            color: 'var(--color-forest)',
+            letterSpacing: '-0.015em',
+            lineHeight: 1.05,
+          }}
+        >
+          {message}
+        </p>
+        <Link
+          to={`${prefix}/shop`}
+          className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-[12px] tracking-[0.28em] uppercase transition-colors"
+          style={{
+            background: 'var(--color-forest)',
+            color: 'var(--color-cream)',
+            fontFamily: 'var(--font-body)',
+          }}
+        >
+          {t('product.notFoundCta')} <span aria-hidden="true">→</span>
+        </Link>
+      </div>
+    </section>
+  )
+}
+
+function ProductDetailSkeleton() {
+  const pulse = {
+    animate: { opacity: [0.5, 0.85, 0.5] },
+    transition: { duration: 1.5, repeat: Infinity, ease: 'easeInOut' as const },
+  }
+  return (
+    <section className="relative w-full" style={{ background: 'var(--color-cream)' }} aria-hidden="true">
+      <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-[110px] md:pt-[140px] pb-16 md:pb-24 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16">
+        <div className="md:col-span-7">
+          <motion.div {...pulse} className="w-full" style={{ aspectRatio: '4 / 5', background: 'var(--color-beige)' }} />
+        </div>
+        <div className="md:col-span-5 flex flex-col gap-4 pt-6">
+          <motion.div {...pulse} className="h-3 w-1/4" style={{ background: 'rgba(200,169,110,0.3)' }} />
+          <motion.div {...pulse} className="h-10 w-3/4" style={{ background: 'rgba(28,43,26,0.12)' }} />
+          <motion.div {...pulse} className="h-8 w-1/3" style={{ background: 'rgba(200,169,110,0.25)' }} />
+          <motion.div {...pulse} className="h-px w-full" style={{ background: 'rgba(200,169,110,0.3)' }} />
+          <motion.div {...pulse} className="h-24 w-full" style={{ background: 'rgba(28,43,26,0.06)' }} />
+          <motion.div {...pulse} className="h-12 w-full" style={{ background: 'rgba(28,43,26,0.1)' }} />
+        </div>
+      </div>
+    </section>
   )
 }
 

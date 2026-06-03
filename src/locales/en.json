@@ -63,6 +63,7 @@
     "viewAll": "View All",
     "addToCart": "Add to Cart",
     "currency": "₺",
+    "soldOut": "Sold Out",
     "badges": {
       "holland": "HOLLAND",
       "new": "NEW",
@@ -81,6 +82,7 @@
     "sortPriceDesc": "Price ↓",
     "quickView": "Quick View",
     "empty": "No products in this category yet.",
+    "loadError": "Failed to load products",
     "howMade": {
       "title": "How They Come Together",
       "subtitle": "From Holland to our atelier, from our atelier to you.",
@@ -131,6 +133,7 @@
     "certBody": "This product is sourced from the Amsterdam flower auction.",
     "certNote": "Aalsmeer Royal FloraHolland · Premium Selection",
     "similarTitle": "Similar Pieces",
+    "backToCollection": "Back to Collection",
     "notFoundTitle": "Product Not Found",
     "notFoundHint": "The product you are looking for may no longer be available.",
     "notFoundCta": "Back to Collection",

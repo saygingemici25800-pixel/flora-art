@@ -62,12 +62,12 @@ export default function Footer() {
             >
               {t('footer.quickLinks')}
             </h3>
-            <ul className="space-y-3">
+            <ul className="space-y-1">
               {linkKeys.map((key) => (
                 <li key={key}>
                   <Link
                     to={`${prefix}/${key}`}
-                    className="text-[15px] tracking-wide transition-colors hover:text-[var(--color-gold)]"
+                    className="block py-2 text-[15px] tracking-wide transition-colors hover:text-[var(--color-gold)]"
                     style={{ fontFamily: 'var(--font-display)', color: 'var(--color-cream)' }}
                   >
                     {t(`nav.${key}`)}

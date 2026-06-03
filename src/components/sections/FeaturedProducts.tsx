@@ -2,7 +2,8 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
-import { featuredProducts, type Product } from '../../data/products'
+import { useCartStore } from '../../store/cartStore'
+import { useProducts, type StoreProduct } from '../../hooks/useProducts'
 import ProductMotif from '../ui/ProductMotif'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -17,6 +18,7 @@ export default function FeaturedProducts() {
   const { t } = useTranslation()
   const location = useLocation()
   const prefix = langPrefix(location.pathname)
+  const { products: featured, loading } = useProducts({ featured: true })
 
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -32,7 +34,8 @@ export default function FeaturedProducts() {
     measure()
     window.addEventListener('resize', measure)
     return () => window.removeEventListener('resize', measure)
-  }, [])
+    // Re-measure once products load and the track width changes.
+  }, [loading, featured.length])
 
   return (
     <section
@@ -119,16 +122,19 @@ export default function FeaturedProducts() {
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.8, ease: EASE }}
         >
-          {featuredProducts.map((p, i) => (
-            <ProductCard
-              key={p.id}
-              product={p}
-              addLabel={t('featured.addToCart')}
-              currency={t('featured.currency') as string}
-              badgeLabel={p.badge ? (t(`featured.badges.${p.badge}`) as string) : undefined}
-              index={i}
-            />
-          ))}
+          {loading
+            ? Array.from({ length: 4 }).map((_, i) => <FeaturedSkeletonCard key={i} />)
+            : featured.map((p, i) => (
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  addLabel={t('featured.addToCart')}
+                  soldOutLabel={t('featured.soldOut') as string}
+                  currency={t('featured.currency') as string}
+                  badgeLabel={p.badge ? (t(`featured.badges.${p.badge}`) as string) : undefined}
+                  index={i}
+                />
+              ))}
           <span aria-hidden="true" className="shrink-0 w-2 md:w-6" />
         </motion.div>
       </div>
@@ -139,16 +145,20 @@ export default function FeaturedProducts() {
 function ProductCard({
   product,
   addLabel,
+  soldOutLabel,
   currency,
   badgeLabel,
   index,
 }: {
-  product: Product
+  product: StoreProduct
   addLabel: string
+  soldOutLabel: string
   currency: string
   badgeLabel?: string
   index: number
 }) {
+  const addItem = useCartStore((s) => s.addItem)
+  const soldOut = !product.available
   return (
     <motion.article
       initial={{ opacity: 0, y: 24 }}
@@ -162,21 +172,41 @@ function ProductCard({
         className="relative h-[320px] overflow-hidden"
         style={{ background: 'var(--color-beige)' }}
       >
-        <ProductMotif kind={product.motif} />
+        <div
+          className="absolute inset-0"
+          style={soldOut ? { filter: 'grayscale(0.4)', opacity: 0.8 } : undefined}
+        >
+          <ProductMotif kind={product.motif} />
+        </div>
 
-        {badgeLabel && (
+        {soldOut ? (
           <span
             className="absolute top-3 right-3 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"
             style={{
               fontFamily: 'var(--font-display)',
               fontVariant: 'small-caps',
-              background: 'var(--color-gold)',
-              color: 'var(--color-forest)',
+              background: 'var(--color-forest)',
+              color: 'var(--color-cream)',
               fontWeight: 500,
             }}
           >
-            {badgeLabel}
+            {soldOutLabel}
           </span>
+        ) : (
+          badgeLabel && (
+            <span
+              className="absolute top-3 right-3 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontVariant: 'small-caps',
+                background: 'var(--color-gold)',
+                color: 'var(--color-forest)',
+                fontWeight: 500,
+              }}
+            >
+              {badgeLabel}
+            </span>
+          )
         )}
       </div>
 
@@ -210,7 +240,13 @@ function ProductCard({
 
         <button
           type="button"
-          className="add-btn w-full py-3 text-[11px] tracking-[0.28em] uppercase transition-colors duration-300 border"
+          disabled={soldOut}
+          onClick={() => {
+            if (!soldOut) addItem(product)
+          }}
+          className={`add-btn w-full py-3 text-[11px] tracking-[0.28em] uppercase transition-colors duration-300 border ${
+            soldOut ? 'cursor-not-allowed opacity-50' : ''
+          }`}
           style={{
             background: 'transparent',
             color: 'var(--color-forest)',
@@ -218,18 +254,35 @@ function ProductCard({
             fontFamily: 'var(--font-body)',
           }}
         >
-          {addLabel}
+          {soldOut ? soldOutLabel : addLabel}
         </button>
       </div>
 
       <style>{`
-        .add-btn:hover {
+        .add-btn:hover:not(:disabled) {
           background: var(--color-gold) !important;
           border-color: var(--color-gold) !important;
           color: var(--color-forest) !important;
         }
       `}</style>
     </motion.article>
+  )
+}
+
+function FeaturedSkeletonCard() {
+  return (
+    <motion.div
+      animate={{ opacity: [0.5, 0.85, 0.5] }}
+      transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+      className="shrink-0 w-[280px]"
+      aria-hidden="true"
+    >
+      <div className="h-[320px]" style={{ background: 'var(--color-beige)' }} />
+      <div className="pt-5">
+        <div className="mb-4 h-4 w-2/3" style={{ background: 'rgba(28,43,26,0.12)' }} />
+        <div className="h-9 w-full" style={{ background: 'rgba(28,43,26,0.08)' }} />
+      </div>
+    </motion.div>
   )
 }
 

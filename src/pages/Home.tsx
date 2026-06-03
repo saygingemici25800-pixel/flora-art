@@ -44,8 +44,7 @@ export default function Home() {
       <GrainTexture />
 
       <div
-        className="relative z-[2] mx-auto max-w-[1400px] pr-6 md:pr-10 pt-[120px] md:pt-[140px] pb-24 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-center min-h-[100dvh]"
-        style={{ paddingLeft: '4vw' }}
+        className="relative z-[2] mx-auto max-w-[1400px] pl-6 md:pl-[4vw] pr-6 md:pr-10 pt-[120px] md:pt-[140px] pb-24 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-center min-h-[100dvh]"
       >
         <div className="md:col-span-7 relative">
           <motion.div
@@ -74,7 +73,7 @@ export default function Home() {
             className="italic leading-[0.92] mb-8 md:mb-10"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(5rem, 13vw, 11rem)',
+              fontSize: 'clamp(4rem, 13vw, 11rem)',
               letterSpacing: '-0.02em',
               color: 'var(--color-cream)',
             }}
@@ -116,7 +115,7 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.7 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.85 }}
-            className="flex flex-wrap items-center gap-x-5 gap-y-3 text-[0.9rem] tracking-[0.08em] mb-10"
+            className="grid grid-cols-2 gap-x-6 gap-y-3 text-[0.8rem] sm:flex sm:flex-wrap sm:items-center sm:gap-x-5 sm:text-[0.9rem] tracking-[0.08em] mb-10"
             style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
           >
             {stats.map((s, i) => (
@@ -125,7 +124,7 @@ export default function Home() {
                 {i < stats.length - 1 && (
                   <span
                     aria-hidden="true"
-                    className="block w-px h-4"
+                    className="hidden sm:block w-px h-4"
                     style={{ background: 'var(--color-gold)', opacity: 0.4 }}
                   />
                 )}

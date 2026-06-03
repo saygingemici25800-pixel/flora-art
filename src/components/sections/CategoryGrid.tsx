@@ -83,28 +83,13 @@ export default function CategoryGrid() {
         {/* Bento: Buket 2x2 dominant sol; sağda 4 küçük kart.
             Saksı bu grid'den çıkarıldı (data'da kalıyor — Shop'tan erişilebilir). */}
         <div
-          className="grid grid-cols-1 gap-[2px] md:grid-cols-4"
-          style={{
-            background: 'var(--color-forest)',
-            gridTemplateAreas: `
-              "buket buket kutu dugum"
-              "buket buket kurumsal uluslararasi"
-            `,
-            gridAutoRows: 'minmax(220px, 1fr)',
-          }}
+          className="grid grid-cols-2 gap-[2px] md:grid-cols-4 auto-rows-[minmax(180px,1fr)] md:auto-rows-[minmax(220px,1fr)]"
+          style={{ background: 'var(--color-forest)' }}
         >
           {categories
             .filter((c) => c.id !== 'plant')
             .map((cat, i) => {
               const id = cat.id as CategoryId
-              const areaMap: Record<string, string> = {
-                bouquet: 'buket',
-                box: 'kutu',
-                wedding: 'dugum',
-                corporate: 'kurumsal',
-                international: 'uluslararasi',
-              }
-              const area = areaMap[cat.id] ?? ''
               const isBig = cat.id === 'bouquet'
               return (
                 <motion.div
@@ -113,8 +98,7 @@ export default function CategoryGrid() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-8% 0px' }}
                   transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
-                  style={{ gridArea: area }}
-                  className="min-h-[220px]"
+                  className={`min-h-[180px] md:min-h-[220px] ${isBig ? 'col-span-2 md:row-span-2' : ''}`}
                 >
                   <CategoryCard
                     to={`${prefix}/shop`}
@@ -172,13 +156,14 @@ function CategoryCard({ to, name, discoverLabel, id, big }: CardProps) {
         }`}
       >
         <h3
-          className="transition-colors duration-500"
+          className="transition-colors duration-500 break-words"
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: big ? 'clamp(3rem, 5vw, 6rem)' : 'clamp(1.5rem, 2.5vw, 2.5rem)',
+            fontSize: big ? 'clamp(2.5rem, 9vw, 6rem)' : 'clamp(1.25rem, 4.5vw, 2.5rem)',
             color: 'var(--color-forest)',
             letterSpacing: '-0.01em',
             lineHeight: 1.05,
+            overflowWrap: 'break-word',
           }}
         >
           {name}

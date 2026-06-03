@@ -2,13 +2,13 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useCartStore } from '../../store/cartStore'
-import type { Product } from '../../data/products'
+import type { StoreProduct } from '../../hooks/useProducts'
 import ProductMotif from './ProductMotif'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
 interface Props {
-  product: Product | null
+  product: StoreProduct | null
   onClose: () => void
 }
 
@@ -73,19 +73,34 @@ export default function QuickViewModal({ product, onClose }: Props) {
               style={{ background: 'var(--color-beige)' }}
             >
               <ProductMotif kind={product.motif} />
-              {product.badge && (
+              {!product.available ? (
                 <span
                   className="absolute top-4 left-4 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"
                   style={{
                     fontFamily: 'var(--font-display)',
                     fontVariant: 'small-caps',
-                    background: 'var(--color-gold)',
-                    color: 'var(--color-forest)',
+                    background: 'var(--color-forest)',
+                    color: 'var(--color-cream)',
                     fontWeight: 500,
                   }}
                 >
-                  {t(`featured.badges.${product.badge}`)}
+                  {t('featured.soldOut')}
                 </span>
+              ) : (
+                product.badge && (
+                  <span
+                    className="absolute top-4 left-4 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"
+                    style={{
+                      fontFamily: 'var(--font-display)',
+                      fontVariant: 'small-caps',
+                      background: 'var(--color-gold)',
+                      color: 'var(--color-forest)',
+                      fontWeight: 500,
+                    }}
+                  >
+                    {t(`featured.badges.${product.badge}`)}
+                  </span>
+                )
               )}
             </div>
 
@@ -114,7 +129,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
               </h2>
 
               <p
-                className="mb-8"
+                className="mb-8 flex items-baseline gap-3"
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '1.4rem',
@@ -123,8 +138,19 @@ export default function QuickViewModal({ product, onClose }: Props) {
                   letterSpacing: '0.02em',
                 }}
               >
-                {t('featured.currency') as string}
-                {product.price}
+                <span>
+                  {t('featured.currency') as string}
+                  {product.price}
+                </span>
+                {product.oldPrice != null && (
+                  <span
+                    className="line-through"
+                    style={{ fontSize: '0.95rem', fontWeight: 400, color: 'var(--color-ink)', opacity: 0.45 }}
+                  >
+                    {t('featured.currency') as string}
+                    {product.oldPrice}
+                  </span>
+                )}
               </p>
 
               <p
@@ -141,22 +167,26 @@ export default function QuickViewModal({ product, onClose }: Props) {
 
               <button
                 type="button"
+                disabled={!product.available}
                 onClick={() => {
+                  if (!product.available) return
                   addItem(product)
                   onClose()
                 }}
-                className="qv-add-btn w-full py-4 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
+                className={`qv-add-btn w-full py-4 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300 ${
+                  product.available ? '' : 'cursor-not-allowed opacity-50'
+                }`}
                 style={{
                   background: 'var(--color-forest)',
                   color: 'var(--color-cream)',
                   fontFamily: 'var(--font-body)',
                 }}
               >
-                {t('featured.addToCart')}
+                {product.available ? t('featured.addToCart') : t('featured.soldOut')}
               </button>
 
               <style>{`
-                .qv-add-btn:hover {
+                .qv-add-btn:hover:not(:disabled) {
                   background: var(--color-gold) !important;
                   color: var(--color-forest) !important;
                 }
