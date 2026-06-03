@@ -1,11 +1,12 @@
 /**
- * Admin login. Mock-gated in STEP 2 (checks DEMO_PASSWORD); on success the
- * auth store flips and the guard in AdminApp redirects into the panel.
+ * Admin login. Posts the password to /api/auth/login; on success the server
+ * sets the httpOnly cookie, the auth store flips, and the AdminApp guard
+ * lets the panel render.
  */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { DEMO_PASSWORD, useAuth } from '../lib/useAuth'
+import { useAuth } from '../lib/useAuth'
 import { Button, EASE, Field, TextInput } from '../components/primitives'
 
 export default function Login() {
@@ -67,13 +68,6 @@ export default function Login() {
           <Button type="submit" loading={loading} className="mt-5 w-full">
             Giriş Yap
           </Button>
-
-          <p
-            className="mt-5 text-center text-[0.72rem]"
-            style={{ color: 'var(--color-ink)', opacity: 0.5, fontFamily: 'var(--font-body)' }}
-          >
-            Demo parola: <span style={{ color: 'var(--color-gold)' }}>{DEMO_PASSWORD}</span>
-          </p>
         </form>
       </motion.div>
     </div>

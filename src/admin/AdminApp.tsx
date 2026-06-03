@@ -3,9 +3,11 @@
  * Mounted by the storefront App whenever the path is under /admin — outside
  * the storefront Layout, so no navbar / footer / custom cursor / Lenis.
  */
+import { useEffect } from 'react'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import './admin.css'
 import { useAuth } from './lib/useAuth'
+import { Spinner } from './components/primitives'
 import { ToastProvider } from './components/Toast'
 import AdminLayout from './components/AdminLayout'
 import Login from './pages/Login'
@@ -17,11 +19,28 @@ import Stock from './pages/Stock'
 
 function RequireAuth() {
   const authed = useAuth((s) => s.authed)
+  const checked = useAuth((s) => s.checked)
+  // Wait for the initial /verify so a valid cookie isn't bounced to login.
+  if (!checked) {
+    return (
+      <div
+        className="flex min-h-screen items-center justify-center"
+        style={{ background: 'var(--color-cream)' }}
+      >
+        <Spinner size={28} />
+      </div>
+    )
+  }
   if (!authed) return <Navigate to="/admin/login" replace />
   return <Outlet />
 }
 
 export default function AdminApp() {
+  const checkSession = useAuth((s) => s.checkSession)
+  useEffect(() => {
+    checkSession()
+  }, [checkSession])
+
   return (
     <ToastProvider>
       <div className="admin-scope">

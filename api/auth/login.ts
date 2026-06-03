@@ -17,6 +17,17 @@ export default function handler(req: VercelRequest, res: VercelResponse): void {
     return
   }
 
+  // Surface a clear configuration error instead of a confusing 401 when the
+  // server-side secrets haven't been set (e.g. before adding them in Vercel).
+  if (!process.env.ADMIN_PASSWORD) {
+    sendError(res, 500, 'ADMIN_PASSWORD tanımlı değil')
+    return
+  }
+  if (!process.env.JWT_SECRET) {
+    sendError(res, 500, 'JWT_SECRET tanımlı değil')
+    return
+  }
+
   const body = readBody<{ password?: unknown }>(req)
   if (!verifyPassword(body?.password)) {
     // Generic message — don't reveal whether the password merely had wrong length.
