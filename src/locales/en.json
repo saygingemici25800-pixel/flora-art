@@ -144,6 +144,8 @@
     "title": "Checkout",
     "steps": ["Delivery", "Review", "Payment"],
     "back": "Back",
+    "processing": "Processing…",
+    "orderError": "Could not place your order, please try again.",
     "step1": {
       "title": "Delivery Details",
       "fullName": "Full Name",

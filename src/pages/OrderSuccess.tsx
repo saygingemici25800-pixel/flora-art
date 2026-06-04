@@ -24,11 +24,17 @@ export default function OrderSuccess() {
   const prefix = langPrefix(location.pathname)
   const clearCart = useCartStore((s) => s.clearCart)
 
-  const [orderId] = useState(() => generateOrderId())
+  // Real order number from checkout (router state); fall back to a placeholder
+  // for direct visits / hard refresh where the navigation state is gone.
+  const stateOrderNumber = (location.state as { orderNumber?: string } | null)?.orderNumber
+  const [fallbackId] = useState(() => generateOrderId())
+  const orderNumber = stateOrderNumber ?? `#${fallbackId}`
 
+  // Clear the cart only on a genuine completion (arrived with an order number),
+  // never on a direct visit / refresh that would otherwise empty an in-progress cart.
   useEffect(() => {
-    clearCart()
-  }, [clearCart])
+    if (stateOrderNumber) clearCart()
+  }, [stateOrderNumber, clearCart])
 
   const confetti = useMemo(() => buildConfetti(), [])
 
@@ -80,7 +86,7 @@ export default function OrderSuccess() {
         >
           <span style={{ opacity: 0.7 }}>{t('orderSuccess.orderNoLabel')}</span>
           <span style={{ fontSize: '16px', fontWeight: 600, letterSpacing: '0.1em' }}>
-            #{orderId}
+            {orderNumber}
           </span>
         </motion.p>
 
@@ -117,7 +123,7 @@ export default function OrderSuccess() {
           </Link>
           <a
             href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-              `Sipariş No: #${orderId}`,
+              `Sipariş No: ${orderNumber}`,
             )}`}
             target="_blank"
             rel="noopener noreferrer"

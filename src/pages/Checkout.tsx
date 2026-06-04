@@ -7,6 +7,7 @@ import {
   useCartStore,
   type CartItem,
 } from '../store/cartStore'
+import type { Order, OrderInput } from '../types'
 import ProductMotif from '../components/ui/ProductMotif'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -73,9 +74,12 @@ export default function Checkout() {
 
   const items = useCartStore((s) => s.items)
   const subtotal = useCartStore(selectSubtotal)
+  const clearCart = useCartStore((s) => s.clearCart)
   const currency = t('featured.currency') as string
 
   const [step, setStep] = useState<1 | 2 | 3>(1)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
   const [form, setForm] = useState<FormState>({
     fullName: '',
     phone: '',
@@ -112,21 +116,103 @@ export default function Checkout() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  function handleComplete(e: React.FormEvent) {
-    e.preventDefault()
-    navigate(`${prefix}/order-success`)
+  const timesList = t('checkout.step1.times', { returnObjects: true }) as {
+    id: TimeSlot
+    label: string
+  }[]
+
+  /** Map the cart + form into the API's OrderInput shape. */
+  function buildOrderInput(paymentMethod: 'card' | 'whatsapp'): OrderInput {
+    const timeLabel = timesList.find((s) => s.id === form.time)?.label ?? form.time
+    const fullAddress = [form.country, form.city, form.address].filter(Boolean).join(', ')
+    const deliveryRegion =
+      form.region === 'local'
+        ? 'Fethiye'
+        : form.region === 'turkey'
+        ? form.city.trim() || 'Türkiye'
+        : form.country.trim() || 'Uluslararası'
+    return {
+      customer: {
+        name: form.fullName.trim(),
+        phone: form.phone.trim(),
+        email: form.email.trim(),
+      },
+      items: items.map((it) => ({
+        productId: it.id,
+        name: it.name,
+        price: it.price,
+        quantity: it.quantity,
+      })),
+      delivery: {
+        region: deliveryRegion,
+        date: form.date,
+        timeSlot: timeLabel,
+        address: fullAddress,
+        giftNote: form.giftNote.trim() || undefined,
+      },
+      subtotal,
+      deliveryFee,
+      total,
+      paymentMethod,
+    }
   }
 
-  function handleWhatsAppComplete() {
+  async function postOrder(paymentMethod: 'card' | 'whatsapp'): Promise<Order> {
+    const res = await fetch('/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(buildOrderInput(paymentMethod)),
+    })
+    if (!res.ok) {
+      let detail = ''
+      try {
+        const data = (await res.json()) as { error?: string }
+        if (data?.error) detail = ` (${data.error})`
+      } catch {
+        /* non-JSON error body */
+      }
+      throw new Error(`${t('checkout.orderError')}${detail}`)
+    }
+    return (await res.json()) as Order
+  }
+
+  async function handleComplete(e: React.FormEvent) {
+    e.preventDefault()
+    if (submitting) return
+    setSubmitError(null)
+    setSubmitting(true)
+    try {
+      const order = await postOrder('card')
+      clearCart()
+      navigate(`${prefix}/order-success`, { state: { orderNumber: order.orderNumber } })
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : (t('checkout.orderError') as string))
+      setSubmitting(false)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  async function handleWhatsAppComplete() {
+    if (submitting) return
+    setSubmitError(null)
+    setSubmitting(true)
+
+    let order: Order
+    try {
+      order = await postOrder('whatsapp')
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : (t('checkout.orderError') as string))
+      setSubmitting(false)
+      return
+    }
+
+    // Order is persisted server-side — from here on never re-enable the button,
+    // so a thrown side-effect can't trigger a duplicate POST. WhatsApp is best-effort.
     const itemsLine = items
       .map((it) => `• ${it.name} × ${it.quantity} — ${currency}${it.price * it.quantity}`)
       .join('\n')
-    const timeLabel =
-      (t('checkout.step1.times', { returnObjects: true }) as { id: TimeSlot; label: string }[]).find(
-        (s) => s.id === form.time,
-      )?.label ?? form.time
+    const timeLabel = timesList.find((s) => s.id === form.time)?.label ?? form.time
     const fullAddress = [form.country, form.city, form.address].filter(Boolean).join(', ')
-
     const msg = t('checkout.step3.whatsappTemplate', {
       items: itemsLine,
       name: form.fullName || '—',
@@ -136,8 +222,16 @@ export default function Checkout() {
       time: timeLabel,
       total,
     }) as string
-    const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
-    window.open(href, '_blank', 'noopener,noreferrer')
+    const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+      `${order.orderNumber}\n${msg}`,
+    )}`
+    clearCart()
+    try {
+      window.open(href, '_blank', 'noopener,noreferrer')
+    } catch {
+      /* popup blocked — the order is already placed */
+    }
+    navigate(`${prefix}/order-success`, { state: { orderNumber: order.orderNumber } })
   }
 
   if (items.length === 0) {
@@ -224,6 +318,8 @@ export default function Checkout() {
                     update={update}
                     onBack={() => setStep(2)}
                     onWhatsApp={handleWhatsAppComplete}
+                    submitting={submitting}
+                    submitError={submitError}
                   />
                 </motion.form>
               )}
@@ -699,9 +795,11 @@ interface Step3Props {
   update: <K extends keyof FormState>(key: K, value: FormState[K]) => void
   onBack: () => void
   onWhatsApp: () => void
+  submitting: boolean
+  submitError: string | null
 }
 
-function Step3({ form, update, onBack, onWhatsApp }: Step3Props) {
+function Step3({ form, update, onBack, onWhatsApp, submitting, submitError }: Step3Props) {
   const { t } = useTranslation()
   return (
     <>
@@ -774,17 +872,35 @@ function Step3({ form, update, onBack, onWhatsApp }: Step3Props) {
         </Field>
       </div>
 
+      {submitError && (
+        <p
+          role="alert"
+          className="mt-6 px-4 py-3 text-[0.85rem]"
+          style={{
+            background: 'rgba(138,59,48,0.08)',
+            border: '1px solid rgba(138,59,48,0.3)',
+            color: '#8A3B30',
+            fontFamily: 'var(--font-body)',
+          }}
+        >
+          {submitError}
+        </p>
+      )}
+
       <button
         type="submit"
-        className="cta-primary mt-8 inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
+        disabled={submitting}
+        className={`cta-primary mt-8 inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300 ${
+          submitting ? 'cursor-not-allowed opacity-60' : ''
+        }`}
         style={{
           background: 'var(--color-gold)',
           color: 'var(--color-forest)',
           fontFamily: 'var(--font-body)',
         }}
       >
-        {t('checkout.step3.complete')}
-        <span aria-hidden="true">→</span>
+        {submitting ? t('checkout.processing') : t('checkout.step3.complete')}
+        {!submitting && <span aria-hidden="true">→</span>}
       </button>
 
       <div className="flex items-center gap-4 my-8">
@@ -801,7 +917,10 @@ function Step3({ form, update, onBack, onWhatsApp }: Step3Props) {
       <button
         type="button"
         onClick={onWhatsApp}
-        className="inline-flex items-center justify-center gap-3 w-full py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
+        disabled={submitting}
+        className={`inline-flex items-center justify-center gap-3 w-full py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300 ${
+          submitting ? 'cursor-not-allowed opacity-60' : ''
+        }`}
         style={{
           background: '#25D366',
           color: '#FFFFFF',

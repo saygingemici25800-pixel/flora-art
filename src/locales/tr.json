@@ -144,6 +144,8 @@
     "title": "Ödeme",
     "steps": ["Teslimat", "Özet", "Ödeme"],
     "back": "Geri",
+    "processing": "İşleniyor…",
+    "orderError": "Sipariş oluşturulamadı, lütfen tekrar deneyin.",
     "step1": {
       "title": "Teslimat Bilgileri",
       "fullName": "Ad Soyad",
