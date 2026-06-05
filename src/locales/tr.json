@@ -14,6 +14,33 @@
     "badge": "Holland Premium · Fethiye",
     "stats": ["★ 5.0", "122 Yorum", "Holland Kaynağı", "2h Teslimat"]
   },
+  "homepage": {
+    "sectionLabel": "Koleksiyon",
+    "hero": {
+      "tagline": "Holland Premium · Fethiye",
+      "cta": "Koleksiyonu Keşfet",
+      "location": "Fethiye · Türkiye",
+      "scroll": "Kaydır"
+    },
+    "categoryDesc": {
+      "bouquet": "El yapımı buketler — mevsimin en taze gülü, lalesi ve şakayığı, özenle bir araya.",
+      "box": "Şık kutularda dizilmiş çiçekler. Hediye etmenin en zarif, en kalıcı yolu.",
+      "wedding": "Düğün ve nişanlar için özel tasarım aranjmanlar — o an kadar eşsiz.",
+      "corporate": "Kurumsal zarafet. Ofisler ve etkinlikler için uzun ömürlü düzenlemeler.",
+      "plant": "Saksı bitkileri ve teraryumlar — yaşayan, nefes alan, büyüyen hediyeler."
+    },
+    "about": {
+      "label": "Biz Kimiz",
+      "cta": "Hikayemizi Oku"
+    },
+    "contact": {
+      "label": "İletişim",
+      "title": "Sevdikleriniz\niçin",
+      "sub": "Bir buket, bir his. Siparişiniz ya da sorularınız için bize ulaşın — Fethiye'den dünyaya.",
+      "whatsapp": "WhatsApp ile Sipariş",
+      "order": "Sipariş Ver"
+    }
+  },
   "ticker": {
     "items": [
       "Holland Premium",

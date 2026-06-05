@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
@@ -33,6 +33,15 @@ const CATEGORY_ORDER: CategoryId[] = [
   'international',
 ]
 
+// Resolve the initial filter from a `?category=` query param (set by the
+// homepage category links). Unknown/absent values fall back to 'all'.
+function filterFromSearch(search: string): Filter {
+  const value = new URLSearchParams(search).get('category')
+  return value && (CATEGORY_ORDER as string[]).includes(value)
+    ? (value as CategoryId)
+    : 'all'
+}
+
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'
   if (pathname.startsWith('/ru')) return '/ru'
@@ -50,9 +59,15 @@ export default function Shop() {
   })
 
   const { products: allProducts, loading, error } = useProducts()
-  const [filter, setFilter] = useState<Filter>('all')
+  const [filter, setFilter] = useState<Filter>(() => filterFromSearch(location.search))
   const [sort, setSort] = useState<SortKey>('newest')
   const [quickView, setQuickView] = useState<StoreProduct | null>(null)
+
+  // Re-sync the filter when arriving via a different `?category=` link
+  // while already mounted on the Shop page.
+  useEffect(() => {
+    setFilter(filterFromSearch(location.search))
+  }, [location.search])
 
   const visible = useMemo(() => {
     let list = filter === 'all' ? allProducts : allProducts.filter((p) => p.category === filter)

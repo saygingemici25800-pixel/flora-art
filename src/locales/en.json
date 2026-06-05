@@ -14,6 +14,33 @@
     "badge": "Holland Premium · Fethiye",
     "stats": ["★ 5.0", "122 Reviews", "Holland Sourced", "2h Delivery"]
   },
+  "homepage": {
+    "sectionLabel": "Collection",
+    "hero": {
+      "tagline": "Holland Premium · Fethiye",
+      "cta": "Explore the Collection",
+      "location": "Fethiye · Türkiye",
+      "scroll": "Scroll"
+    },
+    "categoryDesc": {
+      "bouquet": "Hand-tied bouquets — the season's freshest roses, tulips and peonies, gathered with care.",
+      "box": "Flowers arranged in elegant boxes. The most refined, lasting way to give.",
+      "wedding": "Bespoke arrangements for weddings and engagements — as singular as the moment.",
+      "corporate": "Corporate elegance. Long-lasting designs for offices and events.",
+      "plant": "Potted plants and terrariums — living, breathing, growing gifts."
+    },
+    "about": {
+      "label": "Who We Are",
+      "cta": "Read Our Story"
+    },
+    "contact": {
+      "label": "Contact",
+      "title": "For the ones\nyou love",
+      "sub": "A bouquet, a feeling. Reach out for an order or any question — from Fethiye to the world.",
+      "whatsapp": "Order via WhatsApp",
+      "order": "Place an Order"
+    }
+  },
   "ticker": {
     "items": [
       "Holland Premium",
