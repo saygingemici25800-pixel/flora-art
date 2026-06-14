@@ -21,6 +21,14 @@ dist-ssr
 # Vercel
 .vercel
 
+# Local agent tooling (skills installed via npx skills — not project code)
+.agents/
+.claude/
+skills-lock.json
+
+# Unused video alternates (site serves mp4; webm not referenced)
+public/videos/*.webm
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

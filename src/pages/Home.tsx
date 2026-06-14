@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <>
       <IntroLoader />
-      <Hero prefix={prefix} />
+      <Hero prefix={prefix} desktop={desktop} />
       {categories.map((cat, i) => (
         <CategorySection
           key={cat.id}
@@ -90,108 +90,146 @@ export default function Home() {
 
 /* ── Hero ──────────────────────────────────────────────────────── */
 
-function Hero({ prefix }: { prefix: string }) {
+function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
   const { t } = useTranslation()
-  const headline = (t('hero.headline') as string).split('\n')
+  const titleLines = (t('homepage.header.title') as string).split('\n')
+
+  // Asymmetric staircase: each video a different width, alternating edge,
+  // stepped down with a slight overlap for an editorial, layered feel.
+  const videos: { base: string; w: string; align: 'flex-start' | 'flex-end'; mt: string }[] = [
+    { base: 'about-vahap-tanitim', w: '64%', align: 'flex-end', mt: '0' },
+    { base: 'contact-vahap-mesaj', w: '48%', align: 'flex-start', mt: '-12%' },
+    { base: 'about-vahap-cicekler', w: '56%', align: 'flex-end', mt: '-8%' },
+  ]
 
   return (
     <section
       className="relative w-full overflow-hidden"
       style={{ minHeight: '100dvh', background: 'var(--color-forest)', color: 'var(--color-cream)' }}
     >
-      <VideoBackdrop
-        src="/videos/hero-flowers.mp4"
-        overlay={0.5}
-        fallback={<HeroFallback />}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{ background: 'radial-gradient(circle at 80% 28%, rgba(200,169,110,0.10), rgba(28,43,26,0) 55%)' }}
       />
 
-      <div className="relative z-[2] mx-auto flex min-h-[100dvh] max-w-[1400px] flex-col justify-center px-6 pb-24 pt-[120px] md:px-10">
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 0.85, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
-          className="mb-7 flex items-center gap-4 text-[11px] uppercase tracking-[0.32em]"
-          style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
-        >
-          <span className="block h-px w-12" style={{ background: 'var(--color-gold)' }} />
-          {t('homepage.hero.tagline')}
-        </motion.span>
-
-        <h1
-          className="italic"
+      <div
+        className="relative z-[2] mx-auto w-full max-w-[1500px] px-6 md:px-10"
+        style={{
+          minHeight: '100dvh',
+          display: 'flex',
+          alignItems: 'center',
+          paddingTop: desktop ? '132px' : '104px',
+          paddingBottom: '56px',
+        }}
+      >
+        <div
+          className="w-full"
           style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(3.75rem, 12vw, 10.5rem)',
-            letterSpacing: '-0.02em',
-            lineHeight: 0.92,
-            color: 'var(--color-cream)',
+            display: 'grid',
+            gridTemplateColumns: desktop ? '42fr 58fr' : '1fr',
+            gap: desktop ? '56px' : '40px',
+            alignItems: 'center',
           }}
         >
-          {headline.map((line, i) => (
-            <span key={i} className="block overflow-hidden" style={{ paddingBottom: '0.08em' }}>
-              <motion.span
-                className="block"
-                initial={{ y: '110%' }}
-                animate={{ y: '0%' }}
-                transition={{ duration: 0.9, ease: EASE, delay: 0.3 + i * 0.14 }}
-                style={{ fontWeight: i === 1 ? 200 : 400 }}
+          {/* LEFT — brand text + bouquet slot + CTA */}
+          <div className="flex flex-col">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 0.85, y: 0 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
+              className="mb-7 flex items-center gap-4 text-[11px] uppercase tracking-[0.32em]"
+              style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
+            >
+              <span className="block h-px w-12" style={{ background: 'var(--color-gold)' }} />
+              {t('homepage.hero.tagline')}
+            </motion.span>
+
+            <h1
+              className="italic"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.85rem, 6vw, 5.5rem)',
+                letterSpacing: '-0.02em',
+                lineHeight: 0.98,
+                color: 'var(--color-cream)',
+              }}
+            >
+              {titleLines.map((line, i) => (
+                <span key={i} className="block overflow-hidden" style={{ paddingBottom: '0.08em' }}>
+                  <motion.span
+                    className="block"
+                    initial={{ y: '110%' }}
+                    animate={{ y: '0%' }}
+                    transition={{ duration: 0.9, ease: EASE, delay: 0.3 + i * 0.14 }}
+                  >
+                    {line}
+                  </motion.span>
+                </span>
+              ))}
+            </h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 0.78, y: 0 }}
+              transition={{ duration: 0.8, ease: EASE, delay: 0.7 }}
+              className="mt-7 max-w-[42ch] text-[15px] leading-relaxed md:text-[16px]"
+              style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
+            >
+              {t('homepage.header.sub')}
+            </motion.p>
+
+            <div className="mt-9 flex flex-wrap items-center gap-7">
+              <BouquetSlot />
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: EASE, delay: 1 }}
               >
-                {line}
-              </motion.span>
-            </span>
-          ))}
-        </h1>
+                <Link
+                  to={`${prefix}/shop`}
+                  data-cursor-large
+                  className="hero-cta group inline-flex items-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.22em] transition-colors duration-300 md:px-10 md:py-5 md:text-[13px]"
+                  style={{
+                    background: 'transparent',
+                    color: 'var(--color-cream)',
+                    border: '1px solid var(--color-gold)',
+                    fontFamily: 'var(--font-body)',
+                  }}
+                >
+                  <span>{t('homepage.hero.cta')}</span>
+                  <span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+                    →
+                  </span>
+                </Link>
+              </motion.div>
+            </div>
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 0.75, y: 0 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.7 }}
-          className="mt-8 max-w-[34ch] text-[16px] leading-relaxed md:text-[18px]"
-          style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
-        >
-          {t('hero.sub')}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE, delay: 0.9 }}
-          className="mt-11"
-        >
-          <Link
-            to={`${prefix}/shop`}
-            data-cursor-large
-            className="hero-cta group inline-flex items-center gap-3 px-9 py-4 text-[12px] uppercase tracking-[0.22em] transition-colors duration-300 md:px-11 md:py-5 md:text-[13px]"
-            style={{
-              background: 'transparent',
-              color: 'var(--color-cream)',
-              border: '1px solid var(--color-gold)',
-              fontFamily: 'var(--font-body)',
-            }}
-          >
-            <span>{t('homepage.hero.cta')}</span>
-            <span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
-        </motion.div>
-      </div>
-
-      {/* Editorial corner micro-labels */}
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-6 z-[2] hidden items-end justify-between px-10 sm:flex"
-        style={{ fontFamily: 'var(--font-body)', color: 'rgba(245,240,232,0.6)' }}
-      >
-        <span className="text-[10px] uppercase tracking-[0.35em]">{t('homepage.hero.location')}</span>
-        <motion.span
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-          className="flex flex-col items-center gap-2 text-[10px] uppercase tracking-[0.35em]"
-        >
-          {t('homepage.hero.scroll')}
-          <span aria-hidden="true">↓</span>
-        </motion.span>
-        <span className="text-[10px] uppercase tracking-[0.35em]">Est. 2024</span>
+          {/* RIGHT — asymmetric staircase of three captioned videos */}
+          <div className="flex flex-col" style={{ width: '100%' }}>
+            {videos.map((v, i) => (
+              <motion.div
+                key={v.base}
+                initial={{ opacity: 0, y: 34 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.95, ease: EASE, delay: 0.35 + i * 0.16 }}
+                style={{
+                  width: desktop ? v.w : '100%',
+                  alignSelf: desktop ? v.align : 'stretch',
+                  marginTop: i === 0 ? '0' : desktop ? v.mt : '20px',
+                  zIndex: i,
+                }}
+              >
+                <CaptionedVideo
+                  src={`/videos/${v.base}.mp4`}
+                  poster={`/videos/${v.base}.jpg`}
+                  wordsSrc={`/videos/${v.base}.words.json`}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <style>{`.hero-cta:hover { background: var(--color-gold) !important; color: var(--color-forest) !important; }`}</style>
@@ -199,20 +237,35 @@ function Hero({ prefix }: { prefix: string }) {
   )
 }
 
-function HeroFallback() {
+// 3D bouquet slot — placeholder for a future Tripo 3D asset. Swap the inner
+// ProductMotif for the <model-viewer>/canvas when the real asset lands.
+function BouquetSlot() {
   return (
-    <div className="absolute inset-0" style={{ background: 'var(--color-forest)' }}>
+    <motion.div
+      aria-hidden="true"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1, ease: EASE, delay: 0.95 }}
+      className="relative shrink-0"
+      style={{ width: '116px', height: '116px' }}
+    >
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 rounded-full"
         style={{
-          background:
-            'radial-gradient(circle at 70% 40%, rgba(200,169,110,0.12), rgba(28,43,26,0) 55%)',
+          background: 'radial-gradient(circle at 38% 32%, rgba(200,169,110,0.20), rgba(28,43,26,0) 66%)',
+          border: '1px solid rgba(200,169,110,0.28)',
         }}
       />
-      <div className="absolute inset-y-0 right-0 hidden w-1/2 opacity-[0.16] md:block">
-        <ProductMotif kind="rose" color="var(--color-gold)" opacity={1} />
-      </div>
-    </div>
+      <motion.div
+        className="absolute inset-0 grid place-items-center"
+        animate={{ y: [0, -5, 0], rotate: [0, 3, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <div style={{ width: '64%', height: '64%' }}>
+          <ProductMotif kind="rose" color="var(--color-gold)" opacity={1} />
+        </div>
+      </motion.div>
+    </motion.div>
   )
 }
 

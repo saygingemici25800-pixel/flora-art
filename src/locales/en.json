@@ -16,6 +16,10 @@
   },
   "homepage": {
     "sectionLabel": "Collection",
+    "header": {
+      "title": "Say it\nwith flowers",
+      "sub": "Premium flowers from Amsterdam's Aalsmeer to Fethiye. Forty years of mastery, same-day delivery."
+    },
     "hero": {
       "tagline": "Holland Premium · Fethiye",
       "cta": "Explore the Collection",
