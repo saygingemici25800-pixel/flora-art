@@ -113,6 +113,7 @@
     "howMade": {
       "title": "Çiçekler Nasıl Hazırlanıyor?",
       "subtitle": "Holland'dan atölyemize, atölyemizden size.",
+      "vahap": "Vahap, emeğin ardındaki hikâyeyi anlatıyor",
       "muteOn": "Sesi aç",
       "muteOff": "Sesi kapat",
       "items": [
@@ -284,6 +285,17 @@
     "title": "Hakkımızda",
     "subtitle": "Çiçeğin sanatına adanmış bir hikaye.",
     "breadcrumb": "Hakkımızda",
+    "voices": {
+      "kicker": "Çiçekçinin Sesi",
+      "title": "Çiçeğin Dilinden",
+      "subtitle": "Vahap Akar, kırk yıllık çiçekçi — kendi sözleriyle. Sesi açmak için videoya dokun.",
+      "labels": {
+        "tanitim": "Vahap kendini anlatıyor",
+        "mutluluk": "Bu işin mutluluğu",
+        "turizm": "Turist & yerli farkı",
+        "cicekler": "Mevsimin çiçekleri"
+      }
+    },
     "story": {
       "badge": "Fethiye · Kesikkapı",
       "title": "Fethiye'nin\nkalbinde,\nHolland'ın\nözünden.",

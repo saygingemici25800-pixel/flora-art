@@ -80,6 +80,44 @@ h1, h2, h3, h4 {
   letter-spacing: -0.01em;
 }
 
+/* ─── Captioned video (karaoke altyazı + ses düğmesi) ────────── */
+.fa-cvideo { container-type: inline-size; }
+
+/* soft bottom scrim for caption legibility */
+.fa-scrim {
+  position: absolute; inset-inline: 0; bottom: 0; height: 46%;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(15,22,13,0.72), rgba(15,22,13,0));
+}
+
+/* karaoke caption — sentence by sentence, word follows */
+.fa-cap {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  bottom: 13%; width: 88%; text-align: center; pointer-events: none;
+  font-family: var(--font-body); font-weight: 500;
+  font-size: clamp(0.7rem, 4.6cqw, 1.55rem); line-height: 1.35;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+}
+.fa-cap .w { transition: color 0.12s ease, opacity 0.12s ease; }
+.fa-cap .next   { color: var(--color-cream); opacity: 0.45; }
+.fa-cap .done   { color: var(--color-cream); opacity: 0.95; }
+.fa-cap .active { color: var(--color-gold);  opacity: 1; }
+
+/* center faint sound toggle — barely-there green ring */
+.fa-soundbtn {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 16cqw; height: 16cqw; max-width: 68px; max-height: 68px;
+  min-width: 44px; min-height: 44px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: rgba(20,30,18,0.34);
+  backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px);
+  border: 1px solid rgba(86,120,72,0.45);
+  color: var(--color-cream); box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  opacity: 0.62; transition: opacity 0.3s ease, transform 0.2s ease;
+}
+.fa-soundbtn:hover { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+.fa-soundbtn[data-on="true"] { opacity: 0.4; }
+
 /* ─── Lenis ──────────────────────────────────────────────────── */
 html.lenis {
   height: auto;

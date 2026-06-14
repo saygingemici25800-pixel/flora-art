@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion, useInView } from 'framer-motion'
 import { useSEO } from '../hooks/useSEO'
+import VahapVoices from '../components/sections/VahapVoices'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -36,6 +37,7 @@ export default function About() {
       <Story />
       <Values />
       <Founder />
+      <VahapVoices />
       <Numbers />
     </>
   )

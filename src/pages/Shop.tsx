@@ -8,6 +8,7 @@ import { useSEO } from '../hooks/useSEO'
 import ProductCard from '../components/ui/ProductCard'
 import { ProductGridSkeleton } from '../components/ui/ProductSkeleton'
 import QuickViewModal from '../components/ui/QuickViewModal'
+import CaptionedVideo from '../components/ui/CaptionedVideo'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -216,6 +217,7 @@ function HowMade() {
   const data = t('shop.howMade', { returnObjects: true }) as {
     title: string
     subtitle: string
+    vahap: string
     muteOn: string
     muteOff: string
     items: HowMadeItem[]
@@ -261,6 +263,26 @@ function HowMade() {
             {data.subtitle}
           </motion.p>
         </header>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-8% 0px' }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="mb-12 md:mb-16 mx-auto max-w-[900px]"
+        >
+          <CaptionedVideo
+            src="/videos/process-vahap-emek.mp4"
+            poster="/videos/process-vahap-emek.jpg"
+            wordsSrc="/videos/process-vahap-emek.words.json"
+          />
+          <p
+            className="mt-4 text-center text-[12px] tracking-[0.28em] uppercase"
+            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
+          >
+            {data.vahap}
+          </p>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {data.items.map((item, i) => (

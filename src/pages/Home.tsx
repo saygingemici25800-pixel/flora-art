@@ -6,6 +6,7 @@ import { useSEO } from '../hooks/useSEO'
 import type { MotifKind } from '../types'
 import ProductMotif from '../components/ui/ProductMotif'
 import VideoBackdrop from '../components/ui/VideoBackdrop'
+import CaptionedVideo from '../components/ui/CaptionedVideo'
 import IntroLoader from '../components/ui/IntroLoader'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -526,6 +527,20 @@ function ContactSection({ prefix }: { prefix: string }) {
             {t('homepage.contact.order')}
             <span aria-hidden="true">→</span>
           </Link>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-8% 0px' }}
+          transition={{ duration: 0.85, ease: EASE }}
+          className="mt-14 max-w-[680px]"
+        >
+          <CaptionedVideo
+            src="/videos/contact-vahap-mesaj.mp4"
+            poster="/videos/contact-vahap-mesaj.jpg"
+            wordsSrc="/videos/contact-vahap-mesaj.words.json"
+          />
         </motion.div>
 
         <motion.ul

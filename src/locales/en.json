@@ -113,6 +113,7 @@
     "howMade": {
       "title": "How They Come Together",
       "subtitle": "From Holland to our atelier, from our atelier to you.",
+      "vahap": "Vahap on the craft behind every bouquet",
       "muteOn": "Unmute",
       "muteOff": "Mute",
       "items": [
@@ -284,6 +285,17 @@
     "title": "About Us",
     "subtitle": "A story devoted to the art of flowers.",
     "breadcrumb": "About",
+    "voices": {
+      "kicker": "The Florist's Voice",
+      "title": "In the Language of Flowers",
+      "subtitle": "Vahap Akar, a florist of forty years — in his own words. Tap the video to turn on sound.",
+      "labels": {
+        "tanitim": "Vahap introduces himself",
+        "mutluluk": "The joy of the craft",
+        "turizm": "Tourist & local",
+        "cicekler": "Flowers of the season"
+      }
+    },
     "story": {
       "badge": "Fethiye · Kesikkapı",
       "title": "At the heart\nof Fethiye,\nfrom the soul\nof Holland.",
