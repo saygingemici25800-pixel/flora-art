@@ -471,7 +471,10 @@
     "phoneIntlLabel": "EN/RU · International guests",
     "whatsapp": "Order via WhatsApp",
     "quickLinks": "Quick Links",
-    "contactTitle": "Contact"
+    "contactTitle": "Contact",
+    "followUs": "Follow Us",
+    "kvkk": "Data Protection (KVKK)",
+    "privacy": "Privacy Policy"
   },
   "common": {
     "menu": "Menu",

@@ -17,6 +17,7 @@ const Services = lazy(() => import('./pages/Services'))
 const Delivery = lazy(() => import('./pages/Delivery'))
 const About = lazy(() => import('./pages/About'))
 const Contact = lazy(() => import('./pages/Contact'))
+const Legal = lazy(() => import('./pages/Legal'))
 
 // The admin panel is a self-contained app, lazily loaded so none of it ships
 // in the storefront bundle. Mounted outside the storefront Layout.
@@ -38,6 +39,7 @@ function Storefront() {
           <Route path="/delivery" element={<Delivery />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/kvkk" element={<Legal />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success" element={<OrderSuccess />} />
           <Route path="/en/checkout" element={<Checkout />} />
@@ -52,6 +54,7 @@ function Storefront() {
           <Route path="/en/delivery" element={<Delivery />} />
           <Route path="/en/about" element={<About />} />
           <Route path="/en/contact" element={<Contact />} />
+          <Route path="/en/kvkk" element={<Legal />} />
 
           <Route path="/ru" element={<Home />} />
           <Route path="/ru/shop" element={<Shop />} />
@@ -60,6 +63,7 @@ function Storefront() {
           <Route path="/ru/delivery" element={<Delivery />} />
           <Route path="/ru/about" element={<About />} />
           <Route path="/ru/contact" element={<Contact />} />
+          <Route path="/ru/kvkk" element={<Legal />} />
 
           <Route path="*" element={<PlaceholderPage name="404" />} />
         </Routes>

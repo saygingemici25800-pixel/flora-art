@@ -471,7 +471,10 @@
     "phoneIntlLabel": "EN/RU · Иностранные гости",
     "whatsapp": "Заказать в WhatsApp",
     "quickLinks": "Быстрые ссылки",
-    "contactTitle": "Контакты"
+    "contactTitle": "Контакты",
+    "followUs": "Подписывайтесь",
+    "kvkk": "Защита данных (KVKK)",
+    "privacy": "Политика конфиденциальности"
   },
   "common": {
     "menu": "Меню",
