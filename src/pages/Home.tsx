@@ -8,10 +8,17 @@ import ProductMotif from '../components/ui/ProductMotif'
 import VideoBackdrop from '../components/ui/VideoBackdrop'
 import CaptionedVideo from '../components/ui/CaptionedVideo'
 import IntroLoader from '../components/ui/IntroLoader'
-import VahapStrip from '../components/sections/VahapStrip'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const WHATSAPP_NUMBER = '905335335380'
+
+// Shared horizontal gutter for every section's content wrapper. Applied inline
+// so it can't be dropped by Tailwind purge (arbitrary px classes have bitten
+// us before): min 20px on mobile, up to 64px on desktop.
+const SECTION_X_PAD = {
+  paddingLeft: 'clamp(20px, 5vw, 64px)',
+  paddingRight: 'clamp(20px, 5vw, 64px)',
+} as const
 
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'
@@ -19,18 +26,19 @@ function langPrefix(pathname: string): string {
   return ''
 }
 
-/** The five headline categories of the homepage, in editorial order. */
+/** The five headline categories, each paired with a Vahap interview clip and a
+ *  flower motif for its 3D placeholder. */
 interface HomeCategory {
   id: string
   motif: MotifKind
-  video: string
+  clip: string // file base under /videos
 }
 const CATEGORIES: HomeCategory[] = [
-  { id: 'bouquet', motif: 'rose', video: '/videos/category-bouquet.mp4' },
-  { id: 'box', motif: 'box', video: '/videos/category-box.mp4' },
-  { id: 'wedding', motif: 'wedding', video: '/videos/category-wedding.mp4' },
-  { id: 'corporate', motif: 'orchid', video: '/videos/category-corporate.mp4' },
-  { id: 'plant', motif: 'terrarium', video: '/videos/category-plant.mp4' },
+  { id: 'bouquet', motif: 'rose', clip: 'about-vahap-tanitim' },
+  { id: 'box', motif: 'peony', clip: 'about-vahap-mutluluk' },
+  { id: 'wedding', motif: 'anemone', clip: 'process-vahap-emek' },
+  { id: 'corporate', motif: 'orchid', clip: 'about-vahap-turizm' },
+  { id: 'plant', motif: 'tulip', clip: 'about-vahap-cicekler' },
 ]
 
 /** Desktop = autoplay videos; mobile = static fallback (no multi-video autoplay). */
@@ -75,16 +83,14 @@ export default function Home() {
           name={cat.name}
           desc={cat.desc}
           motif={cat.motif}
-          video={cat.video}
+          clip={cat.clip}
           to={`${prefix}/shop?category=${cat.id}`}
           flip={i % 2 === 1}
-          enableVideo={desktop}
           label={t('homepage.sectionLabel') as string}
           cta={t('homepage.hero.cta') as string}
         />
       ))}
       <AboutSection prefix={prefix} enableVideo={desktop} />
-      <VahapStrip />
       <ContactSection prefix={prefix} />
     </>
   )
@@ -116,13 +122,14 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
       />
 
       <div
-        className="relative z-[2] mx-auto w-full max-w-[1500px] px-6 md:px-10"
+        className="relative z-[2] mx-auto w-full max-w-[1500px]"
         style={{
           minHeight: '100dvh',
           display: 'flex',
           alignItems: 'center',
           paddingTop: desktop ? '132px' : '104px',
           paddingBottom: '56px',
+          ...SECTION_X_PAD,
         }}
       >
         <div
@@ -239,17 +246,19 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
   )
 }
 
-// 3D bouquet slot — placeholder for a future Tripo 3D asset. Swap the inner
-// ProductMotif for the <model-viewer>/canvas when the real asset lands.
-function BouquetSlot() {
+// 3D flower slot — placeholder for a future Tripo 3D asset. Swap the inner
+// ProductMotif for the <model-viewer>/canvas when the real model lands; the
+// motif + size props let each category show its own bloom.
+function BouquetSlot({ motif = 'rose', size = 116 }: { motif?: MotifKind; size?: number }) {
   return (
     <motion.div
       aria-hidden="true"
       initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1, ease: EASE, delay: 0.95 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, margin: '-10% 0px' }}
+      transition={{ duration: 1, ease: EASE }}
       className="relative shrink-0"
-      style={{ width: '116px', height: '116px' }}
+      style={{ width: size, height: size }}
     >
       <div
         className="absolute inset-0 rounded-full"
@@ -264,7 +273,7 @@ function BouquetSlot() {
         transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
       >
         <div style={{ width: '64%', height: '64%' }}>
-          <ProductMotif kind="rose" color="var(--color-gold)" opacity={1} />
+          <ProductMotif kind={motif} color="var(--color-gold)" opacity={1} />
         </div>
       </motion.div>
     </motion.div>
@@ -278,52 +287,49 @@ interface CategorySectionProps {
   name: string
   desc: string
   motif: MotifKind
-  video: string
+  clip: string
   to: string
   flip: boolean
-  enableVideo: boolean
   label: string
   cta: string
 }
 
-function CategorySection({
-  index,
-  name,
-  desc,
-  motif,
-  video,
-  to,
-  flip,
-  enableVideo,
-  label,
-  cta,
-}: CategorySectionProps) {
+function CategorySection({ index, name, desc, motif, clip, to, flip, label, cta }: CategorySectionProps) {
   const num = String(index + 1).padStart(2, '0')
+  // Zigzag: odd sections (index 1, 3) put the video on the right.
+  const videoRight = flip
+
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ minHeight: '88vh', background: 'var(--color-forest)', color: 'var(--color-cream)' }}
+      style={{ background: 'var(--color-forest)', color: 'var(--color-cream)', paddingBlock: 'var(--spacing-section)' }}
     >
-      <VideoBackdrop
-        src={video}
-        enableVideo={enableVideo}
-        overlay={0.55}
-        fallback={<CategoryFallback motif={motif} />}
-      />
-
-      <Link
-        to={to}
-        data-cursor-large
-        className={`group relative z-[2] mx-auto flex min-h-[88vh] max-w-[1400px] flex-col justify-center px-6 py-24 md:px-10 ${
-          flip ? 'items-start md:items-end md:text-right' : 'items-start'
-        }`}
+      <div
+        className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16"
+        style={SECTION_X_PAD}
       >
+        {/* video half — always first in DOM so mobile stacks the video on top */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-18% 0px' }}
+          viewport={{ once: true, margin: '-12% 0px' }}
           transition={{ duration: 0.9, ease: EASE }}
-          className={`flex max-w-[44ch] flex-col ${flip ? 'md:items-end' : ''}`}
+          className={videoRight ? 'md:order-2' : 'md:order-1'}
+        >
+          <CaptionedVideo
+            src={`/videos/${clip}.mp4`}
+            poster={`/videos/${clip}.webp`}
+            wordsSrc={`/videos/${clip}.words.json`}
+          />
+        </motion.div>
+
+        {/* title + short text (top) + 3D flower placeholder (below) */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-12% 0px' }}
+          transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+          className={`flex flex-col ${videoRight ? 'md:order-1' : 'md:order-2'}`}
         >
           <span
             className="mb-5 flex items-center gap-4 text-[11px] uppercase tracking-[0.3em]"
@@ -338,9 +344,9 @@ function CategorySection({
             className="italic"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.75rem, 7vw, 5.5rem)',
+              fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
               letterSpacing: '-0.015em',
-              lineHeight: 0.98,
+              lineHeight: 1,
               color: 'var(--color-cream)',
             }}
           >
@@ -348,34 +354,29 @@ function CategorySection({
           </h2>
 
           <p
-            className="mt-6 max-w-[42ch] text-[15px] leading-relaxed md:text-[16px]"
+            className="mt-5 max-w-[46ch] text-[15px] leading-relaxed md:text-[16px]"
             style={{ fontFamily: 'var(--font-body)', color: 'rgba(245,240,232,0.78)' }}
           >
             {desc}
           </p>
 
-          <span
-            className="mt-8 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.26em] transition-colors group-hover:text-[var(--color-cream)]"
+          {/* 3D flower placeholder — swap the BouquetSlot for the Tripo model when ready */}
+          <div className="mt-9">
+            <BouquetSlot motif={motif} size={150} />
+          </div>
+
+          <Link
+            to={to}
+            data-cursor-large
+            className="group mt-9 inline-flex w-fit items-center gap-2 text-[12px] uppercase tracking-[0.26em] transition-colors hover:text-[var(--color-cream)]"
             style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
           >
             <span className="border-b border-current pb-1">{cta}</span>
             <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
-          </span>
+          </Link>
         </motion.div>
-      </Link>
-    </section>
-  )
-}
-
-function CategoryFallback({ motif }: { motif: MotifKind }) {
-  return (
-    <div className="absolute inset-0" style={{ background: 'var(--color-forest)' }}>
-      <div className="absolute inset-0 grid place-items-center opacity-[0.18]">
-        <div className="h-[80%] w-[80%]">
-          <ProductMotif kind={motif} color="var(--color-gold)" opacity={1} />
-        </div>
       </div>
-    </div>
+    </section>
   )
 }
 
@@ -390,7 +391,10 @@ function AboutSection({ prefix, enableVideo }: { prefix: string; enableVideo: bo
       className="relative w-full"
       style={{ background: 'var(--color-cream)', paddingBlock: 'var(--spacing-section)' }}
     >
-      <div className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-12 px-6 md:grid-cols-12 md:gap-16 md:px-10">
+      <div
+        className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-12 md:grid-cols-12 md:gap-16"
+        style={SECTION_X_PAD}
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -505,7 +509,10 @@ function ContactSection({ prefix }: { prefix: string }) {
         <ProductMotif kind="anemone" color="var(--color-gold)" opacity={1} />
       </div>
 
-      <div className="relative z-[2] mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
+      <div
+        className="relative z-[2] mx-auto max-w-[1400px] grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center"
+        style={SECTION_X_PAD}
+      >
         <div className="md:col-span-6">
         <motion.span
           initial={{ opacity: 0 }}
