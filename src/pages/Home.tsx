@@ -223,7 +223,7 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
               >
                 <CaptionedVideo
                   src={`/videos/${v.base}.mp4`}
-                  poster={`/videos/${v.base}.jpg`}
+                  poster={`/videos/${v.base}.webp`}
                   wordsSrc={`/videos/${v.base}.words.json`}
                 />
               </motion.div>
@@ -591,7 +591,7 @@ function ContactSection({ prefix }: { prefix: string }) {
         >
           <CaptionedVideo
             src="/videos/contact-vahap-mesaj.mp4"
-            poster="/videos/contact-vahap-mesaj.jpg"
+            poster="/videos/contact-vahap-mesaj.webp"
             wordsSrc="/videos/contact-vahap-mesaj.words.json"
           />
         </motion.div>

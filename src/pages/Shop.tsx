@@ -273,7 +273,7 @@ function HowMade() {
         >
           <CaptionedVideo
             src="/videos/process-vahap-emek.mp4"
-            poster="/videos/process-vahap-emek.jpg"
+            poster="/videos/process-vahap-emek.webp"
             wordsSrc="/videos/process-vahap-emek.words.json"
           />
           <p

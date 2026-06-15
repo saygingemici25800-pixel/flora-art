@@ -95,7 +95,7 @@ export default function VahapVoices() {
           <CaptionedVideo
             key={active.id}
             src={`/videos/${active.base}.mp4`}
-            poster={`/videos/${active.base}.jpg`}
+            poster={`/videos/${active.base}.webp`}
             wordsSrc={`/videos/${active.base}.words.json`}
             soundOn={soundOn}
             onToggleSound={() => setSoundOn((s) => !s)}
@@ -127,7 +127,7 @@ export default function VahapVoices() {
                   }}
                 >
                   <img
-                    src={`/videos/${clip.base}.jpg`}
+                    src={`/videos/${clip.base}.webp`}
                     alt={labels[clip.id]}
                     loading="lazy"
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
