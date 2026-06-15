@@ -12,6 +12,8 @@ function langPrefix(pathname: string): string {
 
 const WHATSAPP_NUMBER = '905335335380'
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`
+// Second line for foreign (EN/RU) guests — Aliona Akar.
+const ALIONA_TEL = '+905318448730'
 
 export default function Footer() {
   const { t } = useTranslation()
@@ -96,6 +98,17 @@ export default function Footer() {
                   className="hover:text-[var(--color-gold)] transition-colors"
                 >
                   {t('footer.phone')}
+                </a>
+              </li>
+              <li className="pt-1">
+                <span
+                  className="block text-[10px] tracking-[0.28em] uppercase mb-1"
+                  style={{ color: 'var(--color-gold)', opacity: 0.85 }}
+                >
+                  {t('footer.phoneIntlLabel')}
+                </span>
+                <a href={`tel:${ALIONA_TEL}`} className="hover:text-[var(--color-gold)] transition-colors">
+                  {t('footer.phoneIntl')}
                 </a>
               </li>
             </ul>

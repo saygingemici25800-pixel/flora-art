@@ -20,6 +20,19 @@
       "title": "Say it\nwith flowers",
       "sub": "Premium flowers from Amsterdam's Aalsmeer to Fethiye. Forty years of mastery, same-day delivery."
     },
+    "strip": {
+      "kicker": "Vahap Akar · Interview",
+      "title": "The Florist's Voice",
+      "subtitle": "Through the eyes of a florist of forty years — word by word, in his own voice.",
+      "comingSoon": "Soon",
+      "items": {
+        "mutluluk": { "title": "The Language of Feeling", "desc": "From cradle to grave, flowers for every moment." },
+        "emek": { "title": "Quiet Craft", "desc": "Behind every bouquet, the care of hours." },
+        "turizm": { "title": "Guests of the Season", "desc": "Meaning for locals, grace for guests." },
+        "ru": { "title": "Русский", "desc": "Russian-language clip — coming soon." },
+        "en": { "title": "English", "desc": "English-language clip — coming soon." }
+      }
+    },
     "hero": {
       "tagline": "Holland Premium · Fethiye",
       "cta": "Explore the Collection",
@@ -346,6 +359,9 @@
       "phoneLabel": "Phone",
       "phone": "+90 501 531 77 48",
       "phoneTel": "+905015317748",
+      "phoneIntlLabel": "EN/RU · International guests",
+      "phoneIntl": "0531 844 8730",
+      "phoneIntlTel": "+905318448730",
       "hoursLabel": "Opening Hours",
       "hours": "Every day 08:00 – 20:00",
       "whatsappLabel": "WhatsApp",
@@ -451,6 +467,8 @@
     "hours": "Every day 08:00 – 20:00",
     "rights": "All rights reserved.",
     "phone": "+90 533 533 53 80",
+    "phoneIntl": "0531 844 8730",
+    "phoneIntlLabel": "EN/RU · International guests",
     "whatsapp": "Order via WhatsApp",
     "quickLinks": "Quick Links",
     "contactTitle": "Contact"

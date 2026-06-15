@@ -122,6 +122,9 @@ function ContactBody() {
     phoneLabel: string
     phone: string
     phoneTel: string
+    phoneIntlLabel: string
+    phoneIntl: string
+    phoneIntlTel: string
     hoursLabel: string
     hours: string
     whatsappLabel: string
@@ -178,6 +181,11 @@ function ContactBody() {
             <InfoRow iconKind="phone" label={info.phoneLabel}>
               <a href={`tel:${info.phoneTel}`} className="info-link">
                 {info.phone}
+              </a>
+            </InfoRow>
+            <InfoRow iconKind="phone" label={info.phoneIntlLabel}>
+              <a href={`tel:${info.phoneIntlTel}`} className="info-link">
+                {info.phoneIntl}
               </a>
             </InfoRow>
             <InfoRow iconKind="clock" label={info.hoursLabel}>

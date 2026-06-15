@@ -20,6 +20,19 @@
       "title": "Duygularınızı\nçiçeklerle anlatın",
       "sub": "Amsterdam Aalsmeer'den Fethiye'ye premium çiçek. 40 yıllık ustalık, aynı gün teslimat."
     },
+    "strip": {
+      "kicker": "Vahap Akar · Röportaj",
+      "title": "Çiçekçinin Sesi",
+      "subtitle": "Kırk yıllık bir çiçekçinin gözünden — kelime kelime, kendi sesiyle.",
+      "comingSoon": "Yakında",
+      "items": {
+        "mutluluk": { "title": "Duyguların Dili", "desc": "Beşikten mezara, her ana eşlik eden çiçekler." },
+        "emek": { "title": "Sessiz Emek", "desc": "Her buketin arkasında saatlerin özeni." },
+        "turizm": { "title": "Sezonun Misafirleri", "desc": "Yerliye anlam, misafire zarafet." },
+        "ru": { "title": "Русский", "desc": "Rusça misafirler için anlatım — yakında." },
+        "en": { "title": "English", "desc": "İngilizce misafirler için anlatım — yakında." }
+      }
+    },
     "hero": {
       "tagline": "Holland Premium · Fethiye",
       "cta": "Koleksiyonu Keşfet",
@@ -346,6 +359,9 @@
       "phoneLabel": "Telefon",
       "phone": "0501 531 77 48",
       "phoneTel": "+905015317748",
+      "phoneIntlLabel": "EN/RU · Yabancı misafirler",
+      "phoneIntl": "0531 844 8730",
+      "phoneIntlTel": "+905318448730",
       "hoursLabel": "Çalışma Saatleri",
       "hours": "Her gün 08:00 – 20:00",
       "whatsappLabel": "WhatsApp",
@@ -451,6 +467,8 @@
     "hours": "Her gün 08:00 – 20:00",
     "rights": "Tüm hakları saklıdır.",
     "phone": "+90 533 533 53 80",
+    "phoneIntl": "0531 844 8730",
+    "phoneIntlLabel": "EN/RU · Yabancı misafirler",
     "whatsapp": "WhatsApp ile Sipariş",
     "quickLinks": "Hızlı Bağlantılar",
     "contactTitle": "İletişim"

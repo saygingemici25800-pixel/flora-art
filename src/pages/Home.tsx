@@ -8,6 +8,7 @@ import ProductMotif from '../components/ui/ProductMotif'
 import VideoBackdrop from '../components/ui/VideoBackdrop'
 import CaptionedVideo from '../components/ui/CaptionedVideo'
 import IntroLoader from '../components/ui/IntroLoader'
+import VahapStrip from '../components/sections/VahapStrip'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const WHATSAPP_NUMBER = '905335335380'
@@ -83,6 +84,7 @@ export default function Home() {
         />
       ))}
       <AboutSection prefix={prefix} enableVideo={desktop} />
+      <VahapStrip />
       <ContactSection prefix={prefix} />
     </>
   )
@@ -503,7 +505,8 @@ function ContactSection({ prefix }: { prefix: string }) {
         <ProductMotif kind="anemone" color="var(--color-gold)" opacity={1} />
       </div>
 
-      <div className="relative z-[2] mx-auto max-w-[1400px] px-6 md:px-10">
+      <div className="relative z-[2] mx-auto max-w-[1400px] px-6 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
+        <div className="md:col-span-6">
         <motion.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 0.85, y: 0 }}
@@ -582,20 +585,6 @@ function ContactSection({ prefix }: { prefix: string }) {
           </Link>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-8% 0px' }}
-          transition={{ duration: 0.85, ease: EASE }}
-          className="mt-14 max-w-[680px]"
-        >
-          <CaptionedVideo
-            src="/videos/contact-vahap-mesaj.mp4"
-            poster="/videos/contact-vahap-mesaj.webp"
-            wordsSrc="/videos/contact-vahap-mesaj.words.json"
-          />
-        </motion.div>
-
         <motion.ul
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 0.7 }}
@@ -612,6 +601,21 @@ function ContactSection({ prefix }: { prefix: string }) {
           <li>{t('footer.address')}</li>
           <li>{t('footer.hours')}</li>
         </motion.ul>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-8% 0px' }}
+          transition={{ duration: 0.95, ease: EASE }}
+          className="md:col-span-6"
+        >
+          <CaptionedVideo
+            src="/videos/contact-vahap-mesaj.mp4"
+            poster="/videos/contact-vahap-mesaj.webp"
+            wordsSrc="/videos/contact-vahap-mesaj.words.json"
+          />
+        </motion.div>
       </div>
 
       <style>{`.contact-cta:hover { background: var(--color-gold) !important; color: var(--color-forest) !important; }`}</style>

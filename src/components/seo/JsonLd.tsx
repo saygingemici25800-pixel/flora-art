@@ -9,6 +9,22 @@ const LOCAL_BUSINESS = {
   alternateName: ['Flora Art Florist', 'Цветы Фетхие', 'Flora Art Fethiye'],
   url: 'https://floraart.com.tr',
   telephone: '+905015317748',
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      telephone: '+905015317748',
+      contactType: 'customer service',
+      areaServed: 'TR',
+      availableLanguage: ['Turkish'],
+    },
+    {
+      '@type': 'ContactPoint',
+      telephone: '+905318448730',
+      contactType: 'customer service',
+      areaServed: ['GB', 'RU'],
+      availableLanguage: ['English', 'Russian'],
+    },
+  ],
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Atatürk Cd. 98/a',
