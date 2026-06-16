@@ -147,7 +147,7 @@ function Story() {
             <span
               className="text-[11px] tracking-[0.3em] uppercase"
               style={{
-                color: 'var(--color-gold)',
+                color: 'var(--color-bronze)',
                 fontFamily: 'var(--font-display)',
                 fontVariant: 'small-caps',
               }}
@@ -234,7 +234,7 @@ function Story() {
           <p
             className="mt-6 text-[11px] tracking-[0.3em] uppercase"
             style={{
-              color: 'var(--color-gold)',
+              color: 'var(--color-bronze)',
               fontFamily: 'var(--font-body)',
             }}
           >
@@ -288,7 +288,7 @@ function StoryVideo({
         className="relative overflow-hidden"
         style={{
           aspectRatio: '16 / 9',
-          background: '#1C2B1A',
+          background: '#013e37',
           border: '1px solid rgba(200, 169, 110, 0.2)',
         }}
       >
@@ -334,7 +334,7 @@ function StoryVideo({
           aria-pressed={!muted}
           className="absolute top-3 left-3 grid place-items-center w-8 h-8 rounded-full"
           style={{
-            background: 'rgba(245, 240, 232, 0.15)',
+            background: 'rgba(255, 239, 179, 0.15)',
             backdropFilter: 'blur(8px)',
             WebkitBackdropFilter: 'blur(8px)',
             border: '1px solid rgba(200, 169, 110, 0.3)',
@@ -483,7 +483,7 @@ function Values() {
               className="group p-7 md:p-9 text-center transition-all duration-500"
               style={{
                 background: 'var(--color-cream)',
-                border: '1px solid rgba(28,43,26,0.10)',
+                border: '1px solid rgba(1, 62, 55,0.10)',
               }}
             >
               <span
@@ -556,7 +556,7 @@ function Founder() {
               borderRadius: '50%',
               border: '1px solid rgba(200, 169, 110, 0.45)',
               background:
-                'radial-gradient(circle at 40% 35%, rgba(200,169,110,0.12), rgba(28,43,26,0) 60%)',
+                'radial-gradient(circle at 40% 35%, rgba(200,169,110,0.12), rgba(1, 62, 55,0) 60%)',
             }}
           >
             <div
@@ -569,7 +569,7 @@ function Founder() {
                 className="mt-5 text-[10px] tracking-[0.3em] uppercase"
                 style={{
                   fontFamily: 'var(--font-body)',
-                  color: 'rgba(245, 240, 232, 0.55)',
+                  color: 'rgba(255, 239, 179, 0.55)',
                 }}
               >
                 {t('about.founder.imagePlaceholder')}

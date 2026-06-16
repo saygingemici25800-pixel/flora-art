@@ -26,11 +26,11 @@ function langPrefix(pathname: string): string {
 
 const MOTIF_TINTS: Record<CategoryId, string> = {
   bouquet:       'rgba(200, 169, 110, 0.55)',
-  box:           'rgba(28, 43, 26, 0.55)',
-  wedding:       'rgba(245, 240, 232, 0.85)',
-  corporate:     'rgba(28, 43, 26, 0.45)',
+  box:           'rgba(1, 62, 55, 0.55)',
+  wedding:       'rgba(255, 239, 179, 0.85)',
+  corporate:     'rgba(1, 62, 55, 0.45)',
   plant:         'rgba(200, 169, 110, 0.45)',
-  international: 'rgba(28, 43, 26, 0.55)',
+  international: 'rgba(1, 62, 55, 0.55)',
 }
 
 export default function CategoryGrid() {
@@ -140,7 +140,7 @@ function CategoryCard({ to, name, discoverLabel, id, big }: CardProps) {
         className="absolute inset-0 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
         style={{
           background:
-            'linear-gradient(180deg, rgba(28,43,26,0.0) 30%, rgba(28,43,26,0.55) 100%)',
+            'linear-gradient(180deg, rgba(1, 62, 55,0.0) 30%, rgba(1, 62, 55,0.55) 100%)',
         }}
       />
 

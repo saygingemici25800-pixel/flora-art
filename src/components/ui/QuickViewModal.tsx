@@ -39,7 +39,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: EASE }}
           className="fixed inset-0 z-[200] grid place-items-center px-4 py-6"
-          style={{ background: 'rgba(28, 43, 26, 0.55)', backdropFilter: 'blur(6px)' }}
+          style={{ background: 'rgba(1, 62, 55, 0.55)', backdropFilter: 'blur(6px)' }}
           onClick={onClose}
           role="dialog"
           aria-modal="true"
@@ -60,7 +60,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
               aria-label={t('cart.close')}
               className="absolute top-4 right-4 z-10 grid place-items-center w-10 h-10 rounded-full transition-colors"
               style={{
-                background: 'rgba(245, 240, 232, 0.92)',
+                background: 'rgba(255, 239, 179, 0.92)',
                 color: 'var(--color-forest)',
                 backdropFilter: 'blur(4px)',
               }}

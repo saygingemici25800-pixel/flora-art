@@ -108,8 +108,8 @@ export default function Testimonials() {
               transition={{ duration: 0.8, ease: EASE, delay: 0.1 + i * 0.12 }}
               className="relative p-6 md:p-8"
               style={{
-                background: 'rgba(245, 240, 232, 0.05)',
-                border: '1px solid rgba(245, 240, 232, 0.1)',
+                background: 'rgba(255, 239, 179, 0.05)',
+                border: '1px solid rgba(255, 239, 179, 0.1)',
               }}
             >
               <span

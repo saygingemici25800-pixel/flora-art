@@ -248,7 +248,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
             <p
               className="text-[11px] tracking-[0.32em] uppercase mb-3"
               style={{
-                color: 'var(--color-gold)',
+                color: 'var(--color-bronze)',
                 fontFamily: 'var(--font-display)',
                 fontVariant: 'small-caps',
               }}
@@ -275,7 +275,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                 fontFamily: 'var(--font-body)',
                 fontSize: '2rem',
                 fontWeight: 700,
-                color: 'var(--color-gold)',
+                color: 'var(--color-bronze)',
                 letterSpacing: '0.01em',
               }}
             >
@@ -373,7 +373,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                         style={{
                           background: active ? 'var(--color-forest)' : 'transparent',
                           color: active ? 'var(--color-cream)' : 'var(--color-forest)',
-                          border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(28,43,26,0.18)'}`,
+                          border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(1, 62, 55,0.18)'}`,
                           fontFamily: 'var(--font-body)',
                         }}
                       >
@@ -385,7 +385,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                         </span>
                         <span
                           className="text-[11px] tracking-[0.15em] uppercase opacity-85"
-                          style={{ color: 'var(--color-gold)' }}
+                          style={{ color: 'var(--color-bronze)' }}
                         >
                           {t(`product.regions.${key}.fee`)} · {t(`product.regions.${key}.eta`)}
                         </span>
@@ -434,11 +434,11 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                   fontSize: '1rem',
                   color: 'var(--color-forest)',
                   background: 'transparent',
-                  border: '1px solid rgba(28,43,26,0.18)',
+                  border: '1px solid rgba(1, 62, 55,0.18)',
                   outline: 'none',
                 }}
                 onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-gold)')}
-                onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(28,43,26,0.18)')}
+                onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(1, 62, 55,0.18)')}
               />
             </div>
 
@@ -577,7 +577,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
               <p
                 className="text-[10px] tracking-[0.32em] uppercase mb-3"
                 style={{
-                  color: 'var(--color-gold)',
+                  color: 'var(--color-bronze)',
                   fontFamily: 'var(--font-display)',
                   fontVariant: 'small-caps',
                 }}
@@ -722,11 +722,11 @@ function ProductDetailSkeleton() {
         </div>
         <div className="md:col-span-5 flex flex-col gap-4 pt-6">
           <motion.div {...pulse} className="h-3 w-1/4" style={{ background: 'rgba(200,169,110,0.3)' }} />
-          <motion.div {...pulse} className="h-10 w-3/4" style={{ background: 'rgba(28,43,26,0.12)' }} />
+          <motion.div {...pulse} className="h-10 w-3/4" style={{ background: 'rgba(1, 62, 55,0.12)' }} />
           <motion.div {...pulse} className="h-8 w-1/3" style={{ background: 'rgba(200,169,110,0.25)' }} />
           <motion.div {...pulse} className="h-px w-full" style={{ background: 'rgba(200,169,110,0.3)' }} />
-          <motion.div {...pulse} className="h-24 w-full" style={{ background: 'rgba(28,43,26,0.06)' }} />
-          <motion.div {...pulse} className="h-12 w-full" style={{ background: 'rgba(28,43,26,0.1)' }} />
+          <motion.div {...pulse} className="h-24 w-full" style={{ background: 'rgba(1, 62, 55,0.06)' }} />
+          <motion.div {...pulse} className="h-12 w-full" style={{ background: 'rgba(1, 62, 55,0.1)' }} />
         </div>
       </div>
     </section>

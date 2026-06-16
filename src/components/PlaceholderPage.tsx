@@ -16,7 +16,7 @@ export default function PlaceholderPage({ name }: PlaceholderPageProps) {
         background: 'var(--color-cream)',
       }}
     >
-      <p style={{ color: 'var(--color-gold)', fontSize: '0.875rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+      <p style={{ color: 'var(--color-bronze)', fontSize: '0.875rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
         Flora Art
       </p>
       <h1 style={{ fontSize: '3rem', color: 'var(--color-forest)' }}>

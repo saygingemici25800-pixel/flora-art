@@ -197,7 +197,7 @@ function ContactBody() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="instagram-link"
-                style={{ color: 'var(--color-gold)' }}
+                style={{ color: 'var(--color-bronze)' }}
               >
                 {info.instagramHandle}
               </a>
@@ -225,7 +225,7 @@ function ContactBody() {
               transition: color 0.25s ease;
             }
             .info-link:hover {
-              color: var(--color-gold);
+              color: var(--color-bronze);
             }
             .instagram-link {
               position: relative;
@@ -294,7 +294,7 @@ function InfoRow({
       <div className="flex-1 min-w-0">
         <p
           className="text-[10px] tracking-[0.3em] uppercase mb-2"
-          style={{ fontFamily: 'var(--font-body)', color: 'var(--color-gold)' }}
+          style={{ fontFamily: 'var(--font-body)', color: 'var(--color-bronze)' }}
         >
           {label}
         </p>
@@ -366,7 +366,7 @@ function ContactForm() {
       className="p-7 md:p-9 relative"
       style={{
         background: 'var(--color-beige)',
-        border: '1px solid rgba(28,43,26,0.10)',
+        border: '1px solid rgba(1, 62, 55,0.10)',
       }}
     >
       <h3
@@ -493,7 +493,7 @@ function ContactForm() {
           width: 100%;
           padding: 0.85rem 0.9rem;
           background: var(--color-cream);
-          border: 1px solid rgba(28,43,26,0.18);
+          border: 1px solid rgba(1, 62, 55,0.18);
           outline: none;
           color: var(--color-forest);
           font-family: var(--font-body);
@@ -525,7 +525,7 @@ function Field({
     <label className="block">
       <span
         className="block mb-2 text-[10px] tracking-[0.3em] uppercase"
-        style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.65 }}
+        style={{ fontFamily: 'var(--font-body)', color: 'var(--color-bronze)' }}
       >
         {label}
         {required && <span className="opacity-60"> *</span>}

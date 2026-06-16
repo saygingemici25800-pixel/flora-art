@@ -172,7 +172,7 @@ export default function Footer() {
         </div>
 
         {/* bottom bar: copyright + legal */}
-        <div className="border-t" style={{ borderColor: 'rgba(245,240,232,0.12)' }}>
+        <div className="border-t" style={{ borderColor: 'rgba(255, 239, 179,0.12)' }}>
           <div
             className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-4 py-6 md:flex-row"
             style={X_PAD}
@@ -267,7 +267,7 @@ function FloatingWhatsApp() {
           background: 'var(--color-cream)',
           color: 'var(--color-forest)',
           fontFamily: 'var(--font-body)',
-          boxShadow: '0 12px 24px -10px rgba(28,43,26,0.25)',
+          boxShadow: '0 12px 24px -10px rgba(1, 62, 55,0.25)',
         }}
       >
         {label}

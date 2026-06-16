@@ -96,7 +96,7 @@ export default function IntroLoader() {
 
             <p
               className="mt-4 inline-flex items-baseline text-[11px] tracking-[0.3em]"
-              style={{ color: 'rgba(245,240,232,0.5)', fontFamily: 'var(--font-body)' }}
+              style={{ color: 'rgba(255, 239, 179,0.5)', fontFamily: 'var(--font-body)' }}
             >
               <motion.span>{rounded}</motion.span>
               <span>%</span>

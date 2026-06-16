@@ -63,7 +63,7 @@ export default function ProductCard({
       viewport={{ once: true, margin: '-5% 0px' }}
       transition={{ duration: 0.6, ease: EASE, delay: 0.05 * (index % 8) }}
       whileHover={{ y: -4 }}
-      className="group relative flex flex-col transition-shadow duration-500 hover:shadow-[0_24px_60px_-24px_rgba(28,43,26,0.32)]"
+      className="group relative flex flex-col transition-shadow duration-500 hover:shadow-[0_24px_60px_-24px_rgba(1, 62, 55,0.32)]"
     >
       <Link
         to={productHref}
@@ -91,7 +91,7 @@ export default function ProductCard({
           }}
           className="absolute top-4 left-4 grid place-items-center w-10 h-10 rounded-full transition-colors"
           style={{
-            background: 'rgba(245, 240, 232, 0.85)',
+            background: 'rgba(255, 239, 179, 0.85)',
             color: wished ? 'var(--color-gold)' : 'var(--color-forest)',
             backdropFilter: 'blur(4px)',
           }}
@@ -139,7 +139,7 @@ export default function ProductCard({
             }}
             className="absolute left-1/2 bottom-3 -translate-x-1/2 px-4 py-2 text-[10px] tracking-[0.28em] uppercase opacity-0 translate-y-2 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:translate-y-0"
             style={{
-              background: 'rgba(28, 43, 26, 0.92)',
+              background: 'rgba(1, 62, 55, 0.92)',
               color: 'var(--color-cream)',
               fontFamily: 'var(--font-body)',
               backdropFilter: 'blur(4px)',
@@ -154,7 +154,7 @@ export default function ProductCard({
         <p
           className="text-[0.75rem] tracking-[0.3em] uppercase mb-2"
           style={{
-            color: 'var(--color-gold)',
+            color: 'var(--color-bronze)',
             fontFamily: 'var(--font-display)',
             fontVariant: 'small-caps',
           }}

@@ -244,7 +244,7 @@ export default function Checkout() {
         <header className="mb-10 md:mb-14">
           <p
             className="text-[11px] tracking-[0.3em] uppercase mb-3"
-            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
+            style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
           >
             Flora Art
           </p>
@@ -376,7 +376,7 @@ function Stepper({
                   ? 'var(--color-cream)'
                   : 'var(--color-forest)',
                 border:
-                  !isActive && !isComplete ? '1px solid rgba(28,43,26,0.25)' : 'none',
+                  !isActive && !isComplete ? '1px solid rgba(1, 62, 55,0.25)' : 'none',
                 fontFamily: 'var(--font-body)',
                 fontWeight: 600,
               }}
@@ -403,7 +403,7 @@ function Stepper({
                 aria-hidden="true"
                 className="hidden md:block flex-1 h-px"
                 style={{
-                  background: isComplete ? 'var(--color-gold)' : 'rgba(28,43,26,0.18)',
+                  background: isComplete ? 'var(--color-gold)' : 'rgba(1, 62, 55,0.18)',
                 }}
               />
             )}
@@ -478,7 +478,7 @@ function Step1({ form, update }: Step1Props) {
                 style={{
                   background: active ? 'var(--color-forest)' : 'transparent',
                   color: active ? 'var(--color-cream)' : 'var(--color-forest)',
-                  border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(28,43,26,0.2)'}`,
+                  border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(1, 62, 55,0.2)'}`,
                   fontFamily: 'var(--font-body)',
                 }}
               >
@@ -641,7 +641,7 @@ function Step2({
 
       <ul
         className="border"
-        style={{ borderColor: 'rgba(28,43,26,0.15)', background: 'transparent' }}
+        style={{ borderColor: 'rgba(1, 62, 55,0.15)', background: 'transparent' }}
       >
         {items.map((it, i) => (
           <li
@@ -649,7 +649,7 @@ function Step2({
             className="flex items-center justify-between gap-4 px-5 py-4"
             style={{
               borderBottom:
-                i < items.length - 1 ? '1px solid rgba(28,43,26,0.08)' : 'none',
+                i < items.length - 1 ? '1px solid rgba(1, 62, 55,0.08)' : 'none',
             }}
           >
             <div className="min-w-0">
@@ -680,7 +680,7 @@ function Step2({
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 600,
-                color: 'var(--color-gold)',
+                color: 'var(--color-bronze)',
               }}
             >
               {currency}
@@ -702,7 +702,7 @@ function Step2({
               : `${currency}${deliveryFee}`
           }
         />
-        <div className="border-t pt-3 mt-3" style={{ borderColor: 'rgba(28,43,26,0.15)' }}>
+        <div className="border-t pt-3 mt-3" style={{ borderColor: 'rgba(1, 62, 55,0.15)' }}>
           <Row label={t('checkout.summary.total') as string} value={`${currency}${total}`} big />
         </div>
       </div>
@@ -764,10 +764,10 @@ function Row({ label, value, big = false }: { label: string; value: string; big?
 
 function SnapshotBlock({ title, lines }: { title: string; lines: string[] }) {
   return (
-    <div className="p-5" style={{ border: '1px solid rgba(28,43,26,0.15)' }}>
+    <div className="p-5" style={{ border: '1px solid rgba(1, 62, 55,0.15)' }}>
       <p
         className="text-[10px] tracking-[0.32em] uppercase mb-3"
-        style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
+        style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
       >
         {title}
       </p>
@@ -904,14 +904,14 @@ function Step3({ form, update, onBack, onWhatsApp, submitting, submitError }: St
       </button>
 
       <div className="flex items-center gap-4 my-8">
-        <span className="flex-1 h-px" style={{ background: 'rgba(28,43,26,0.18)' }} />
+        <span className="flex-1 h-px" style={{ background: 'rgba(1, 62, 55,0.18)' }} />
         <span
           className="text-[11px] tracking-[0.3em] uppercase"
           style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.55 }}
         >
           {t('checkout.step3.or')}
         </span>
-        <span className="flex-1 h-px" style={{ background: 'rgba(28,43,26,0.18)' }} />
+        <span className="flex-1 h-px" style={{ background: 'rgba(1, 62, 55,0.18)' }} />
       </div>
 
       <button
@@ -980,7 +980,7 @@ function SummaryCard({
           <li key={it.id} className="flex items-center gap-3">
             <div
               className="relative shrink-0 w-[64px] h-[80px] overflow-hidden"
-              style={{ background: 'rgba(28,43,26,0.06)' }}
+              style={{ background: 'rgba(1, 62, 55,0.06)' }}
             >
               <ProductMotif kind={it.motif} />
             </div>
@@ -1012,7 +1012,7 @@ function SummaryCard({
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 600,
-                color: 'var(--color-gold)',
+                color: 'var(--color-bronze)',
               }}
             >
               {currency}
@@ -1022,7 +1022,7 @@ function SummaryCard({
         ))}
       </ul>
 
-      <div className="space-y-2 pt-4" style={{ borderTop: '1px solid rgba(28,43,26,0.18)' }}>
+      <div className="space-y-2 pt-4" style={{ borderTop: '1px solid rgba(1, 62, 55,0.18)' }}>
         <Row label={t('checkout.summary.subtotal') as string} value={`${currency}${subtotal}`} />
         <Row
           label={t('checkout.summary.delivery') as string}
@@ -1034,7 +1034,7 @@ function SummaryCard({
               : `${currency}${deliveryFee}`
           }
         />
-        <div className="border-t pt-3 mt-3" style={{ borderColor: 'rgba(28,43,26,0.18)' }}>
+        <div className="border-t pt-3 mt-3" style={{ borderColor: 'rgba(1, 62, 55,0.18)' }}>
           <Row label={t('checkout.summary.total') as string} value={`${currency}${total}`} big />
         </div>
       </div>
@@ -1045,7 +1045,7 @@ function SummaryCard({
           fontFamily: 'var(--font-body)',
           color: 'var(--color-ink)',
           opacity: 0.7,
-          borderTop: '1px solid rgba(28,43,26,0.12)',
+          borderTop: '1px solid rgba(1, 62, 55,0.12)',
         }}
       >
         {badges.map((b, i) => (
@@ -1116,7 +1116,7 @@ function FormStyles() {
         width: 100%;
         padding: 0.85rem 0.9rem;
         background: transparent;
-        border: 1px solid rgba(28,43,26,0.18);
+        border: 1px solid rgba(1, 62, 55,0.18);
         outline: none;
         color: var(--color-forest);
         font-family: var(--font-body);

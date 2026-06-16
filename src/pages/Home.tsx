@@ -118,7 +118,7 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
       <div
         aria-hidden="true"
         className="absolute inset-0"
-        style={{ background: 'radial-gradient(circle at 80% 28%, rgba(200,169,110,0.10), rgba(28,43,26,0) 55%)' }}
+        style={{ background: 'radial-gradient(circle at 80% 28%, rgba(200,169,110,0.12), rgba(1,62,55,0) 55%)' }}
       />
 
       <div
@@ -263,7 +263,7 @@ function BouquetSlot({ motif = 'rose', size = 116 }: { motif?: MotifKind; size?:
       <div
         className="absolute inset-0 rounded-full"
         style={{
-          background: 'radial-gradient(circle at 38% 32%, rgba(200,169,110,0.20), rgba(28,43,26,0) 66%)',
+          background: 'radial-gradient(circle at 38% 32%, rgba(200,169,110,0.20), rgba(1, 62, 55,0) 66%)',
           border: '1px solid rgba(200,169,110,0.28)',
         }}
       />
@@ -355,7 +355,7 @@ function CategorySection({ index, name, desc, motif, clip, to, flip, label, cta 
 
           <p
             className="mt-5 max-w-[46ch] text-[15px] leading-relaxed md:text-[16px]"
-            style={{ fontFamily: 'var(--font-body)', color: 'rgba(245,240,232,0.78)' }}
+            style={{ fontFamily: 'var(--font-body)', color: 'rgba(255, 239, 179,0.78)' }}
           >
             {desc}
           </p>
@@ -404,7 +404,7 @@ function AboutSection({ prefix, enableVideo }: { prefix: string; enableVideo: bo
         >
           <span
             className="mb-7 flex items-center gap-4 text-[11px] uppercase tracking-[0.3em]"
-            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
+            style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
           >
             <span aria-hidden="true">06</span>
             <span className="block h-px w-10" style={{ background: 'rgba(200,169,110,0.5)' }} />
@@ -444,7 +444,7 @@ function AboutSection({ prefix, enableVideo }: { prefix: string; enableVideo: bo
           <Link
             to={`${prefix}/about`}
             className="group mt-10 inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.26em]"
-            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
+            style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
           >
             <span className="block h-px w-12 transition-all duration-300 group-hover:w-16" style={{ background: 'var(--color-gold)' }} />
             <span className="border-b border-current pb-1">{t('homepage.about.cta')}</span>
@@ -598,7 +598,7 @@ function ContactSection({ prefix }: { prefix: string }) {
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
           className="mt-14 flex flex-wrap gap-x-10 gap-y-3 text-[12px] tracking-[0.12em]"
-          style={{ fontFamily: 'var(--font-body)', color: 'rgba(245,240,232,0.7)' }}
+          style={{ fontFamily: 'var(--font-body)', color: 'rgba(255, 239, 179,0.7)' }}
         >
           <li>
             <a href={`tel:${WHATSAPP_NUMBER}`} className="transition-colors hover:text-[var(--color-gold)]">

@@ -4,6 +4,15 @@
  * site hides the cursor), button variants, control focus, and nav states.
  */
 
+/* Keep the admin on its original neutral palette. The storefront switched to a
+   green/butter theme via the global CSS vars; the admin is a functional tool and
+   is deliberately NOT forced into it, so we pin the old values within its scope. */
+.admin-scope {
+  --color-forest: #1C2B1A;
+  --color-cream: #F5F0E8;
+  --color-beige: #E8DDD0;
+}
+
 /* The storefront hides the native cursor (`* { cursor: none }`). The admin
    is a form-heavy tool — restore real cursors within its scope. */
 .admin-scope,

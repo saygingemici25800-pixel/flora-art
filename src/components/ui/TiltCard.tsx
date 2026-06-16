@@ -51,7 +51,7 @@ export default function TiltCard({ children, className, style, maxTilt = 11 }: T
   const boxShadow = useTransform([sx, sy], ([x, y]: number[]) => {
     const ox = (-x * 26).toFixed(1)
     const oy = (-y * 26 + 18).toFixed(1)
-    return `${ox}px ${oy}px 50px -18px rgba(28,43,26,0.45)`
+    return `${ox}px ${oy}px 50px -18px rgba(1, 62, 55,0.45)`
   })
 
   if (!fine) {
