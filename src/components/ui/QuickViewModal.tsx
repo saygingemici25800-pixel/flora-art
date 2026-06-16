@@ -39,7 +39,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: EASE }}
           className="fixed inset-0 z-[200] grid place-items-center px-4 py-6"
-          style={{ background: 'rgba(1, 62, 55, 0.55)', backdropFilter: 'blur(6px)' }}
+          style={{ background: 'rgba(1,62,55, 0.55)', backdropFilter: 'blur(6px)' }}
           onClick={onClose}
           role="dialog"
           aria-modal="true"
@@ -60,7 +60,7 @@ export default function QuickViewModal({ product, onClose }: Props) {
               aria-label={t('cart.close')}
               className="absolute top-4 right-4 z-10 grid place-items-center w-10 h-10 rounded-full transition-colors"
               style={{
-                background: 'rgba(255, 239, 179, 0.92)',
+                background: 'rgba(255,239,179, 0.92)',
                 color: 'var(--color-forest)',
                 backdropFilter: 'blur(4px)',
               }}
@@ -72,7 +72,15 @@ export default function QuickViewModal({ product, onClose }: Props) {
               className="relative aspect-[3/4] md:aspect-auto md:min-h-[480px]"
               style={{ background: 'var(--color-beige)' }}
             >
-              <ProductMotif kind={product.motif} />
+              {product.images[0] ? (
+                <img
+                  src={product.images[0]}
+                  alt={product.name}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <ProductMotif kind={product.motif} />
+              )}
               {!product.available ? (
                 <span
                   className="absolute top-4 left-4 px-3 py-1 text-[10px] tracking-[0.25em] uppercase"

@@ -6,7 +6,7 @@
  */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { methodNotAllowed, sendError, sendJson } from './_lib/http'
-import { createProduct } from './_lib/repo'
+import { createProduct, listProducts, deleteProduct } from './_lib/repo'
 import { products, featuredProducts } from '../src/data/products'
 import type { Locale, ProductInput } from '../src/types'
 
@@ -36,6 +36,14 @@ export default async function handler(
     return
   }
 
+  // Idempotent re-seed: clear the existing product catalogue first so running
+  // this again refreshes images instead of creating duplicates. Orders and
+  // coupons live under separate keys and are left untouched.
+  const existing = await listProducts()
+  for (const p of existing) {
+    await deleteProduct(p.id)
+  }
+
   const featuredIds = new Set(featuredProducts.map((p) => p.id))
 
   let count = 0
@@ -47,7 +55,7 @@ export default async function handler(
       category: p.category,
       motif: p.motif,
       price: p.price,
-      images: [],
+      images: p.image ? [p.image] : [],
       badge: p.badge,
       available: true,
       featured: featuredIds.has(p.id),

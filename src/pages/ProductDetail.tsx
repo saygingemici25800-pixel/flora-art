@@ -153,22 +153,30 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                 className="absolute inset-0 overflow-hidden"
                 style={{ transform: 'translateZ(40px)' }}
               >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={variant}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.45, ease: EASE }}
-                    className="absolute inset-0"
-                  >
-                    <ProductMotif
-                      kind={product.motif}
-                      color={VARIANTS[variant].color}
-                      opacity={VARIANTS[variant].opacity}
-                    />
-                  </motion.div>
-                </AnimatePresence>
+                {product.images[0] ? (
+                  <img
+                    src={product.images[0]}
+                    alt={product.name}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={variant}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.45, ease: EASE }}
+                      className="absolute inset-0"
+                    >
+                      <ProductMotif
+                        kind={product.motif}
+                        color={VARIANTS[variant].color}
+                        opacity={VARIANTS[variant].opacity}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                )}
               </div>
 
               {product.badge && (
@@ -201,26 +209,28 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
               </span>
             </TiltCard>
 
-            <div className="mt-4 flex gap-3">
-              {VARIANTS.map((v, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setVariant(i)}
-                  aria-label={`Variant ${i + 1}`}
-                  aria-pressed={variant === i}
-                  className="relative w-20 h-20 md:w-24 md:h-24 overflow-hidden transition-all"
-                  style={{
-                    background: 'var(--color-beige)',
-                    outline:
-                      variant === i ? '2px solid var(--color-gold)' : '2px solid transparent',
-                    outlineOffset: '2px',
-                  }}
-                >
-                  <ProductMotif kind={product.motif} color={v.color} opacity={v.opacity} />
-                </button>
-              ))}
-            </div>
+            {!product.images[0] && (
+              <div className="mt-4 flex gap-3">
+                {VARIANTS.map((v, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setVariant(i)}
+                    aria-label={`Variant ${i + 1}`}
+                    aria-pressed={variant === i}
+                    className="relative w-20 h-20 md:w-24 md:h-24 overflow-hidden transition-all"
+                    style={{
+                      background: 'var(--color-beige)',
+                      outline:
+                        variant === i ? '2px solid var(--color-gold)' : '2px solid transparent',
+                      outlineOffset: '2px',
+                    }}
+                  >
+                    <ProductMotif kind={product.motif} color={v.color} opacity={v.opacity} />
+                  </button>
+                ))}
+              </div>
+            )}
           </motion.div>
 
           <motion.div
@@ -373,7 +383,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                         style={{
                           background: active ? 'var(--color-forest)' : 'transparent',
                           color: active ? 'var(--color-cream)' : 'var(--color-forest)',
-                          border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(1, 62, 55,0.18)'}`,
+                          border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(1,62,55,0.18)'}`,
                           fontFamily: 'var(--font-body)',
                         }}
                       >
@@ -434,11 +444,11 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                   fontSize: '1rem',
                   color: 'var(--color-forest)',
                   background: 'transparent',
-                  border: '1px solid rgba(1, 62, 55,0.18)',
+                  border: '1px solid rgba(1,62,55,0.18)',
                   outline: 'none',
                 }}
                 onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-gold)')}
-                onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(1, 62, 55,0.18)')}
+                onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(1,62,55,0.18)')}
               />
             </div>
 
@@ -722,11 +732,11 @@ function ProductDetailSkeleton() {
         </div>
         <div className="md:col-span-5 flex flex-col gap-4 pt-6">
           <motion.div {...pulse} className="h-3 w-1/4" style={{ background: 'rgba(200,169,110,0.3)' }} />
-          <motion.div {...pulse} className="h-10 w-3/4" style={{ background: 'rgba(1, 62, 55,0.12)' }} />
+          <motion.div {...pulse} className="h-10 w-3/4" style={{ background: 'rgba(1,62,55,0.12)' }} />
           <motion.div {...pulse} className="h-8 w-1/3" style={{ background: 'rgba(200,169,110,0.25)' }} />
           <motion.div {...pulse} className="h-px w-full" style={{ background: 'rgba(200,169,110,0.3)' }} />
-          <motion.div {...pulse} className="h-24 w-full" style={{ background: 'rgba(1, 62, 55,0.06)' }} />
-          <motion.div {...pulse} className="h-12 w-full" style={{ background: 'rgba(1, 62, 55,0.1)' }} />
+          <motion.div {...pulse} className="h-24 w-full" style={{ background: 'rgba(1,62,55,0.06)' }} />
+          <motion.div {...pulse} className="h-12 w-full" style={{ background: 'rgba(1,62,55,0.1)' }} />
         </div>
       </div>
     </section>
