@@ -57,7 +57,7 @@ export default function CartDrawer() {
             transition={{ duration: 0.3, ease: EASE }}
             onClick={close}
             className="fixed inset-0 z-[150]"
-            style={{ background: 'rgba(1, 62, 55, 0.45)', backdropFilter: 'blur(4px)' }}
+            style={{ background: 'rgba(1,62,55, 0.45)', backdropFilter: 'blur(4px)' }}
             aria-hidden="true"
           />
 
@@ -67,7 +67,7 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="fixed top-0 right-0 bottom-0 z-[151] w-full sm:w-[440px] max-w-full flex flex-col shadow-[-30px_0_80px_-30px_rgba(1, 62, 55,0.45)]"
+            className="fixed top-0 right-0 bottom-0 z-[151] w-full sm:w-[440px] max-w-full flex flex-col shadow-[-30px_0_80px_-30px_rgba(1,62,55,0.45)]"
             style={{ background: 'var(--color-cream)' }}
             role="dialog"
             aria-modal="true"
@@ -76,7 +76,7 @@ export default function CartDrawer() {
             <div
               className="flex items-center justify-between px-6 md:px-8 py-5 border-b"
               style={{
-                borderColor: 'rgba(1, 62, 55,0.10)',
+                borderColor: 'rgba(1,62,55,0.10)',
                 background: 'var(--color-cream)',
               }}
             >
@@ -145,7 +145,7 @@ export default function CartDrawer() {
                 <div
                   className="px-6 md:px-8 py-6 border-t"
                   style={{
-                    borderColor: 'rgba(1, 62, 55,0.10)',
+                    borderColor: 'rgba(1,62,55,0.10)',
                     background: 'var(--color-cream)',
                   }}
                 >
@@ -224,7 +224,7 @@ function CartRow({
   return (
     <li
       className="flex gap-4 py-5 border-b"
-      style={{ borderColor: 'rgba(1, 62, 55,0.08)' }}
+      style={{ borderColor: 'rgba(1,62,55,0.08)' }}
     >
       <div
         className="relative shrink-0 w-[88px] h-[112px] overflow-hidden"
@@ -261,7 +261,7 @@ function CartRow({
         <div className="flex items-center justify-between">
           <div
             className="inline-flex items-center"
-            style={{ border: '1px solid rgba(1, 62, 55,0.15)' }}
+            style={{ border: '1px solid rgba(1,62,55,0.15)' }}
           >
             <button
               type="button"

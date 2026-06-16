@@ -389,7 +389,7 @@ function ProcessVideo({
           aria-pressed={!muted}
           className="absolute top-3 left-3 grid place-items-center w-8 h-8 rounded-full"
           style={{
-            background: 'rgba(255, 239, 179, 0.15)',
+            background: 'rgba(255,239,179, 0.15)',
             backdropFilter: 'blur(8px)',
             WebkitBackdropFilter: 'blur(8px)',
             border: '1px solid rgba(200, 169, 110, 0.3)',
@@ -512,7 +512,7 @@ function FilterBar({
               />
               <ul
                 role="listbox"
-                className="absolute right-0 top-full mt-2 min-w-[160px] py-2 z-[2] shadow-[0_20px_40px_-20px_rgba(1, 62, 55,0.35)]"
+                className="absolute right-0 top-full mt-2 min-w-[160px] py-2 z-[2] shadow-[0_20px_40px_-20px_rgba(1,62,55,0.35)]"
                 style={{
                   background: 'var(--color-cream)',
                   border: '1px solid var(--color-beige)',

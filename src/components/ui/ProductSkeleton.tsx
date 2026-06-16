@@ -30,12 +30,12 @@ export default function ProductCardSkeleton({ aspectRatio = '3 / 4' }: { aspectR
         <motion.div
           {...PULSE}
           className="mb-4 h-4 w-3/4"
-          style={{ background: 'rgba(1, 62, 55,0.12)' }}
+          style={{ background: 'rgba(1,62,55,0.12)' }}
         />
         <motion.div
           {...PULSE}
           className="h-9 w-full"
-          style={{ background: 'rgba(1, 62, 55,0.08)' }}
+          style={{ background: 'rgba(1,62,55,0.08)' }}
         />
       </div>
     </div>

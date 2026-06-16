@@ -199,7 +199,7 @@ function VideoCard({
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
         style={{
           background:
-            'linear-gradient(to top, rgba(1, 62, 55,1) 0%, rgba(1, 62, 55,0) 100%)',
+            'linear-gradient(to top, rgba(1,62,55,1) 0%, rgba(1,62,55,0) 100%)',
         }}
       />
 
@@ -209,7 +209,7 @@ function VideoCard({
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse at center, transparent 40%, rgba(1, 62, 55,0.4) 100%)',
+            'radial-gradient(ellipse at center, transparent 40%, rgba(1,62,55,0.4) 100%)',
         }}
       />
 
@@ -251,17 +251,17 @@ function VideoCard({
           right: '24px',
           width: '40px',
           height: '40px',
-          background: 'rgba(255, 239, 179, 0.1)',
+          background: 'rgba(255,239,179, 0.1)',
           backdropFilter: 'blur(8px)',
           WebkitBackdropFilter: 'blur(8px)',
           border: '1px solid rgba(200, 169, 110, 0.3)',
           color: 'var(--color-gold)',
         }}
         onMouseEnter={(e) =>
-          (e.currentTarget.style.background = 'rgba(255, 239, 179, 0.2)')
+          (e.currentTarget.style.background = 'rgba(255,239,179, 0.2)')
         }
         onMouseLeave={(e) =>
-          (e.currentTarget.style.background = 'rgba(255, 239, 179, 0.1)')
+          (e.currentTarget.style.background = 'rgba(255,239,179, 0.1)')
         }
       >
         {muted ? <MuteIcon /> : <UnmuteIcon />}

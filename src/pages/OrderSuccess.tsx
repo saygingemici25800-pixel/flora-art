@@ -131,7 +131,7 @@ export default function OrderSuccess() {
             style={{
               background: 'transparent',
               color: 'var(--color-cream)',
-              borderColor: 'rgba(255, 239, 179,0.4)',
+              borderColor: 'rgba(255,239,179,0.4)',
               fontFamily: 'var(--font-body)',
             }}
           >
@@ -217,7 +217,7 @@ interface ConfettiPiece {
 }
 
 function buildConfetti(): ConfettiPiece[] {
-  const colors = ['var(--color-gold)', 'var(--color-cream)', '#C8A96E', 'rgba(255, 239, 179,0.85)']
+  const colors = ['var(--color-gold)', 'var(--color-cream)', '#C8A96E', 'rgba(255,239,179,0.85)']
   const pieces: ConfettiPiece[] = []
   for (let i = 0; i < 28; i++) {
     pieces.push({

@@ -146,7 +146,7 @@ h1, h2, h3, h4 {
 }
 .fa-seek-track {
   position: relative; width: 100%; height: 3px;
-  background: rgba(255, 239, 179, 0.18);
+  background: rgba(255,239,179, 0.18);
   transition: height 0.18s ease;
 }
 .fa-seek:hover .fa-seek-track { height: 6px; }

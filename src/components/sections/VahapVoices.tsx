@@ -134,7 +134,7 @@ export default function VahapVoices() {
                   />
                   <span
                     className="absolute inset-0"
-                    style={{ background: isActive ? 'rgba(1, 62, 55,0.15)' : 'rgba(1, 62, 55,0.45)' }}
+                    style={{ background: isActive ? 'rgba(1,62,55,0.15)' : 'rgba(1,62,55,0.45)' }}
                   />
                   <span
                     className="absolute left-2 bottom-2 right-2 text-left text-[10px] tracking-[0.18em] uppercase leading-tight"

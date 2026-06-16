@@ -52,7 +52,7 @@ export default function VideoBackdrop({
       )}
 
       {overlay > 0 && (
-        <div className="absolute inset-0" style={{ background: `rgba(1, 62, 55,${overlay})` }} />
+        <div className="absolute inset-0" style={{ background: `rgba(1,62,55,${overlay})` }} />
       )}
     </div>
   )

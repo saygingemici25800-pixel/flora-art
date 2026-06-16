@@ -166,7 +166,7 @@ function ProductCard({
       viewport={{ once: true, margin: '-5% 0px' }}
       transition={{ duration: 0.7, ease: EASE, delay: 0.05 * index }}
       whileHover={{ scale: 1.02 }}
-      className="group shrink-0 w-[280px] transition-shadow duration-500 hover:shadow-[0_20px_50px_-20px_rgba(1, 62, 55,0.35)]"
+      className="group shrink-0 w-[280px] transition-shadow duration-500 hover:shadow-[0_20px_50px_-20px_rgba(1,62,55,0.35)]"
     >
       <div
         className="relative h-[320px] overflow-hidden"
@@ -279,8 +279,8 @@ function FeaturedSkeletonCard() {
     >
       <div className="h-[320px]" style={{ background: 'var(--color-beige)' }} />
       <div className="pt-5">
-        <div className="mb-4 h-4 w-2/3" style={{ background: 'rgba(1, 62, 55,0.12)' }} />
-        <div className="h-9 w-full" style={{ background: 'rgba(1, 62, 55,0.08)' }} />
+        <div className="mb-4 h-4 w-2/3" style={{ background: 'rgba(1,62,55,0.12)' }} />
+        <div className="h-9 w-full" style={{ background: 'rgba(1,62,55,0.08)' }} />
       </div>
     </motion.div>
   )

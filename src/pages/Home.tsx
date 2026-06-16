@@ -263,7 +263,7 @@ function BouquetSlot({ motif = 'rose', size = 116 }: { motif?: MotifKind; size?:
       <div
         className="absolute inset-0 rounded-full"
         style={{
-          background: 'radial-gradient(circle at 38% 32%, rgba(200,169,110,0.20), rgba(1, 62, 55,0) 66%)',
+          background: 'radial-gradient(circle at 38% 32%, rgba(200,169,110,0.20), rgba(1,62,55,0) 66%)',
           border: '1px solid rgba(200,169,110,0.28)',
         }}
       />
@@ -355,7 +355,7 @@ function CategorySection({ index, name, desc, motif, clip, to, flip, label, cta 
 
           <p
             className="mt-5 max-w-[46ch] text-[15px] leading-relaxed md:text-[16px]"
-            style={{ fontFamily: 'var(--font-body)', color: 'rgba(255, 239, 179,0.78)' }}
+            style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,239,179,0.78)' }}
           >
             {desc}
           </p>
@@ -598,7 +598,7 @@ function ContactSection({ prefix }: { prefix: string }) {
           viewport={{ once: true, margin: '-10% 0px' }}
           transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
           className="mt-14 flex flex-wrap gap-x-10 gap-y-3 text-[12px] tracking-[0.12em]"
-          style={{ fontFamily: 'var(--font-body)', color: 'rgba(255, 239, 179,0.7)' }}
+          style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,239,179,0.7)' }}
         >
           <li>
             <a href={`tel:${WHATSAPP_NUMBER}`} className="transition-colors hover:text-[var(--color-gold)]">

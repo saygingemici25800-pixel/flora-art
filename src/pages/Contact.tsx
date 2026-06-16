@@ -366,7 +366,7 @@ function ContactForm() {
       className="p-7 md:p-9 relative"
       style={{
         background: 'var(--color-beige)',
-        border: '1px solid rgba(1, 62, 55,0.10)',
+        border: '1px solid rgba(1,62,55,0.10)',
       }}
     >
       <h3
@@ -493,7 +493,7 @@ function ContactForm() {
           width: 100%;
           padding: 0.85rem 0.9rem;
           background: var(--color-cream);
-          border: 1px solid rgba(1, 62, 55,0.18);
+          border: 1px solid rgba(1,62,55,0.18);
           outline: none;
           color: var(--color-forest);
           font-family: var(--font-body);

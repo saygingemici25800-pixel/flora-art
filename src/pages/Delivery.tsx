@@ -450,7 +450,7 @@ function ZoneRow({ label, value, accent = false }: { label: string; value: strin
   return (
     <div
       className="flex items-baseline justify-between gap-3 py-2 border-b"
-      style={{ borderColor: 'rgba(1, 62, 55,0.08)' }}
+      style={{ borderColor: 'rgba(1,62,55,0.08)' }}
     >
       <dt
         className="text-[10px] tracking-[0.3em] uppercase"
@@ -510,7 +510,7 @@ function Faq({ items }: { items: FaqItem[] }) {
               <li
                 key={i}
                 className="border-b"
-                style={{ borderColor: 'rgba(1, 62, 55,0.12)' }}
+                style={{ borderColor: 'rgba(1,62,55,0.12)' }}
               >
                 <button
                   type="button"
@@ -666,7 +666,7 @@ function BottomCta({ prefix }: { prefix: string }) {
             style={{
               background: 'transparent',
               color: 'var(--color-cream)',
-              borderColor: 'rgba(255, 239, 179,0.4)',
+              borderColor: 'rgba(255,239,179,0.4)',
               fontFamily: 'var(--font-body)',
             }}
           >

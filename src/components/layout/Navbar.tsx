@@ -106,7 +106,7 @@ export default function Navbar() {
       <motion.header
         initial={false}
         animate={{
-          backgroundColor: navOpaque ? 'rgba(1, 62, 55, 0.92)' : 'rgba(1, 62, 55, 0)',
+          backgroundColor: navOpaque ? 'rgba(1,62,55, 0.92)' : 'rgba(1,62,55, 0)',
           backdropFilter: navOpaque ? 'blur(12px)' : 'blur(0px)',
           borderBottomColor: navOpaque ? 'rgba(200, 169, 110, 0.18)' : 'rgba(200, 169, 110, 0)',
         }}
