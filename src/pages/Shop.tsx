@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
@@ -11,6 +11,13 @@ import QuickViewModal from '../components/ui/QuickViewModal'
 import CaptionedVideo from '../components/ui/CaptionedVideo'
 
 const EASE = [0.16, 1, 0.3, 1] as const
+
+// Shared horizontal breathing room so sections never stick to the screen edge
+// (purge-safe inline clamp — mirrors the homepage SECTION_X_PAD).
+const SECTION_X_PAD = {
+  paddingLeft: 'clamp(20px, 5vw, 64px)',
+  paddingRight: 'clamp(20px, 5vw, 64px)',
+} as const
 
 // Aspect-ratio rotation across the product grid for editorial rhythm.
 // Pattern repeats every 5 cards: 3/4, 4/5 (taller), 1/1 (square), 3/4, 3/4.
@@ -149,6 +156,8 @@ export default function Shop() {
         setSort={setSort}
       />
 
+      <HowMade />
+
       <section
         className="relative w-full"
         style={{
@@ -199,28 +208,17 @@ export default function Shop() {
         </div>
       </section>
 
-      <HowMade />
-
       <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />
     </>
   )
 }
 
-interface HowMadeItem {
-  id: string
-  src: string
-  caption: string
-}
-
 function HowMade() {
   const { t } = useTranslation()
   const data = t('shop.howMade', { returnObjects: true }) as {
-    title: string
-    subtitle: string
+    kicker: string
+    questions: string[]
     vahap: string
-    muteOn: string
-    muteOff: string
-    items: HowMadeItem[]
   }
 
   return (
@@ -229,208 +227,73 @@ function HowMade() {
       style={{
         background: 'var(--color-forest)',
         color: 'var(--color-cream)',
-        paddingBlock: '64px',
+        paddingBlock: 'clamp(96px, 12vw, 160px)',
       }}
     >
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <header className="mb-10 md:mb-12 max-w-[60ch]">
-          <span className="block overflow-hidden" style={{ paddingBottom: '0.1em' }}>
-            <motion.h2
-              initial={{ y: '110%' }}
-              whileInView={{ y: '0%' }}
-              viewport={{ once: true, margin: '-15% 0px' }}
-              transition={{ duration: 0.85, ease: EASE }}
-              className="italic"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                color: 'var(--color-cream)',
-                letterSpacing: '-0.01em',
-                lineHeight: 1,
-              }}
+      <div className="mx-auto max-w-[1400px]" style={SECTION_X_PAD}>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-x-20 items-center">
+          {/* Questions — mobile: top, desktop: left (~40%) */}
+          <div className="md:col-span-5">
+            <motion.span
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.6, ease: EASE }}
+              className="block text-[12px] tracking-[0.34em] uppercase mb-8"
+              style={{ fontFamily: 'var(--font-body)', color: 'var(--color-gold)' }}
             >
-              {data.title}
-            </motion.h2>
-          </span>
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 0.5, y: 0 }}
-            viewport={{ once: true, margin: '-10% 0px' }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.2 }}
-            className="mt-3 text-[14px] leading-relaxed"
-            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
-          >
-            {data.subtitle}
-          </motion.p>
-        </header>
+              {data.kicker}
+            </motion.span>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-8% 0px' }}
-          transition={{ duration: 0.8, ease: EASE }}
-          className="mb-12 md:mb-16 mx-auto max-w-[900px]"
-        >
-          <CaptionedVideo
-            src="/videos/process-vahap-emek.mp4"
-            poster="/videos/process-vahap-emek.webp"
-            wordsSrc="/videos/process-vahap-emek.words.json"
-          />
-          <p
-            className="mt-4 text-center text-[12px] tracking-[0.28em] uppercase"
-            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
-          >
-            {data.vahap}
-          </p>
-        </motion.div>
+            {/* Fade-only stagger (no y-shift) so the vertical gaps stay equal
+                at every animation frame; spacing is fixed via marginBottom. */}
+            <div>
+              {data.questions.map((q, i) => (
+                <motion.p
+                  key={i}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: '-10% 0px' }}
+                  transition={{ duration: 0.6, ease: EASE, delay: 0.1 + i * 0.12 }}
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: 'clamp(1.9rem, 3.2vw, 2.85rem)',
+                    color: 'var(--color-cream)',
+                    letterSpacing: '-0.015em',
+                    lineHeight: 1.1,
+                    fontWeight: 500,
+                    marginBottom: i === data.questions.length - 1 ? 0 : '40px',
+                  }}
+                >
+                  {q}
+                </motion.p>
+              ))}
+            </div>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {data.items.map((item, i) => (
-            <ProcessVideo
-              key={item.id}
-              item={item}
-              index={i}
-              muteOn={data.muteOn}
-              muteOff={data.muteOff}
+          {/* Video — mobile: bottom, desktop: right (~58%) */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-8% 0px' }}
+            transition={{ duration: 0.85, ease: EASE }}
+            className="md:col-span-7"
+          >
+            <CaptionedVideo
+              src="/videos/process-vahap-emek.mp4"
+              poster="/videos/process-vahap-emek.webp"
+              wordsSrc="/videos/process-vahap-emek.words.json"
             />
-          ))}
+            <p
+              className="mt-5 text-center md:text-left text-[12px] tracking-[0.28em] uppercase"
+              style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
+            >
+              {data.vahap}
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>
-  )
-}
-
-function ProcessVideo({
-  item,
-  index,
-  muteOn,
-  muteOff,
-}: {
-  item: HowMadeItem
-  index: number
-  muteOn: string
-  muteOff: string
-}) {
-  const videoRef = useRef<HTMLVideoElement | null>(null)
-  const [muted, setMuted] = useState(true)
-  const [loaded, setLoaded] = useState(false)
-
-  function toggleMute() {
-    const v = videoRef.current
-    if (!v) {
-      setMuted((m) => !m)
-      return
-    }
-    const next = !v.muted
-    v.muted = next
-    setMuted(next)
-  }
-
-  return (
-    <motion.figure
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-8% 0px' }}
-      transition={{ duration: 0.7, ease: EASE, delay: index * 0.1 }}
-      whileHover={{ scale: 1.02 }}
-      className="group"
-    >
-      <div
-        className="relative mx-auto overflow-hidden"
-        style={{
-          aspectRatio: '9 / 16',
-          maxHeight: '280px',
-          maxWidth: 'calc(280px * 9 / 16)',
-          background: '#2d4420',
-          border: '1px solid rgba(200, 169, 110, 0.18)',
-        }}
-      >
-        <div
-          className={`absolute inset-0 grid place-items-center transition-opacity duration-500 ${
-            loaded ? 'opacity-0' : 'opacity-100'
-          }`}
-          aria-hidden={loaded}
-        >
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            style={{ color: 'var(--color-gold)', opacity: 0.55 }}
-          >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M10 8 L16 12 L10 16 Z" fill="currentColor" />
-          </svg>
-        </div>
-
-        <video
-          ref={videoRef}
-          src={item.src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          onLoadedData={() => setLoaded(true)}
-          className="absolute inset-0 w-full h-full"
-          style={{ objectFit: 'cover' }}
-        />
-
-        <motion.button
-          type="button"
-          onClick={toggleMute}
-          whileTap={{ scale: 0.9 }}
-          aria-label={muted ? muteOn : muteOff}
-          aria-pressed={!muted}
-          className="absolute top-3 left-3 grid place-items-center w-8 h-8 rounded-full"
-          style={{
-            background: 'rgba(255,239,179, 0.15)',
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            border: '1px solid rgba(200, 169, 110, 0.3)',
-            color: 'var(--color-gold)',
-          }}
-        >
-          {muted ? <ProcessMuteIcon /> : <ProcessUnmuteIcon />}
-        </motion.button>
-      </div>
-
-      <figcaption
-        className="mt-4 text-center italic"
-        style={{
-          fontFamily: 'var(--font-display)',
-          color: 'var(--color-cream)',
-          fontSize: '0.9rem',
-        }}
-      >
-        {item.caption}
-      </figcaption>
-    </motion.figure>
-  )
-}
-
-function ProcessMuteIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 9 H9 L14 5 V19 L9 15 H5 Z" />
-      <line x1="17" y1="9" x2="22" y2="14" />
-      <line x1="22" y1="9" x2="17" y2="14" />
-    </svg>
-  )
-}
-
-function ProcessUnmuteIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M5 9 H9 L14 5 V19 L9 15 H5 Z" />
-      <path d="M17 8 C19 10, 19 14, 17 16" />
-      <path d="M19.5 6 C22.5 9, 22.5 15, 19.5 18" />
-    </svg>
   )
 }
 

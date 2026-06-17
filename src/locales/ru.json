@@ -128,16 +128,13 @@
     "empty": "В этой категории пока нет товаров.",
     "loadError": "Не удалось загрузить товары",
     "howMade": {
-      "title": "Как они собираются",
-      "subtitle": "Из Голландии в нашу мастерскую, из мастерской — к вам.",
-      "vahap": "Вахап о труде за каждым букетом",
-      "muteOn": "Включить звук",
-      "muteOff": "Выключить звук",
-      "items": [
-        { "id": "selection", "src": "/videos/process-selection.mp4", "caption": "Отбор" },
-        { "id": "packaging", "src": "/videos/process-packaging.mp4", "caption": "Упаковка" },
-        { "id": "delivery",  "src": "/videos/process-delivery.mp4",  "caption": "Доставка" }
-      ]
+      "kicker": "ИЗ МАСТЕРСКОЙ",
+      "questions": [
+        "СКОЛЬКО ТРУДА СТОИТ ЗА ОДНИМ БУКЕТОМ?",
+        "КАКАЯ ЧАСТЬ САМАЯ СЛОЖНАЯ?",
+        "ПОЧЕМУ ГОЛЛАНДСКИЕ ЦВЕТЫ?"
+      ],
+      "vahap": "Вахап о труде за каждым букетом"
     }
   },
   "cart": {

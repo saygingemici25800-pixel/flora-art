@@ -128,16 +128,13 @@
     "empty": "No products in this category yet.",
     "loadError": "Failed to load products",
     "howMade": {
-      "title": "How They Come Together",
-      "subtitle": "From Holland to our atelier, from our atelier to you.",
-      "vahap": "Vahap on the craft behind every bouquet",
-      "muteOn": "Unmute",
-      "muteOff": "Mute",
-      "items": [
-        { "id": "selection", "src": "/videos/process-selection.mp4", "caption": "Selection" },
-        { "id": "packaging", "src": "/videos/process-packaging.mp4", "caption": "Packaging" },
-        { "id": "delivery",  "src": "/videos/process-delivery.mp4",  "caption": "Delivery" }
-      ]
+      "kicker": "FROM THE ATELIER",
+      "questions": [
+        "HOW MUCH CRAFT GOES INTO A SINGLE BOUQUET?",
+        "WHICH PART IS THE HARDEST?",
+        "WHY DUTCH FLOWERS?"
+      ],
+      "vahap": "Vahap on the craft behind every bouquet"
     }
   },
   "cart": {

@@ -128,16 +128,13 @@
     "empty": "Bu kategoride henüz ürün yok.",
     "loadError": "Ürünler yüklenemedi",
     "howMade": {
-      "title": "Çiçekler Nasıl Hazırlanıyor?",
-      "subtitle": "Holland'dan atölyemize, atölyemizden size.",
-      "vahap": "Vahap, emeğin ardındaki hikâyeyi anlatıyor",
-      "muteOn": "Sesi aç",
-      "muteOff": "Sesi kapat",
-      "items": [
-        { "id": "selection", "src": "/videos/process-selection.mp4", "caption": "Seçim" },
-        { "id": "packaging", "src": "/videos/process-packaging.mp4", "caption": "Paketleme" },
-        { "id": "delivery",  "src": "/videos/process-delivery.mp4",  "caption": "Teslimat" }
-      ]
+      "kicker": "ATÖLYEDEN",
+      "questions": [
+        "BİR BUKETİN ARDINDA NE KADAR EMEK VAR?",
+        "EN ZOR KISMI HANGİSİ?",
+        "NEDEN HOLLANDA ÇİÇEĞİ?"
+      ],
+      "vahap": "Vahap, emeğin ardındaki hikâyeyi anlatıyor"
     }
   },
   "cart": {
