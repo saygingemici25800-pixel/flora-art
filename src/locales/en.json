@@ -253,6 +253,13 @@
     "homeCta": "Back to Home",
     "whatsappCta": "Track via WhatsApp"
   },
+  "notFound": {
+    "kicker": "404",
+    "title": "Page Not Found",
+    "text": "The page you're looking for may have moved or never existed. Let's get you back among the flowers.",
+    "home": "Back to Home",
+    "shop": "Browse the Collection"
+  },
   "services": {
     "title": "Services",
     "subtitle": "For every special moment, at every scale.",
@@ -363,7 +370,7 @@
       "phoneIntl": "0531 844 8730",
       "phoneIntlTel": "+905318448730",
       "hoursLabel": "Opening Hours",
-      "hours": "Every day 08:00 – 20:00",
+      "hours": "Every day 08:00 – 22:00",
       "whatsappLabel": "WhatsApp",
       "whatsappCta": "Message Us",
       "instagramLabel": "Instagram",
@@ -464,7 +471,7 @@
     "tagline": "The art of flowers, at your door.",
     "subtitle": "Holland Premium Florist",
     "address": "Atatürk Cd. 98/a, Kesikkapı, Fethiye/Muğla",
-    "hours": "Every day 08:00 – 20:00",
+    "hours": "Every day 08:00 – 22:00",
     "rights": "All rights reserved.",
     "phone": "+90 533 533 53 80",
     "phoneIntl": "0531 844 8730",
@@ -510,7 +517,11 @@
     },
     "contact": {
       "title": "Contact | Flora Art Fethiye",
-      "description": "Atatürk Cd. 98/a, Kesikkapı, Fethiye. Every day 08:00–20:00. TR · EN · RU. Reach us instantly on WhatsApp."
+      "description": "Atatürk Cd. 98/a, Kesikkapı, Fethiye. Every day 08:00–22:00. TR · EN · RU. Reach us instantly on WhatsApp."
+    },
+    "notFound": {
+      "title": "Page Not Found | Flora Art Fethiye",
+      "description": "The page you're looking for could not be found. Browse the Flora Art collection."
     }
   },
   "pages": {

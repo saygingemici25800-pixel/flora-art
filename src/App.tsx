@@ -4,7 +4,6 @@ import './lib/i18n'
 import './styles/global.css'
 import { useLenis } from './hooks/useLenis'
 import { useCursor } from './hooks/useCursor'
-import PlaceholderPage from './components/PlaceholderPage'
 import Layout from './components/layout/Layout'
 import PageLoader from './components/ui/PageLoader'
 
@@ -18,6 +17,7 @@ const Delivery = lazy(() => import('./pages/Delivery'))
 const About = lazy(() => import('./pages/About'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Legal = lazy(() => import('./pages/Legal'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 // The admin panel is a self-contained app, lazily loaded so none of it ships
 // in the storefront bundle. Mounted outside the storefront Layout.
@@ -65,7 +65,7 @@ function Storefront() {
           <Route path="/ru/contact" element={<Contact />} />
           <Route path="/ru/kvkk" element={<Legal />} />
 
-          <Route path="*" element={<PlaceholderPage name="404" />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </Layout>
