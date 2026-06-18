@@ -183,50 +183,53 @@
     "whatsappTemplate": "Merhaba, {{name}} sipariş vermek istiyorum. Miktar: {{qty}}. Bölge: {{region}}. Teslimat: {{date}}. Not: {{note}}."
   },
   "checkout": {
-    "title": "Ödeme",
-    "steps": ["Teslimat", "Özet", "Ödeme"],
-    "back": "Geri",
-    "processing": "İşleniyor…",
+    "title": "Sipariş",
     "orderError": "Sipariş oluşturulamadı, lütfen tekrar deneyin.",
-    "step1": {
-      "title": "Teslimat Bilgileri",
-      "fullName": "Ad Soyad",
-      "phone": "Telefon",
-      "email": "E-posta",
-      "region": "Teslimat Bölgesi",
-      "country": "Ülke",
-      "city": "Şehir",
-      "address": "Adres",
+    "orderer": {
+      "title": "Sipariş Veren",
+      "name": "Ad Soyad",
+      "phone": "Telefon"
+    },
+    "gift": {
+      "toggle": "Hediye olarak gönderiyorum",
+      "hint": "Başka birine gönderiyorsanız alıcının bilgilerini girin.",
+      "recipientName": "Alıcı Ad Soyad",
+      "recipientPhone": "Alıcı Telefon",
+      "address": "Teslimat Adresi",
       "addressPlaceholder": "Mahalle, sokak, bina no, daire no…",
-      "date": "Teslimat Tarihi",
-      "time": "Teslimat Saati",
+      "cardNote": "Kart Notu",
+      "cardNotePlaceholder": "Çiçekle gönderilecek mesaj — örn. \"İyi ki doğdun\""
+    },
+    "general": {
+      "title": "Genel",
+      "orderNote": "Sipariş Notu (opsiyonel)",
+      "orderNotePlaceholder": "Eklemek istediğiniz bir not…",
+      "date": "Teslimat Tarihi (opsiyonel)",
+      "time": "Teslimat Saati (opsiyonel)",
+      "timeAny": "Farketmez",
       "times": [
         { "id": "morning", "label": "Sabah 08:00 – 12:00" },
         { "id": "noon",    "label": "Öğle 12:00 – 16:00" },
         { "id": "evening", "label": "Akşam 16:00 – 20:00" }
-      ],
-      "giftNote": "Hediye Notu (opsiyonel)",
-      "giftPlaceholder": "Karta yazılacak mesajınız…",
-      "continue": "Devam Et"
+      ]
     },
-    "step2": {
-      "title": "Sipariş Özeti",
-      "edit": "Düzenle",
-      "proceed": "Ödemeye Geç",
-      "deliveryTo": "Teslimat Adresi",
-      "scheduledFor": "Planlanan Teslimat"
-    },
-    "step3": {
-      "title": "Ödeme Bilgileri",
-      "cardNumber": "Kart Numarası",
-      "cardName": "Kart Üzerindeki İsim",
-      "expiry": "Son Kullanma",
-      "expiryPlaceholder": "AA/YY",
-      "cvv": "CVV",
-      "complete": "Siparişi Tamamla",
-      "or": "veya",
-      "whatsappComplete": "WhatsApp ile Tamamla",
-      "whatsappTemplate": "Sipariş tamamlamak istiyorum.\n\nÜrünler:\n{{items}}\n\nAd: {{name}}\nTelefon: {{phone}}\nAdres: {{address}}\nTeslimat: {{date}} · {{time}}\nToplam: ₺{{total}}"
+    "submit": "WhatsApp ile Sipariş Ver",
+    "submitting": "Hazırlanıyor…",
+    "requiredHint": "Devam etmek için ad ve telefon alanlarını doldurun.",
+    "privacyNote": "Bilgileriniz yalnızca siparişinizi iletmek için WhatsApp üzerinden kullanılır; sitede saklanmaz.",
+    "wa": {
+      "newOrder": "Yeni Sipariş",
+      "orderer": "Sipariş Veren",
+      "products": "Ürünler",
+      "total": "Toplam",
+      "recipient": "Alıcı",
+      "address": "Adres",
+      "cardNote": "Kart Notu",
+      "orderNote": "Sipariş Notu",
+      "schedule": "Teslimat",
+      "orderNo": "Sipariş No",
+      "giftRegion": "Hediye teslimat",
+      "selfRegion": "Sipariş veren teslim alacak"
     },
     "summary": {
       "title": "Sipariş Özeti",
@@ -236,7 +239,7 @@
       "items": "Ürünler",
       "qualityNote": "Holland'dan seçilmiş premium çiçeklerle hazırlanır."
     },
-    "trustBadges": ["Güvenli Ödeme", "İade Garantisi"],
+    "trustBadges": ["Taze Çiçek Garantisi", "WhatsApp Destek"],
     "empty": {
       "title": "Sepetiniz Boş",
       "hint": "Önce koleksiyondan bir çiçek seçin.",

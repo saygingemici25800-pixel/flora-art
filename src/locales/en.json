@@ -184,49 +184,52 @@
   },
   "checkout": {
     "title": "Checkout",
-    "steps": ["Delivery", "Review", "Payment"],
-    "back": "Back",
-    "processing": "Processing…",
     "orderError": "Could not place your order, please try again.",
-    "step1": {
-      "title": "Delivery Details",
-      "fullName": "Full Name",
-      "phone": "Phone",
-      "email": "Email",
-      "region": "Delivery Region",
-      "country": "Country",
-      "city": "City",
-      "address": "Address",
+    "orderer": {
+      "title": "Your Details",
+      "name": "Full Name",
+      "phone": "Phone"
+    },
+    "gift": {
+      "toggle": "Send as a gift",
+      "hint": "Sending to someone else? Add the recipient's details.",
+      "recipientName": "Recipient Name",
+      "recipientPhone": "Recipient Phone",
+      "address": "Delivery Address",
       "addressPlaceholder": "Street, building, apartment…",
-      "date": "Delivery Date",
-      "time": "Delivery Time",
+      "cardNote": "Card Note",
+      "cardNotePlaceholder": "Message sent with the flowers — e.g. \"Happy Birthday\""
+    },
+    "general": {
+      "title": "General",
+      "orderNote": "Order Note (optional)",
+      "orderNotePlaceholder": "Anything you'd like to add…",
+      "date": "Delivery Date (optional)",
+      "time": "Delivery Time (optional)",
+      "timeAny": "Any time",
       "times": [
         { "id": "morning", "label": "Morning 08:00 – 12:00" },
         { "id": "noon",    "label": "Midday 12:00 – 16:00" },
         { "id": "evening", "label": "Evening 16:00 – 20:00" }
-      ],
-      "giftNote": "Gift Note (optional)",
-      "giftPlaceholder": "Your message for the card…",
-      "continue": "Continue"
+      ]
     },
-    "step2": {
-      "title": "Review Order",
-      "edit": "Edit",
-      "proceed": "Proceed to Payment",
-      "deliveryTo": "Delivery Address",
-      "scheduledFor": "Scheduled Delivery"
-    },
-    "step3": {
-      "title": "Payment Details",
-      "cardNumber": "Card Number",
-      "cardName": "Name on Card",
-      "expiry": "Expiry",
-      "expiryPlaceholder": "MM/YY",
-      "cvv": "CVV",
-      "complete": "Complete Order",
-      "or": "or",
-      "whatsappComplete": "Complete via WhatsApp",
-      "whatsappTemplate": "I would like to complete an order.\n\nItems:\n{{items}}\n\nName: {{name}}\nPhone: {{phone}}\nAddress: {{address}}\nDelivery: {{date}} · {{time}}\nTotal: ₺{{total}}"
+    "submit": "Order via WhatsApp",
+    "submitting": "Preparing…",
+    "requiredHint": "Please fill in your name and phone to continue.",
+    "privacyNote": "Your details are used only to send your order via WhatsApp; they are not stored on the site.",
+    "wa": {
+      "newOrder": "New Order",
+      "orderer": "Ordered by",
+      "products": "Items",
+      "total": "Total",
+      "recipient": "Recipient",
+      "address": "Address",
+      "cardNote": "Card Note",
+      "orderNote": "Order Note",
+      "schedule": "Delivery",
+      "orderNo": "Order No",
+      "giftRegion": "Gift delivery",
+      "selfRegion": "Orderer will collect"
     },
     "summary": {
       "title": "Order Summary",
@@ -236,7 +239,7 @@
       "items": "Items",
       "qualityNote": "Hand-arranged with premium flowers sourced from Holland."
     },
-    "trustBadges": ["Secure Payment", "Return Guarantee"],
+    "trustBadges": ["Fresh Flower Guarantee", "WhatsApp Support"],
     "empty": {
       "title": "Your Cart Is Empty",
       "hint": "Pick a flower from the collection first.",

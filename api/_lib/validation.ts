@@ -115,10 +115,9 @@ export function validateOrderInput(input: unknown): Result<OrderInput> {
   if (
     !isObject(customer) ||
     !isNonEmptyString(customer.name) ||
-    !isNonEmptyString(customer.phone) ||
-    !isNonEmptyString(customer.email)
+    !isNonEmptyString(customer.phone)
   ) {
-    return { ok: false, error: 'customer.name, phone and email are required' }
+    return { ok: false, error: 'customer.name and phone are required' }
   }
 
   if (!Array.isArray(input.items) || input.items.length === 0) {
@@ -138,17 +137,8 @@ export function validateOrderInput(input: unknown): Result<OrderInput> {
   }
 
   const delivery = input.delivery
-  if (
-    !isObject(delivery) ||
-    !isNonEmptyString(delivery.region) ||
-    !isNonEmptyString(delivery.date) ||
-    !isNonEmptyString(delivery.timeSlot) ||
-    !isNonEmptyString(delivery.address)
-  ) {
-    return {
-      ok: false,
-      error: 'delivery.region, date, timeSlot and address are required',
-    }
+  if (!isObject(delivery) || !isNonEmptyString(delivery.region)) {
+    return { ok: false, error: 'delivery.region is required' }
   }
 
   if (!isFiniteNumber(input.subtotal) || input.subtotal < 0)
@@ -164,7 +154,7 @@ export function validateOrderInput(input: unknown): Result<OrderInput> {
     customer: {
       name: customer.name,
       phone: customer.phone,
-      email: customer.email,
+      email: isNonEmptyString(customer.email) ? customer.email : '',
     },
     items: input.items.map((i: Record<string, unknown>) => ({
       productId: i.productId as string,
@@ -174,12 +164,13 @@ export function validateOrderInput(input: unknown): Result<OrderInput> {
     })),
     delivery: {
       region: delivery.region,
-      date: delivery.date,
-      timeSlot: delivery.timeSlot,
-      address: delivery.address,
-      giftNote: isNonEmptyString(delivery.giftNote)
-        ? delivery.giftNote
-        : undefined,
+      date: isNonEmptyString(delivery.date) ? delivery.date : '',
+      timeSlot: isNonEmptyString(delivery.timeSlot) ? delivery.timeSlot : '',
+      address: isNonEmptyString(delivery.address) ? delivery.address : '',
+      giftNote: isNonEmptyString(delivery.giftNote) ? delivery.giftNote : undefined,
+      recipientName: isNonEmptyString(delivery.recipientName) ? delivery.recipientName : undefined,
+      recipientPhone: isNonEmptyString(delivery.recipientPhone) ? delivery.recipientPhone : undefined,
+      note: isNonEmptyString(delivery.note) ? delivery.note : undefined,
     },
     subtotal: input.subtotal,
     deliveryFee: input.deliveryFee,

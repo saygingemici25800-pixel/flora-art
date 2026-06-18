@@ -84,11 +84,19 @@ export interface OrderItem {
 
 export interface OrderDelivery {
   region: string
-  /** ISO date (YYYY-MM-DD) of requested delivery. */
+  /** ISO date (YYYY-MM-DD) of requested delivery. May be empty (WhatsApp orders
+   *  often leave timing to the florist). */
   date: string
   timeSlot: string
+  /** Recipient address — empty when the orderer collects the order themselves. */
   address: string
+  /** Card note sent with the flowers. */
   giftNote?: string
+  /** Gift recipient (when ordering for someone else). */
+  recipientName?: string
+  recipientPhone?: string
+  /** Free-form order note from the customer. */
+  note?: string
 }
 
 export type OrderStatus =

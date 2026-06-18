@@ -209,11 +209,20 @@ function OrderDetailModal({
             </InfoBlock>
             <InfoBlock title="Teslimat">
               <Line>{order.delivery.region}</Line>
-              <Line muted>
-                {order.delivery.date} · {order.delivery.timeSlot}
-              </Line>
-              <Line muted>{order.delivery.address}</Line>
+              {(order.delivery.recipientName || order.delivery.recipientPhone) && (
+                <Line muted>
+                  🎁 {order.delivery.recipientName}
+                  {order.delivery.recipientPhone ? ` · ${order.delivery.recipientPhone}` : ''}
+                </Line>
+              )}
+              {(order.delivery.date || order.delivery.timeSlot) && (
+                <Line muted>
+                  {[order.delivery.date, order.delivery.timeSlot].filter(Boolean).join(' · ')}
+                </Line>
+              )}
+              {order.delivery.address && <Line muted>{order.delivery.address}</Line>}
               {order.delivery.giftNote && <Line muted>“{order.delivery.giftNote}”</Line>}
+              {order.delivery.note && <Line muted>📝 {order.delivery.note}</Line>}
             </InfoBlock>
           </div>
 

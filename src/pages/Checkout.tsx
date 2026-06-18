@@ -11,26 +11,41 @@ import type { Order, OrderInput } from '../types'
 import ProductMotif from '../components/ui/ProductMotif'
 
 const EASE = [0.16, 1, 0.3, 1] as const
-const WHATSAPP_NUMBER = '905335335380'
 
-type Region = 'local' | 'turkey' | 'intl'
-type TimeSlot = 'morning' | 'noon' | 'evening'
+// WhatsApp order line: Turkish customers reach the main shop number; EN/RU
+// guests reach Aliona, who handles international orders.
+const WA_NUMBER_TR = '905335335380'
+const WA_NUMBER_INTL = '905318448730'
+
+interface TimeOption {
+  id: string
+  label: string
+}
 
 interface FormState {
-  fullName: string
-  phone: string
-  email: string
-  region: Region
-  country: string
-  city: string
-  address: string
+  ordererName: string
+  ordererPhone: string
+  isGift: boolean
+  recipientName: string
+  recipientPhone: string
+  recipientAddress: string
+  cardNote: string
+  orderNote: string
   date: string
-  time: TimeSlot
-  giftNote: string
-  cardNumber: string
-  cardName: string
-  expiry: string
-  cvv: string
+  time: string
+}
+
+const EMPTY_FORM: FormState = {
+  ordererName: '',
+  ordererPhone: '',
+  isGift: false,
+  recipientName: '',
+  recipientPhone: '',
+  recipientAddress: '',
+  cardNote: '',
+  orderNote: '',
+  date: '',
+  time: '',
 }
 
 function langPrefix(pathname: string): string {
@@ -47,27 +62,8 @@ function todayIso(): string {
   return `${yyyy}-${mm}-${dd}`
 }
 
-function deliveryFeeFor(region: Region): number {
-  if (region === 'turkey') return 150
-  return 0
-}
-
-function formatCardNumber(value: string): string {
-  return value
-    .replace(/\D/g, '')
-    .slice(0, 16)
-    .replace(/(.{4})/g, '$1 ')
-    .trim()
-}
-
-function formatExpiry(value: string): string {
-  const digits = value.replace(/\D/g, '').slice(0, 4)
-  if (digits.length <= 2) return digits
-  return `${digits.slice(0, 2)}/${digits.slice(2)}`
-}
-
 export default function Checkout() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
   const prefix = langPrefix(location.pathname)
@@ -77,65 +73,35 @@ export default function Checkout() {
   const clearCart = useCartStore((s) => s.clearCart)
   const currency = t('featured.currency') as string
 
-  const [step, setStep] = useState<1 | 2 | 3>(1)
+  const [form, setForm] = useState<FormState>(EMPTY_FORM)
   const [submitting, setSubmitting] = useState(false)
-  const [submitError, setSubmitError] = useState<string | null>(null)
-  const [form, setForm] = useState<FormState>({
-    fullName: '',
-    phone: '',
-    email: '',
-    region: 'local',
-    country: '',
-    city: '',
-    address: '',
-    date: todayIso(),
-    time: 'morning',
-    giftNote: '',
-    cardNumber: '',
-    cardName: '',
-    expiry: '',
-    cvv: '',
-  })
 
-  const deliveryFee = deliveryFeeFor(form.region)
-  const total = subtotal + deliveryFee
-  const stepLabels = t('checkout.steps', { returnObjects: true }) as string[]
+  const total = subtotal
+  const canSubmit =
+    form.ordererName.trim() !== '' && form.ordererPhone.trim() !== ''
+  const waNumber = i18n.language?.startsWith('tr') ? WA_NUMBER_TR : WA_NUMBER_INTL
+
+  const times = t('checkout.general.times', { returnObjects: true }) as TimeOption[]
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }))
   }
 
-  function handleSubmitStep1(e: React.FormEvent) {
-    e.preventDefault()
-    setStep(2)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+  function timeLabel(): string {
+    if (!form.time) return ''
+    return times.find((s) => s.id === form.time)?.label ?? ''
   }
-
-  function handleSubmitStep2() {
-    setStep(3)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  const timesList = t('checkout.step1.times', { returnObjects: true }) as {
-    id: TimeSlot
-    label: string
-  }[]
 
   /** Map the cart + form into the API's OrderInput shape. */
-  function buildOrderInput(paymentMethod: 'card' | 'whatsapp'): OrderInput {
-    const timeLabel = timesList.find((s) => s.id === form.time)?.label ?? form.time
-    const fullAddress = [form.country, form.city, form.address].filter(Boolean).join(', ')
-    const deliveryRegion =
-      form.region === 'local'
-        ? 'Fethiye'
-        : form.region === 'turkey'
-        ? form.city.trim() || 'Türkiye'
-        : form.country.trim() || 'Uluslararası'
+  function buildOrderInput(): OrderInput {
+    const region = form.isGift
+      ? (t('checkout.wa.giftRegion') as string)
+      : (t('checkout.wa.selfRegion') as string)
     return {
       customer: {
-        name: form.fullName.trim(),
-        phone: form.phone.trim(),
-        email: form.email.trim(),
+        name: form.ordererName.trim(),
+        phone: form.ordererPhone.trim(),
+        email: '',
       },
       items: items.map((it) => ({
         productId: it.id,
@@ -144,94 +110,108 @@ export default function Checkout() {
         quantity: it.quantity,
       })),
       delivery: {
-        region: deliveryRegion,
+        region,
         date: form.date,
-        timeSlot: timeLabel,
-        address: fullAddress,
-        giftNote: form.giftNote.trim() || undefined,
+        timeSlot: timeLabel(),
+        address: form.isGift ? form.recipientAddress.trim() : '',
+        giftNote: form.isGift ? form.cardNote.trim() || undefined : undefined,
+        recipientName: form.isGift ? form.recipientName.trim() || undefined : undefined,
+        recipientPhone: form.isGift ? form.recipientPhone.trim() || undefined : undefined,
+        note: form.orderNote.trim() || undefined,
       },
       subtotal,
-      deliveryFee,
+      deliveryFee: 0,
       total,
-      paymentMethod,
+      paymentMethod: 'whatsapp',
     }
   }
 
-  async function postOrder(paymentMethod: 'card' | 'whatsapp'): Promise<Order> {
-    const res = await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(buildOrderInput(paymentMethod)),
-    })
-    if (!res.ok) {
-      let detail = ''
-      try {
-        const data = (await res.json()) as { error?: string }
-        if (data?.error) detail = ` (${data.error})`
-      } catch {
-        /* non-JSON error body */
-      }
-      throw new Error(`${t('checkout.orderError')}${detail}`)
+  /**
+   * Persist to KV (best-effort) so the order shows up in the admin panel and we
+   * can stamp #FA-XXXX into the message. Returns null if the API is unavailable
+   * (e.g. plain `vite` dev with no functions) — WhatsApp still works either way.
+   */
+  async function persistOrder(): Promise<string | null> {
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(buildOrderInput()),
+      })
+      if (!res.ok) return null
+      const order = (await res.json()) as Order
+      return order.orderNumber ?? null
+    } catch {
+      return null
     }
-    return (await res.json()) as Order
   }
 
-  async function handleComplete(e: React.FormEvent) {
+  /** Compose the single block message that gets handed to WhatsApp. */
+  function buildMessage(orderNumber: string | null): string {
+    const L = (k: string) => t(`checkout.wa.${k}`) as string
+    const lines: string[] = []
+    lines.push(`🌸 FLORA ART — ${L('newOrder')}`)
+    lines.push('')
+    lines.push(
+      `👤 ${L('orderer')}: ${form.ordererName.trim()} — ${form.ordererPhone.trim()}`,
+    )
+    lines.push('')
+    lines.push(`📦 ${L('products')}:`)
+    for (const it of items) {
+      lines.push(`• ${it.name} x${it.quantity} — ${it.price * it.quantity}₺`)
+    }
+    lines.push(`💰 ${L('total')}: ${total}₺`)
+
+    if (form.isGift) {
+      lines.push('')
+      lines.push(
+        `🎁 ${L('recipient')}: ${form.recipientName.trim() || '—'} — ${
+          form.recipientPhone.trim() || '—'
+        }`,
+      )
+      if (form.recipientAddress.trim())
+        lines.push(`📍 ${L('address')}: ${form.recipientAddress.trim()}`)
+      if (form.cardNote.trim())
+        lines.push(`💌 ${L('cardNote')}: ${form.cardNote.trim()}`)
+    }
+
+    if (form.orderNote.trim()) {
+      lines.push('')
+      lines.push(`📝 ${L('orderNote')}: ${form.orderNote.trim()}`)
+    }
+
+    const tl = timeLabel()
+    if (form.date || tl) {
+      lines.push('')
+      lines.push(`📅 ${L('schedule')}: ${[form.date, tl].filter(Boolean).join(' · ')}`)
+    }
+
+    if (orderNumber) {
+      lines.push('')
+      lines.push(`🔖 ${L('orderNo')}: ${orderNumber}`)
+    }
+    return lines.join('\n')
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (submitting) return
-    setSubmitError(null)
-    setSubmitting(true)
-    try {
-      const order = await postOrder('card')
-      clearCart()
-      navigate(`${prefix}/order-success`, { state: { orderNumber: order.orderNumber } })
-    } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : (t('checkout.orderError') as string))
-      setSubmitting(false)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-
-  async function handleWhatsAppComplete() {
-    if (submitting) return
-    setSubmitError(null)
+    if (!canSubmit || submitting) return
     setSubmitting(true)
 
-    let order: Order
-    try {
-      order = await postOrder('whatsapp')
-    } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : (t('checkout.orderError') as string))
-      setSubmitting(false)
-      return
-    }
-
-    // Order is persisted server-side — from here on never re-enable the button,
-    // so a thrown side-effect can't trigger a duplicate POST. WhatsApp is best-effort.
-    const itemsLine = items
-      .map((it) => `• ${it.name} × ${it.quantity} — ${currency}${it.price * it.quantity}`)
-      .join('\n')
-    const timeLabel = timesList.find((s) => s.id === form.time)?.label ?? form.time
-    const fullAddress = [form.country, form.city, form.address].filter(Boolean).join(', ')
-    const msg = t('checkout.step3.whatsappTemplate', {
-      items: itemsLine,
-      name: form.fullName || '—',
-      phone: form.phone || '—',
-      address: fullAddress || '—',
-      date: form.date,
-      time: timeLabel,
-      total,
-    }) as string
-    const href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-      `${order.orderNumber}\n${msg}`,
+    const orderNumber = await persistOrder()
+    const href = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+      buildMessage(orderNumber),
     )}`
+
     clearCart()
     try {
       window.open(href, '_blank', 'noopener,noreferrer')
     } catch {
-      /* popup blocked — the order is already placed */
+      /* popup blocked — order is already captured */
     }
-    navigate(`${prefix}/order-success`, { state: { orderNumber: order.orderNumber } })
+    navigate(`${prefix}/order-success`, {
+      state: { orderNumber: orderNumber ?? undefined },
+    })
   }
 
   if (items.length === 0) {
@@ -241,7 +221,7 @@ export default function Checkout() {
   return (
     <section className="relative w-full" style={{ background: 'var(--color-cream)' }}>
       <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-[110px] md:pt-[140px] pb-20 md:pb-28">
-        <header className="mb-10 md:mb-14">
+        <header className="mb-12 md:mb-16">
           <p
             className="text-[11px] tracking-[0.3em] uppercase mb-3"
             style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
@@ -262,79 +242,188 @@ export default function Checkout() {
           </h1>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 items-start">
-          <div className="md:col-span-7">
-            <Stepper current={step} labels={stepLabels} onSelect={(s) => s < step && setStep(s)} />
-
-            <AnimatePresence mode="wait">
-              {step === 1 && (
-                <motion.form
-                  key="step1"
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -30 }}
-                  transition={{ duration: 0.45, ease: EASE }}
-                  onSubmit={handleSubmitStep1}
-                  className="mt-8"
-                >
-                  <Step1 form={form} update={update} />
-                </motion.form>
-              )}
-
-              {step === 2 && (
-                <motion.div
-                  key="step2"
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -30 }}
-                  transition={{ duration: 0.45, ease: EASE }}
-                  className="mt-8"
-                >
-                  <Step2
-                    form={form}
-                    items={items}
-                    subtotal={subtotal}
-                    deliveryFee={deliveryFee}
-                    total={total}
-                    currency={currency}
-                    onEdit={() => setStep(1)}
-                    onProceed={handleSubmitStep2}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
+          <form onSubmit={handleSubmit} className="md:col-span-7">
+            {/* Orderer */}
+            <fieldset>
+              <h2 className="form-section-title">{t('checkout.orderer.title')}</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Field label={t('checkout.orderer.name') as string} required>
+                  <input
+                    type="text"
+                    required
+                    value={form.ordererName}
+                    onChange={(e) => update('ordererName', e.target.value)}
+                    className="flora-input"
                   />
-                </motion.div>
-              )}
-
-              {step === 3 && (
-                <motion.form
-                  key="step3"
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -30 }}
-                  transition={{ duration: 0.45, ease: EASE }}
-                  onSubmit={handleComplete}
-                  className="mt-8"
-                >
-                  <Step3
-                    form={form}
-                    update={update}
-                    onBack={() => setStep(2)}
-                    onWhatsApp={handleWhatsAppComplete}
-                    submitting={submitting}
-                    submitError={submitError}
+                </Field>
+                <Field label={t('checkout.orderer.phone') as string} required>
+                  <input
+                    type="tel"
+                    required
+                    value={form.ordererPhone}
+                    onChange={(e) => update('ordererPhone', e.target.value)}
+                    className="flora-input"
                   />
-                </motion.form>
-              )}
-            </AnimatePresence>
-          </div>
+                </Field>
+              </div>
+            </fieldset>
+
+            {/* Gift toggle + recipient */}
+            <div className="mt-14">
+              <GiftToggle
+                on={form.isGift}
+                onToggle={() => update('isGift', !form.isGift)}
+                label={t('checkout.gift.toggle') as string}
+                hint={t('checkout.gift.hint') as string}
+              />
+
+              <AnimatePresence initial={false}>
+                {form.isGift && (
+                  <motion.div
+                    key="recipient"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.4, ease: EASE }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    <div className="pt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <Field label={t('checkout.gift.recipientName') as string}>
+                        <input
+                          type="text"
+                          value={form.recipientName}
+                          onChange={(e) => update('recipientName', e.target.value)}
+                          className="flora-input"
+                        />
+                      </Field>
+                      <Field label={t('checkout.gift.recipientPhone') as string}>
+                        <input
+                          type="tel"
+                          value={form.recipientPhone}
+                          onChange={(e) => update('recipientPhone', e.target.value)}
+                          className="flora-input"
+                        />
+                      </Field>
+                    </div>
+                    <div className="mt-6">
+                      <Field label={t('checkout.gift.address') as string}>
+                        <textarea
+                          rows={3}
+                          value={form.recipientAddress}
+                          onChange={(e) => update('recipientAddress', e.target.value)}
+                          placeholder={t('checkout.gift.addressPlaceholder') as string}
+                          className="flora-input"
+                          style={{ resize: 'none' }}
+                        />
+                      </Field>
+                    </div>
+                    <div className="mt-6">
+                      <Field label={t('checkout.gift.cardNote') as string}>
+                        <textarea
+                          rows={3}
+                          value={form.cardNote}
+                          onChange={(e) => update('cardNote', e.target.value)}
+                          placeholder={t('checkout.gift.cardNotePlaceholder') as string}
+                          className="flora-input italic"
+                          style={{
+                            resize: 'none',
+                            fontFamily: 'var(--font-display)',
+                            fontSize: '1rem',
+                          }}
+                        />
+                      </Field>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* General */}
+            <fieldset className="mt-14">
+              <h2 className="form-section-title">{t('checkout.general.title')}</h2>
+              <Field label={t('checkout.general.orderNote') as string}>
+                <textarea
+                  rows={3}
+                  value={form.orderNote}
+                  onChange={(e) => update('orderNote', e.target.value)}
+                  placeholder={t('checkout.general.orderNotePlaceholder') as string}
+                  className="flora-input"
+                  style={{ resize: 'none' }}
+                />
+              </Field>
+              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Field label={t('checkout.general.date') as string}>
+                  <input
+                    type="date"
+                    value={form.date}
+                    min={todayIso()}
+                    onChange={(e) => update('date', e.target.value)}
+                    className="flora-input"
+                  />
+                </Field>
+                <Field label={t('checkout.general.time') as string}>
+                  <select
+                    value={form.time}
+                    onChange={(e) => update('time', e.target.value)}
+                    className="flora-input"
+                  >
+                    <option value="">{t('checkout.general.timeAny')}</option>
+                    {times.map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {s.label}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              </div>
+            </fieldset>
+
+            {!canSubmit && (
+              <p
+                className="mt-12 text-[12px] tracking-[0.05em]"
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  color: 'var(--color-ink)',
+                  opacity: 0.6,
+                }}
+              >
+                {t('checkout.requiredHint')}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              disabled={!canSubmit || submitting}
+              className={`wa-submit mt-6 inline-flex items-center justify-center gap-3 w-full py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-all duration-300 ${
+                !canSubmit || submitting ? 'cursor-not-allowed opacity-50' : ''
+              }`}
+              style={{
+                background: '#25D366',
+                color: '#FFFFFF',
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              <WhatsAppGlyph />
+              {submitting ? t('checkout.submitting') : t('checkout.submit')}
+            </button>
+
+            <p
+              className="mt-6 text-[11px] leading-relaxed max-w-[52ch]"
+              style={{
+                fontFamily: 'var(--font-body)',
+                color: 'var(--color-ink)',
+                opacity: 0.55,
+              }}
+            >
+              {t('checkout.privacyNote')}
+            </p>
+
+            <FormStyles />
+          </form>
 
           <aside className="md:col-span-5 md:sticky md:top-[100px]">
-            <SummaryCard
-              items={items}
-              subtotal={subtotal}
-              deliveryFee={deliveryFee}
-              total={total}
-              region={form.region}
-              currency={currency}
-            />
+            <SummaryCard items={items} total={total} currency={currency} />
           </aside>
         </div>
       </div>
@@ -342,613 +431,74 @@ export default function Checkout() {
   )
 }
 
-function Stepper({
-  current,
-  labels,
-  onSelect,
+function GiftToggle({
+  on,
+  onToggle,
+  label,
+  hint,
 }: {
-  current: 1 | 2 | 3
-  labels: string[]
-  onSelect: (step: 1 | 2 | 3) => void
+  on: boolean
+  onToggle: () => void
+  label: string
+  hint: string
 }) {
   return (
-    <ol className="flex items-center gap-3 md:gap-5">
-      {labels.map((label, i) => {
-        const idx = (i + 1) as 1 | 2 | 3
-        const isActive = idx === current
-        const isComplete = idx < current
-        return (
-          <li key={label} className="flex items-center gap-3 flex-1 min-w-0">
-            <button
-              type="button"
-              onClick={() => onSelect(idx)}
-              disabled={!isComplete}
-              className={`grid place-items-center w-8 h-8 shrink-0 rounded-full text-[12px] transition-colors ${
-                isComplete ? 'cursor-pointer' : 'cursor-default'
-              }`}
-              style={{
-                background: isActive
-                  ? 'var(--color-forest)'
-                  : isComplete
-                  ? 'var(--color-gold)'
-                  : 'transparent',
-                color: isActive
-                  ? 'var(--color-cream)'
-                  : 'var(--color-forest)',
-                border:
-                  !isActive && !isComplete ? '1px solid rgba(1,62,55,0.25)' : 'none',
-                fontFamily: 'var(--font-body)',
-                fontWeight: 600,
-              }}
-              aria-current={isActive ? 'step' : undefined}
-            >
-              {isComplete ? '✓' : idx}
-            </button>
-            <span
-              className="text-[11px] tracking-[0.25em] uppercase truncate"
-              style={{
-                color: isActive
-                  ? 'var(--color-forest)'
-                  : isComplete
-                  ? 'var(--color-gold)'
-                  : 'var(--color-ink)',
-                opacity: isActive || isComplete ? 1 : 0.5,
-                fontFamily: 'var(--font-body)',
-              }}
-            >
-              {label}
-            </span>
-            {i < labels.length - 1 && (
-              <span
-                aria-hidden="true"
-                className="hidden md:block flex-1 h-px"
-                style={{
-                  background: isComplete ? 'var(--color-gold)' : 'rgba(1,62,55,0.18)',
-                }}
-              />
-            )}
-          </li>
-        )
-      })}
-    </ol>
-  )
-}
-
-interface Step1Props {
-  form: FormState
-  update: <K extends keyof FormState>(key: K, value: FormState[K]) => void
-}
-
-function Step1({ form, update }: Step1Props) {
-  const { t } = useTranslation()
-  const times = t('checkout.step1.times', { returnObjects: true }) as {
-    id: TimeSlot
-    label: string
-  }[]
-
-  return (
-    <>
-      <h2 className="form-section-title">{t('checkout.step1.title')}</h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <Field label={t('checkout.step1.fullName') as string} required>
-          <input
-            type="text"
-            required
-            value={form.fullName}
-            onChange={(e) => update('fullName', e.target.value)}
-            className="flora-input"
-          />
-        </Field>
-        <Field label={t('checkout.step1.phone') as string} required>
-          <input
-            type="tel"
-            required
-            value={form.phone}
-            onChange={(e) => update('phone', e.target.value)}
-            className="flora-input"
-          />
-        </Field>
-      </div>
-
-      <div className="mt-5">
-        <Field label={t('checkout.step1.email') as string} required>
-          <input
-            type="email"
-            required
-            value={form.email}
-            onChange={(e) => update('email', e.target.value)}
-            className="flora-input"
-          />
-        </Field>
-      </div>
-
-      <div className="mt-8">
-        <p className="form-label">{t('checkout.step1.region')}</p>
-        <div className="flex flex-wrap gap-2">
-          {(['local', 'turkey', 'intl'] as Region[]).map((key) => {
-            const active = form.region === key
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => update('region', key)}
-                aria-pressed={active}
-                className="px-4 py-2 text-[12px] tracking-[0.2em] uppercase rounded-full transition-colors"
-                style={{
-                  background: active ? 'var(--color-forest)' : 'transparent',
-                  color: active ? 'var(--color-cream)' : 'var(--color-forest)',
-                  border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(1,62,55,0.2)'}`,
-                  fontFamily: 'var(--font-body)',
-                }}
-              >
-                <span className="mr-2" aria-hidden="true">
-                  {t(`product.regions.${key}.icon`)}
-                </span>
-                {t(`product.regions.${key}.label`)}
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
-      <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5">
-        {form.region === 'intl' && (
-          <Field label={t('checkout.step1.country') as string} required>
-            <input
-              type="text"
-              required
-              value={form.country}
-              onChange={(e) => update('country', e.target.value)}
-              className="flora-input"
-            />
-          </Field>
-        )}
-        {form.region !== 'local' && (
-          <Field label={t('checkout.step1.city') as string} required>
-            <input
-              type="text"
-              required
-              value={form.city}
-              onChange={(e) => update('city', e.target.value)}
-              className="flora-input"
-            />
-          </Field>
-        )}
-      </div>
-
-      <div className="mt-5">
-        <Field label={t('checkout.step1.address') as string} required>
-          <textarea
-            required
-            rows={3}
-            value={form.address}
-            onChange={(e) => update('address', e.target.value)}
-            placeholder={t('checkout.step1.addressPlaceholder') as string}
-            className="flora-input"
-            style={{ resize: 'none' }}
-          />
-        </Field>
-      </div>
-
-      <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-5">
-        <Field label={t('checkout.step1.date') as string} required>
-          <input
-            type="date"
-            required
-            value={form.date}
-            min={todayIso()}
-            onChange={(e) => update('date', e.target.value)}
-            className="flora-input"
-          />
-        </Field>
-        <Field label={t('checkout.step1.time') as string} required>
-          <select
-            required
-            value={form.time}
-            onChange={(e) => update('time', e.target.value as TimeSlot)}
-            className="flora-input"
-          >
-            {times.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.label}
-              </option>
-            ))}
-          </select>
-        </Field>
-      </div>
-
-      <div className="mt-5">
-        <Field label={t('checkout.step1.giftNote') as string}>
-          <textarea
-            rows={3}
-            value={form.giftNote}
-            onChange={(e) => update('giftNote', e.target.value)}
-            placeholder={t('checkout.step1.giftPlaceholder') as string}
-            className="flora-input italic"
-            style={{
-              resize: 'none',
-              fontFamily: 'var(--font-display)',
-              fontSize: '1rem',
-            }}
-          />
-        </Field>
-      </div>
-
-      <button
-        type="submit"
-        className="cta-primary mt-8 inline-flex items-center justify-center gap-2 w-full md:w-auto md:min-w-[260px] py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
-        style={{
-          background: 'var(--color-gold)',
-          color: 'var(--color-forest)',
-          fontFamily: 'var(--font-body)',
-        }}
-      >
-        {t('checkout.step1.continue')}
-        <span aria-hidden="true">→</span>
-      </button>
-
-      <FormStyles />
-    </>
-  )
-}
-
-interface Step2Props {
-  form: FormState
-  items: CartItem[]
-  subtotal: number
-  deliveryFee: number
-  total: number
-  currency: string
-  onEdit: () => void
-  onProceed: () => void
-}
-
-function Step2({
-  form,
-  items,
-  subtotal,
-  deliveryFee,
-  total,
-  currency,
-  onEdit,
-  onProceed,
-}: Step2Props) {
-  const { t } = useTranslation()
-  const timeLabel =
-    (t('checkout.step1.times', { returnObjects: true }) as { id: TimeSlot; label: string }[]).find(
-      (s) => s.id === form.time,
-    )?.label ?? form.time
-  const fullAddress = [form.country, form.city, form.address].filter(Boolean).join(', ')
-
-  return (
-    <>
-      <div className="flex items-center justify-between gap-4 mb-6">
-        <h2 className="form-section-title m-0">{t('checkout.step2.title')}</h2>
-        <button
-          type="button"
-          onClick={onEdit}
-          className="text-[11px] tracking-[0.28em] uppercase transition-colors hover:text-[var(--color-gold)]"
-          style={{
-            color: 'var(--color-forest)',
-            fontFamily: 'var(--font-body)',
-            opacity: 0.75,
-          }}
-        >
-          ← {t('checkout.step2.edit')}
-        </button>
-      </div>
-
-      <ul
-        className="border"
-        style={{ borderColor: 'rgba(1,62,55,0.15)', background: 'transparent' }}
-      >
-        {items.map((it, i) => (
-          <li
-            key={it.id}
-            className="flex items-center justify-between gap-4 px-5 py-4"
-            style={{
-              borderBottom:
-                i < items.length - 1 ? '1px solid rgba(1,62,55,0.08)' : 'none',
-            }}
-          >
-            <div className="min-w-0">
-              <p
-                className="truncate"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.05rem',
-                  color: 'var(--color-forest)',
-                  letterSpacing: '-0.005em',
-                }}
-              >
-                {it.name}
-              </p>
-              <p
-                className="text-[11px] tracking-[0.18em] uppercase mt-1"
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  color: 'var(--color-ink)',
-                  opacity: 0.6,
-                }}
-              >
-                × {it.quantity}
-              </p>
-            </div>
-            <span
-              className="whitespace-nowrap"
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 600,
-                color: 'var(--color-bronze)',
-              }}
-            >
-              {currency}
-              {it.price * it.quantity}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-6 space-y-2">
-        <Row label={t('checkout.summary.subtotal') as string} value={`${currency}${subtotal}`} />
-        <Row
-          label={t('checkout.summary.delivery') as string}
-          value={
-            form.region === 'intl'
-              ? (t('product.regions.intl.fee') as string)
-              : deliveryFee === 0
-              ? (t('product.regions.local.fee') as string)
-              : `${currency}${deliveryFee}`
-          }
-        />
-        <div className="border-t pt-3 mt-3" style={{ borderColor: 'rgba(1,62,55,0.15)' }}>
-          <Row label={t('checkout.summary.total') as string} value={`${currency}${total}`} big />
-        </div>
-      </div>
-
-      <section className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <SnapshotBlock
-          title={t('checkout.step2.deliveryTo') as string}
-          lines={[form.fullName, form.phone, fullAddress].filter(Boolean) as string[]}
-        />
-        <SnapshotBlock
-          title={t('checkout.step2.scheduledFor') as string}
-          lines={[form.date, timeLabel]}
-        />
-      </section>
-
+    <div>
       <button
         type="button"
-        onClick={onProceed}
-        className="cta-primary mt-10 inline-flex items-center justify-center gap-2 w-full md:w-auto md:min-w-[280px] py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
-        style={{
-          background: 'var(--color-gold)',
-          color: 'var(--color-forest)',
-          fontFamily: 'var(--font-body)',
-        }}
+        role="switch"
+        aria-checked={on}
+        onClick={onToggle}
+        className="inline-flex items-center gap-3"
       >
-        {t('checkout.step2.proceed')}
-        <span aria-hidden="true">→</span>
-      </button>
-
-      <FormStyles />
-    </>
-  )
-}
-
-function Row({ label, value, big = false }: { label: string; value: string; big?: boolean }) {
-  return (
-    <div className="flex items-baseline justify-between gap-3">
-      <span
-        className="text-[11px] tracking-[0.28em] uppercase"
-        style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.65 }}
-      >
-        {label}
-      </span>
-      <span
-        className={big ? 'italic' : ''}
-        style={{
-          fontFamily: big ? 'var(--font-display)' : 'var(--font-body)',
-          fontSize: big ? '1.75rem' : '0.95rem',
-          fontWeight: big ? 400 : 600,
-          color: 'var(--color-forest)',
-          letterSpacing: big ? '-0.01em' : '0.02em',
-        }}
-      >
-        {value}
-      </span>
-    </div>
-  )
-}
-
-function SnapshotBlock({ title, lines }: { title: string; lines: string[] }) {
-  return (
-    <div className="p-5" style={{ border: '1px solid rgba(1,62,55,0.15)' }}>
-      <p
-        className="text-[10px] tracking-[0.32em] uppercase mb-3"
-        style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
-      >
-        {title}
-      </p>
-      <ul className="space-y-1">
-        {lines.map((l, i) => (
-          <li
-            key={i}
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.95rem',
-              color: 'var(--color-forest)',
-              lineHeight: 1.5,
-            }}
-          >
-            {l}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-interface Step3Props {
-  form: FormState
-  update: <K extends keyof FormState>(key: K, value: FormState[K]) => void
-  onBack: () => void
-  onWhatsApp: () => void
-  submitting: boolean
-  submitError: string | null
-}
-
-function Step3({ form, update, onBack, onWhatsApp, submitting, submitError }: Step3Props) {
-  const { t } = useTranslation()
-  return (
-    <>
-      <div className="flex items-center justify-between gap-4 mb-6">
-        <h2 className="form-section-title m-0">{t('checkout.step3.title')}</h2>
-        <button
-          type="button"
-          onClick={onBack}
-          className="text-[11px] tracking-[0.28em] uppercase transition-colors hover:text-[var(--color-gold)]"
-          style={{
-            color: 'var(--color-forest)',
-            fontFamily: 'var(--font-body)',
-            opacity: 0.75,
-          }}
-        >
-          ← {t('checkout.back')}
-        </button>
-      </div>
-
-      <Field label={t('checkout.step3.cardNumber') as string} required>
-        <input
-          type="text"
-          inputMode="numeric"
-          required
-          value={form.cardNumber}
-          onChange={(e) => update('cardNumber', formatCardNumber(e.target.value))}
-          placeholder="0000 0000 0000 0000"
-          className="flora-input"
-          style={{ letterSpacing: '0.18em' }}
-        />
-      </Field>
-
-      <div className="mt-5">
-        <Field label={t('checkout.step3.cardName') as string} required>
-          <input
-            type="text"
-            required
-            value={form.cardName}
-            onChange={(e) => update('cardName', e.target.value.toUpperCase())}
-            className="flora-input"
-            style={{ letterSpacing: '0.08em' }}
-          />
-        </Field>
-      </div>
-
-      <div className="mt-5 grid grid-cols-2 gap-5">
-        <Field label={t('checkout.step3.expiry') as string} required>
-          <input
-            type="text"
-            required
-            inputMode="numeric"
-            value={form.expiry}
-            onChange={(e) => update('expiry', formatExpiry(e.target.value))}
-            placeholder={t('checkout.step3.expiryPlaceholder') as string}
-            className="flora-input"
-          />
-        </Field>
-        <Field label={t('checkout.step3.cvv') as string} required>
-          <input
-            type="text"
-            required
-            inputMode="numeric"
-            value={form.cvv}
-            onChange={(e) =>
-              update('cvv', e.target.value.replace(/\D/g, '').slice(0, 4))
-            }
-            placeholder="123"
-            className="flora-input"
-          />
-        </Field>
-      </div>
-
-      {submitError && (
-        <p
-          role="alert"
-          className="mt-6 px-4 py-3 text-[0.85rem]"
-          style={{
-            background: 'rgba(138,59,48,0.08)',
-            border: '1px solid rgba(138,59,48,0.3)',
-            color: '#8A3B30',
-            fontFamily: 'var(--font-body)',
-          }}
-        >
-          {submitError}
-        </p>
-      )}
-
-      <button
-        type="submit"
-        disabled={submitting}
-        className={`cta-primary mt-8 inline-flex items-center justify-center gap-2 w-full py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300 ${
-          submitting ? 'cursor-not-allowed opacity-60' : ''
-        }`}
-        style={{
-          background: 'var(--color-gold)',
-          color: 'var(--color-forest)',
-          fontFamily: 'var(--font-body)',
-        }}
-      >
-        {submitting ? t('checkout.processing') : t('checkout.step3.complete')}
-        {!submitting && <span aria-hidden="true">→</span>}
-      </button>
-
-      <div className="flex items-center gap-4 my-8">
-        <span className="flex-1 h-px" style={{ background: 'rgba(1,62,55,0.18)' }} />
         <span
-          className="text-[11px] tracking-[0.3em] uppercase"
-          style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.55 }}
+          className="relative inline-flex items-center w-12 h-7 rounded-full transition-colors duration-300 shrink-0"
+          style={{
+            background: on ? 'var(--color-forest)' : 'rgba(1,62,55,0.15)',
+            border: '1px solid rgba(1,62,55,0.2)',
+          }}
         >
-          {t('checkout.step3.or')}
+          <span
+            className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full transition-all duration-300"
+            style={{
+              left: on ? 'calc(100% - 23px)' : '3px',
+              background: on ? 'var(--color-gold)' : 'var(--color-cream)',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+            }}
+          />
         </span>
-        <span className="flex-1 h-px" style={{ background: 'rgba(1,62,55,0.18)' }} />
-      </div>
-
-      <button
-        type="button"
-        onClick={onWhatsApp}
-        disabled={submitting}
-        className={`inline-flex items-center justify-center gap-3 w-full py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300 ${
-          submitting ? 'cursor-not-allowed opacity-60' : ''
-        }`}
+        <span
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.95rem',
+            color: 'var(--color-forest)',
+            fontWeight: 500,
+          }}
+        >
+          {label}
+        </span>
+      </button>
+      <p
+        className="mt-3 text-[12px] leading-relaxed max-w-[46ch]"
         style={{
-          background: '#25D366',
-          color: '#FFFFFF',
           fontFamily: 'var(--font-body)',
+          color: 'var(--color-ink)',
+          opacity: 0.55,
         }}
       >
-        <WhatsAppGlyph />
-        {t('checkout.step3.whatsappComplete')}
-      </button>
-
-      <FormStyles />
-    </>
+        {hint}
+      </p>
+    </div>
   )
 }
 
 function SummaryCard({
   items,
-  subtotal,
-  deliveryFee,
   total,
-  region,
   currency,
 }: {
   items: CartItem[]
-  subtotal: number
-  deliveryFee: number
   total: number
-  region: Region
   currency: string
 }) {
   const { t } = useTranslation()
@@ -1022,20 +572,30 @@ function SummaryCard({
         ))}
       </ul>
 
-      <div className="space-y-2 pt-4" style={{ borderTop: '1px solid rgba(1,62,55,0.18)' }}>
-        <Row label={t('checkout.summary.subtotal') as string} value={`${currency}${subtotal}`} />
-        <Row
-          label={t('checkout.summary.delivery') as string}
-          value={
-            region === 'intl'
-              ? (t('product.regions.intl.fee') as string)
-              : deliveryFee === 0
-              ? (t('product.regions.local.fee') as string)
-              : `${currency}${deliveryFee}`
-          }
-        />
-        <div className="border-t pt-3 mt-3" style={{ borderColor: 'rgba(1,62,55,0.18)' }}>
-          <Row label={t('checkout.summary.total') as string} value={`${currency}${total}`} big />
+      <div className="pt-4" style={{ borderTop: '1px solid rgba(1,62,55,0.18)' }}>
+        <div className="flex items-baseline justify-between gap-3">
+          <span
+            className="text-[11px] tracking-[0.28em] uppercase"
+            style={{
+              fontFamily: 'var(--font-body)',
+              color: 'var(--color-ink)',
+              opacity: 0.65,
+            }}
+          >
+            {t('checkout.summary.total')}
+          </span>
+          <span
+            className="italic"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.75rem',
+              color: 'var(--color-forest)',
+              letterSpacing: '-0.01em',
+            }}
+          >
+            {currency}
+            {total}
+          </span>
         </div>
       </div>
 
@@ -1099,7 +659,7 @@ function FormStyles() {
         font-style: italic;
         color: var(--color-forest);
         letter-spacing: -0.01em;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.75rem;
         line-height: 1;
       }
       .form-label {
@@ -1110,11 +670,11 @@ function FormStyles() {
         font-size: 10px;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.6rem;
       }
       .flora-input {
         width: 100%;
-        padding: 0.85rem 0.9rem;
+        padding: 0.9rem 0.95rem;
         background: transparent;
         border: 1px solid rgba(1,62,55,0.18);
         outline: none;
@@ -1126,9 +686,8 @@ function FormStyles() {
       .flora-input:focus {
         border-color: var(--color-gold);
       }
-      .cta-primary:hover {
-        background: var(--color-forest) !important;
-        color: var(--color-cream) !important;
+      .wa-submit:not(:disabled):hover {
+        filter: brightness(0.94);
       }
     `}</style>
   )
@@ -1150,17 +709,14 @@ function BadgeIcon({ idx }: { idx: number }) {
   if (idx === 0) {
     return (
       <svg {...common}>
-        <rect x="4" y="11" width="16" height="10" rx="2" />
-        <path d="M8 11 V8 a4 4 0 0 1 8 0 V11" />
+        <path d="M12 3 L20 6 V11 C20 16 16.5 19.5 12 21 C7.5 19.5 4 16 4 11 V6 Z" />
+        <path d="M9 12 l2 2 l4 -4" />
       </svg>
     )
   }
   return (
     <svg {...common}>
-      <path d="M3 12 A9 9 0 0 1 21 12" />
-      <path d="M21 4 V12 H13" />
-      <path d="M21 12 A9 9 0 0 1 3 12" />
-      <path d="M3 20 V12 H11" />
+      <path d="M12 21 C12 21 4 14 4 8.5 A4.5 4.5 0 0 1 12 6 A4.5 4.5 0 0 1 20 8.5 C20 14 12 21 12 21 Z" />
     </svg>
   )
 }
