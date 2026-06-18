@@ -12,10 +12,24 @@ import ProductMotif from '../components/ui/ProductMotif'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
-// WhatsApp order line: Turkish customers reach the main shop number; EN/RU
-// guests reach Aliona, who handles international orders.
+// WhatsApp routing by the customer's chosen contact language (NOT the site
+// language): Turkish → Vahap's line, English / Russian → Aliona (international).
 const WA_NUMBER_TR = '905015317748'
 const WA_NUMBER_INTL = '905318448730'
+
+// Endonyms — identical in every UI language, so kept here rather than in i18n.
+const LANGS = [
+  { id: 'tr', label: 'Türkçe' },
+  { id: 'en', label: 'English' },
+  { id: 'ru', label: 'Русский' },
+] as const
+type ContactLang = (typeof LANGS)[number]['id']
+
+function normalizeLang(lang: string | undefined): ContactLang {
+  if (lang?.startsWith('en')) return 'en'
+  if (lang?.startsWith('ru')) return 'ru'
+  return 'tr'
+}
 
 interface TimeOption {
   id: string
@@ -24,7 +38,7 @@ interface TimeOption {
 
 interface FormState {
   ordererName: string
-  ordererPhone: string
+  contactLang: ContactLang
   isGift: boolean
   recipientName: string
   recipientPhone: string
@@ -37,7 +51,7 @@ interface FormState {
 
 const EMPTY_FORM: FormState = {
   ordererName: '',
-  ordererPhone: '',
+  contactLang: 'tr',
   isGift: false,
   recipientName: '',
   recipientPhone: '',
@@ -73,13 +87,17 @@ export default function Checkout() {
   const clearCart = useCartStore((s) => s.clearCart)
   const currency = t('featured.currency') as string
 
-  const [form, setForm] = useState<FormState>(EMPTY_FORM)
+  // Default the contact language to the active site language; the customer can
+  // still change it, and the WhatsApp routing follows their choice.
+  const [form, setForm] = useState<FormState>(() => ({
+    ...EMPTY_FORM,
+    contactLang: normalizeLang(i18n.language),
+  }))
   const [submitting, setSubmitting] = useState(false)
 
   const total = subtotal
-  const canSubmit =
-    form.ordererName.trim() !== '' && form.ordererPhone.trim() !== ''
-  const waNumber = i18n.language?.startsWith('tr') ? WA_NUMBER_TR : WA_NUMBER_INTL
+  const canSubmit = form.ordererName.trim() !== ''
+  const waNumber = form.contactLang === 'tr' ? WA_NUMBER_TR : WA_NUMBER_INTL
 
   const times = t('checkout.general.times', { returnObjects: true }) as TimeOption[]
 
@@ -92,6 +110,10 @@ export default function Checkout() {
     return times.find((s) => s.id === form.time)?.label ?? ''
   }
 
+  function contactLangLabel(): string {
+    return LANGS.find((l) => l.id === form.contactLang)?.label ?? form.contactLang
+  }
+
   /** Map the cart + form into the API's OrderInput shape. */
   function buildOrderInput(): OrderInput {
     const region = form.isGift
@@ -100,7 +122,7 @@ export default function Checkout() {
     return {
       customer: {
         name: form.ordererName.trim(),
-        phone: form.ordererPhone.trim(),
+        phone: '',
         email: '',
       },
       items: items.map((it) => ({
@@ -152,9 +174,8 @@ export default function Checkout() {
     const lines: string[] = []
     lines.push(`🌸 FLORA ART — ${L('newOrder')}`)
     lines.push('')
-    lines.push(
-      `👤 ${L('orderer')}: ${form.ordererName.trim()} — ${form.ordererPhone.trim()}`,
-    )
+    lines.push(`👤 ${L('orderer')}: ${form.ordererName.trim()}`)
+    lines.push(`🗣️ ${L('contactLang')}: ${contactLangLabel()}`)
     lines.push('')
     lines.push(`📦 ${L('products')}:`)
     for (const it of items) {
@@ -257,15 +278,42 @@ export default function Checkout() {
                     className="flora-input"
                   />
                 </Field>
-                <Field label={t('checkout.orderer.phone') as string} required>
-                  <input
-                    type="tel"
-                    required
-                    value={form.ordererPhone}
-                    onChange={(e) => update('ordererPhone', e.target.value)}
-                    className="flora-input"
-                  />
-                </Field>
+
+                <div>
+                  <span className="form-label">
+                    {t('checkout.contactLang.label')}
+                    <span className="opacity-60"> *</span>
+                  </span>
+                  <div
+                    className="flex gap-2"
+                    role="radiogroup"
+                    aria-label={t('checkout.contactLang.label') as string}
+                  >
+                    {LANGS.map((l) => {
+                      const active = form.contactLang === l.id
+                      return (
+                        <button
+                          key={l.id}
+                          type="button"
+                          role="radio"
+                          aria-checked={active}
+                          onClick={() => update('contactLang', l.id)}
+                          className="lang-pill flex-1 px-3 py-3 text-[12px] tracking-[0.06em] transition-colors duration-200"
+                          style={{
+                            background: active ? 'var(--color-forest)' : 'transparent',
+                            color: active ? 'var(--color-cream)' : 'var(--color-forest)',
+                            border: `1px solid ${
+                              active ? 'var(--color-forest)' : 'rgba(1,62,55,0.2)'
+                            }`,
+                            fontFamily: 'var(--font-body)',
+                          }}
+                        >
+                          {l.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
               </div>
             </fieldset>
 
@@ -685,6 +733,9 @@ function FormStyles() {
       }
       .flora-input:focus {
         border-color: var(--color-gold);
+      }
+      .lang-pill:hover {
+        border-color: var(--color-gold) !important;
       }
       .wa-submit:not(:disabled):hover {
         filter: brightness(0.94);

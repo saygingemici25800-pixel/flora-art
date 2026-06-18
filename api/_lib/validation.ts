@@ -112,12 +112,8 @@ export function validateOrderInput(input: unknown): Result<OrderInput> {
   if (!isObject(input)) return { ok: false, error: 'Body must be an object' }
 
   const customer = input.customer
-  if (
-    !isObject(customer) ||
-    !isNonEmptyString(customer.name) ||
-    !isNonEmptyString(customer.phone)
-  ) {
-    return { ok: false, error: 'customer.name and phone are required' }
+  if (!isObject(customer) || !isNonEmptyString(customer.name)) {
+    return { ok: false, error: 'customer.name is required' }
   }
 
   if (!Array.isArray(input.items) || input.items.length === 0) {
@@ -153,7 +149,7 @@ export function validateOrderInput(input: unknown): Result<OrderInput> {
   const value = {
     customer: {
       name: customer.name,
-      phone: customer.phone,
+      phone: isNonEmptyString(customer.phone) ? customer.phone : '',
       email: isNonEmptyString(customer.email) ? customer.email : '',
     },
     items: input.items.map((i: Record<string, unknown>) => ({

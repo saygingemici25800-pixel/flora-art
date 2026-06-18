@@ -190,6 +190,9 @@
       "name": "Full Name",
       "phone": "Phone"
     },
+    "contactLang": {
+      "label": "Preferred contact language"
+    },
     "gift": {
       "toggle": "Send as a gift",
       "hint": "Sending to someone else? Add the recipient's details.",
@@ -215,11 +218,12 @@
     },
     "submit": "Order via WhatsApp",
     "submitting": "Preparing…",
-    "requiredHint": "Please fill in your name and phone to continue.",
+    "requiredHint": "Please fill in your name to continue.",
     "privacyNote": "Your details are used only to send your order via WhatsApp; they are not stored on the site.",
     "wa": {
       "newOrder": "New Order",
       "orderer": "Ordered by",
+      "contactLang": "Contact language",
       "products": "Items",
       "total": "Total",
       "recipient": "Recipient",

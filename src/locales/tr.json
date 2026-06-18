@@ -190,6 +190,9 @@
       "name": "Ad Soyad",
       "phone": "Telefon"
     },
+    "contactLang": {
+      "label": "Tercih ettiğiniz iletişim dili"
+    },
     "gift": {
       "toggle": "Hediye olarak gönderiyorum",
       "hint": "Başka birine gönderiyorsanız alıcının bilgilerini girin.",
@@ -215,11 +218,12 @@
     },
     "submit": "WhatsApp ile Sipariş Ver",
     "submitting": "Hazırlanıyor…",
-    "requiredHint": "Devam etmek için ad ve telefon alanlarını doldurun.",
+    "requiredHint": "Devam etmek için ad soyad alanını doldurun.",
     "privacyNote": "Bilgileriniz yalnızca siparişinizi iletmek için WhatsApp üzerinden kullanılır; sitede saklanmaz.",
     "wa": {
       "newOrder": "Yeni Sipariş",
       "orderer": "Sipariş Veren",
+      "contactLang": "İletişim Dili",
       "products": "Ürünler",
       "total": "Toplam",
       "recipient": "Alıcı",
