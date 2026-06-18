@@ -4,6 +4,18 @@ export function useCursor() {
   const cursorRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
+    // The custom cursor only makes sense for a fine pointer that can hover
+    // (desktop mouse). On touch / coarse devices it would stick to the last
+    // tapped point and drift on scroll — so skip mounting entirely: no element,
+    // no mousemove/hover listeners, no wasted work.
+    if (
+      typeof window === 'undefined' ||
+      !window.matchMedia ||
+      window.matchMedia('(hover: none), (pointer: coarse)').matches
+    ) {
+      return
+    }
+
     const cursor = document.createElement('div')
     cursor.classList.add('cursor')
     document.body.appendChild(cursor)

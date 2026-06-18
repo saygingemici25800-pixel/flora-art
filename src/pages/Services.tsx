@@ -6,7 +6,7 @@ import ProductMotif from '../components/ui/ProductMotif'
 import type { MotifKind } from '../data/products'
 
 const EASE = [0.16, 1, 0.3, 1] as const
-const WHATSAPP_NUMBER = '905335335380'
+const WHATSAPP_NUMBER = '905015317748'
 
 interface ServiceItem {
   id: 'wedding' | 'corporate' | 'hotel' | 'daily'

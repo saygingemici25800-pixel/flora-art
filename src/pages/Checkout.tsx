@@ -14,7 +14,7 @@ const EASE = [0.16, 1, 0.3, 1] as const
 
 // WhatsApp order line: Turkish customers reach the main shop number; EN/RU
 // guests reach Aliona, who handles international orders.
-const WA_NUMBER_TR = '905335335380'
+const WA_NUMBER_TR = '905015317748'
 const WA_NUMBER_INTL = '905318448730'
 
 interface TimeOption {

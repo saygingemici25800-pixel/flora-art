@@ -10,7 +10,7 @@ import CaptionedVideo from '../components/ui/CaptionedVideo'
 import IntroLoader from '../components/ui/IntroLoader'
 
 const EASE = [0.16, 1, 0.3, 1] as const
-const WHATSAPP_NUMBER = '905335335380'
+const WHATSAPP_NUMBER = '905015317748'
 
 // Shared horizontal gutter for every section's content wrapper. Applied inline
 // so it can't be dropped by Tailwind purge (arbitrary px classes have bitten

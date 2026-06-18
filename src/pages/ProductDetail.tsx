@@ -53,7 +53,7 @@ function todayIso(): string {
   return `${yyyy}-${mm}-${dd}`
 }
 
-const WHATSAPP_NUMBER = '905335335380'
+const WHATSAPP_NUMBER = '905015317748'
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>()

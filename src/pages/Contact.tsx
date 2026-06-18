@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useSEO } from '../hooks/useSEO'
 
 const EASE = [0.16, 1, 0.3, 1] as const
-const WHATSAPP_NUMBER = '905335335380'
+const WHATSAPP_NUMBER = '905015317748'
 const MAP_QUERY = 'Atatürk Cd. 98/a, Kesikkapı, Fethiye, Muğla'
 
 interface SubjectOption {

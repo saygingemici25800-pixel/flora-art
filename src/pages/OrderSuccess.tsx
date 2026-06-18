@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useCartStore } from '../store/cartStore'
 
 const EASE = [0.16, 1, 0.3, 1] as const
-const WHATSAPP_NUMBER = '905335335380'
+const WHATSAPP_NUMBER = '905015317748'
 
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'

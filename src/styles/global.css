@@ -41,7 +41,16 @@ body {
 }
 
 /* ─── Custom Cursor ──────────────────────────────────────────── */
-* { cursor: none; }
+/* Hide the native cursor only where the custom one actually runs — a fine
+   pointer that can hover (desktop). Touch / coarse devices keep their native
+   cursor and never mount the custom one (see useCursor.ts). */
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor { display: none !important; }
+}
 
 .cursor {
   position: fixed;
