@@ -32,13 +32,16 @@ interface HomeCategory {
   id: string
   motif: MotifKind
   clip: string // file base under /videos
+  // Vahap'ın gerçek ürün fotoğrafları (telefon çekimi, ileride stüdyo çekimiyle
+  // değişebilir). Boşsa motif fallback gösterilir.
+  image: string
 }
 const CATEGORIES: HomeCategory[] = [
-  { id: 'bouquet', motif: 'rose', clip: 'about-vahap-tanitim' },
-  { id: 'box', motif: 'peony', clip: 'about-vahap-mutluluk' },
-  { id: 'wedding', motif: 'anemone', clip: 'process-vahap-emek' },
-  { id: 'corporate', motif: 'orchid', clip: 'about-vahap-turizm' },
-  { id: 'plant', motif: 'tulip', clip: 'about-vahap-cicekler' },
+  { id: 'bouquet',   motif: 'rose',    clip: 'about-vahap-tanitim',  image: '/images/categories/buket.webp' },
+  { id: 'box',       motif: 'peony',   clip: 'about-vahap-mutluluk', image: '/images/categories/kutu-cicek.webp' },
+  { id: 'wedding',   motif: 'anemone', clip: 'process-vahap-emek',   image: '/images/categories/dugun-nisan.webp' },
+  { id: 'corporate', motif: 'orchid',  clip: 'about-vahap-turizm',   image: '/images/categories/kurumsal.webp' },
+  { id: 'plant',     motif: 'tulip',   clip: 'about-vahap-cicekler', image: '/images/categories/saksi-bitki.webp' },
 ]
 
 /** Desktop = autoplay videos; mobile = static fallback (no multi-video autoplay). */
@@ -83,6 +86,7 @@ export default function Home() {
           name={cat.name}
           desc={cat.desc}
           motif={cat.motif}
+          image={cat.image}
           clip={cat.clip}
           to={`${prefix}/shop?category=${cat.id}`}
           flip={i % 2 === 1}
@@ -287,6 +291,7 @@ interface CategorySectionProps {
   name: string
   desc: string
   motif: MotifKind
+  image: string
   clip: string
   to: string
   flip: boolean
@@ -294,7 +299,7 @@ interface CategorySectionProps {
   cta: string
 }
 
-function CategorySection({ index, name, desc, motif, clip, to, flip, label, cta }: CategorySectionProps) {
+function CategorySection({ index, name, desc, motif, image, clip, to, flip, label, cta }: CategorySectionProps) {
   const num = String(index + 1).padStart(2, '0')
   // Zigzag: odd sections (index 1, 3) put the video on the right.
   const videoRight = flip
@@ -360,10 +365,37 @@ function CategorySection({ index, name, desc, motif, clip, to, flip, label, cta 
             {desc}
           </p>
 
-          {/* 3D flower placeholder — swap the BouquetSlot for the Tripo model when ready */}
-          <div className="mt-9">
-            <BouquetSlot motif={motif} size={150} />
-          </div>
+          {/* Vahap'ın gerçek ürün fotoğrafları (telefon çekimi, ileride stüdyo
+              çekimiyle değişebilir). Görsel yoksa motif fallback kalır. */}
+          {image ? (
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10% 0px' }}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="mt-9 overflow-hidden rounded-2xl"
+              style={{
+                border: '1px solid rgba(200,169,110,0.35)',
+                boxShadow: '0 30px 70px -30px rgba(0,0,0,0.55)',
+              }}
+            >
+              {/* eager: these 5 category photos are primary homepage content.
+                  Native lazy-load never fired inside the scroll-reveal wrapper,
+                  so the image is loaded up-front and the motion only fades it in. */}
+              <img
+                src={image}
+                alt={name}
+                loading="eager"
+                decoding="async"
+                className="block w-full object-cover"
+                style={{ aspectRatio: '5 / 4' }}
+              />
+            </motion.div>
+          ) : (
+            <div className="mt-9">
+              <BouquetSlot motif={motif} size={150} />
+            </div>
+          )}
 
           <Link
             to={to}
