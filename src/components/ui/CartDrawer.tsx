@@ -67,16 +67,16 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="fixed top-0 right-0 bottom-0 z-[151] w-full sm:w-[440px] max-w-full flex flex-col shadow-[-30px_0_80px_-30px_rgba(1,62,55,0.45)]"
+            className="fixed top-0 right-0 bottom-0 z-[151] w-full sm:w-[420px] max-w-full flex flex-col shadow-[-30px_0_80px_-30px_rgba(1,62,55,0.45)]"
             style={{ background: 'var(--color-cream)' }}
             role="dialog"
             aria-modal="true"
             aria-label={t('cart.title')}
           >
             <div
-              className="flex items-center justify-between px-6 md:px-8 py-5 border-b"
+              className="flex items-center justify-between px-6 md:px-7 py-5 border-b shrink-0"
               style={{
-                borderColor: 'rgba(1,62,55,0.10)',
+                borderColor: 'rgba(1,62,55,0.12)',
                 background: 'var(--color-cream)',
               }}
             >
@@ -84,7 +84,7 @@ export default function CartDrawer() {
                 className="italic flex items-baseline gap-2"
                 style={{
                   fontFamily: 'var(--font-display)',
-                  fontSize: '1.5rem',
+                  fontSize: '1.6rem',
                   color: 'var(--color-forest)',
                   letterSpacing: '-0.005em',
                 }}
@@ -106,7 +106,7 @@ export default function CartDrawer() {
                 type="button"
                 onClick={close}
                 aria-label={t('cart.close')}
-                className="grid place-items-center w-9 h-9 rounded-full transition-colors hover:bg-[var(--color-beige)]"
+                className="grid place-items-center w-10 h-10 rounded-full transition-colors hover:bg-[var(--color-beige)]"
                 style={{ color: 'var(--color-forest)' }}
               >
                 <CloseIcon />
@@ -123,36 +123,53 @@ export default function CartDrawer() {
               />
             ) : (
               <>
-                <ul
-                  className="flex-1 overflow-y-auto px-6 md:px-8 py-4"
+                <div
+                  className="flex-1 overflow-y-auto px-6 md:px-7 py-6"
                   style={{ background: 'var(--color-cream)' }}
                 >
-                  {items.map((item) => (
-                    <CartRow
-                      key={item.id}
-                      item={item}
-                      currency={currency}
-                      onIncrement={() => updateQuantity(item.id, item.quantity + 1)}
-                      onDecrement={() => updateQuantity(item.id, item.quantity - 1)}
-                      onRemove={() => removeItem(item.id)}
-                      removeLabel={t('cart.remove') as string}
-                      incLabel={t('cart.increment') as string}
-                      decLabel={t('cart.decrement') as string}
-                    />
-                  ))}
-                </ul>
+                  <ul className="space-y-5">
+                    {items.map((item) => (
+                      <CartRow
+                        key={item.id}
+                        item={item}
+                        currency={currency}
+                        onIncrement={() => updateQuantity(item.id, item.quantity + 1)}
+                        onDecrement={() => updateQuantity(item.id, item.quantity - 1)}
+                        onRemove={() => removeItem(item.id)}
+                        removeLabel={t('cart.remove') as string}
+                        incLabel={t('cart.increment') as string}
+                        decLabel={t('cart.decrement') as string}
+                      />
+                    ))}
+                  </ul>
+
+                  <div
+                    className="mt-6 pt-5"
+                    style={{ borderTop: '1px solid rgba(1,62,55,0.10)' }}
+                  >
+                    <Link
+                      to={`${prefix}/shop`}
+                      onClick={close}
+                      className="inline-flex items-center gap-2 text-[12px] tracking-[0.22em] uppercase transition-colors hover:text-[var(--color-gold)]"
+                      style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
+                    >
+                      <span aria-hidden="true">←</span>
+                      {t('cart.browseCta')}
+                    </Link>
+                  </div>
+                </div>
 
                 <div
-                  className="px-6 md:px-8 py-6 border-t"
+                  className="px-6 md:px-7 pt-6 pb-7 border-t shrink-0"
                   style={{
-                    borderColor: 'rgba(1,62,55,0.10)',
+                    borderColor: 'rgba(1,62,55,0.14)',
                     background: 'var(--color-cream)',
                   }}
                 >
                   <div className="flex items-baseline justify-between mb-5">
                     <span
-                      className="text-[11px] tracking-[0.3em] uppercase"
-                      style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.7 }}
+                      className="text-[12px] tracking-[0.3em] uppercase"
+                      style={{ fontFamily: 'var(--font-body)', color: 'var(--color-bronze)' }}
                     >
                       {t('cart.subtotal')}
                     </span>
@@ -160,9 +177,10 @@ export default function CartDrawer() {
                       className="italic"
                       style={{
                         fontFamily: 'var(--font-display)',
-                        fontSize: '1.75rem',
+                        fontSize: '2rem',
                         color: 'var(--color-forest)',
                         letterSpacing: '-0.01em',
+                        fontWeight: 500,
                       }}
                     >
                       {currency}
@@ -173,11 +191,15 @@ export default function CartDrawer() {
                   <Link
                     to={`${prefix}/checkout`}
                     onClick={close}
-                    className="checkout-cta group inline-flex items-center justify-center gap-2 w-full py-4 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300"
+                    className="checkout-cta group inline-flex items-center justify-center gap-2 w-full rounded-lg uppercase transition-all duration-300"
                     style={{
-                      background: 'var(--color-gold)',
-                      color: 'var(--color-forest)',
+                      minHeight: '62px',
+                      background: 'var(--color-forest)',
+                      color: 'var(--color-cream)',
                       fontFamily: 'var(--font-body)',
+                      fontSize: '18px',
+                      fontWeight: 600,
+                      letterSpacing: '0.06em',
                     }}
                   >
                     <span>{t('cart.checkout')}</span>
@@ -188,8 +210,8 @@ export default function CartDrawer() {
 
                   <style>{`
                     .checkout-cta:hover {
-                      background: var(--color-forest) !important;
-                      color: var(--color-cream) !important;
+                      transform: translateY(-2px);
+                      box-shadow: 0 16px 34px -14px rgba(1,62,55,0.55);
                     }
                   `}</style>
                 </div>
@@ -222,59 +244,58 @@ function CartRow({
   decLabel: string
 }) {
   return (
-    <li
-      className="flex gap-4 py-5 border-b"
-      style={{ borderColor: 'rgba(1,62,55,0.08)' }}
-    >
+    <li className="flex gap-4">
       <div
-        className="relative shrink-0 w-[88px] h-[112px] overflow-hidden"
+        className="relative shrink-0 w-20 h-20 overflow-hidden"
         style={{ background: 'var(--color-beige)' }}
       >
         <ProductMotif kind={item.motif} />
       </div>
 
       <div className="flex-1 min-w-0">
-        <h3
-          className="leading-snug mb-1 truncate"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '1.05rem',
-            color: 'var(--color-forest)',
-            letterSpacing: '-0.005em',
-          }}
-        >
-          {item.name}
-        </h3>
-        <p
-          className="mb-3"
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.9rem',
-            fontWeight: 600,
-            color: 'var(--color-bronze)',
-          }}
-        >
-          {currency}
-          {item.price * item.quantity}
-        </p>
+        <div className="flex items-start justify-between gap-3">
+          <h3
+            className="leading-snug truncate"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.1rem',
+              color: 'var(--color-forest)',
+              letterSpacing: '-0.005em',
+            }}
+          >
+            {item.name}
+          </h3>
+          <span
+            className="whitespace-nowrap"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.95rem',
+              fontWeight: 600,
+              color: 'var(--color-forest)',
+            }}
+          >
+            {currency}
+            {item.price * item.quantity}
+          </span>
+        </div>
 
-        <div className="flex items-center justify-between">
+        <div className="mt-3 flex items-center justify-between">
           <div
             className="inline-flex items-center"
-            style={{ border: '1px solid rgba(1,62,55,0.15)' }}
+            style={{ border: '1px solid rgba(1,62,55,0.3)' }}
           >
             <button
               type="button"
               onClick={onDecrement}
               aria-label={decLabel}
-              className="w-8 h-8 grid place-items-center transition-colors hover:bg-[var(--color-beige)]"
+              className="w-10 h-10 grid place-items-center text-[18px] transition-colors hover:bg-[var(--color-beige)]"
               style={{ color: 'var(--color-forest)' }}
             >
               −
             </button>
             <span
-              className="w-8 text-center text-[14px]"
-              style={{ color: 'var(--color-forest)', fontFamily: 'var(--font-body)' }}
+              className="w-9 text-center text-[15px]"
+              style={{ color: 'var(--color-forest)', fontFamily: 'var(--font-body)', fontWeight: 600 }}
             >
               {item.quantity}
             </span>
@@ -282,7 +303,7 @@ function CartRow({
               type="button"
               onClick={onIncrement}
               aria-label={incLabel}
-              className="w-8 h-8 grid place-items-center transition-colors hover:bg-[var(--color-beige)]"
+              className="w-10 h-10 grid place-items-center text-[18px] transition-colors hover:bg-[var(--color-beige)]"
               style={{ color: 'var(--color-forest)' }}
             >
               +
@@ -294,7 +315,7 @@ function CartRow({
             onClick={onRemove}
             aria-label={removeLabel}
             className="text-[11px] tracking-[0.2em] uppercase transition-colors hover:text-[var(--color-gold)]"
-            style={{ color: 'var(--color-ink)', opacity: 0.6, fontFamily: 'var(--font-body)' }}
+            style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
           >
             {removeLabel}
           </button>
@@ -342,7 +363,7 @@ function EmptyCart({
           fontFamily: 'var(--font-body)',
           fontSize: '0.95rem',
           color: 'var(--color-ink)',
-          opacity: 0.65,
+          opacity: 0.7,
         }}
       >
         {hint}
@@ -350,11 +371,15 @@ function EmptyCart({
       <Link
         to={`${prefix}/shop`}
         onClick={onBrowse}
-        className="px-7 py-3 text-[11px] tracking-[0.28em] uppercase transition-colors"
+        className="inline-flex items-center justify-center rounded-lg px-8 uppercase transition-colors"
         style={{
+          minHeight: '56px',
           background: 'var(--color-forest)',
           color: 'var(--color-cream)',
           fontFamily: 'var(--font-body)',
+          fontSize: '15px',
+          fontWeight: 600,
+          letterSpacing: '0.12em',
         }}
       >
         {cta}

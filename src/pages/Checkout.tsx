@@ -241,8 +241,8 @@ export default function Checkout() {
 
   return (
     <section className="relative w-full" style={{ background: 'var(--color-cream)' }}>
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10 pt-[110px] md:pt-[140px] pb-20 md:pb-28">
-        <header className="mb-12 md:mb-16">
+      <div className="mx-auto max-w-[1200px] px-6 md:px-10 pt-[110px] md:pt-[140px] pb-20 md:pb-28">
+        <header className="mb-10 md:mb-14">
           <p
             className="text-[11px] tracking-[0.3em] uppercase mb-3"
             style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
@@ -263,12 +263,13 @@ export default function Checkout() {
           </h1>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
-          <form onSubmit={handleSubmit} className="md:col-span-7">
+        {/* 60 / 40 — form / summary */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-12 items-start">
+          <form onSubmit={handleSubmit} className="md:col-span-3">
             {/* Orderer */}
             <fieldset>
               <h2 className="form-section-title">{t('checkout.orderer.title')}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
                 <Field label={t('checkout.orderer.name') as string} required>
                   <input
                     type="text"
@@ -282,7 +283,7 @@ export default function Checkout() {
                 <div>
                   <span className="form-label">
                     {t('checkout.contactLang.label')}
-                    <span className="opacity-60"> *</span>
+                    <span className="opacity-70"> *</span>
                   </span>
                   <div
                     className="flex gap-2"
@@ -298,14 +299,16 @@ export default function Checkout() {
                           role="radio"
                           aria-checked={active}
                           onClick={() => update('contactLang', l.id)}
-                          className="lang-pill flex-1 px-3 py-3 text-[12px] tracking-[0.06em] transition-colors duration-200"
+                          className="lang-pill flex-1 grid place-items-center px-4 text-[12px] tracking-[0.06em] transition-colors duration-200"
                           style={{
+                            minHeight: '52px',
                             background: active ? 'var(--color-forest)' : 'transparent',
                             color: active ? 'var(--color-cream)' : 'var(--color-forest)',
                             border: `1px solid ${
-                              active ? 'var(--color-forest)' : 'rgba(1,62,55,0.2)'
+                              active ? 'var(--color-forest)' : 'rgba(1,62,55,0.28)'
                             }`,
                             fontFamily: 'var(--font-body)',
+                            fontWeight: active ? 600 : 400,
                           }}
                         >
                           {l.label}
@@ -318,7 +321,7 @@ export default function Checkout() {
             </fieldset>
 
             {/* Gift toggle + recipient */}
-            <div className="mt-14">
+            <div className="mt-12">
               <GiftToggle
                 on={form.isGift}
                 onToggle={() => update('isGift', !form.isGift)}
@@ -336,7 +339,7 @@ export default function Checkout() {
                     transition={{ duration: 0.4, ease: EASE }}
                     style={{ overflow: 'hidden' }}
                   >
-                    <div className="pt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="pt-7 grid grid-cols-1 md:grid-cols-2 gap-7">
                       <Field label={t('checkout.gift.recipientName') as string}>
                         <input
                           type="text"
@@ -354,7 +357,7 @@ export default function Checkout() {
                         />
                       </Field>
                     </div>
-                    <div className="mt-6">
+                    <div className="mt-7">
                       <Field label={t('checkout.gift.address') as string}>
                         <textarea
                           rows={3}
@@ -366,7 +369,7 @@ export default function Checkout() {
                         />
                       </Field>
                     </div>
-                    <div className="mt-6">
+                    <div className="mt-7">
                       <Field label={t('checkout.gift.cardNote') as string}>
                         <textarea
                           rows={3}
@@ -388,7 +391,7 @@ export default function Checkout() {
             </div>
 
             {/* General */}
-            <fieldset className="mt-14">
+            <fieldset className="mt-12">
               <h2 className="form-section-title">{t('checkout.general.title')}</h2>
               <Field label={t('checkout.general.orderNote') as string}>
                 <textarea
@@ -400,7 +403,7 @@ export default function Checkout() {
                   style={{ resize: 'none' }}
                 />
               </Field>
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="mt-7 grid grid-cols-1 md:grid-cols-2 gap-7">
                 <Field label={t('checkout.general.date') as string}>
                   <input
                     type="date"
@@ -429,11 +432,10 @@ export default function Checkout() {
 
             {!canSubmit && (
               <p
-                className="mt-12 text-[12px] tracking-[0.05em]"
+                className="mt-10 text-[12px] tracking-[0.05em]"
                 style={{
                   fontFamily: 'var(--font-body)',
-                  color: 'var(--color-ink)',
-                  opacity: 0.6,
+                  color: 'var(--color-bronze)',
                 }}
               >
                 {t('checkout.requiredHint')}
@@ -443,13 +445,17 @@ export default function Checkout() {
             <button
               type="submit"
               disabled={!canSubmit || submitting}
-              className={`wa-submit mt-6 inline-flex items-center justify-center gap-3 w-full py-4 px-8 text-[12px] tracking-[0.3em] uppercase transition-all duration-300 ${
+              className={`wa-submit mt-7 inline-flex items-center justify-center gap-3 w-full rounded-lg uppercase transition-all duration-300 ${
                 !canSubmit || submitting ? 'cursor-not-allowed opacity-50' : ''
               }`}
               style={{
-                background: '#25D366',
-                color: '#FFFFFF',
+                minHeight: '62px',
+                background: 'var(--color-forest)',
+                color: 'var(--color-cream)',
                 fontFamily: 'var(--font-body)',
+                fontSize: '18px',
+                fontWeight: 600,
+                letterSpacing: '0.06em',
               }}
             >
               <WhatsAppGlyph />
@@ -457,11 +463,11 @@ export default function Checkout() {
             </button>
 
             <p
-              className="mt-6 text-[11px] leading-relaxed max-w-[52ch]"
+              className="mt-5 text-[11px] leading-relaxed max-w-[52ch]"
               style={{
                 fontFamily: 'var(--font-body)',
                 color: 'var(--color-ink)',
-                opacity: 0.55,
+                opacity: 0.7,
               }}
             >
               {t('checkout.privacyNote')}
@@ -470,7 +476,7 @@ export default function Checkout() {
             <FormStyles />
           </form>
 
-          <aside className="md:col-span-5 md:sticky md:top-[100px]">
+          <aside className="md:col-span-2 md:sticky md:top-[100px]">
             <SummaryCard items={items} total={total} currency={currency} />
           </aside>
         </div>
@@ -502,16 +508,16 @@ function GiftToggle({
         <span
           className="relative inline-flex items-center w-12 h-7 rounded-full transition-colors duration-300 shrink-0"
           style={{
-            background: on ? 'var(--color-forest)' : 'rgba(1,62,55,0.15)',
-            border: '1px solid rgba(1,62,55,0.2)',
+            background: on ? 'var(--color-forest)' : 'rgba(1,62,55,0.18)',
+            border: '1px solid rgba(1,62,55,0.25)',
           }}
         >
           <span
             className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full transition-all duration-300"
             style={{
               left: on ? 'calc(100% - 23px)' : '3px',
-              background: on ? 'var(--color-gold)' : 'var(--color-cream)',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+              background: on ? 'var(--color-gold)' : '#FFFFFF',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.25)',
             }}
           />
         </span>
@@ -531,7 +537,7 @@ function GiftToggle({
         style={{
           fontFamily: 'var(--font-body)',
           color: 'var(--color-ink)',
-          opacity: 0.55,
+          opacity: 0.7,
         }}
       >
         {hint}
@@ -557,7 +563,7 @@ function SummaryCard({
       className="p-6 md:p-8"
       style={{
         background: 'var(--color-beige)',
-        border: '1px solid rgba(200, 169, 110, 0.4)',
+        border: '1px solid rgba(200, 169, 110, 0.45)',
       }}
     >
       <h2
@@ -578,7 +584,7 @@ function SummaryCard({
           <li key={it.id} className="flex items-center gap-3">
             <div
               className="relative shrink-0 w-[64px] h-[80px] overflow-hidden"
-              style={{ background: 'rgba(1,62,55,0.06)' }}
+              style={{ background: 'rgba(1,62,55,0.08)' }}
             >
               <ProductMotif kind={it.motif} />
             </div>
@@ -598,8 +604,7 @@ function SummaryCard({
                 className="text-[11px] tracking-[0.18em] uppercase mt-1"
                 style={{
                   fontFamily: 'var(--font-body)',
-                  color: 'var(--color-ink)',
-                  opacity: 0.6,
+                  color: 'var(--color-bronze)',
                 }}
               >
                 × {it.quantity}
@@ -610,7 +615,7 @@ function SummaryCard({
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 600,
-                color: 'var(--color-bronze)',
+                color: 'var(--color-forest)',
               }}
             >
               {currency}
@@ -620,14 +625,13 @@ function SummaryCard({
         ))}
       </ul>
 
-      <div className="pt-4" style={{ borderTop: '1px solid rgba(1,62,55,0.18)' }}>
+      <div className="pt-4" style={{ borderTop: '1px solid rgba(1,62,55,0.22)' }}>
         <div className="flex items-baseline justify-between gap-3">
           <span
             className="text-[11px] tracking-[0.28em] uppercase"
             style={{
               fontFamily: 'var(--font-body)',
-              color: 'var(--color-ink)',
-              opacity: 0.65,
+              color: 'var(--color-bronze)',
             }}
           >
             {t('checkout.summary.total')}
@@ -636,9 +640,10 @@ function SummaryCard({
             className="italic"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '1.75rem',
+              fontSize: '1.9rem',
               color: 'var(--color-forest)',
               letterSpacing: '-0.01em',
+              fontWeight: 500,
             }}
           >
             {currency}
@@ -651,9 +656,9 @@ function SummaryCard({
         className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] tracking-[0.2em] uppercase pt-4"
         style={{
           fontFamily: 'var(--font-body)',
-          color: 'var(--color-ink)',
-          opacity: 0.7,
-          borderTop: '1px solid rgba(1,62,55,0.12)',
+          color: 'var(--color-forest)',
+          opacity: 0.8,
+          borderTop: '1px solid rgba(1,62,55,0.14)',
         }}
       >
         {badges.map((b, i) => (
@@ -669,7 +674,7 @@ function SummaryCard({
         style={{
           fontFamily: 'var(--font-display)',
           color: 'var(--color-forest)',
-          opacity: 0.7,
+          opacity: 0.75,
         }}
       >
         {t('checkout.summary.qualityNote')}
@@ -691,7 +696,7 @@ function Field({
     <label className="block">
       <span className="form-label">
         {label}
-        {required && <span className="opacity-60"> *</span>}
+        {required && <span className="opacity-70"> *</span>}
       </span>
       {children}
     </label>
@@ -707,38 +712,47 @@ function FormStyles() {
         font-style: italic;
         color: var(--color-forest);
         letter-spacing: -0.01em;
-        margin-bottom: 1.75rem;
+        margin-bottom: 1.5rem;
         line-height: 1;
       }
       .form-label {
         display: block;
         font-family: var(--font-body);
-        color: var(--color-ink);
-        opacity: 0.65;
+        color: var(--color-bronze);
         font-size: 10px;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        margin-bottom: 0.6rem;
+        margin-bottom: 0.55rem;
       }
       .flora-input {
         width: 100%;
+        min-height: 52px;
         padding: 0.9rem 0.95rem;
-        background: transparent;
-        border: 1px solid rgba(1,62,55,0.18);
+        background: rgba(255,255,255,0.4);
+        border: 1px solid rgba(1,62,55,0.3);
         outline: none;
         color: var(--color-forest);
         font-family: var(--font-body);
         font-size: 0.95rem;
-        transition: border-color 0.25s ease;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+      textarea.flora-input {
+        min-height: 92px;
+      }
+      .flora-input::placeholder {
+        color: var(--color-ink);
+        opacity: 0.45;
       }
       .flora-input:focus {
-        border-color: var(--color-gold);
+        border-color: var(--color-forest);
+        box-shadow: 0 0 0 3px rgba(1,62,55,0.08);
       }
       .lang-pill:hover {
         border-color: var(--color-gold) !important;
       }
       .wa-submit:not(:disabled):hover {
-        filter: brightness(0.94);
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px -14px rgba(1,62,55,0.55);
       }
     `}</style>
   )
@@ -774,7 +788,7 @@ function BadgeIcon({ idx }: { idx: number }) {
 
 function WhatsAppGlyph() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0c3.18 0 6.167 1.24 8.413 3.488A11.82 11.82 0 0123.94 11.9c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.595 5.39l-.999 3.648 3.893-.937z" />
     </svg>
   )
@@ -811,7 +825,7 @@ function EmptyCheckout({ prefix }: { prefix: string }) {
             fontFamily: 'var(--font-body)',
             fontSize: '0.95rem',
             color: 'var(--color-ink)',
-            opacity: 0.65,
+            opacity: 0.7,
           }}
         >
           {t('checkout.empty.hint')}

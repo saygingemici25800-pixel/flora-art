@@ -149,14 +149,14 @@ export default function Shop() {
         </div>
       </section>
 
+      <HowMade />
+
       <FilterBar
         filter={filter}
         setFilter={setFilter}
         sort={sort}
         setSort={setSort}
       />
-
-      <HowMade />
 
       <section
         className="relative w-full"

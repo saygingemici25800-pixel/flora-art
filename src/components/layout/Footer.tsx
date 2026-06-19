@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
 
         <div
-          className="relative mx-auto grid max-w-[1400px] grid-cols-1 gap-12 py-20 md:grid-cols-12 md:gap-10 md:py-24"
+          className="relative mx-auto grid max-w-[1400px] grid-cols-1 gap-y-12 py-20 md:grid-cols-12 md:gap-x-14 md:gap-y-12 md:py-24"
           style={X_PAD}
         >
           {/* brand + social */}
@@ -114,7 +114,7 @@ export default function Footer() {
             >
               {t('footer.quickLinks')}
             </h3>
-            <ul className="space-y-1">
+            <ul className="space-y-2">
               {linkKeys.map((key) => (
                 <li key={key}>
                   <Link
@@ -174,7 +174,7 @@ export default function Footer() {
         {/* bottom bar: copyright + legal */}
         <div className="border-t" style={{ borderColor: 'rgba(255,239,179,0.12)' }}>
           <div
-            className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-4 py-6 md:flex-row"
+            className="mx-auto flex max-w-[1400px] flex-col items-center justify-between gap-4 py-8 md:flex-row"
             style={X_PAD}
           >
             <p className="text-[12px] opacity-60" style={{ fontFamily: 'var(--font-body)' }}>
