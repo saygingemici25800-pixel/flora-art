@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
@@ -193,7 +193,7 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
             </motion.p>
 
             <div className="mt-9 flex flex-wrap items-center gap-7">
-              <BouquetSlot />
+              <HeroBouquet3D />
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -281,6 +281,74 @@ function BouquetSlot({ motif = 'rose', size = 116 }: { motif?: MotifKind; size?:
         </div>
       </motion.div>
     </motion.div>
+  )
+}
+
+/**
+ * Hero 3D bouquet — Google <model-viewer> built imperatively so we sidestep
+ * custom-element JSX typing and pull three.js in via a dynamic import only
+ * (code-split, off the main bundle). The motif BouquetSlot shows until the GLB
+ * has loaded, then crossfades in; on any failure the motif simply stays.
+ */
+function HeroBouquet3D({ size = 150 }: { size?: number }) {
+  const hostRef = useRef<HTMLDivElement>(null)
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    let cancelled = false
+    let mv: HTMLElement | null = null
+
+    import('@google/model-viewer')
+      .then(() => {
+        if (cancelled || !hostRef.current) return
+        mv = document.createElement('model-viewer')
+        const attrs: Record<string, string> = {
+          src: '/models/floral-bouquet.glb',
+          alt: 'Flora Art — 3D çiçek buketi',
+          'auto-rotate': '',
+          'auto-rotate-delay': '0',
+          'rotation-per-second': '18deg',
+          'camera-controls': '',
+          'disable-zoom': '',
+          'interaction-prompt': 'none',
+          'shadow-intensity': '1',
+          exposure: '1',
+          reveal: 'auto',
+          loading: 'lazy',
+        }
+        for (const [k, v] of Object.entries(attrs)) mv.setAttribute(k, v)
+        mv.style.width = '100%'
+        mv.style.height = '100%'
+        mv.style.background = 'transparent'
+        mv.addEventListener('load', () => {
+          if (!cancelled) setReady(true)
+        })
+        hostRef.current.appendChild(mv)
+      })
+      .catch(() => {
+        /* model-viewer unavailable — keep the motif fallback */
+      })
+
+    return () => {
+      cancelled = true
+      if (mv) mv.remove()
+    }
+  }, [])
+
+  return (
+    <div className="relative shrink-0" style={{ width: size, height: size }}>
+      <div
+        ref={hostRef}
+        aria-hidden={!ready}
+        className="absolute inset-0"
+        style={{ opacity: ready ? 1 : 0, transition: 'opacity 0.6s ease' }}
+      />
+      {!ready && (
+        <div className="absolute inset-0">
+          <BouquetSlot size={size} />
+        </div>
+      )}
+    </div>
   )
 }
 
