@@ -381,11 +381,11 @@ function CategorySection({ index, name, desc, motif, image, clip, to, flip, labe
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ background: 'var(--color-forest)', color: 'var(--color-cream)', paddingBlock: 'var(--spacing-section)' }}
+      style={{ background: 'var(--color-forest)', color: 'var(--color-cream)', paddingBlock: 'clamp(80px, 10vh, 140px)' }}
     >
       <div
-        className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16"
-        style={SECTION_X_PAD}
+        className="mx-auto grid max-w-[1400px] grid-cols-1 items-center md:grid-cols-2"
+        style={{ ...SECTION_X_PAD, columnGap: '64px', rowGap: '40px' }}
       >
         {/* video half — always first in DOM so mobile stacks the video on top */}
         <motion.div
@@ -411,7 +411,7 @@ function CategorySection({ index, name, desc, motif, image, clip, to, flip, labe
           className={`flex flex-col ${videoRight ? 'md:order-1' : 'md:order-2'}`}
         >
           <span
-            className="mb-5 flex items-center gap-4 text-[11px] uppercase tracking-[0.3em]"
+            className="flex items-center gap-4 text-[11px] uppercase tracking-[0.3em]"
             style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
           >
             <span aria-hidden="true">{num}</span>
@@ -422,6 +422,7 @@ function CategorySection({ index, name, desc, motif, image, clip, to, flip, labe
           <h2
             className="italic"
             style={{
+              marginTop: '20px',
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
               letterSpacing: '-0.015em',
@@ -433,8 +434,8 @@ function CategorySection({ index, name, desc, motif, image, clip, to, flip, labe
           </h2>
 
           <p
-            className="mt-5 max-w-[46ch] text-[15px] leading-relaxed md:text-[16px]"
-            style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,239,179,0.78)' }}
+            className="max-w-[46ch] text-[15px] leading-relaxed md:text-[16px]"
+            style={{ marginTop: '20px', fontFamily: 'var(--font-body)', color: 'rgba(255,239,179,0.78)' }}
           >
             {desc}
           </p>
@@ -447,9 +448,10 @@ function CategorySection({ index, name, desc, motif, image, clip, to, flip, labe
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: '-10% 0px' }}
               transition={{ duration: 0.8, ease: EASE }}
-              className="mt-9 overflow-hidden rounded-full mx-auto md:mx-0"
+              className="overflow-hidden rounded-full mx-auto md:mx-0"
               style={{
-                width: 'clamp(240px, 22vw, 340px)',
+                marginTop: '40px',
+                width: 'clamp(220px, 18vw, 280px)',
                 aspectRatio: '1 / 1',
                 border: '2px solid rgba(200,169,110,0.4)',
                 boxShadow: '0 24px 56px -26px rgba(0,0,0,0.55)',
@@ -467,7 +469,7 @@ function CategorySection({ index, name, desc, motif, image, clip, to, flip, labe
               />
             </motion.div>
           ) : (
-            <div className="mt-9">
+            <div className="mx-auto md:mx-0 w-fit" style={{ marginTop: '40px' }}>
               <BouquetSlot motif={motif} size={150} />
             </div>
           )}
@@ -475,8 +477,8 @@ function CategorySection({ index, name, desc, motif, image, clip, to, flip, labe
           <Link
             to={to}
             data-cursor-large
-            className="group mt-9 inline-flex w-fit items-center gap-2 text-[12px] uppercase tracking-[0.26em] transition-colors hover:text-[var(--color-cream)]"
-            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
+            className="group inline-flex w-fit items-center gap-2 text-[12px] uppercase tracking-[0.26em] transition-colors hover:text-[var(--color-cream)]"
+            style={{ marginTop: '40px', color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
           >
             <span className="border-b border-current pb-1">{cta}</span>
             <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
