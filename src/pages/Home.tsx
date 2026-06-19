@@ -349,9 +349,24 @@ function HeroBouquet3D() {
         className="absolute inset-0"
         style={{ opacity: ready ? 1 : 0, transition: 'opacity 0.6s ease' }}
       />
+      {/* Buket fotoğrafı = görsel slotunun poster'ı: 3D yüklenene kadar (ve
+          yüklenmezse kalıcı olarak) bu gerçek fotoğraf görünür. eager: kategori
+          görsellerindeki native lazy-load tetiklenmeme bug'ını yaşamayalım. */}
       {!ready && (
-        <div className="absolute inset-0 grid place-items-center">
-          <BouquetSlot size={190} />
+        <div
+          className="absolute inset-0 overflow-hidden rounded-2xl"
+          style={{
+            border: '2px solid rgba(200,169,110,0.4)',
+            boxShadow: '0 24px 56px -26px rgba(0,0,0,0.55)',
+          }}
+        >
+          <img
+            src="/images/categories/buket.webp"
+            alt="Flora Art — el yapımı buket"
+            loading="eager"
+            decoding="async"
+            className="block h-full w-full object-cover"
+          />
         </div>
       )}
     </div>
