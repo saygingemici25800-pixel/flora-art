@@ -18,12 +18,12 @@
     "sectionLabel": "Koleksiyon",
     "header": {
       "title": "Duygularınızı\nçiçeklerle anlatın",
-      "sub": "Amsterdam Aalsmeer'den Fethiye'ye premium çiçek. 40 yıllık ustalık, aynı gün teslimat."
+      "sub": "Amsterdam Aalsmeer'den Fethiye'ye premium çiçek. 30 yıllık ustalık, aynı gün teslimat."
     },
     "strip": {
       "kicker": "Vahap Akar · Röportaj",
       "title": "Çiçekçinin Sesi",
-      "subtitle": "Kırk yıllık bir çiçekçinin gözünden — kelime kelime, kendi sesiyle.",
+      "subtitle": "Otuz yıllık bir çiçekçinin gözünden — kelime kelime, kendi sesiyle.",
       "comingSoon": "Yakında",
       "items": {
         "mutluluk": { "title": "Duyguların Dili", "desc": "Beşikten mezara, her ana eşlik eden çiçekler." },
@@ -316,7 +316,7 @@
     "voices": {
       "kicker": "Çiçekçinin Sesi",
       "title": "Çiçeğin Dilinden",
-      "subtitle": "Vahap Akar, kırk yıllık çiçekçi — kendi sözleriyle. Sesi açmak için videoya dokun.",
+      "subtitle": "Vahap Akar, otuz yıllık çiçekçi — kendi sözleriyle. Sesi açmak için videoya dokun.",
       "labels": {
         "tanitim": "Vahap kendini anlatıyor",
         "mutluluk": "Bu işin mutluluğu",
