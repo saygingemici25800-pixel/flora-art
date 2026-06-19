@@ -290,7 +290,7 @@ function BouquetSlot({ motif = 'rose', size = 116 }: { motif?: MotifKind; size?:
  * (code-split, off the main bundle). The motif BouquetSlot shows until the GLB
  * has loaded, then crossfades in; on any failure the motif simply stays.
  */
-function HeroBouquet3D({ size = 150 }: { size?: number }) {
+function HeroBouquet3D() {
   const hostRef = useRef<HTMLDivElement>(null)
   const [ready, setReady] = useState(false)
 
@@ -313,6 +313,9 @@ function HeroBouquet3D({ size = 150 }: { size?: number }) {
           'interaction-prompt': 'none',
           'shadow-intensity': '1',
           exposure: '1',
+          // Pull the camera ~15% closer so the bouquet fills the (now 3× larger)
+          // frame instead of sitting small / distant.
+          'camera-orbit': '0deg 80deg 85%',
           reveal: 'auto',
           loading: 'lazy',
         }
@@ -336,7 +339,10 @@ function HeroBouquet3D({ size = 150 }: { size?: number }) {
   }, [])
 
   return (
-    <div className="relative shrink-0" style={{ width: size, height: size }}>
+    <div
+      className="relative shrink-0"
+      style={{ width: 'clamp(260px, 30vw, 460px)', aspectRatio: '1 / 1' }}
+    >
       <div
         ref={hostRef}
         aria-hidden={!ready}
@@ -344,8 +350,8 @@ function HeroBouquet3D({ size = 150 }: { size?: number }) {
         style={{ opacity: ready ? 1 : 0, transition: 'opacity 0.6s ease' }}
       />
       {!ready && (
-        <div className="absolute inset-0">
-          <BouquetSlot size={size} />
+        <div className="absolute inset-0 grid place-items-center">
+          <BouquetSlot size={190} />
         </div>
       )}
     </div>
@@ -437,26 +443,27 @@ function CategorySection({ index, name, desc, motif, image, clip, to, flip, labe
               çekimiyle değişebilir). Görsel yoksa motif fallback kalır. */}
           {image ? (
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.92 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: '-10% 0px' }}
-              transition={{ duration: 0.9, ease: EASE }}
-              className="mt-9 overflow-hidden rounded-2xl"
+              transition={{ duration: 0.8, ease: EASE }}
+              className="mt-9 overflow-hidden rounded-full mx-auto md:mx-0"
               style={{
-                border: '1px solid rgba(200,169,110,0.35)',
-                boxShadow: '0 30px 70px -30px rgba(0,0,0,0.55)',
+                width: 'clamp(240px, 22vw, 340px)',
+                aspectRatio: '1 / 1',
+                border: '2px solid rgba(200,169,110,0.4)',
+                boxShadow: '0 24px 56px -26px rgba(0,0,0,0.55)',
               }}
             >
-              {/* eager: these 5 category photos are primary homepage content.
-                  Native lazy-load never fired inside the scroll-reveal wrapper,
-                  so the image is loaded up-front and the motion only fades it in. */}
+              {/* eager: these 5 category photos are primary homepage content;
+                  native lazy-load never fired inside the scroll-reveal wrapper,
+                  so they load up-front and the motion only fades them in. */}
               <img
                 src={image}
                 alt={name}
                 loading="eager"
                 decoding="async"
-                className="block w-full object-cover"
-                style={{ aspectRatio: '5 / 4' }}
+                className="block h-full w-full object-cover"
               />
             </motion.div>
           ) : (
