@@ -182,8 +182,12 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
                 transition={{ duration: 0.7, ease: EASE, delay: 1 }}
               >
                 <Link
-                  to={`${prefix}/shop`}
+                  to={prefix || '/'}
                   data-cursor-large
+                  onClick={(e) => {
+                    e.preventDefault()
+                    document.getElementById('urunler')?.scrollIntoView({ behavior: 'smooth' })
+                  }}
                   className="hero-cta group inline-flex items-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.22em] transition-colors duration-300 md:px-10 md:py-5 md:text-[13px]"
                   style={{
                     background: 'transparent',
@@ -348,8 +352,9 @@ function HomeCatalog() {
     <>
       {/* Category filter bar — sticks under the navbar while browsing */}
       <div
+        id="urunler"
         className="sticky top-[78px] z-[50] w-full"
-        style={{ background: 'var(--color-cream)', borderBottom: '1px solid var(--color-beige)' }}
+        style={{ background: 'var(--color-cream)', borderBottom: '1px solid var(--color-beige)', scrollMarginTop: '90px' }}
       >
         <ul
           className="no-scrollbar mx-auto flex max-w-[1400px] items-center gap-2 overflow-x-auto py-4"

@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 
-const linkKeys = ['shop', 'delivery', 'about', 'contact'] as const
+const linkKeys = ['about', 'delivery', 'contact'] as const
 
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'

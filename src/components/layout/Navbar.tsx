@@ -28,7 +28,7 @@ function langPrefix(lang: Lang): string {
   return lang === 'tr' ? '' : `/${lang}`
 }
 
-const linkKeys = ['shop', 'delivery', 'about', 'contact'] as const
+const linkKeys = ['about', 'delivery', 'contact'] as const
 
 export default function Navbar() {
   const { t, i18n } = useTranslation()

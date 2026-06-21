@@ -807,7 +807,7 @@ function BottomCta({ prefix }: { prefix: string }) {
           </span>
 
           <Link
-            to={`${prefix}/shop`}
+            to={prefix || '/'}
             className="del-cta-secondary inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] tracking-[0.3em] uppercase transition-colors duration-300 border"
             style={{
               background: 'transparent',

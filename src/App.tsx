@@ -8,7 +8,6 @@ import Layout from './components/layout/Layout'
 import PageLoader from './components/ui/PageLoader'
 
 const Home = lazy(() => import('./pages/Home'))
-const Shop = lazy(() => import('./pages/Shop'))
 const ProductDetail = lazy(() => import('./pages/ProductDetail'))
 const Checkout = lazy(() => import('./pages/Checkout'))
 const OrderSuccess = lazy(() => import('./pages/OrderSuccess'))
@@ -33,7 +32,6 @@ function Storefront() {
       <Suspense fallback={<PageLoader />}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/services" element={<Services />} />
           <Route path="/delivery" element={<Delivery />} />
@@ -48,7 +46,6 @@ function Storefront() {
           <Route path="/ru/order-success" element={<OrderSuccess />} />
 
           <Route path="/en" element={<Home />} />
-          <Route path="/en/shop" element={<Shop />} />
           <Route path="/en/product/:id" element={<ProductDetail />} />
           <Route path="/en/services" element={<Services />} />
           <Route path="/en/delivery" element={<Delivery />} />
@@ -57,7 +54,6 @@ function Storefront() {
           <Route path="/en/kvkk" element={<Legal />} />
 
           <Route path="/ru" element={<Home />} />
-          <Route path="/ru/shop" element={<Shop />} />
           <Route path="/ru/product/:id" element={<ProductDetail />} />
           <Route path="/ru/services" element={<Services />} />
           <Route path="/ru/delivery" element={<Delivery />} />

@@ -92,7 +92,7 @@ export default function NotFound() {
             {t('notFound.home')}
           </Link>
           <Link
-            to={`${prefix}/shop`}
+            to={prefix || '/'}
             className="nf-secondary inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-4 text-[12px] tracking-[0.28em] uppercase border transition-colors duration-300"
             style={{
               background: 'transparent',

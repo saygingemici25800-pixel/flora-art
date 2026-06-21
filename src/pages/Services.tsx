@@ -146,7 +146,7 @@ function ServiceSection({ item, reverse, prefix }: SectionProps) {
 
   const ctaHref =
     item.linkType === 'shop'
-      ? `${prefix}/shop`
+      ? prefix || '/'
       : whatsappHref(item.whatsappTopic ?? (t('services.banner.whatsappTopic') as string))
   const ctaTargetBlank = item.linkType !== 'shop'
 

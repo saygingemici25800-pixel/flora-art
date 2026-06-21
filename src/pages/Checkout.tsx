@@ -923,7 +923,7 @@ function EmptyCheckout({ prefix }: { prefix: string }) {
           {t('checkout.empty.hint')}
         </p>
         <Link
-          to={`${prefix}/shop`}
+          to={prefix || '/'}
           className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-[12px] tracking-[0.28em] uppercase transition-colors"
           style={{
             background: 'var(--color-forest)',

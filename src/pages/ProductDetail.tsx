@@ -248,7 +248,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                 {t('shop.breadcrumbHome')}
               </Link>
               <span aria-hidden="true">·</span>
-              <Link to={`${prefix}/shop`} className="hover:text-[var(--color-gold)] transition-colors">
+              <Link to={prefix || '/'} className="hover:text-[var(--color-gold)] transition-colors">
                 {t('shop.title')}
               </Link>
               <span aria-hidden="true">·</span>
@@ -644,7 +644,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
                 {t('product.similarTitle')}
               </h2>
               <Link
-                to={`${prefix}/shop`}
+                to={prefix || '/'}
                 className="back-to-collection group inline-flex w-full items-center justify-center gap-2 px-7 py-3 text-[12px] tracking-[0.2em] uppercase transition-colors duration-300 sm:w-auto"
                 style={{
                   background: 'transparent',
@@ -704,7 +704,7 @@ function LoadError({ prefix, message }: { prefix: string; message: string }) {
           {message}
         </p>
         <Link
-          to={`${prefix}/shop`}
+          to={prefix || '/'}
           className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-[12px] tracking-[0.28em] uppercase transition-colors"
           style={{
             background: 'var(--color-forest)',
@@ -780,7 +780,7 @@ function NotFound({ prefix }: { prefix: string }) {
           {t('product.notFoundHint')}
         </p>
         <Link
-          to={`${prefix}/shop`}
+          to={prefix || '/'}
           className="inline-flex items-center gap-2 mt-10 px-7 py-3 text-[12px] tracking-[0.28em] uppercase transition-colors"
           style={{
             background: 'var(--color-forest)',

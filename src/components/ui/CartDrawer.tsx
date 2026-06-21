@@ -148,7 +148,7 @@ export default function CartDrawer() {
                     style={{ borderTop: '1px solid rgba(1,62,55,0.10)' }}
                   >
                     <Link
-                      to={`${prefix}/shop`}
+                      to={prefix || '/'}
                       onClick={close}
                       className="inline-flex items-center gap-2 text-[12px] tracking-[0.22em] uppercase transition-colors hover:text-[var(--color-gold)]"
                       style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
@@ -369,7 +369,7 @@ function EmptyCart({
         {hint}
       </p>
       <Link
-        to={`${prefix}/shop`}
+        to={prefix || '/'}
         onClick={onBrowse}
         className="inline-flex items-center justify-center rounded-lg px-8 uppercase transition-colors"
         style={{
