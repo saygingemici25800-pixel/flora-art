@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useSEO } from '../hooks/useSEO'
-import type { MotifKind } from '../types'
-import ProductMotif from '../components/ui/ProductMotif'
-import VideoBackdrop from '../components/ui/VideoBackdrop'
+import { useProducts, type StoreProduct } from '../hooks/useProducts'
+import type { CategoryId } from '../types'
 import CaptionedVideo from '../components/ui/CaptionedVideo'
 import IntroLoader from '../components/ui/IntroLoader'
+import ProductCard from '../components/ui/ProductCard'
+import QuickViewModal from '../components/ui/QuickViewModal'
+import { ProductGridSkeleton } from '../components/ui/ProductSkeleton'
 
 const EASE = [0.16, 1, 0.3, 1] as const
-const WHATSAPP_NUMBER = '905015317748'
 
 // Shared horizontal gutter for every section's content wrapper. Applied inline
 // so it can't be dropped by Tailwind purge (arbitrary px classes have bitten
@@ -20,29 +21,33 @@ const SECTION_X_PAD = {
   paddingRight: 'clamp(20px, 5vw, 64px)',
 } as const
 
+const CATEGORY_ORDER: CategoryId[] = [
+  'bouquet',
+  'box',
+  'wedding',
+  'corporate',
+  'plant',
+  'international',
+]
+
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'
   if (pathname.startsWith('/ru')) return '/ru'
   return ''
 }
 
-/** The five headline categories, each paired with a Vahap interview clip and a
- *  flower motif for its 3D placeholder. */
-interface HomeCategory {
-  id: string
-  motif: MotifKind
-  clip: string // file base under /videos
-  // Vahap'ın gerçek ürün fotoğrafları (telefon çekimi, ileride stüdyo çekimiyle
-  // değişebilir). Boşsa motif fallback gösterilir.
-  image: string
+// Aspect-ratio rotation across the product grid for editorial rhythm (mirrors
+// the Shop grid): 3/4, 4/5 (taller), 1/1 (square), 3/4, 3/4.
+function cardAspect(index: number): string {
+  switch (index % 5) {
+    case 1:
+      return '4 / 5'
+    case 2:
+      return '1 / 1'
+    default:
+      return '3 / 4'
+  }
 }
-const CATEGORIES: HomeCategory[] = [
-  { id: 'bouquet',   motif: 'rose',    clip: 'about-vahap-tanitim',  image: '/images/categories/buket.webp' },
-  { id: 'box',       motif: 'peony',   clip: 'about-vahap-mutluluk', image: '/images/categories/kutu-cicek.webp' },
-  { id: 'wedding',   motif: 'anemone', clip: 'process-vahap-emek',   image: '/images/categories/dugun-nisan.webp' },
-  { id: 'corporate', motif: 'orchid',  clip: 'about-vahap-turizm',   image: '/images/categories/kurumsal.webp' },
-  { id: 'plant',     motif: 'tulip',   clip: 'about-vahap-cicekler', image: '/images/categories/saksi-bitki.webp' },
-]
 
 /** Desktop = autoplay videos; mobile = static fallback (no multi-video autoplay). */
 function useIsDesktop(): boolean {
@@ -68,34 +73,11 @@ export default function Home() {
     description: t('seo.home.description') as string,
   })
 
-  const allCats = t('categories', { returnObjects: true }) as { id: string; name: string }[]
-  const categories = CATEGORIES.map((c) => ({
-    ...c,
-    name: allCats.find((a) => a.id === c.id)?.name ?? c.id,
-    desc: t(`homepage.categoryDesc.${c.id}`) as string,
-  }))
-
   return (
     <>
       <IntroLoader />
       <Hero prefix={prefix} desktop={desktop} />
-      {categories.map((cat, i) => (
-        <CategorySection
-          key={cat.id}
-          index={i}
-          name={cat.name}
-          desc={cat.desc}
-          motif={cat.motif}
-          image={cat.image}
-          clip={cat.clip}
-          to={`${prefix}/shop?category=${cat.id}`}
-          flip={i % 2 === 1}
-          label={t('homepage.sectionLabel') as string}
-          cta={t('homepage.hero.cta') as string}
-        />
-      ))}
-      <AboutSection prefix={prefix} enableVideo={desktop} />
-      <ContactSection prefix={prefix} />
+      <HomeCatalog />
     </>
   )
 }
@@ -250,45 +232,11 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
   )
 }
 
-// 3D flower slot — placeholder for a future Tripo 3D asset. Swap the inner
-// ProductMotif for the <model-viewer>/canvas when the real model lands; the
-// motif + size props let each category show its own bloom.
-function BouquetSlot({ motif = 'rose', size = 116 }: { motif?: MotifKind; size?: number }) {
-  return (
-    <motion.div
-      aria-hidden="true"
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: '-10% 0px' }}
-      transition={{ duration: 1, ease: EASE }}
-      className="relative shrink-0"
-      style={{ width: size, height: size }}
-    >
-      <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background: 'radial-gradient(circle at 38% 32%, rgba(200,169,110,0.20), rgba(1,62,55,0) 66%)',
-          border: '1px solid rgba(200,169,110,0.28)',
-        }}
-      />
-      <motion.div
-        className="absolute inset-0 grid place-items-center"
-        animate={{ y: [0, -5, 0], rotate: [0, 3, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-      >
-        <div style={{ width: '64%', height: '64%' }}>
-          <ProductMotif kind={motif} color="var(--color-gold)" opacity={1} />
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
 /**
  * Hero 3D bouquet — Google <model-viewer> built imperatively so we sidestep
  * custom-element JSX typing and pull three.js in via a dynamic import only
- * (code-split, off the main bundle). The motif BouquetSlot shows until the GLB
- * has loaded, then crossfades in; on any failure the motif simply stays.
+ * (code-split, off the main bundle). A real buket photo shows until the GLB has
+ * loaded, then crossfades in; on any failure the photo simply stays.
  */
 function HeroBouquet3D() {
   const hostRef = useRef<HTMLDivElement>(null)
@@ -329,7 +277,7 @@ function HeroBouquet3D() {
         hostRef.current.appendChild(mv)
       })
       .catch(() => {
-        /* model-viewer unavailable — keep the motif fallback */
+        /* model-viewer unavailable — keep the photo fallback */
       })
 
     return () => {
@@ -373,391 +321,128 @@ function HeroBouquet3D() {
   )
 }
 
-/* ── Category section ──────────────────────────────────────────── */
+/* ── Product catalogue (homepage showroom) ─────────────────────── */
 
-interface CategorySectionProps {
-  index: number
-  name: string
-  desc: string
-  motif: MotifKind
-  image: string
-  clip: string
-  to: string
-  flip: boolean
-  label: string
-  cta: string
-}
+function HomeCatalog() {
+  const { t } = useTranslation()
+  const { products: allProducts, loading, error } = useProducts()
+  const [filter, setFilter] = useState<'all' | CategoryId>('all')
+  const [quickView, setQuickView] = useState<StoreProduct | null>(null)
 
-function CategorySection({ index, name, desc, motif, image, clip, to, flip, label, cta }: CategorySectionProps) {
-  const num = String(index + 1).padStart(2, '0')
-  // Zigzag: odd sections (index 1, 3) put the video on the right.
-  const videoRight = flip
+  const visible = useMemo(
+    () =>
+      filter === 'all'
+        ? allProducts
+        : allProducts.filter((p) => p.category === filter),
+    [allProducts, filter],
+  )
+
+  const emptyStyle = {
+    fontFamily: 'var(--font-display)',
+    fontSize: '1.5rem',
+    color: 'var(--color-forest)',
+    opacity: 0.7,
+  } as const
 
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{ background: 'var(--color-forest)', color: 'var(--color-cream)', paddingBlock: 'clamp(80px, 10vh, 140px)' }}
-    >
+    <>
+      {/* Category filter bar — sticks under the navbar while browsing */}
       <div
-        className="mx-auto grid max-w-[1400px] grid-cols-1 items-center md:grid-cols-2"
-        style={{ ...SECTION_X_PAD, columnGap: '64px', rowGap: '40px' }}
+        className="sticky top-[78px] z-[50] w-full"
+        style={{ background: 'var(--color-cream)', borderBottom: '1px solid var(--color-beige)' }}
       >
-        {/* video half — always first in DOM so mobile stacks the video on top */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-12% 0px' }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className={videoRight ? 'md:order-2' : 'md:order-1'}
+        <ul
+          className="no-scrollbar mx-auto flex max-w-[1400px] items-center gap-2 overflow-x-auto py-4"
+          style={SECTION_X_PAD}
         >
-          <CaptionedVideo
-            src={`/videos/${clip}.mp4`}
-            poster={`/videos/${clip}.webp`}
-            wordsSrc={`/videos/${clip}.words.json`}
+          <FilterPill
+            active={filter === 'all'}
+            onClick={() => setFilter('all')}
+            label={t('shop.filterAll') as string}
           />
-        </motion.div>
+          {CATEGORY_ORDER.map((cat, i) => (
+            <FilterPill
+              key={cat}
+              active={filter === cat}
+              onClick={() => setFilter(cat)}
+              label={t(`categories.${i}.name`) as string}
+            />
+          ))}
+        </ul>
+        <style>{`
+          .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+          .no-scrollbar::-webkit-scrollbar { display: none; }
+        `}</style>
+      </div>
 
-        {/* title + short text (top) + 3D flower placeholder (below) */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-12% 0px' }}
-          transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
-          className={`flex flex-col ${videoRight ? 'md:order-1' : 'md:order-2'}`}
-        >
-          <span
-            className="flex items-center gap-4 text-[11px] uppercase tracking-[0.3em]"
-            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
-          >
-            <span aria-hidden="true">{num}</span>
-            <span className="block h-px w-10" style={{ background: 'rgba(200,169,110,0.5)' }} />
-            <span style={{ opacity: 0.85 }}>{label}</span>
-          </span>
-
-          <h2
-            className="italic"
-            style={{
-              marginTop: '20px',
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.5rem, 5vw, 4.25rem)',
-              letterSpacing: '-0.015em',
-              lineHeight: 1,
-              color: 'var(--color-cream)',
-            }}
-          >
-            {name}
-          </h2>
-
-          <p
-            className="max-w-[46ch] text-[15px] leading-relaxed md:text-[16px]"
-            style={{ marginTop: '20px', fontFamily: 'var(--font-body)', color: 'rgba(255,239,179,0.78)' }}
-          >
-            {desc}
-          </p>
-
-          {/* Vahap'ın gerçek ürün fotoğrafları (telefon çekimi, ileride stüdyo
-              çekimiyle değişebilir). Görsel yoksa motif fallback kalır. */}
-          {image ? (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: '-10% 0px' }}
-              transition={{ duration: 0.8, ease: EASE }}
-              className="overflow-hidden rounded-full mx-auto md:mx-0"
-              style={{
-                marginTop: '40px',
-                width: 'clamp(220px, 18vw, 280px)',
-                aspectRatio: '1 / 1',
-                border: '2px solid rgba(200,169,110,0.4)',
-                boxShadow: '0 24px 56px -26px rgba(0,0,0,0.55)',
-              }}
-            >
-              {/* eager: these 5 category photos are primary homepage content;
-                  native lazy-load never fired inside the scroll-reveal wrapper,
-                  so they load up-front and the motion only fades them in. */}
-              <img
-                src={image}
-                alt={name}
-                loading="eager"
-                decoding="async"
-                className="block h-full w-full object-cover"
-              />
-            </motion.div>
+      {/* Product grid — the homepage is now the storefront */}
+      <section
+        className="relative w-full"
+        style={{ background: 'var(--color-cream)', paddingBlock: 'clamp(48px, 7vh, 96px)' }}
+      >
+        <div className="mx-auto max-w-[1400px]" style={SECTION_X_PAD}>
+          {loading ? (
+            <ProductGridSkeleton count={8} />
+          ) : error ? (
+            <p className="py-20 text-center" style={emptyStyle}>
+              {error}
+            </p>
+          ) : visible.length === 0 ? (
+            <p className="py-20 text-center" style={emptyStyle}>
+              {t('shop.empty')}
+            </p>
           ) : (
-            <div className="mx-auto md:mx-0 w-fit" style={{ marginTop: '40px' }}>
-              <BouquetSlot motif={motif} size={150} />
+            <div className="grid grid-cols-2 items-start gap-x-6 gap-y-12 md:grid-cols-3 md:gap-x-8 md:gap-y-16 lg:grid-cols-4">
+              {visible.map((p, i) => (
+                <ProductCard
+                  key={p.id}
+                  product={p}
+                  index={i}
+                  onQuickView={setQuickView}
+                  aspectRatio={cardAspect(i)}
+                />
+              ))}
             </div>
           )}
-
-          <Link
-            to={to}
-            data-cursor-large
-            className="group inline-flex w-fit items-center gap-2 text-[12px] uppercase tracking-[0.26em] transition-colors hover:text-[var(--color-cream)]"
-            style={{ marginTop: '40px', color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
-          >
-            <span className="border-b border-current pb-1">{cta}</span>
-            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
-          </Link>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
-
-/* ── About (Biz Kimiz) ─────────────────────────────────────────── */
-
-function AboutSection({ prefix, enableVideo }: { prefix: string; enableVideo: boolean }) {
-  const { t } = useTranslation()
-  const titleLines = (t('story.title') as string).split('\n')
-
-  return (
-    <section
-      className="relative w-full"
-      style={{ background: 'var(--color-cream)', paddingBlock: 'var(--spacing-section)' }}
-    >
-      <div
-        className="mx-auto grid max-w-[1400px] grid-cols-1 items-center gap-12 md:grid-cols-12 md:gap-16"
-        style={SECTION_X_PAD}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-15% 0px' }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="md:col-span-6"
-        >
-          <span
-            className="mb-7 flex items-center gap-4 text-[11px] uppercase tracking-[0.3em]"
-            style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
-          >
-            <span aria-hidden="true">06</span>
-            <span className="block h-px w-10" style={{ background: 'rgba(200,169,110,0.5)' }} />
-            {t('homepage.about.label')}
-          </span>
-
-          <h2
-            className="italic"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.5rem, 5.5vw, 4.5rem)',
-              color: 'var(--color-forest)',
-              letterSpacing: '-0.015em',
-              lineHeight: 0.98,
-            }}
-          >
-            {titleLines.map((line, i) => (
-              <span key={i} className="block">
-                {line}
-              </span>
-            ))}
-          </h2>
-
-          <p
-            className="mt-8 max-w-[56ch] text-[15px] leading-relaxed md:text-[16px]"
-            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.85 }}
-          >
-            {t('story.p1')}
-          </p>
-          <p
-            className="mt-4 max-w-[56ch] text-[14px] leading-relaxed md:text-[15px]"
-            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.7 }}
-          >
-            {t('story.p2')}
-          </p>
-
-          <Link
-            to={`${prefix}/about`}
-            className="group mt-10 inline-flex items-center gap-3 text-[12px] uppercase tracking-[0.26em]"
-            style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
-          >
-            <span className="block h-px w-12 transition-all duration-300 group-hover:w-16" style={{ background: 'var(--color-gold)' }} />
-            <span className="border-b border-current pb-1">{t('homepage.about.cta')}</span>
-            <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
-          </Link>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: '-12% 0px' }}
-          transition={{ duration: 1.1, ease: EASE }}
-          className="relative overflow-hidden md:col-span-6 md:-mr-6"
-          style={{ aspectRatio: '5 / 6', background: 'var(--color-beige)', borderRadius: 4 }}
-        >
-          <VideoBackdrop
-            src="/videos/atelier.mp4"
-            enableVideo={enableVideo}
-            overlay={0}
-            fallback={<AboutFallback />}
-          />
-          <span
-            aria-hidden="true"
-            className="absolute bottom-5 left-5 z-[2] text-[10px] uppercase tracking-[0.4em]"
-            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-forest)', opacity: 0.5 }}
-          >
-            Aalsmeer · Holland
-          </span>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
-
-function AboutFallback() {
-  return (
-    <div className="absolute inset-0 grid place-items-center" style={{ background: 'var(--color-beige)' }}>
-      <div className="h-[78%] w-[78%]">
-        <ProductMotif kind="peony" color="var(--color-gold)" opacity={0.55} />
-      </div>
-    </div>
-  )
-}
-
-/* ── Contact (closing) ─────────────────────────────────────────── */
-
-function ContactSection({ prefix }: { prefix: string }) {
-  const { t } = useTranslation()
-  const titleLines = (t('homepage.contact.title') as string).split('\n')
-  const waHref = `https://wa.me/${WHATSAPP_NUMBER}`
-
-  return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{ background: 'var(--color-forest)', color: 'var(--color-cream)', paddingBlock: 'var(--spacing-section)' }}
-    >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 opacity-[0.08] md:block"
-        style={{ color: 'var(--color-gold)' }}
-      >
-        <ProductMotif kind="anemone" color="var(--color-gold)" opacity={1} />
-      </div>
-
-      <div
-        className="relative z-[2] mx-auto max-w-[1400px] grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center"
-        style={SECTION_X_PAD}
-      >
-        <div className="md:col-span-6">
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.85, y: 0 }}
-          viewport={{ once: true, margin: '-15% 0px' }}
-          transition={{ duration: 0.7, ease: EASE }}
-          className="mb-7 flex items-center gap-4 text-[11px] uppercase tracking-[0.3em]"
-          style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
-        >
-          <span aria-hidden="true">07</span>
-          <span className="block h-px w-10" style={{ background: 'rgba(200,169,110,0.5)' }} />
-          {t('homepage.contact.label')}
-        </motion.span>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-12% 0px' }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="italic"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2.75rem, 8vw, 6rem)',
-            letterSpacing: '-0.02em',
-            lineHeight: 0.95,
-            color: 'var(--color-cream)',
-          }}
-        >
-          {titleLines.map((line, i) => (
-            <span key={i} className="block">
-              {line}
-            </span>
-          ))}
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 0.78, y: 0 }}
-          viewport={{ once: true, margin: '-10% 0px' }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.15 }}
-          className="mt-7 max-w-[46ch] text-[16px] leading-relaxed"
-          style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
-        >
-          {t('homepage.contact.sub')}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-10% 0px' }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
-          className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center"
-        >
-          <a
-            href={waHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 px-8 py-4 text-[12px] uppercase tracking-[0.22em] transition-transform duration-300 hover:-translate-y-[2px]"
-            style={{ background: '#25D366', color: '#FFFFFF', fontFamily: 'var(--font-body)' }}
-          >
-            <WhatsAppGlyph />
-            {t('homepage.contact.whatsapp')}
-          </a>
-          <Link
-            to={`${prefix}/shop`}
-            data-cursor-large
-            className="contact-cta inline-flex items-center justify-center gap-2 px-8 py-4 text-[12px] uppercase tracking-[0.22em] transition-colors duration-300"
-            style={{
-              background: 'transparent',
-              color: 'var(--color-cream)',
-              border: '1px solid var(--color-gold)',
-              fontFamily: 'var(--font-body)',
-            }}
-          >
-            {t('homepage.contact.order')}
-            <span aria-hidden="true">→</span>
-          </Link>
-        </motion.div>
-
-        <motion.ul
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.7 }}
-          viewport={{ once: true, margin: '-10% 0px' }}
-          transition={{ duration: 0.8, ease: EASE, delay: 0.45 }}
-          className="mt-14 flex flex-wrap gap-x-10 gap-y-3 text-[12px] tracking-[0.12em]"
-          style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,239,179,0.7)' }}
-        >
-          <li>
-            <a href={`tel:${WHATSAPP_NUMBER}`} className="transition-colors hover:text-[var(--color-gold)]">
-              {t('footer.phone')}
-            </a>
-          </li>
-          <li>{t('footer.address')}</li>
-          <li>{t('footer.hours')}</li>
-        </motion.ul>
         </div>
+      </section>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: '-8% 0px' }}
-          transition={{ duration: 0.95, ease: EASE }}
-          className="md:col-span-6"
-        >
-          <CaptionedVideo
-            src="/videos/contact-vahap-mesaj.mp4"
-            poster="/videos/contact-vahap-mesaj.webp"
-            wordsSrc="/videos/contact-vahap-mesaj.words.json"
-          />
-        </motion.div>
-      </div>
-
-      <style>{`.contact-cta:hover { background: var(--color-gold) !important; color: var(--color-forest) !important; }`}</style>
-    </section>
+      <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />
+    </>
   )
 }
 
-function WhatsAppGlyph() {
+function FilterPill({
+  active,
+  onClick,
+  label,
+}: {
+  active: boolean
+  onClick: () => void
+  label: string
+}) {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0c3.18 0 6.167 1.24 8.413 3.488A11.82 11.82 0 0123.94 11.9c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.595 5.39l-.999 3.648 3.893-.937z" />
-    </svg>
+    <li className="shrink-0">
+      <button
+        type="button"
+        onClick={onClick}
+        aria-pressed={active}
+        className="rounded-full px-4 py-2 text-[12px] uppercase tracking-[0.2em] transition-colors duration-300"
+        style={{
+          background: active ? 'var(--color-gold)' : 'transparent',
+          color: 'var(--color-forest)',
+          fontFamily: 'var(--font-body)',
+          border: active ? '1px solid var(--color-gold)' : '1px solid transparent',
+        }}
+        onMouseEnter={(e) => {
+          if (!active) e.currentTarget.style.background = 'var(--color-beige)'
+        }}
+        onMouseLeave={(e) => {
+          if (!active) e.currentTarget.style.background = 'transparent'
+        }}
+      >
+        {label}
+      </button>
+    </li>
   )
 }
