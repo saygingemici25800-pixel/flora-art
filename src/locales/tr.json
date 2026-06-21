@@ -18,12 +18,12 @@
     "sectionLabel": "Koleksiyon",
     "header": {
       "title": "Duygularınızı\nçiçeklerle anlatın",
-      "sub": "Amsterdam Aalsmeer'den Fethiye'ye premium çiçek. 30 yıllık ustalık, aynı gün teslimat."
+      "sub": "Amsterdam Aalsmeer'den Fethiye'ye premium çiçek. 40 yıllık ustalık, aynı gün teslimat."
     },
     "strip": {
       "kicker": "Vahap Akar · Röportaj",
       "title": "Çiçekçinin Sesi",
-      "subtitle": "Otuz yıllık bir çiçekçinin gözünden — kelime kelime, kendi sesiyle.",
+      "subtitle": "Kırk yıllık bir çiçekçinin gözünden — kelime kelime, kendi sesiyle.",
       "comingSoon": "Yakında",
       "items": {
         "mutluluk": { "title": "Duyguların Dili", "desc": "Beşikten mezara, her ana eşlik eden çiçekler." },
@@ -311,12 +311,12 @@
   },
   "about": {
     "title": "Hakkımızda",
-    "subtitle": "Çiçeğin sanatına adanmış bir hikaye.",
+    "subtitle": "Fethiye'nin kalbinde bir aile çiçekçisi.",
     "breadcrumb": "Hakkımızda",
     "voices": {
       "kicker": "Çiçekçinin Sesi",
       "title": "Çiçeğin Dilinden",
-      "subtitle": "Vahap Akar, otuz yıllık çiçekçi — kendi sözleriyle. Sesi açmak için videoya dokun.",
+      "subtitle": "Vahap Akar, kırk yıllık çiçekçi — kendi sözleriyle. Sesi açmak için videoya dokun.",
       "labels": {
         "tanitim": "Vahap kendini anlatıyor",
         "mutluluk": "Bu işin mutluluğu",
@@ -326,10 +326,10 @@
     },
     "story": {
       "badge": "Fethiye · Kesikkapı",
-      "title": "Fethiye'nin\nkalbinde,\nHolland'ın\nözünden.",
-      "p1": "Flora Art, Fethiye'nin merkezinde, Atatürk Caddesi üzerinde kurulmuş genç ve tutkulu bir çiçekçidir. Kadın girişimciliğinin gücüyle hayata geçirilen bu marka, çiçekçiliği bir zanaat değil, bir sanat olarak görür.",
-      "p2": "Amsterdam'ın ünlü çiçek müzayedelerinden direkt temin ettiğimiz çiçekler, Fethiye'ye özgü Akdeniz sıcaklığıyla buluşuyor. Her buket, her aranjman — bir his, bir an, bir hikaye anlatır.",
-      "quote": "Bir çiçek vermek, kelimelerle anlatılamayan her şeyi söylemektir.",
+      "title": "Fethiye'nin\nkalbinde,\nbir aile\nçiçekçisi.",
+      "p1": "Flora Art, Fethiye'nin merkezinde, Atatürk Caddesi üzerinde küçük bir aile çiçekçisidir. Vahap Akar kırk yıldır çiçeklerle uğraşıyor — bu işi ezbere değil, yürekten yapıyor. Eşi Aliona ile birlikte her buketi kendi elleriyle, özenle hazırlıyorlar.",
+      "p2": "Çiçeklerimizi Hollanda'nın Aalsmeer müzayedesinden en taze haliyle getiriyoruz. Ama asıl fark, onları hazırlarkenki emekte. Bizim için her aranjman bir hediye, her sipariş bir emanettir.",
+      "quote": "Bir çiçek vermek, kelimelerle anlatılamayanı söylemektir.",
       "quoteAuthor": "— Flora Art",
       "videoCaption": "Flora Art Atölyesi · Fethiye",
       "videoSoon": "Atölye videosu yakında"
@@ -343,11 +343,11 @@
       ]
     },
     "founder": {
-      "kicker": "Kurucumuz",
-      "name": "Vahap Akar",
-      "p1": "Çiçeklere olan tutkusu onu Fethiye'nin en seçkin floristine dönüştürdü. Holland'daki eğitimi ve Akdeniz estetiğini harmanlayan özgün yaklaşımıyla Flora Art'ı yarattı.",
-      "p2": "Her güne, ekibiyle birlikte atölyede başlar; her buketi kendi elleriyle kontrol eder. Bir Fethiye markasının, dünyaya nasıl açılabileceğini her gün yeniden tanımlıyor.",
-      "stats": "5.0 ★ Google · 122 Yorum · Holland Sertifikalı",
+      "kicker": "Aile İşletmemiz",
+      "name": "Vahap & Aliona Akar",
+      "p1": "Vahap Akar, kırk yıldır çiçeklerle uğraşan deneyimli bir usta. Hollanda'da eğitim almadı; ustalığını yılların emeğiyle kazandı. Her güne atölyede, eşi Aliona ile birlikte başlar.",
+      "p2": "Her buketi kendi elleriyle hazırlıyorlar. Kapıları da, kalpleri de size açık — Fethiye'de bir çiçeğe ihtiyacınız olduğunda, onlar burada.",
+      "stats": "5.0 ★ Google · 122 Yorum · Kırk Yıllık Usta",
       "imagePlaceholder": "Fotoğraf yakında"
     },
     "numbers": {
@@ -355,7 +355,7 @@
         { "value": 122, "suffix": "+",  "label": "Mutlu Müşteri" },
         { "value": 5,   "suffix": ".0", "label": "Google Puanı" },
         { "value": 2,   "suffix": "s",  "label": "Maks Teslimat" },
-        { "value": 100, "suffix": "%",  "label": "Holland" }
+        { "value": 40,  "suffix": "",   "label": "Yıl Tecrübe" }
       ]
     }
   },

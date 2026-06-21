@@ -18,12 +18,12 @@
     "sectionLabel": "Collection",
     "header": {
       "title": "Say it\nwith flowers",
-      "sub": "Premium flowers from Amsterdam's Aalsmeer to Fethiye. Thirty years of mastery, same-day delivery."
+      "sub": "Premium flowers from Amsterdam's Aalsmeer to Fethiye. Forty years of mastery, same-day delivery."
     },
     "strip": {
       "kicker": "Vahap Akar · Interview",
       "title": "The Florist's Voice",
-      "subtitle": "Through the eyes of a florist of thirty years — word by word, in his own voice.",
+      "subtitle": "Through the eyes of a florist of forty years — word by word, in his own voice.",
       "comingSoon": "Soon",
       "items": {
         "mutluluk": { "title": "The Language of Feeling", "desc": "From cradle to grave, flowers for every moment." },
@@ -311,12 +311,12 @@
   },
   "about": {
     "title": "About Us",
-    "subtitle": "A story devoted to the art of flowers.",
+    "subtitle": "A family florist in the heart of Fethiye.",
     "breadcrumb": "About",
     "voices": {
       "kicker": "The Florist's Voice",
       "title": "In the Language of Flowers",
-      "subtitle": "Vahap Akar, a florist of thirty years — in his own words. Tap the video to turn on sound.",
+      "subtitle": "Vahap Akar, a florist of forty years — in his own words. Tap the video to turn on sound.",
       "labels": {
         "tanitim": "Vahap introduces himself",
         "mutluluk": "The joy of the craft",
@@ -326,10 +326,10 @@
     },
     "story": {
       "badge": "Fethiye · Kesikkapı",
-      "title": "At the heart\nof Fethiye,\nfrom the soul\nof Holland.",
-      "p1": "Flora Art is a young and passionate florist founded in the heart of Fethiye, on Atatürk Avenue. Born from the power of women's entrepreneurship, the brand sees floristry not as a craft but as an art.",
-      "p2": "Flowers sourced directly from Amsterdam's famous auctions meet the Mediterranean warmth of Fethiye. Every bouquet, every arrangement — tells a feeling, a moment, a story.",
-      "quote": "To give a flower is to say everything words cannot.",
+      "title": "At the heart\nof Fethiye,\na family\nflorist.",
+      "p1": "Flora Art is a small family florist in the centre of Fethiye, on Atatürk Avenue. Vahap Akar has worked with flowers for forty years — not by rote, but from the heart. Together with his wife Aliona, they prepare every bouquet by hand, with care.",
+      "p2": "We bring our flowers fresh from Holland's Aalsmeer auction. But the real difference is the care we put into arranging them. For us, every arrangement is a gift, every order a trust.",
+      "quote": "To give a flower is to say what words cannot.",
       "quoteAuthor": "— Flora Art",
       "videoCaption": "Flora Art Atelier · Fethiye",
       "videoSoon": "Atelier video coming soon"
@@ -343,11 +343,11 @@
       ]
     },
     "founder": {
-      "kicker": "Our Founder",
-      "name": "Vahap Akar",
-      "p1": "Her passion for flowers turned her into Fethiye's most refined florist. Blending Dutch training with Mediterranean aesthetics, she created Flora Art with a singular point of view.",
-      "p2": "Every morning starts in the atelier with her team; she checks each bouquet by hand. She redefines, every day, how a Fethiye brand can open to the world.",
-      "stats": "5.0 ★ Google · 122 Reviews · Holland Certified",
+      "kicker": "Our Family",
+      "name": "Vahap & Aliona Akar",
+      "p1": "Vahap Akar is an experienced florist of forty years. He was not trained in Holland; he earned his craft through years of work. Every day begins at the atelier, alongside his wife Aliona.",
+      "p2": "They prepare every bouquet with their own hands. Their door — and their heart — is open to you. When you need a flower in Fethiye, they are here.",
+      "stats": "5.0 ★ Google · 122 Reviews · Forty Years of Craft",
       "imagePlaceholder": "Photo coming soon"
     },
     "numbers": {
@@ -355,7 +355,7 @@
         { "value": 122, "suffix": "+",  "label": "Happy Customers" },
         { "value": 5,   "suffix": ".0", "label": "Google Rating" },
         { "value": 2,   "suffix": "h",  "label": "Max Delivery" },
-        { "value": 100, "suffix": "%",  "label": "Holland" }
+        { "value": 40,  "suffix": "",   "label": "Years" }
       ]
     }
   },
