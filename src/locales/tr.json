@@ -193,6 +193,13 @@
     "contactLang": {
       "label": "Tercih ettiğiniz iletişim dili"
     },
+    "delivery": {
+      "label": "Teslimat Bölgesi",
+      "placeholder": "Bölge seçin",
+      "fethiyeGroup": "Fethiye İçi",
+      "muglaGroup": "Muğla İlçeleri",
+      "note": "Fiyatlar bilgilendirme amaçlıdır, kesin ücret WhatsApp'tan teyit edilir."
+    },
     "gift": {
       "toggle": "Hediye olarak gönderiyorum",
       "hint": "Başka birine gönderiyorsanız alıcının bilgilerini girin.",
@@ -218,13 +225,15 @@
     },
     "submit": "WhatsApp ile Sipariş Ver",
     "submitting": "Hazırlanıyor…",
-    "requiredHint": "Devam etmek için ad soyad alanını doldurun.",
+    "requiredHint": "Devam etmek için ad soyad ve teslimat bölgesini seçin.",
     "privacyNote": "Bilgileriniz yalnızca siparişinizi iletmek için WhatsApp üzerinden kullanılır; sitede saklanmaz.",
     "wa": {
       "newOrder": "Yeni Sipariş",
       "orderer": "Sipariş Veren",
       "contactLang": "İletişim Dili",
       "products": "Ürünler",
+      "delivery": "Teslimat Bölgesi",
+      "deliveryFee": "Teslimat Ücreti",
       "total": "Toplam",
       "recipient": "Alıcı",
       "address": "Adres",

@@ -193,6 +193,13 @@
     "contactLang": {
       "label": "Preferred contact language"
     },
+    "delivery": {
+      "label": "Delivery Area",
+      "placeholder": "Select an area",
+      "fethiyeGroup": "Within Fethiye",
+      "muglaGroup": "Muğla Districts",
+      "note": "Prices are for information; the exact fee is confirmed over WhatsApp."
+    },
     "gift": {
       "toggle": "Send as a gift",
       "hint": "Sending to someone else? Add the recipient's details.",
@@ -218,13 +225,15 @@
     },
     "submit": "Order via WhatsApp",
     "submitting": "Preparing…",
-    "requiredHint": "Please fill in your name to continue.",
+    "requiredHint": "Please fill in your name and select a delivery area to continue.",
     "privacyNote": "Your details are used only to send your order via WhatsApp; they are not stored on the site.",
     "wa": {
       "newOrder": "New Order",
       "orderer": "Ordered by",
       "contactLang": "Contact language",
       "products": "Items",
+      "delivery": "Delivery Area",
+      "deliveryFee": "Delivery Fee",
       "total": "Total",
       "recipient": "Recipient",
       "address": "Address",

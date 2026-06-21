@@ -3,42 +3,10 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSEO } from '../hooks/useSEO'
+import { FETHIYE_FEES, MUGLA_FEES, type DeliveryFee } from '../data/deliveryFees'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const WHATSAPP_NUMBER = '905015317748'
-
-// Delivery fees. Place names are proper nouns (language-independent), so the
-// data lives here rather than in i18n; only the labels/notes are translated.
-// Example pricing — to be refined; exact fee is confirmed over WhatsApp.
-interface Fee {
-  area: string
-  fee: number
-}
-const FETHIYE_FEES: Fee[] = [
-  { area: 'Merkez (Kesikkapı, Tuzla, Karagözler)', fee: 50 },
-  { area: 'Foça', fee: 60 },
-  { area: 'Taşyaka / Akarca', fee: 60 },
-  { area: 'Çalış', fee: 70 },
-  { area: 'Çiftlik', fee: 70 },
-  { area: 'Ölüdeniz', fee: 80 },
-  { area: 'Ovacık', fee: 80 },
-  { area: 'Hisarönü', fee: 80 },
-  { area: 'Karaçulha', fee: 90 },
-]
-const MUGLA_FEES: Fee[] = [
-  { area: 'Seydikemer', fee: 150 },
-  { area: 'Ortaca', fee: 180 },
-  { area: 'Dalaman', fee: 200 },
-  { area: 'Köyceğiz', fee: 220 },
-  { area: 'Ula', fee: 250 },
-  { area: 'Marmaris', fee: 280 },
-  { area: 'Menteşe (Muğla Merkez)', fee: 300 },
-  { area: 'Yatağan', fee: 320 },
-  { area: 'Kavaklıdere', fee: 340 },
-  { area: 'Milas', fee: 360 },
-  { area: 'Bodrum', fee: 400 },
-  { area: 'Datça', fee: 400 },
-]
 
 interface Step {
   id: 'order' | 'source' | 'pack' | 'deliver'
@@ -597,7 +565,7 @@ function FeeGroup({
   index,
 }: {
   title: string
-  rows: Fee[]
+  rows: DeliveryFee[]
   index: number
 }) {
   return (

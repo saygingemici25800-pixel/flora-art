@@ -9,6 +9,7 @@ import {
 } from '../store/cartStore'
 import type { Order, OrderInput } from '../types'
 import ProductMotif from '../components/ui/ProductMotif'
+import { FETHIYE_FEES, MUGLA_FEES, findDeliveryFee } from '../data/deliveryFees'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -39,6 +40,7 @@ interface TimeOption {
 interface FormState {
   ordererName: string
   contactLang: ContactLang
+  deliveryArea: string
   isGift: boolean
   recipientName: string
   recipientPhone: string
@@ -52,6 +54,7 @@ interface FormState {
 const EMPTY_FORM: FormState = {
   ordererName: '',
   contactLang: 'tr',
+  deliveryArea: '',
   isGift: false,
   recipientName: '',
   recipientPhone: '',
@@ -95,8 +98,10 @@ export default function Checkout() {
   }))
   const [submitting, setSubmitting] = useState(false)
 
-  const total = subtotal
-  const canSubmit = form.ordererName.trim() !== ''
+  const deliveryFee = findDeliveryFee(form.deliveryArea)?.fee ?? 0
+  const total = subtotal + deliveryFee
+  const canSubmit =
+    form.ordererName.trim() !== '' && form.deliveryArea !== ''
   const waNumber = form.contactLang === 'tr' ? WA_NUMBER_TR : WA_NUMBER_INTL
 
   const times = t('checkout.general.times', { returnObjects: true }) as TimeOption[]
@@ -116,9 +121,6 @@ export default function Checkout() {
 
   /** Map the cart + form into the API's OrderInput shape. */
   function buildOrderInput(): OrderInput {
-    const region = form.isGift
-      ? (t('checkout.wa.giftRegion') as string)
-      : (t('checkout.wa.selfRegion') as string)
     return {
       customer: {
         name: form.ordererName.trim(),
@@ -132,7 +134,7 @@ export default function Checkout() {
         quantity: it.quantity,
       })),
       delivery: {
-        region,
+        region: form.deliveryArea,
         date: form.date,
         timeSlot: timeLabel(),
         address: form.isGift ? form.recipientAddress.trim() : '',
@@ -142,7 +144,7 @@ export default function Checkout() {
         note: form.orderNote.trim() || undefined,
       },
       subtotal,
-      deliveryFee: 0,
+      deliveryFee,
       total,
       paymentMethod: 'whatsapp',
     }
@@ -181,6 +183,9 @@ export default function Checkout() {
     for (const it of items) {
       lines.push(`• ${it.name} x${it.quantity} — ${it.price * it.quantity}₺`)
     }
+    lines.push('')
+    lines.push(`📍 ${L('delivery')}: ${form.deliveryArea}`)
+    lines.push(`🚚 ${L('deliveryFee')}: ${deliveryFee}₺`)
     lines.push(`💰 ${L('total')}: ${total}₺`)
 
     if (form.isGift) {
@@ -317,6 +322,43 @@ export default function Checkout() {
                     })}
                   </div>
                 </div>
+              </div>
+
+              <div className="mt-7">
+                <span className="form-label">
+                  {t('checkout.delivery.label')}
+                  <span className="opacity-70"> *</span>
+                </span>
+                <select
+                  required
+                  value={form.deliveryArea}
+                  onChange={(e) => update('deliveryArea', e.target.value)}
+                  className="flora-input"
+                >
+                  <option value="" disabled>
+                    {t('checkout.delivery.placeholder')}
+                  </option>
+                  <optgroup label={t('checkout.delivery.fethiyeGroup') as string}>
+                    {FETHIYE_FEES.map((f) => (
+                      <option key={f.area} value={f.area}>
+                        {f.area} — {f.fee}₺
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label={t('checkout.delivery.muglaGroup') as string}>
+                    {MUGLA_FEES.map((f) => (
+                      <option key={f.area} value={f.area}>
+                        {f.area} — {f.fee}₺
+                      </option>
+                    ))}
+                  </optgroup>
+                </select>
+                <p
+                  className="mt-2 text-[11px] leading-relaxed"
+                  style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.6 }}
+                >
+                  {t('checkout.delivery.note')}
+                </p>
               </div>
             </fieldset>
 
@@ -477,7 +519,14 @@ export default function Checkout() {
           </form>
 
           <aside className="md:col-span-2 md:sticky md:top-[100px]">
-            <SummaryCard items={items} total={total} currency={currency} />
+            <SummaryCard
+              items={items}
+              subtotal={subtotal}
+              deliveryFee={deliveryFee}
+              deliveryArea={form.deliveryArea}
+              total={total}
+              currency={currency}
+            />
           </aside>
         </div>
       </div>
@@ -546,12 +595,37 @@ function GiftToggle({
   )
 }
 
+function SummaryRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3">
+      <span
+        className="text-[11px] tracking-[0.22em] uppercase"
+        style={{ fontFamily: 'var(--font-body)', color: 'var(--color-bronze)' }}
+      >
+        {label}
+      </span>
+      <span
+        className="text-[14px] whitespace-nowrap"
+        style={{ fontFamily: 'var(--font-body)', color: 'var(--color-forest)', fontWeight: 500 }}
+      >
+        {value}
+      </span>
+    </div>
+  )
+}
+
 function SummaryCard({
   items,
+  subtotal,
+  deliveryFee,
+  deliveryArea,
   total,
   currency,
 }: {
   items: CartItem[]
+  subtotal: number
+  deliveryFee: number
+  deliveryArea: string
   total: number
   currency: string
 }) {
@@ -625,14 +699,32 @@ function SummaryCard({
         ))}
       </ul>
 
-      <div className="pt-4" style={{ borderTop: '1px solid rgba(1,62,55,0.22)' }}>
-        <div className="flex items-baseline justify-between gap-3">
+      <div className="pt-4 space-y-3" style={{ borderTop: '1px solid rgba(1,62,55,0.22)' }}>
+        <SummaryRow
+          label={t('checkout.summary.subtotal') as string}
+          value={`${currency}${subtotal}`}
+        />
+        <div>
+          <SummaryRow
+            label={t('checkout.summary.delivery') as string}
+            value={deliveryArea ? `${currency}${deliveryFee}` : '—'}
+          />
+          {deliveryArea && (
+            <p
+              className="mt-1 text-[11px] leading-snug"
+              style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.65 }}
+            >
+              {deliveryArea}
+            </p>
+          )}
+        </div>
+        <div
+          className="flex items-baseline justify-between gap-3 pt-3"
+          style={{ borderTop: '1px solid rgba(1,62,55,0.14)' }}
+        >
           <span
             className="text-[11px] tracking-[0.28em] uppercase"
-            style={{
-              fontFamily: 'var(--font-body)',
-              color: 'var(--color-bronze)',
-            }}
+            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-bronze)' }}
           >
             {t('checkout.summary.total')}
           </span>
