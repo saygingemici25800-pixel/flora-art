@@ -427,6 +427,16 @@
       ],
       "labels": { "eta": "Süre", "fee": "Ücret", "scope": "Kapsam" }
     },
+    "fees": {
+      "title": "Teslimat Ücretleri",
+      "subtitle": "Fethiye içinde mahalle bazlı, Muğla ilçelerine mesafeye göre ücretli teslimat sunuyoruz.",
+      "fethiyeTitle": "Fethiye İçi",
+      "muglaTitle": "Muğla İlçeleri",
+      "vat": "Fiyatlarımıza KDV dahildir.",
+      "muglaNote": "İlçe teslimatları için kesin fiyat: WhatsApp.",
+      "note": "Fiyatlar bilgilendirme amaçlıdır ve güncellenebilir; kesin ücret için WhatsApp'tan yazın.",
+      "whatsappCta": "WhatsApp'tan Sor"
+    },
     "faq": {
       "title": "Sık Sorulan Sorular",
       "items": [

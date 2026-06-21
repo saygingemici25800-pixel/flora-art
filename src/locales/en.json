@@ -427,6 +427,16 @@
       ],
       "labels": { "eta": "Time", "fee": "Fee", "scope": "Coverage" }
     },
+    "fees": {
+      "title": "Delivery Fees",
+      "subtitle": "Per-neighbourhood within Fethiye, and by distance to the districts of Muğla.",
+      "fethiyeTitle": "Within Fethiye",
+      "muglaTitle": "Muğla Districts",
+      "vat": "All prices include VAT.",
+      "muglaNote": "For exact district pricing: WhatsApp.",
+      "note": "Prices are for information only and may change; message us on WhatsApp for the exact fee.",
+      "whatsappCta": "Ask on WhatsApp"
+    },
     "faq": {
       "title": "Frequently Asked Questions",
       "items": [

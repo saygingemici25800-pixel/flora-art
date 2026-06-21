@@ -7,6 +7,39 @@ import { useSEO } from '../hooks/useSEO'
 const EASE = [0.16, 1, 0.3, 1] as const
 const WHATSAPP_NUMBER = '905015317748'
 
+// Delivery fees. Place names are proper nouns (language-independent), so the
+// data lives here rather than in i18n; only the labels/notes are translated.
+// Example pricing — to be refined; exact fee is confirmed over WhatsApp.
+interface Fee {
+  area: string
+  fee: number
+}
+const FETHIYE_FEES: Fee[] = [
+  { area: 'Merkez (Kesikkapı, Tuzla, Karagözler)', fee: 50 },
+  { area: 'Foça', fee: 60 },
+  { area: 'Taşyaka / Akarca', fee: 60 },
+  { area: 'Çalış', fee: 70 },
+  { area: 'Çiftlik', fee: 70 },
+  { area: 'Ölüdeniz', fee: 80 },
+  { area: 'Ovacık', fee: 80 },
+  { area: 'Hisarönü', fee: 80 },
+  { area: 'Karaçulha', fee: 90 },
+]
+const MUGLA_FEES: Fee[] = [
+  { area: 'Seydikemer', fee: 150 },
+  { area: 'Ortaca', fee: 180 },
+  { area: 'Dalaman', fee: 200 },
+  { area: 'Köyceğiz', fee: 220 },
+  { area: 'Ula', fee: 250 },
+  { area: 'Marmaris', fee: 280 },
+  { area: 'Menteşe (Muğla Merkez)', fee: 300 },
+  { area: 'Yatağan', fee: 320 },
+  { area: 'Kavaklıdere', fee: 340 },
+  { area: 'Milas', fee: 360 },
+  { area: 'Bodrum', fee: 400 },
+  { area: 'Datça', fee: 400 },
+]
+
 interface Step {
   id: 'order' | 'source' | 'pack' | 'deliver'
   number: string
@@ -63,6 +96,7 @@ export default function Delivery() {
       <DeliveryHero prefix={prefix} />
       <HowItWorks steps={steps} />
       <Zones items={zones} labels={zoneLabels} />
+      <FeeTable />
       <Faq items={faqItems} />
       <BottomCta prefix={prefix} />
     </>
@@ -469,6 +503,150 @@ function ZoneRow({ label, value, accent = false }: { label: string; value: strin
         {value}
       </dd>
     </div>
+  )
+}
+
+function FeeTable() {
+  const { t } = useTranslation()
+  return (
+    <section
+      className="relative w-full"
+      style={{ background: 'var(--color-cream)', paddingBlock: 'var(--spacing-section)' }}
+    >
+      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
+        <header className="mb-12 md:mb-16 max-w-[56ch]">
+          <span className="block overflow-hidden" style={{ paddingBottom: '0.12em' }}>
+            <motion.h2
+              initial={{ y: '110%' }}
+              whileInView={{ y: '0%' }}
+              viewport={{ once: true, margin: '-15% 0px' }}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="italic"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.5rem, 6vw, 4.25rem)',
+                color: 'var(--color-forest)',
+                letterSpacing: '-0.015em',
+                lineHeight: 1,
+              }}
+            >
+              {t('delivery.fees.title')}
+            </motion.h2>
+          </span>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 0.75, y: 0 }}
+            viewport={{ once: true, margin: '-10% 0px' }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
+            className="mt-5 text-[15px] leading-relaxed"
+            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)' }}
+          >
+            {t('delivery.fees.subtitle')}
+          </motion.p>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+          <FeeGroup title={t('delivery.fees.fethiyeTitle') as string} rows={FETHIYE_FEES} index={0} />
+          <div>
+            <FeeGroup title={t('delivery.fees.muglaTitle') as string} rows={MUGLA_FEES} index={1} />
+            <p
+              className="mt-5 text-[13px] leading-relaxed"
+              style={{ fontFamily: 'var(--font-body)', color: 'var(--color-bronze)', fontWeight: 600 }}
+            >
+              {t('delivery.fees.muglaNote')}
+            </p>
+          </div>
+        </div>
+
+        {/* VAT + informational note */}
+        <div
+          className="mt-12 md:mt-14 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 px-6 py-5"
+          style={{ background: 'var(--color-beige)', border: '1px solid rgba(200,169,110,0.4)' }}
+        >
+          <span
+            className="inline-flex items-center gap-2 text-[14px] whitespace-nowrap"
+            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-forest)', fontWeight: 600 }}
+          >
+            <CheckGlyph />
+            {t('delivery.fees.vat')}
+          </span>
+          <span
+            className="text-[13px] leading-relaxed"
+            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.78 }}
+          >
+            {t('delivery.fees.note')}{' '}
+            <a
+              href={whatsappHref(t('delivery.fees.title') as string)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline transition-colors hover:text-[var(--color-gold)]"
+              style={{ color: 'var(--color-bronze)', fontWeight: 600 }}
+            >
+              {t('delivery.fees.whatsappCta')}
+            </a>
+          </span>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function FeeGroup({
+  title,
+  rows,
+  index,
+}: {
+  title: string
+  rows: Fee[]
+  index: number
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-8% 0px' }}
+      transition={{ duration: 0.7, ease: EASE, delay: index * 0.1 }}
+    >
+      <h3
+        className="flex items-center gap-4 mb-6"
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '1.5rem',
+          color: 'var(--color-forest)',
+          letterSpacing: '-0.005em',
+        }}
+      >
+        <span aria-hidden="true" className="block h-px w-10" style={{ background: 'var(--color-gold)' }} />
+        {title}
+      </h3>
+      <ul>
+        {rows.map((r) => (
+          <li
+            key={r.area}
+            className="flex items-baseline justify-between gap-4 py-3 border-b"
+            style={{ borderColor: 'rgba(1,62,55,0.10)' }}
+          >
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', color: 'var(--color-forest)' }}>
+              {r.area}
+            </span>
+            <span
+              className="whitespace-nowrap"
+              style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', fontWeight: 600, color: 'var(--color-bronze)' }}
+            >
+              {r.fee}₺
+            </span>
+          </li>
+        ))}
+      </ul>
+    </motion.div>
+  )
+}
+
+function CheckGlyph() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ color: 'var(--color-gold)' }}>
+      <path d="M20 6 L9 17 L4 12" />
+    </svg>
   )
 }
 
