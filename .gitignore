@@ -40,3 +40,5 @@ public/videos/*.webm
 *.sln
 *.sw?
 .env*.local
+public/images/categories/*.jpeg
+public/images/categories/*.jpg
