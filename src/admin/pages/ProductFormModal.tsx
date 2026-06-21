@@ -2,7 +2,7 @@
  * Create / edit a product. Renders the full trilingual Product shape and
  * persists via adminClient (mock in STEP 2). `product === null` → create.
  */
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { BadgeKind, CategoryId, MotifKind, Product, ProductInput } from '../../types'
 import { adminClient } from '../lib/adminClient'
 import { BADGE_OPTIONS, CATEGORY_OPTIONS, MOTIF_OPTIONS } from '../lib/labels'
@@ -89,22 +89,103 @@ function slugify(input: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
+/** Downscale to ~1200px on the longest side and re-encode as WebP, in-browser. */
+async function resizeToWebp(file: File, maxDim = 1200, quality = 0.85): Promise<Blob> {
+  const bitmap = await createImageBitmap(file)
+  const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height))
+  const w = Math.max(1, Math.round(bitmap.width * scale))
+  const h = Math.max(1, Math.round(bitmap.height * scale))
+  const canvas = document.createElement('canvas')
+  canvas.width = w
+  canvas.height = h
+  const ctx = canvas.getContext('2d')
+  if (!ctx) throw new Error('Tarayıcı resim işlemeyi desteklemiyor.')
+  ctx.drawImage(bitmap, 0, 0, w, h)
+  bitmap.close?.()
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(
+      (b) => (b ? resolve(b) : reject(new Error('Resim işlenemedi.'))),
+      'image/webp',
+      quality,
+    )
+  })
+}
+
+/** Read a Blob as bare base64 (no `data:...;base64,` prefix). */
+function blobToBase64(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader()
+    fr.onload = () => {
+      const result = fr.result as string
+      resolve(result.slice(result.indexOf(',') + 1))
+    }
+    fr.onerror = () => reject(new Error('Dosya okunamadı.'))
+    fr.readAsDataURL(blob)
+  })
+}
+
 export default function ProductFormModal({ open, product, onClose, onSaved }: Props) {
   const toast = useToast()
   const [form, setForm] = useState<FormState>(EMPTY)
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({})
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const fileRef = useRef<HTMLInputElement | null>(null)
 
   const isEdit = product !== null
+  const firstImage =
+    form.images
+      .split(/[\n,]/)
+      .map((s) => s.trim())
+      .filter(Boolean)[0] ?? ''
 
   useEffect(() => {
     if (!open) return
     setForm(product ? fromProduct(product) : EMPTY)
     setErrors({})
+    setUploadError(null)
   }, [open, product])
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }))
+  }
+
+  async function onPickFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    e.target.value = '' // allow re-picking the same file
+    if (!file) return
+    if (!file.type.startsWith('image/')) {
+      setUploadError('Lütfen bir resim dosyası seçin.')
+      return
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError('Dosya 5MB’dan büyük. Lütfen daha küçük bir resim seçin.')
+      return
+    }
+    setUploadError(null)
+    setUploading(true)
+    try {
+      const webp = await resizeToWebp(file)
+      const base64 = await blobToBase64(webp)
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ data: base64, contentType: 'image/webp' }),
+      })
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null
+        throw new Error(data?.error || 'Yükleme başarısız oldu.')
+      }
+      const { url } = (await res.json()) as { url: string }
+      set('images', url)
+      toast.success('Fotoğraf yüklendi.')
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : 'Yükleme başarısız oldu.')
+    } finally {
+      setUploading(false)
+    }
   }
 
   function validate(): boolean {
@@ -236,8 +317,76 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
           </div>
         </Section>
 
-        <Section title="Görseller">
-          <Field label="Görsel yolları" hint="Her satıra bir URL (veya virgülle ayırın)">
+        <Section title="Fotoğraf">
+          <div className="flex items-start gap-4">
+            <div
+              className="flex h-[120px] w-[96px] shrink-0 items-center justify-center overflow-hidden rounded-lg border"
+              style={{
+                borderColor: 'rgba(28,43,26,0.2)',
+                background: 'rgba(28,43,26,0.04)',
+              }}
+            >
+              {firstImage ? (
+                <img
+                  src={firstImage}
+                  alt="Ürün fotoğrafı"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <span
+                  className="text-[0.62rem]"
+                  style={{ color: 'rgba(28,43,26,0.5)' }}
+                >
+                  Fotoğraf yok
+                </span>
+              )}
+            </div>
+
+            <div className="flex flex-1 flex-col gap-2">
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                onChange={onPickFile}
+                className="hidden"
+              />
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="primary"
+                  loading={uploading}
+                  onClick={() => fileRef.current?.click()}
+                >
+                  {firstImage ? 'Fotoğrafı Değiştir' : 'Fotoğraf Yükle'}
+                </Button>
+                {firstImage && !uploading && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="danger"
+                    onClick={() => set('images', '')}
+                  >
+                    Fotoğrafı Sil
+                  </Button>
+                )}
+              </div>
+              {uploadError && (
+                <p className="text-[0.7rem]" style={{ color: '#8a3b30' }}>
+                  {uploadError}
+                </p>
+              )}
+              <p className="text-[0.66rem]" style={{ color: 'rgba(28,43,26,0.5)' }}>
+                Telefondan veya bilgisayardan seçin · en fazla 5MB ·
+                otomatik olarak ~1200px WebP’ye küçültülür.
+              </p>
+            </div>
+          </div>
+
+          <Field
+            label="Görsel URL’leri (gelişmiş)"
+            hint="Her satıra bir URL (veya virgülle ayırın). Genellikle dokunmanıza gerek yok."
+          >
             <TextArea
               value={form.images}
               onChange={(e) => set('images', e.target.value)}
