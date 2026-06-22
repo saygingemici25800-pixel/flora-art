@@ -2,7 +2,7 @@
  * POST /api/seed
  *
  * One-shot importer: clears the product catalogue in KV and writes the seed
- * products from src/data/seedCatalog.ts as full Product records.
+ * products from _lib/seedCatalog.ts as full Product records.
  *
  * Locally (vercel dev) it is open for convenience. In production it is gated by
  * a secret token: pass it as `?key=<SEED_SECRET>` or the `x-seed-key` header.
@@ -12,8 +12,8 @@
  */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { methodNotAllowed, sendError, sendJson } from './_lib/http'
-import { createProduct, listProducts, deleteProduct } from './_lib/repo'
-import { seedProducts } from '../src/data/seedCatalog'
+import { replaceAllProducts } from './_lib/repo'
+import { seedProducts } from './_lib/seedCatalog'
 
 export default async function handler(
   req: VercelRequest,
@@ -39,19 +39,17 @@ export default async function handler(
     }
   }
 
-  // Idempotent re-seed: clear the existing product catalogue first so running
-  // this again refreshes images instead of creating duplicates. Orders and
-  // coupons live under separate keys and are left untouched.
-  const existing = await listProducts()
-  for (const p of existing) {
-    await deleteProduct(p.id)
+  // Idempotent re-seed in one batched pass (clears products + index, then writes
+  // everything through a single pipeline). Orders and coupons live under separate
+  // keys and are left untouched. Any failure surfaces as readable JSON instead of
+  // an opaque 500 FUNCTION_INVOCATION_FAILED.
+  try {
+    const seeded = await replaceAllProducts(seedProducts)
+    sendJson(res, 201, { ok: true, seeded })
+  } catch (err) {
+    sendJson(res, 500, {
+      ok: false,
+      error: err instanceof Error ? err.message : 'Seed failed',
+    })
   }
-
-  let count = 0
-  for (const input of seedProducts) {
-    await createProduct(input)
-    count += 1
-  }
-
-  sendJson(res, 201, { ok: true, seeded: count })
 }

@@ -67,6 +67,44 @@ export async function deleteProduct(id: string): Promise<boolean> {
   return true
 }
 
+/**
+ * Replace the entire product catalogue in one batched pass (used by /api/seed).
+ * Clears existing products + the index set, then writes every input through a
+ * single pipeline — a few round-trips instead of ~5 per product, so a large
+ * catalogue seeds well within the function timeout. Returns the number written.
+ */
+export async function replaceAllProducts(
+  inputs: ProductInput[],
+): Promise<number> {
+  const existingIds = await kv.smembers(keys.productsAll)
+  if (existingIds.length > 0) {
+    const productKeys = existingIds.map((id) => keys.product(id))
+    // Guarded above as non-empty; del needs a non-empty tuple.
+    await kv.del(...(productKeys as [string, ...string[]]))
+  }
+  await kv.del(keys.productsAll)
+  if (inputs.length === 0) return 0
+
+  const ts = nowIso()
+  const products: Product[] = inputs.map((input) => ({
+    ...input,
+    id: randomUUID(),
+    createdAt: ts,
+    updatedAt: ts,
+  }))
+
+  const pipeline = kv.pipeline()
+  for (const p of products) {
+    pipeline.set(keys.product(p.id), p)
+  }
+  const productIds = products.map((p) => p.id)
+  // `products` is non-empty here (inputs.length === 0 returned above).
+  pipeline.sadd(keys.productsAll, ...(productIds as [string, ...string[]]))
+  await pipeline.exec()
+
+  return products.length
+}
+
 /* ── Orders ─────────────────────────────────────────────────────── */
 
 function formatOrderNumber(seq: number): string {

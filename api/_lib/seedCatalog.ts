@@ -14,7 +14,7 @@ import type {
   Localized,
   MotifKind,
   ProductInput,
-} from '../types'
+} from '../../src/types'
 
 /* Each product points at its category's shared webp until a real photo lands. */
 const CATEGORY_IMAGE: Record<CategoryId, string> = {
