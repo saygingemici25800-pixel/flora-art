@@ -3,7 +3,7 @@
 // (language-independent), so they live here rather than in i18n; only the
 // labels/notes around them are translated.
 //
-// Example pricing — to be refined; the exact fee is confirmed over WhatsApp.
+// Teslimat ücretleri KDV dahildir. Kesin ücret WhatsApp üzerinden teyit edilir.
 
 export interface DeliveryFee {
   area: string
@@ -11,30 +11,29 @@ export interface DeliveryFee {
 }
 
 export const FETHIYE_FEES: DeliveryFee[] = [
-  { area: 'Merkez (Kesikkapı, Tuzla, Karagözler)', fee: 50 },
-  { area: 'Foça', fee: 60 },
-  { area: 'Taşyaka / Akarca', fee: 60 },
-  { area: 'Çalış', fee: 70 },
-  { area: 'Çiftlik', fee: 80 },
-  { area: 'Ovacık', fee: 90 },
-  { area: 'Hisarönü', fee: 90 },
-  { area: 'Ölüdeniz', fee: 100 },
-  { area: 'Karaçulha', fee: 110 },
+  { area: 'Merkez (Kesikkapı, Tuzla, Karagözler, Taşyaka, Akarca)', fee: 50 },
+  { area: 'Çalış (Foça dahil)', fee: 250 },
+  { area: 'Ovacık', fee: 250 },
+  { area: 'Hisarönü', fee: 300 },
+  { area: 'Ölüdeniz', fee: 350 },
+  { area: 'Esenköy (Karaçulha dahil)', fee: 400 },
+  { area: 'Çiftlik', fee: 500 },
+  { area: 'Kayaköy', fee: 600 },
 ]
 
 export const MUGLA_FEES: DeliveryFee[] = [
-  { area: 'Seydikemer', fee: 150 },
-  { area: 'Ortaca', fee: 200 },
-  { area: 'Dalaman', fee: 220 },
-  { area: 'Köyceğiz', fee: 250 },
-  { area: 'Ula', fee: 280 },
-  { area: 'Marmaris', fee: 300 },
-  { area: 'Menteşe (Muğla Merkez)', fee: 320 },
-  { area: 'Yatağan', fee: 350 },
-  { area: 'Kavaklıdere', fee: 380 },
-  { area: 'Milas', fee: 400 },
-  { area: 'Bodrum', fee: 450 },
-  { area: 'Datça', fee: 450 },
+  { area: 'Seydikemer', fee: 300 },
+  { area: 'Ortaca', fee: 400 },
+  { area: 'Dalaman', fee: 450 },
+  { area: 'Köyceğiz', fee: 500 },
+  { area: 'Ula', fee: 550 },
+  { area: 'Marmaris', fee: 600 },
+  { area: 'Menteşe (Muğla Merkez)', fee: 650 },
+  { area: 'Yatağan', fee: 700 },
+  { area: 'Kavaklıdere', fee: 750 },
+  { area: 'Milas', fee: 800 },
+  { area: 'Bodrum', fee: 900 },
+  { area: 'Datça', fee: 900 },
 ]
 
 export const ALL_DELIVERY_FEES: DeliveryFee[] = [...FETHIYE_FEES, ...MUGLA_FEES]
