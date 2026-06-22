@@ -1,27 +1,14 @@
 /**
  * POST /api/seed  (development only)
  *
- * One-shot importer: writes the 12 mock products from src/data/products.ts
- * into KV as full Product records. Disabled in production.
+ * One-shot importer: clears the product catalogue in KV and writes the ~100
+ * seed products from src/data/seedCatalog.ts as full Product records.
+ * Disabled in production.
  */
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import { methodNotAllowed, sendError, sendJson } from './_lib/http'
 import { createProduct, listProducts, deleteProduct } from './_lib/repo'
-import { products, featuredProducts } from '../src/data/products'
-import type { Locale, ProductInput } from '../src/types'
-
-function localized(value: string): Record<Locale, string> {
-  // Mock data is Turkish-only; mirror it across locales as a starting point.
-  return { tr: value, en: value, ru: value }
-}
-
-function describe(name: string): Record<Locale, string> {
-  return {
-    tr: `${name} — Flora Art özenle hazırlanmış taze çiçek aranjmanı.`,
-    en: `${name} — a fresh floral arrangement, crafted with care by Flora Art.`,
-    ru: `${name} — свежая цветочная композиция, бережно собранная Flora Art.`,
-  }
-}
+import { seedProducts } from '../src/data/seedCatalog'
 
 export default async function handler(
   req: VercelRequest,
@@ -44,22 +31,8 @@ export default async function handler(
     await deleteProduct(p.id)
   }
 
-  const featuredIds = new Set(featuredProducts.map((p) => p.id))
-
   let count = 0
-  for (const p of products) {
-    const input: ProductInput = {
-      name: localized(p.name),
-      description: describe(p.name),
-      slug: p.id,
-      category: p.category,
-      motif: p.motif,
-      price: p.price,
-      images: p.image ? [p.image] : [],
-      badge: p.badge,
-      available: true,
-      featured: featuredIds.has(p.id),
-    }
+  for (const input of seedProducts) {
     await createProduct(input)
     count += 1
   }
