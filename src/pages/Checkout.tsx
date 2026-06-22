@@ -170,9 +170,12 @@ export default function Checkout() {
     }
   }
 
-  /** Compose the single block message that gets handed to WhatsApp. */
+  /** Compose the single block message that gets handed to WhatsApp. Labels are
+   *  rendered in the customer's chosen CONTACT language (not the site language),
+   *  so the order arrives in the language Vahap/Aliona will reply in. */
   function buildMessage(orderNumber: string | null): string {
-    const L = (k: string) => t(`checkout.wa.${k}`) as string
+    const L = (k: string) =>
+      t(`checkout.wa.${k}`, { lng: form.contactLang }) as string
     const lines: string[] = []
     lines.push(`🌸 FLORA ART — ${L('newOrder')}`)
     lines.push('')

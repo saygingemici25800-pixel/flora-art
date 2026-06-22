@@ -99,7 +99,13 @@ export default function Navbar() {
     setMobileOpen(false)
   }, [location.pathname])
 
-  const navOpaque = scrolled || mobileOpen
+  // Pages whose top section is cream/light (product detail, checkout) need a
+  // solid forest header from the start — otherwise the light logo/nav vanish
+  // against the light background. Dark-hero pages (home, etc.) stay transparent
+  // at the top as before, going solid only on scroll.
+  const lightBgPage =
+    location.pathname.includes('/product/') || location.pathname.endsWith('/checkout')
+  const navOpaque = scrolled || mobileOpen || lightBgPage
 
   return (
     <>

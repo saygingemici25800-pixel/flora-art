@@ -42,16 +42,6 @@ function langPrefix(pathname: string): string {
   return ''
 }
 
-function todayIso(): string {
-  const d = new Date()
-  const yyyy = d.getFullYear()
-  const mm = String(d.getMonth() + 1).padStart(2, '0')
-  const dd = String(d.getDate()).padStart(2, '0')
-  return `${yyyy}-${mm}-${dd}`
-}
-
-const WHATSAPP_NUMBER = '905015317748'
-
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>()
   const { t } = useTranslation()
@@ -108,21 +98,11 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
 
   const [variant, setVariant] = useState(0)
   const [quantity, setQuantity] = useState(1)
-  const [note, setNote] = useState('')
-  const [date, setDate] = useState(todayIso())
 
   const currency = t('featured.currency') as string
   const features = t('product.features', { returnObjects: true }) as string[]
   const trustBadges = t('product.trustBadges', { returnObjects: true }) as string[]
   const categoryName = t(`categories.${categoryIndex(product.category)}.name`) as string
-
-  const whatsappMessage = t('product.whatsappTemplate', {
-    name: product.name,
-    qty: quantity,
-    date,
-    note: note || '—',
-  }) as string
-  const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`
 
   return (
     <>
@@ -375,57 +355,7 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
               </p>
             </div>
 
-            <div className="mb-5">
-              <label
-                className="text-[10px] tracking-[0.3em] uppercase block mb-2"
-                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.6 }}
-              >
-                {t('product.giftNote')}
-              </label>
-              <textarea
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                placeholder={t('product.giftPlaceholder') as string}
-                rows={3}
-                className="w-full p-3 italic resize-none transition-colors"
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1rem',
-                  color: 'var(--color-forest)',
-                  background: 'transparent',
-                  border: '1px solid rgba(1,62,55,0.18)',
-                  outline: 'none',
-                }}
-                onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-gold)')}
-                onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(1,62,55,0.18)')}
-              />
-            </div>
-
-            <div className="mb-7">
-              <label
-                className="text-[10px] tracking-[0.3em] uppercase block mb-2"
-                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.6 }}
-              >
-                {t('product.deliveryDate')}
-              </label>
-              <input
-                type="date"
-                value={date}
-                min={todayIso()}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full px-3 py-3 transition-colors"
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.95rem',
-                  color: 'var(--color-forest)',
-                  background: 'transparent',
-                  border: '1px solid var(--color-gold)',
-                  outline: 'none',
-                }}
-              />
-            </div>
-
-            <div className="flex flex-col gap-3 mb-6">
+            <div className="mb-6">
               <button
                 type="button"
                 disabled={!product.available}
@@ -444,20 +374,6 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
               >
                 {product.available ? t('product.addToCart') : t('featured.soldOut')}
               </button>
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pd-cta-secondary w-full py-4 text-[12px] tracking-[0.3em] uppercase text-center transition-colors duration-300 border"
-                style={{
-                  background: 'transparent',
-                  color: 'var(--color-forest)',
-                  borderColor: 'var(--color-forest)',
-                  fontFamily: 'var(--font-body)',
-                }}
-              >
-                {t('product.whatsappOrder')}
-              </a>
             </div>
 
             <ul
@@ -476,11 +392,6 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
               .pd-cta-primary:hover:not(:disabled) {
                 background: var(--color-forest) !important;
                 color: var(--color-cream) !important;
-              }
-              .pd-cta-secondary:hover {
-                background: var(--color-forest) !important;
-                color: var(--color-cream) !important;
-                border-color: var(--color-forest) !important;
               }
             `}</style>
           </motion.div>
