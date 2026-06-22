@@ -23,7 +23,7 @@ interface FormState {
   nameRu: string
   slug: string
   category: CategoryId
-  motif: MotifKind
+  motif: MotifKind | ''
   price: string
   oldPrice: string
   descTr: string
@@ -43,7 +43,7 @@ const EMPTY: FormState = {
   nameRu: '',
   slug: '',
   category: 'bouquet',
-  motif: 'rose',
+  motif: '',
   price: '',
   oldPrice: '',
   descTr: '',
@@ -89,6 +89,16 @@ function slugify(input: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
+/** Sensible motif per category, used when the admin leaves Motif on "auto". */
+const CATEGORY_DEFAULT_MOTIF: Record<CategoryId, MotifKind> = {
+  bouquet: 'rose',
+  box: 'box',
+  plant: 'orchid',
+  wedding: 'wedding',
+  corporate: 'premium',
+  international: 'premium',
+}
+
 /** Downscale to ~1200px on the longest side and re-encode as WebP, in-browser. */
 async function resizeToWebp(file: File, maxDim = 1200, quality = 0.85): Promise<Blob> {
   const bitmap = await createImageBitmap(file)
@@ -131,6 +141,7 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState<string | null>(null)
+  const [showAdvanced, setShowAdvanced] = useState(false)
   const fileRef = useRef<HTMLInputElement | null>(null)
 
   const isEdit = product !== null
@@ -145,6 +156,7 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
     setForm(product ? fromProduct(product) : EMPTY)
     setErrors({})
     setUploadError(null)
+    setShowAdvanced(false)
   }, [open, product])
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
@@ -199,13 +211,20 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
   }
 
   function toInput(): ProductInput {
-    const slug = form.slug.trim() || slugify(form.nameTr)
+    const nameTr = form.nameTr.trim()
+    // Auto-fill the technical fields Vahap may leave blank, so a product saved
+    // with just name + price + category + photo is still complete.
+    const slug = form.slug.trim() || slugify(nameTr)
+    const motif = form.motif || CATEGORY_DEFAULT_MOTIF[form.category]
+    const seoTitle = form.seoTitle.trim() || `${nameTr} | Flora Art Fethiye`
+    const seoDescription =
+      form.seoDescription.trim() || form.descTr.trim() || nameTr
     const images = form.images
       .split(/[\n,]/)
       .map((s) => s.trim())
       .filter(Boolean)
     return {
-      name: { tr: form.nameTr.trim(), en: form.nameEn.trim() || form.nameTr.trim(), ru: form.nameRu.trim() || form.nameTr.trim() },
+      name: { tr: nameTr, en: form.nameEn.trim() || nameTr, ru: form.nameRu.trim() || nameTr },
       slug,
       category: form.category,
       price: Number(form.price),
@@ -213,11 +232,11 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
       description: { tr: form.descTr.trim(), en: form.descEn.trim(), ru: form.descRu.trim() },
       images,
       badge: form.badge || undefined,
-      motif: form.motif,
+      motif,
       available: form.available,
       featured: form.featured,
-      seoTitle: form.seoTitle.trim() || undefined,
-      seoDescription: form.seoDescription.trim() || undefined,
+      seoTitle,
+      seoDescription,
     }
   }
 
@@ -257,65 +276,40 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
       }
     >
       <form onSubmit={onSubmit} className="flex flex-col gap-5">
-        <Section title="Ürün Adı">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <Field label="Türkçe" required error={errors.nameTr}>
-              <TextInput value={form.nameTr} onChange={(e) => set('nameTr', e.target.value)} placeholder="Kırmızı Gül Buketi" />
-            </Field>
-            <Field label="English">
-              <TextInput value={form.nameEn} onChange={(e) => set('nameEn', e.target.value)} placeholder="Red Rose Bouquet" />
-            </Field>
-            <Field label="Русский">
-              <TextInput value={form.nameRu} onChange={(e) => set('nameRu', e.target.value)} placeholder="Букет красных роз" />
-            </Field>
-          </div>
-        </Section>
+        {/* ── Simple fields (everything Vahap needs) ───────────────── */}
+        <Field label="Ürün Adı" required error={errors.nameTr}>
+          <TextInput
+            value={form.nameTr}
+            onChange={(e) => set('nameTr', e.target.value)}
+            placeholder="Kırmızı Gül Buketi"
+          />
+        </Field>
 
-        <Section title="Sınıflandırma">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <Field label="Slug" hint="Boş bırakılırsa addan üretilir">
-              <TextInput value={form.slug} onChange={(e) => set('slug', e.target.value)} placeholder="kirmizi-gul-buketi" />
-            </Field>
-            <Field label="Kategori">
-              <Select value={form.category} onChange={(e) => set('category', e.target.value as CategoryId)} options={CATEGORY_OPTIONS} />
-            </Field>
-            <Field label="Motif">
-              <Select value={form.motif} onChange={(e) => set('motif', e.target.value as MotifKind)} options={MOTIF_OPTIONS} />
-            </Field>
-          </div>
-        </Section>
+        <div className="grid grid-cols-2 gap-3">
+          <Field label="Fiyat (₺)" hint="KDV dahil" required error={errors.price}>
+            <TextInput inputMode="numeric" value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="1450" />
+          </Field>
+          <Field label="İndirimli Fiyat (₺)" hint="Eski fiyat — opsiyonel" error={errors.oldPrice}>
+            <TextInput inputMode="numeric" value={form.oldPrice} onChange={(e) => set('oldPrice', e.target.value)} placeholder="1850" />
+          </Field>
+        </div>
 
-        <Section title="Fiyat">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <Field label="Fiyat (₺)" required error={errors.price}>
-              <TextInput inputMode="numeric" value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="450" />
-            </Field>
-            <Field label="Eski Fiyat (₺)" hint="İndirimliyse" error={errors.oldPrice}>
-              <TextInput inputMode="numeric" value={form.oldPrice} onChange={(e) => set('oldPrice', e.target.value)} placeholder="520" />
-            </Field>
-            <Field label="Rozet">
-              <Select
-                value={form.badge}
-                onChange={(e) => set('badge', e.target.value as BadgeKind | '')}
-                options={[{ value: '', label: '— Yok —' }, ...BADGE_OPTIONS]}
-              />
-            </Field>
-          </div>
-        </Section>
+        <Field label="Kategori" required>
+          <Select value={form.category} onChange={(e) => set('category', e.target.value as CategoryId)} options={CATEGORY_OPTIONS} />
+        </Field>
 
-        <Section title="Açıklama">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <Field label="Türkçe">
-              <TextArea value={form.descTr} onChange={(e) => set('descTr', e.target.value)} rows={3} />
-            </Field>
-            <Field label="English">
-              <TextArea value={form.descEn} onChange={(e) => set('descEn', e.target.value)} rows={3} />
-            </Field>
-            <Field label="Русский">
-              <TextArea value={form.descRu} onChange={(e) => set('descRu', e.target.value)} rows={3} />
-            </Field>
-          </div>
-        </Section>
+        <Field label="Açıklama" hint="Kısa, 2-3 cümle — opsiyonel">
+          <TextArea
+            value={form.descTr}
+            onChange={(e) => set('descTr', e.target.value)}
+            rows={3}
+            placeholder="Kırmızı güllerin tutkulu zarafeti. Sevdiklerinize en şık yolu…"
+          />
+        </Field>
+
+        <div className="flex flex-wrap items-center gap-6 pb-1">
+          <Toggle checked={form.available} onChange={(v) => set('available', v)} label="Stokta var" />
+        </div>
 
         <Section title="Fotoğraf">
           <div className="flex items-start gap-4">
@@ -382,34 +376,109 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
               </p>
             </div>
           </div>
+        </Section>
 
-          <Field
-            label="Görsel URL’leri (gelişmiş)"
-            hint="Her satıra bir URL (veya virgülle ayırın). Genellikle dokunmanıza gerek yok."
+        {/* ── Advanced (collapsed by default; auto-filled if untouched) ── */}
+        <div>
+          <button
+            type="button"
+            onClick={() => setShowAdvanced((v) => !v)}
+            aria-expanded={showAdvanced}
+            className="flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.18em]"
+            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
           >
-            <TextArea
-              value={form.images}
-              onChange={(e) => set('images', e.target.value)}
-              rows={2}
-              placeholder={'/products/red-roses-1.jpg\n/products/red-roses-2.jpg'}
-            />
-          </Field>
-        </Section>
+            <span>Gelişmiş</span>
+            <span
+              aria-hidden="true"
+              style={{
+                display: 'inline-block',
+                transform: showAdvanced ? 'rotate(180deg)' : 'none',
+                transition: 'transform 0.2s ease',
+              }}
+            >
+              ▾
+            </span>
+          </button>
+          <p className="mt-1 text-[0.66rem]" style={{ color: 'rgba(28,43,26,0.5)' }}>
+            SEO, slug, motif, rozet, diğer diller. Boş bırakırsanız otomatik doldurulur.
+          </p>
 
-        <Section title="Durum & SEO">
-          <div className="flex flex-wrap items-center gap-6 pb-1">
-            <Toggle checked={form.available} onChange={(v) => set('available', v)} label="Satışta" />
-            <Toggle checked={form.featured} onChange={(v) => set('featured', v)} label="Öne çıkan" />
-          </div>
-          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Field label="SEO Başlık">
-              <TextInput value={form.seoTitle} onChange={(e) => set('seoTitle', e.target.value)} />
-            </Field>
-            <Field label="SEO Açıklama">
-              <TextInput value={form.seoDescription} onChange={(e) => set('seoDescription', e.target.value)} />
-            </Field>
-          </div>
-        </Section>
+          {showAdvanced && (
+            <div
+              className="mt-4 flex flex-col gap-5 rounded-lg p-4"
+              style={{ border: '1px solid rgba(28,43,26,0.15)', background: 'rgba(28,43,26,0.03)' }}
+            >
+              <Section title="Ürün Adı — Diğer Diller">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <Field label="English" hint="Boşsa Türkçe kullanılır">
+                    <TextInput value={form.nameEn} onChange={(e) => set('nameEn', e.target.value)} placeholder="Red Rose Bouquet" />
+                  </Field>
+                  <Field label="Русский" hint="Boşsa Türkçe kullanılır">
+                    <TextInput value={form.nameRu} onChange={(e) => set('nameRu', e.target.value)} placeholder="Букет красных роз" />
+                  </Field>
+                </div>
+              </Section>
+
+              <Section title="Açıklama — Diğer Diller">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <Field label="English">
+                    <TextArea value={form.descEn} onChange={(e) => set('descEn', e.target.value)} rows={2} />
+                  </Field>
+                  <Field label="Русский">
+                    <TextArea value={form.descRu} onChange={(e) => set('descRu', e.target.value)} rows={2} />
+                  </Field>
+                </div>
+              </Section>
+
+              <Section title="Sınıflandırma">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <Field label="Slug" hint="Boşsa addan üretilir">
+                    <TextInput value={form.slug} onChange={(e) => set('slug', e.target.value)} placeholder="kirmizi-gul-buketi" />
+                  </Field>
+                  <Field label="Motif" hint="Boşsa kategoriye göre">
+                    <Select
+                      value={form.motif}
+                      onChange={(e) => set('motif', e.target.value as MotifKind | '')}
+                      options={[{ value: '', label: '— Otomatik —' }, ...MOTIF_OPTIONS]}
+                    />
+                  </Field>
+                  <Field label="Rozet">
+                    <Select
+                      value={form.badge}
+                      onChange={(e) => set('badge', e.target.value as BadgeKind | '')}
+                      options={[{ value: '', label: '— Yok —' }, ...BADGE_OPTIONS]}
+                    />
+                  </Field>
+                </div>
+              </Section>
+
+              <Section title="SEO">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <Field label="SEO Başlık" hint="Boşsa addan üretilir">
+                    <TextInput value={form.seoTitle} onChange={(e) => set('seoTitle', e.target.value)} />
+                  </Field>
+                  <Field label="SEO Açıklama" hint="Boşsa açıklamadan üretilir">
+                    <TextInput value={form.seoDescription} onChange={(e) => set('seoDescription', e.target.value)} />
+                  </Field>
+                </div>
+              </Section>
+
+              <Section title="Diğer">
+                <div className="flex flex-wrap items-center gap-6 pb-2">
+                  <Toggle checked={form.featured} onChange={(v) => set('featured', v)} label="Öne çıkan" />
+                </div>
+                <Field label="Görsel URL’leri" hint="Her satıra bir URL. Genellikle dokunmanıza gerek yok.">
+                  <TextArea
+                    value={form.images}
+                    onChange={(e) => set('images', e.target.value)}
+                    rows={2}
+                    placeholder={'/products/red-roses-1.jpg'}
+                  />
+                </Field>
+              </Section>
+            </div>
+          )}
+        </div>
       </form>
     </Modal>
   )
