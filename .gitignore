@@ -42,3 +42,4 @@ public/videos/*.webm
 .env*.local
 public/images/categories/*.jpeg
 public/images/categories/*.jpg
+.env*

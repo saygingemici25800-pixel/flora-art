@@ -49,13 +49,17 @@ export default function Login() {
           </p>
         </div>
 
-        <form onSubmit={onSubmit} className="px-8 pb-8">
-          <Field label="Parola" htmlFor="admin-password" error={error ?? undefined}>
+        <form onSubmit={onSubmit} className="px-8 pb-8" autoComplete="off">
+          <Field label="Parola" htmlFor="fa-access-key" error={error ?? undefined}>
             <TextInput
-              id="admin-password"
+              id="fa-access-key"
+              name="fa-access-key"
               type="password"
               autoFocus
-              autoComplete="current-password"
+              autoComplete="new-password"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck={false}
               placeholder="••••••••"
               value={password}
               onChange={(e) => {
