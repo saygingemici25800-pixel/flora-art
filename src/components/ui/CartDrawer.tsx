@@ -67,7 +67,7 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.5, ease: EASE }}
-            className="fixed top-0 right-0 bottom-0 z-[151] w-full sm:w-[420px] max-w-full flex flex-col shadow-[-30px_0_80px_-30px_rgba(1,62,55,0.45)]"
+            className="fixed top-0 right-0 bottom-0 z-[151] w-full sm:w-[440px] max-w-full flex flex-col shadow-[-30px_0_80px_-30px_rgba(1,62,55,0.45)]"
             style={{ background: 'var(--color-cream)' }}
             role="dialog"
             aria-modal="true"
@@ -127,12 +127,13 @@ export default function CartDrawer() {
                   className="flex-1 overflow-y-auto px-6 md:px-7 py-6"
                   style={{ background: 'var(--color-cream)' }}
                 >
-                  <ul className="space-y-5">
-                    {items.map((item) => (
+                  <ul className="flex flex-col gap-5">
+                    {items.map((item, i) => (
                       <CartRow
                         key={item.id}
                         item={item}
                         currency={currency}
+                        divider={i < items.length - 1}
                         onIncrement={() => updateQuantity(item.id, item.quantity + 1)}
                         onDecrement={() => updateQuantity(item.id, item.quantity - 1)}
                         onRemove={() => removeItem(item.id)}
@@ -212,6 +213,7 @@ export default function CartDrawer() {
                     .checkout-cta:hover {
                       transform: translateY(-2px);
                       box-shadow: 0 16px 34px -14px rgba(1,62,55,0.55);
+                      filter: brightness(0.92);
                     }
                   `}</style>
                 </div>
@@ -227,6 +229,7 @@ export default function CartDrawer() {
 function CartRow({
   item,
   currency,
+  divider,
   onIncrement,
   onDecrement,
   onRemove,
@@ -236,6 +239,7 @@ function CartRow({
 }: {
   item: CartItem
   currency: string
+  divider: boolean
   onIncrement: () => void
   onDecrement: () => void
   onRemove: () => void
@@ -244,12 +248,27 @@ function CartRow({
   decLabel: string
 }) {
   return (
-    <li className="flex gap-4">
+    <li
+      className="flex gap-4"
+      style={{
+        paddingBottom: divider ? '20px' : '0',
+        borderBottom: divider ? '1px solid rgba(200,169,110,0.28)' : 'none',
+      }}
+    >
+      {/* product photo (or motif fallback) */}
       <div
-        className="relative shrink-0 w-20 h-20 overflow-hidden"
-        style={{ background: 'var(--color-beige)' }}
+        className="relative shrink-0 w-20 h-20 overflow-hidden rounded-lg"
+        style={{ background: 'var(--color-beige)', border: '1px solid rgba(200,169,110,0.4)' }}
       >
-        <ProductMotif kind={item.motif} />
+        {item.image ? (
+          <img
+            src={item.image}
+            alt={item.name}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <ProductMotif kind={item.motif} />
+        )}
       </div>
 
       <div className="flex-1 min-w-0">
@@ -258,37 +277,48 @@ function CartRow({
             className="leading-snug truncate"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: '1.1rem',
+              fontSize: '1.15rem',
               color: 'var(--color-forest)',
               letterSpacing: '-0.005em',
             }}
           >
             {item.name}
           </h3>
-          <span
-            className="whitespace-nowrap"
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '0.95rem',
-              fontWeight: 600,
-              color: 'var(--color-forest)',
-            }}
+          <button
+            type="button"
+            onClick={onRemove}
+            aria-label={removeLabel}
+            title={removeLabel}
+            className="shrink-0 grid place-items-center w-8 h-8 rounded-full transition-colors hover:bg-[var(--color-beige)]"
+            style={{ color: 'var(--color-bronze)' }}
           >
-            {currency}
-            {item.price * item.quantity}
-          </span>
+            <TrashIcon />
+          </button>
         </div>
 
-        <div className="mt-3 flex items-center justify-between">
+        <p
+          className="mt-1"
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.95rem',
+            fontWeight: 600,
+            color: 'var(--color-bronze)',
+          }}
+        >
+          {currency}
+          {item.price}
+        </p>
+
+        <div className="mt-3 flex items-center justify-between gap-3">
           <div
-            className="inline-flex items-center"
-            style={{ border: '1px solid rgba(1,62,55,0.3)' }}
+            className="inline-flex items-center rounded-md overflow-hidden"
+            style={{ border: '1px solid rgba(1,62,55,0.28)' }}
           >
             <button
               type="button"
               onClick={onDecrement}
               aria-label={decLabel}
-              className="w-10 h-10 grid place-items-center text-[18px] transition-colors hover:bg-[var(--color-beige)]"
+              className="w-9 h-9 grid place-items-center text-[18px] transition-colors hover:bg-[var(--color-beige)]"
               style={{ color: 'var(--color-forest)' }}
             >
               −
@@ -303,22 +333,25 @@ function CartRow({
               type="button"
               onClick={onIncrement}
               aria-label={incLabel}
-              className="w-10 h-10 grid place-items-center text-[18px] transition-colors hover:bg-[var(--color-beige)]"
+              className="w-9 h-9 grid place-items-center text-[18px] transition-colors hover:bg-[var(--color-beige)]"
               style={{ color: 'var(--color-forest)' }}
             >
               +
             </button>
           </div>
 
-          <button
-            type="button"
-            onClick={onRemove}
-            aria-label={removeLabel}
-            className="text-[11px] tracking-[0.2em] uppercase transition-colors hover:text-[var(--color-gold)]"
-            style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
+          <span
+            className="whitespace-nowrap"
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '1.05rem',
+              fontWeight: 700,
+              color: 'var(--color-forest)',
+            }}
           >
-            {removeLabel}
-          </button>
+            {currency}
+            {item.price * item.quantity}
+          </span>
         </div>
       </div>
     </li>
@@ -414,6 +447,18 @@ function CloseIcon() {
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  )
+}
+
+function TrashIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 6h18" />
+      <path d="M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2" />
+      <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+      <line x1="10" y1="11" x2="10" y2="17" />
+      <line x1="14" y1="11" x2="14" y2="17" />
     </svg>
   )
 }

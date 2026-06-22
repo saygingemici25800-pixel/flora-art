@@ -6,13 +6,17 @@ export interface CartItem {
   name: string
   price: number
   motif: MotifKind
+  image?: string
   quantity: number
 }
+
+/** Accepts either the flat mock Product (image) or the locale view-model (images[]). */
+type AddableProduct = Product & { images?: string[] }
 
 interface CartState {
   items: CartItem[]
   isOpen: boolean
-  addItem: (product: Product) => void
+  addItem: (product: AddableProduct) => void
   removeItem: (id: string) => void
   updateQuantity: (id: string, quantity: number) => void
   clearCart: () => void
@@ -35,6 +39,7 @@ export const useCartStore = create<CartState>((set) => ({
           isOpen: true,
         }
       }
+      const image = product.images?.[0] ?? product.image
       return {
         items: [
           ...state.items,
@@ -43,6 +48,7 @@ export const useCartStore = create<CartState>((set) => ({
             name: product.name,
             price: product.price,
             motif: product.motif,
+            image,
             quantity: 1,
           },
         ],

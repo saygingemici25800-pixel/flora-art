@@ -152,6 +152,7 @@
   "product": {
     "quantity": "Quantity",
     "delivery": "Delivery Region",
+    "deliveryNote": "Delivery fees are calculated at checkout and on the Delivery page.",
     "giftNote": "Gift Note",
     "giftPlaceholder": "Your message for the card...",
     "deliveryDate": "Delivery Date",
@@ -180,7 +181,7 @@
     "notFoundHint": "The product you are looking for may no longer be available.",
     "notFoundCta": "Back to Collection",
     "totalLabel": "Total",
-    "whatsappTemplate": "Hello, I would like to order {{name}}. Quantity: {{qty}}. Region: {{region}}. Delivery: {{date}}. Note: {{note}}."
+    "whatsappTemplate": "Hello, I would like to order {{name}}. Quantity: {{qty}}. Delivery: {{date}}. Note: {{note}}."
   },
   "checkout": {
     "title": "Checkout",

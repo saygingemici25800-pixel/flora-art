@@ -152,6 +152,7 @@
   "product": {
     "quantity": "Miktar",
     "delivery": "Teslimat Bölgesi",
+    "deliveryNote": "Teslimat ücretleri sepette ve Teslimat sayfasında hesaplanır.",
     "giftNote": "Hediye Notu",
     "giftPlaceholder": "Karta yazılacak mesajınız...",
     "deliveryDate": "Teslimat Tarihi",
@@ -180,7 +181,7 @@
     "notFoundHint": "Aradığınız ürün artık mevcut değil olabilir.",
     "notFoundCta": "Koleksiyona Dön",
     "totalLabel": "Toplam",
-    "whatsappTemplate": "Merhaba, {{name}} sipariş vermek istiyorum. Miktar: {{qty}}. Bölge: {{region}}. Teslimat: {{date}}. Not: {{note}}."
+    "whatsappTemplate": "Merhaba, {{name}} sipariş vermek istiyorum. Miktar: {{qty}}. Teslimat: {{date}}. Not: {{note}}."
   },
   "checkout": {
     "title": "Sipariş",

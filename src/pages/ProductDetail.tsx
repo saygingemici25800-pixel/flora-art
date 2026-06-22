@@ -11,9 +11,6 @@ import TiltCard from '../components/ui/TiltCard'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
-type RegionKey = 'local' | 'turkey' | 'intl'
-const REGION_KEYS: RegionKey[] = ['local', 'turkey', 'intl']
-
 interface ImageVariant {
   color: string
   opacity: number
@@ -111,7 +108,6 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
 
   const [variant, setVariant] = useState(0)
   const [quantity, setQuantity] = useState(1)
-  const [region, setRegion] = useState<RegionKey>('local')
   const [note, setNote] = useState('')
   const [date, setDate] = useState(todayIso())
 
@@ -120,14 +116,9 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
   const trustBadges = t('product.trustBadges', { returnObjects: true }) as string[]
   const categoryName = t(`categories.${categoryIndex(product.category)}.name`) as string
 
-  const regionFeeRaw = t(`product.regions.${region}.feeNumber`) as unknown
-  const regionFee = typeof regionFeeRaw === 'number' ? regionFeeRaw : 0
-  const total = product.price * quantity + regionFee
-
   const whatsappMessage = t('product.whatsappTemplate', {
     name: product.name,
     qty: quantity,
-    region: t(`product.regions.${region}.label`),
     date,
     note: note || '—',
   }) as string
@@ -363,67 +354,25 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
               </div>
             </div>
 
-            <div className="mb-7">
-              <p
-                className="text-[10px] tracking-[0.3em] uppercase mb-3"
-                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.6 }}
+            {/* Delivery fees now live in the cart/checkout zone selector and on
+                the Delivery page — here we only point the customer to them. */}
+            <div
+              className="mb-7 flex items-start gap-3 px-4 py-3"
+              style={{ border: '1px solid rgba(1,62,55,0.14)', background: 'rgba(1,62,55,0.03)' }}
+            >
+              <span
+                aria-hidden="true"
+                className="mt-[1px] text-[14px] leading-none"
+                style={{ color: 'var(--color-gold)' }}
               >
-                {t('product.delivery')}
+                ✦
+              </span>
+              <p
+                className="text-[13px] leading-relaxed"
+                style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.8 }}
+              >
+                {t('product.deliveryNote')}
               </p>
-              <ul className="flex flex-col gap-2">
-                {REGION_KEYS.map((key) => {
-                  const active = region === key
-                  return (
-                    <li key={key}>
-                      <button
-                        type="button"
-                        onClick={() => setRegion(key)}
-                        aria-pressed={active}
-                        className="w-full flex items-center justify-between gap-3 px-4 py-3 transition-colors"
-                        style={{
-                          background: active ? 'var(--color-forest)' : 'transparent',
-                          color: active ? 'var(--color-cream)' : 'var(--color-forest)',
-                          border: `1px solid ${active ? 'var(--color-forest)' : 'rgba(1,62,55,0.18)'}`,
-                          fontFamily: 'var(--font-body)',
-                        }}
-                      >
-                        <span className="flex items-center gap-3 text-[13px]">
-                          <span aria-hidden="true" className="text-[16px]">
-                            {t(`product.regions.${key}.icon`)}
-                          </span>
-                          <span>{t(`product.regions.${key}.label`)}</span>
-                        </span>
-                        <span
-                          className="text-[11px] tracking-[0.15em] uppercase opacity-85"
-                          style={{ color: 'var(--color-bronze)' }}
-                        >
-                          {t(`product.regions.${key}.fee`)} · {t(`product.regions.${key}.eta`)}
-                        </span>
-                      </button>
-                    </li>
-                  )
-                })}
-              </ul>
-
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={region}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.35, ease: EASE }}
-                  className="mt-3 flex items-baseline justify-between gap-3 text-[12px] tracking-[0.18em] uppercase"
-                  style={{ fontFamily: 'var(--font-body)' }}
-                >
-                  <span style={{ color: 'var(--color-ink)', opacity: 0.6 }}>
-                    {t('product.totalLabel')}
-                  </span>
-                  <span style={{ color: 'var(--color-forest)', fontWeight: 600, letterSpacing: '0.02em' }}>
-                    {currency}
-                    {total}
-                  </span>
-                </motion.div>
-              </AnimatePresence>
             </div>
 
             <div className="mb-5">
