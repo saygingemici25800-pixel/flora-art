@@ -117,6 +117,10 @@ interface Entry {
   motif?: MotifKind
   badge?: BadgeKind
   featured?: boolean
+  /** Explicit photo path; falls back to the category webp when omitted. */
+  image?: string
+  /** Explicit Turkish description; falls back to the generated one when omitted. */
+  desc?: string
 }
 
 const BOUQUET: Entry[] = [
@@ -234,6 +238,284 @@ const CORPORATE: Entry[] = [
   { name: 'Vip Kurumsal Aranjman', price: 6900, badge: 'premium', featured: true },
 ]
 
+/* ── Batch 2 — real product photos (img_01…img_39) + written descriptions ── */
+const BATCH2_PLANT: Entry[] = [
+  {
+    name: 'Kırmızı Antoryum Saksı',
+    price: 1450,
+    motif: 'terrarium',
+    image: '/images/products/batch-2/img_01.webp',
+    desc: 'Canlı kırmızı brakteleriyle göz dolduran antoryum, uzun ömürlü bir saksı bitkisidir. Şık kırmızı saksısı ve özenli ambalajıyla her mekâna sıcaklık katar. Hem hediye hem iç mekân dekoru için ideal.',
+  },
+  {
+    name: 'Benjamin Ağacı (Ficus)',
+    price: 2400,
+    motif: 'terrarium',
+    image: '/images/products/batch-2/img_02.webp',
+    desc: 'Gür yapraklı, boylu Benjamin ağacı; ofis ve geniş salonlar için kalıcı bir yeşillik armağanı. Kraft kâğıt sarımı ve zarif kurdele detayıyla sunulur. Bakımı kolay, etkisi uzun soluklu bir hediye.',
+  },
+  {
+    name: 'Mini Antoryum Saksı',
+    price: 1100,
+    motif: 'terrarium',
+    image: '/images/products/batch-2/img_03.webp',
+    desc: 'Parlak yapraklarıyla şirin bir mini antoryum aranjmanı. Kompakt boyutuyla masa ve çalışma alanları için birebir. Sevdiklerinize sade ve zarif bir jest.',
+  },
+  {
+    name: 'Barış Çiçeği (Spatifilyum)',
+    price: 1350,
+    motif: 'terrarium',
+    image: '/images/products/batch-2/img_04.webp',
+    desc: 'Zarif beyaz çiçekleri ve koyu yeşil yapraklarıyla huzur veren spatifilyum saksısı. Hava temizleyici özelliğiyle bilinen bu bitki her ortama dinginlik taşır. Yeni iş yeri ve ev hediyesi için mükemmel.',
+  },
+  {
+    name: 'Pembe Lilyum Saksı',
+    price: 1650,
+    motif: 'terrarium',
+    image: '/images/products/batch-2/img_19.webp',
+    desc: 'Açan ve gonca pembe lilyumlarıyla zarif, kokulu bir saksı aranjmanı. Kraft sarımı, kurutulmuş portakal ve nazar detaylarıyla sunulur. Doğum günü ve özel günler için sıcak bir seçim.',
+  },
+  {
+    name: 'Kırmızı Guzmania Saksı',
+    price: 1300,
+    motif: 'terrarium',
+    image: '/images/products/batch-2/img_20.webp',
+    desc: 'Çarpıcı kırmızı brakteli guzmania, uzun ömürlü ve bakımı kolay bir tropik bitki. Kırmızı ambalaj ve kurutulmuş portakal detayıyla hediyeye dönüşür. Mekânlara egzotik bir dokunuş.',
+  },
+]
+
+const BATCH2_BOUQUET: Entry[] = [
+  {
+    name: 'Beyaz Papatya Buketi',
+    price: 1250,
+    motif: 'anemone',
+    image: '/images/products/batch-2/img_05.webp',
+    desc: 'Bembeyaz papatyalardan oluşan masmasum ve sıcacık bir buket. Pembe ambalajı içinde sadeliğin en güzel halini sunar. Sevgi, dostluk ve içten dileklerin çiçeği.',
+  },
+  {
+    name: '41 Kırmızı Gül Buketi',
+    price: 4900,
+    badge: 'premium',
+    featured: true,
+    image: '/images/products/batch-2/img_06.webp',
+    desc: 'Görkemli kırmızı güllerden hazırlanan, aşkın en iddialı ifadesi. Şık kırmızı ambalaj ve gazete dokulu detaylarla sunulan özel bir buket. Unutulmaz anlar için tasarlandı.',
+  },
+  {
+    name: 'Çuval Sarımlı Kırmızı Gül',
+    price: 3800,
+    featured: true,
+    image: '/images/products/batch-2/img_08.webp',
+    desc: 'Kırmızı güller ve cipsofilya, rustik çuval ambalajla buluştu. Doğal ve sıcak duruşuyla farklı bir zarafet sunar. Hem romantik hem nostaljik bir armağan.',
+  },
+  {
+    name: 'Sarı Lale Buketi',
+    price: 1450,
+    motif: 'tulip',
+    image: '/images/products/batch-2/img_21.webp',
+    desc: 'Capcanlı sarı laleler, cipsofilya ve zarif gazete ambalajla buluştu. Baharın enerjisini ve neşesini taşıyan ışıltılı bir buket. Sevdiklerinize güneş gibi bir sürpriz.',
+  },
+  {
+    name: 'Kırmızı Gül & Lilyum Buketi',
+    price: 1850,
+    image: '/images/products/batch-2/img_22.webp',
+    desc: 'Kırmızı güller ve beyaz lilyumun zarif uyumu, palmiye yeşillikleriyle taçlandı. Tutku ve saflığın bir arada sunulduğu dengeli bir buket. Özel anlar için sıcak bir tercih.',
+  },
+  {
+    name: 'Rengârenk Gerbera Buketi',
+    price: 1550,
+    motif: 'anemone',
+    image: '/images/products/batch-2/img_23.webp',
+    desc: 'Pembe gerbera, beyaz krizantem ve limonyum çiçeklerinden oluşan ferah bir buket. Kraft kâğıt sarımıyla doğal ve sıcak bir görünüm sunar. Mutlu günleri kutlamanın renkli yolu.',
+  },
+  {
+    name: '101 Gül Buketi',
+    price: 8500,
+    badge: 'premium',
+    featured: true,
+    image: '/images/products/batch-2/img_24.webp',
+    desc: 'Yüz bir adet görkemli kırmızı gül, cipsofilya ve rustik çuval ambalajla hazırlanan ihtişamlı bir aşk armağanı. Evlilik teklifleri, dönüm noktaları ve en büyük jestler için. Sevginizin sınır tanımadığını anlatın.',
+  },
+  {
+    name: 'Beyaz Lilyum Buketi',
+    price: 1950,
+    image: '/images/products/batch-2/img_25.webp',
+    desc: 'Açan ve gonca beyaz lilyumlardan oluşan, tüllü beyaz ambalajıyla zarif bir buket. Saflığın ve asaletin çiçeği, kokusuyla da büyüler. Nikâh, kutlama ve özel günler için.',
+  },
+  {
+    name: 'Okaliptüslü Kırmızı Gül Buketi',
+    price: 2950,
+    featured: true,
+    image: '/images/products/batch-2/img_26.webp',
+    desc: 'Yoğun kırmızı güller, okaliptüs ve cipsofilya ile rustik çuval ambalajda buluştu. Doğal dokusu ve zengin yapısıyla göz dolduran bir buket. Romantik ve etkileyici bir hediye.',
+  },
+  {
+    name: 'Tropik Pembe Karışık Buket',
+    price: 2450,
+    image: '/images/products/batch-2/img_28.webp',
+    desc: 'Pembe güller, gerberalar, laleler ve palmiye yapraklarıyla zengin, tropik bir buket. Canlı renkleri ve dolgun yapısıyla nefes kesen bir sunum. Şıklığı sevenler için özel.',
+  },
+  {
+    name: 'Mor & Pembe Mevsim Buketi',
+    price: 2250,
+    image: '/images/products/batch-2/img_29.webp',
+    desc: 'Lila güller, mor krizantem, alstroemeria ve gerberalardan oluşan romantik bir buket. Pembe ambalajı içinde zarif ve dolgun bir görünüm sunar. Sevdiklerinize ince bir jest.',
+  },
+  {
+    name: 'Kırmızı Gül & Papatya Buketi',
+    price: 1650,
+    image: '/images/products/batch-2/img_30.webp',
+    desc: 'Kırmızı güller, bembeyaz papatyalarla çevrelendi; şık siyah ambalajla taçlandı. Tutku ve sadeliğin zarif buluşması. Hem romantik hem modern bir armağan.',
+  },
+  {
+    name: 'Beyaz Lilyum & Lisyantus Buketi',
+    price: 2350,
+    image: '/images/products/batch-2/img_31.webp',
+    desc: 'Beyaz lilyum, lisyantus ve cipsofilyanın masum uyumu, nazar detaylı zarif ambalajla sunuldu. Saflığın ve zarafetin en güzel hali. Yeni başlangıçlar ve özel dilekler için.',
+  },
+  {
+    name: 'Kırmızı Gül & Beyaz Lilyum Buketi',
+    price: 2150,
+    image: '/images/products/batch-2/img_32.webp',
+    desc: 'Kırmızı güller, beyaz lilyum ve bordo astilbe ile zengin bir kontrast oluşturan buket. Şık siyah ambalajıyla iddialı ve romantik bir duruş sunar. Anlam yüklü anlar için.',
+  },
+  {
+    name: '35 Kırmızı Gül Buketi',
+    price: 4200,
+    badge: 'premium',
+    image: '/images/products/batch-2/img_33.webp',
+    desc: 'Dolgun kırmızı güllerden hazırlanan, şık siyah ambalajlı gösterişli bir buket. Aşkın klasik ve güçlü ifadesi. Sevdiğinizi etkilemek için kusursuz bir seçim.',
+  },
+  {
+    name: 'Seni Seviyorum Gül Buketi',
+    price: 2650,
+    featured: true,
+    image: '/images/products/batch-2/img_34.webp',
+    desc: "Kırmızı güller, okaliptüs ve 'Seni Seviyorum' kartıyla romantik bir gazete sarımlı buket. Nazar boncuğu detayıyla sevgi ve koruma dolu bir armağan. Aşkınızı yüksek sesle söyleyin.",
+  },
+  {
+    name: '51 Kırmızı Gül Buketi',
+    price: 5500,
+    badge: 'premium',
+    image: '/images/products/batch-2/img_35.webp',
+    desc: 'Bol ve görkemli kırmızı güllerden oluşan, şık siyah ambalajlı iddialı bir buket. Büyük aşkların ve özel kutlamaların çiçeği. Unutulmaz bir jest arayanlara.',
+  },
+  {
+    name: 'Beyaz Gül Görkemi',
+    price: 6500,
+    badge: 'premium',
+    featured: true,
+    image: '/images/products/batch-2/img_36.webp',
+    desc: 'Yoğun beyaz güller, okaliptüs ve yeşilliklerle hazırlanan ihtişamlı bir buket. Saflığın ve zarafetin en büyük ifadesi. Nikâh, yıldönümü ve görkemli anlar için.',
+  },
+  {
+    name: 'Gazete Sarımlı Kırmızı Gül',
+    price: 2750,
+    image: '/images/products/batch-2/img_37.webp',
+    desc: 'Bordo-kırmızı güller, okaliptüs ve yeşilliklerle rustik gazete kağıdına sarıldı. Nostaljik ve zarif duruşuyla farklı bir romantizm sunar. Modern ve klasiği sevenlere.',
+  },
+]
+
+const BATCH2_BOX: Entry[] = [
+  {
+    name: 'Annelere Özel Kutu & Balon',
+    price: 2950,
+    featured: true,
+    image: '/images/products/batch-2/img_07.webp',
+    desc: 'Rengârenk lilyum, gül ve kır çiçeklerinden oluşan zengin aranjman; kalpli folyo balon eşliğinde. Anneler Günü ve özel kutlamalar için hazırlanmış doyurucu bir kutu. Sevgiyi büyük göstermek isteyenlere.',
+  },
+  {
+    name: 'Ayıcıklı Papatya Sepeti',
+    price: 1300,
+    motif: 'anemone',
+    image: '/images/products/batch-2/img_09.webp',
+    desc: 'Beyaz papatyalar, peluş ayıcık ve okaliptüs yapraklarıyla sevimli bir hasır sepet aranjmanı. Doğum günü ve sürpriz hediyeler için tatlı bir seçenek. Küçük ama unutulmaz bir jest.',
+  },
+  {
+    name: 'Silindir Kutuda Papatyalar',
+    price: 1450,
+    motif: 'anemone',
+    image: '/images/products/batch-2/img_16.webp',
+    desc: "Bol beyaz papatya, siyah silindir kutuda rafya ve organze kurdele detayıyla buluştu. Hem sade hem modern duruşuyla her ortama yakışır. İçten bir 'seni düşünüyorum' mesajı.",
+  },
+  {
+    name: 'Tek Güllü Papatya Kutusu',
+    price: 1550,
+    motif: 'anemone',
+    image: '/images/products/batch-2/img_17.webp',
+    desc: 'Beyaz papatyaların merkezine yerleştirilen tek bir kırmızı gülle anlam yüklü bir kutu aranjman. Sadelik ve tutkunun zarif buluşması. Özel birine ince bir mesaj.',
+  },
+  {
+    name: 'Rengârenk Mevsim Kutusu',
+    price: 1850,
+    image: '/images/products/batch-2/img_18.webp',
+    desc: 'Gül, gerbera, papatya ve mevsim çiçeklerinin rengârenk dansı; beyaz silindir kutuda. Neşe ve enerji dolu bu aranjman her kutlamaya canlılık katar. Renkleri sevenler için.',
+  },
+  {
+    name: 'Cam Fanusta Papatyalar',
+    price: 1350,
+    motif: 'anemone',
+    image: '/images/products/batch-2/img_27.webp',
+    desc: 'Bembeyaz papatyalar, şık cam fanus içinde beyaz ve sarı kurdele detaylarıyla sunuldu. Masaüstü için zarif ve sade bir aranjman. İçten dileklerin tatlı bir ifadesi.',
+  },
+]
+
+const BATCH2_CORPORATE: Entry[] = [
+  {
+    name: 'Açılış Çelengi (Kırmızı-Beyaz Gerbera)',
+    price: 3200,
+    featured: true,
+    image: '/images/products/batch-2/img_10.webp',
+    desc: 'Kırmızı ve beyaz gerberalardan hazırlanan klasik açılış çelengi. İş yeri açılışları, törenler ve kutlamalar için şık ve dikkat çekici. Kurumsal mesajınızı zarafetle iletir.',
+  },
+  {
+    name: 'Beyaz Karanfil Açılış Çelengi',
+    price: 2900,
+    image: '/images/products/batch-2/img_11.webp',
+    desc: 'Yoğun beyaz karanfil dokusu ve kırmızı çerçevesiyle gösterişli bir açılış çelengi. Tüllü tabanı ve dengeli yapısıyla her açılışta öne çıkar. Kurumsal incelik arayanlar için.',
+  },
+  {
+    name: 'Çift Katlı Gerbera Çelenk',
+    price: 4200,
+    featured: true,
+    image: '/images/products/batch-2/img_13.webp',
+    desc: 'Bol kırmızı gerbera ve beyaz lilyum vurgusuyla iki katlı, ihtişamlı bir çelenk. Büyük açılış ve törenlerde fark yaratacak boyutta. Güçlü bir kurumsal duruş için.',
+  },
+]
+
+const BATCH2_WEDDING: Entry[] = [
+  {
+    name: 'Kırmızı Gül Nişan Çelengi',
+    price: 3500,
+    image: '/images/products/batch-2/img_12.webp',
+    desc: 'Yoğun kırmızı güllerden oluşan boylu nişan ve düğün çelengi. Kırmızı tül kurdelesiyle törenlere coşku katar. Mutlu günlerin vazgeçilmez sembolü.',
+  },
+  {
+    name: 'Beyaz Gelin Arabası Süslemesi (Lilyum)',
+    price: 2800,
+    featured: true,
+    image: '/images/products/batch-2/img_14.webp',
+    desc: 'Beyaz lilyum, gladyol ve palmiye yapraklarıyla hazırlanan zarif gelin arabası süslemesi. Kaput ve yan aynalar için uyumlu parçalarıyla bütünlük sunar. Düğün gününe asalet katar.',
+  },
+  {
+    name: 'Klasik Gelin Arabası Süsü',
+    price: 3100,
+    image: '/images/products/batch-2/img_15.webp',
+    desc: 'Beyaz lilyum ve lisyantuslardan oluşan, kaput üzeri merkez aranjmanı ve yan detaylarıyla tam takım gelin arabası süslemesi. Sade ve şık bir gelinlik beyazı temasında. Hayalinizdeki düğün için.',
+  },
+  {
+    name: 'Beyaz Gelin Arabası Süsü (Mercedes)',
+    price: 3200,
+    image: '/images/products/batch-2/img_38.webp',
+    desc: 'Beyaz lilyum, gerbera ve okaliptüsten oluşan, kaput üzeri uzun aranjmanı ve yan ayna detaylarıyla tam takım gelin arabası süslemesi. Zarif gelinlik beyazı temasında. Düğün gününe asalet katar.',
+  },
+  {
+    name: 'Beyaz Lisyantus Gelin Arabası Süsü',
+    price: 3400,
+    image: '/images/products/batch-2/img_39.webp',
+    desc: 'Bol beyaz lisyantus, gül ve yeşilliklerle hazırlanan iki yan aranjmanlı şık gelin arabası süslemesi. Sade ve modern duruşuyla her araca yakışır. Hayalinizdeki düğün için ideal.',
+  },
+]
+
 /* ── Build + dedupe ─────────────────────────────────────────────────── */
 const all: ProductInput[] = []
 
@@ -242,13 +524,13 @@ function addCategory(category: CategoryId, entries: Entry[]): void {
     const index = all.length
     all.push({
       name: tr(e.name),
-      description: tr(descFor(e.name, index, category)),
+      description: tr(e.desc ?? descFor(e.name, index, category)),
       slug: slugify(e.name),
       category,
       motif: e.motif ?? CATEGORY_MOTIF[category],
       price: e.price,
       oldPrice: e.oldPrice,
-      images: [CATEGORY_IMAGE[category]],
+      images: [e.image ?? CATEGORY_IMAGE[category]],
       badge: e.badge,
       available: true,
       featured: e.featured ?? false,
@@ -261,6 +543,13 @@ addCategory('box', BOX)
 addCategory('plant', PLANT)
 addCategory('wedding', WEDDING)
 addCategory('corporate', CORPORATE)
+
+// Batch 2 — real product photos appended at the end of each category.
+addCategory('plant', BATCH2_PLANT)
+addCategory('bouquet', BATCH2_BOUQUET)
+addCategory('box', BATCH2_BOX)
+addCategory('corporate', BATCH2_CORPORATE)
+addCategory('wedding', BATCH2_WEDDING)
 
 // Guarantee unique slugs (names are distinct, but be defensive).
 const seenSlugs = new Set<string>()
