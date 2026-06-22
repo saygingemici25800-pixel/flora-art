@@ -128,7 +128,6 @@ const BOUQUET: Entry[] = [
   { name: "7'li Gül Buketi", price: 1500, badge: 'new' },
   { name: "11'li Gül Buketi", price: 2200, featured: true },
   { name: "21'li Gül Buketi", price: 3200 },
-  { name: '41 Kırmızı Gül Buketi', price: 7500, oldPrice: 8900, badge: 'premium', featured: true },
   { name: '41 Gül Kız İsteme Buketi', price: 8500, badge: 'premium' },
   { name: '41 Kırmızı Gül Aşk Buketi', price: 7900, oldPrice: 9000, badge: 'premium' },
   { name: 'Lüks Kırmızı Gül Buketi', price: 6500, badge: 'premium', featured: true },
