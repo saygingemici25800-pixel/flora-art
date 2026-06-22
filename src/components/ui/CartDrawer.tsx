@@ -76,8 +76,8 @@ export default function CartDrawer() {
             <div
               className="flex items-center justify-between px-6 md:px-7 py-5 border-b shrink-0"
               style={{
-                borderColor: 'rgba(1,62,55,0.12)',
-                background: 'var(--color-cream)',
+                borderColor: 'rgba(200,169,110,0.25)',
+                background: 'var(--color-forest)',
               }}
             >
               <h2
@@ -85,7 +85,7 @@ export default function CartDrawer() {
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.6rem',
-                  color: 'var(--color-forest)',
+                  color: 'var(--color-cream)',
                   letterSpacing: '-0.005em',
                 }}
               >
@@ -94,7 +94,7 @@ export default function CartDrawer() {
                   <span
                     className="text-[14px] not-italic"
                     style={{
-                      color: 'var(--color-bronze)',
+                      color: 'var(--color-gold)',
                       fontFamily: 'var(--font-body)',
                     }}
                   >
@@ -106,8 +106,8 @@ export default function CartDrawer() {
                 type="button"
                 onClick={close}
                 aria-label={t('cart.close')}
-                className="grid place-items-center w-10 h-10 rounded-full transition-colors hover:bg-[var(--color-beige)]"
-                style={{ color: 'var(--color-forest)' }}
+                className="grid place-items-center w-10 h-10 rounded-full transition-colors hover:bg-[rgba(255,239,179,0.14)]"
+                style={{ color: 'var(--color-cream)' }}
               >
                 <CloseIcon />
               </button>

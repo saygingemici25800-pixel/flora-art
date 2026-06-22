@@ -1,8 +1,8 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import './lib/i18n'
 import './styles/global.css'
-import { useLenis } from './hooks/useLenis'
+import { getLenis, useLenis } from './hooks/useLenis'
 import { useCursor } from './hooks/useCursor'
 import Layout from './components/layout/Layout'
 import PageLoader from './components/ui/PageLoader'
@@ -22,6 +22,19 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 // in the storefront bundle. Mounted outside the storefront Layout.
 const AdminApp = lazy(() => import('./admin/AdminApp'))
 
+// Every route change starts at the very top. The storefront uses Lenis smooth
+// scroll, which keeps its own scroll offset, so resetting `window` alone isn't
+// enough — we reset the Lenis instance too (immediately, no animation).
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    const lenis = getLenis()
+    if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
+
 function Storefront() {
   useLenis()
   useCursor()
@@ -29,6 +42,7 @@ function Storefront() {
 
   return (
     <Layout>
+      <ScrollToTop />
       <Suspense fallback={<PageLoader />}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />

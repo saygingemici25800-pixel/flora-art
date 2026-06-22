@@ -100,9 +100,6 @@ export default function Footer() {
               <SocialCircle href={FACEBOOK_URL} label="Facebook">
                 <FacebookIcon />
               </SocialCircle>
-              <SocialCircle href={WHATSAPP_URL} label="WhatsApp">
-                <WhatsAppIcon size={18} />
-              </SocialCircle>
             </div>
           </div>
 
@@ -157,17 +154,6 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-7 inline-flex items-center gap-2 px-5 py-3 text-[12px] uppercase tracking-[0.25em] transition-transform hover:-translate-y-[1px]"
-              style={{ background: 'var(--color-gold)', color: 'var(--color-forest)', fontFamily: 'var(--font-body)' }}
-            >
-              <WhatsAppIcon size={16} />
-              {t('footer.whatsapp')}
-            </a>
           </div>
         </div>
 

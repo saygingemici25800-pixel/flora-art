@@ -204,15 +204,48 @@ export default function Navbar() {
             </motion.button>
           </div>
 
-          <button
-            type="button"
-            aria-label={mobileOpen ? t('common.close') : t('common.menu')}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((v) => !v)}
-            className="md:hidden relative w-10 h-10 grid place-items-center text-white"
-          >
-            <Burger open={mobileOpen} />
-          </button>
+          {/* MOBILE — cart + hamburger; the language switcher lives at the top
+              of the opened menu so the bar stays uncramped on small phones. */}
+          <div className="flex items-center gap-1 md:hidden">
+            <motion.button
+              type="button"
+              aria-label={t('nav.cart')}
+              onClick={openCart}
+              animate={bagControls}
+              className="relative w-10 h-10 grid place-items-center text-white"
+            >
+              <ShoppingBagIcon />
+              <AnimatePresence>
+                {cartCount > 0 && (
+                  <motion.span
+                    key="cart-badge-mobile"
+                    initial={{ opacity: 0, scale: 0.6 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.6 }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute top-0 right-0 min-w-[18px] h-[18px] px-1 rounded-full grid place-items-center text-[10px] font-medium"
+                    style={{
+                      background: 'var(--color-gold)',
+                      color: 'var(--color-forest)',
+                      fontFamily: 'var(--font-body)',
+                    }}
+                  >
+                    {cartCount}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.button>
+
+            <button
+              type="button"
+              aria-label={mobileOpen ? t('common.close') : t('common.menu')}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((v) => !v)}
+              className="relative w-10 h-10 grid place-items-center text-white"
+            >
+              <Burger open={mobileOpen} />
+            </button>
+          </div>
         </div>
 
         <style>{`
@@ -237,58 +270,103 @@ export default function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
-            key="mobile-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[90] md:hidden"
-            style={{ background: 'var(--color-forest)' }}
-          >
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-8 px-8">
-              {linkKeys.map((key, i) => (
-                <motion.div
-                  key={key}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  transition={{ duration: 0.5, delay: 0.08 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Link
-                    to={`${prefix}/${key}`}
-                    className="text-white text-4xl tracking-wide"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    {t(`nav.${key}`)}
-                  </Link>
-                </motion.div>
-              ))}
+          <>
+            {/* dimmed backdrop — tap to close */}
+            <motion.div
+              key="mobile-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              onClick={() => setMobileOpen(false)}
+              className="fixed inset-0 z-[90] md:hidden"
+              style={{
+                background: 'rgba(1,30,27,0.6)',
+                backdropFilter: 'blur(3px)',
+                WebkitBackdropFilter: 'blur(3px)',
+              }}
+              aria-hidden="true"
+            />
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4, delay: 0.4 }}
-                className="mt-6 flex items-center gap-3 text-sm tracking-[0.2em]"
-                style={{ fontFamily: 'var(--font-body)' }}
-              >
-                {LANGS.map((l, idx) => (
-                  <span key={l} className="flex items-center gap-3">
-                    <Link
-                      to={buildPath(l, location.pathname)}
-                      className={`uppercase ${
-                        l === lang ? 'text-[var(--color-gold)]' : 'text-white/60'
-                      }`}
+            {/* forest sheet sliding down from the header */}
+            <motion.div
+              key="mobile-panel"
+              initial={{ opacity: 0, y: -28 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -28 }}
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed top-0 inset-x-0 z-[95] md:hidden"
+              style={{
+                background: 'var(--color-forest)',
+                borderBottom: '1px solid rgba(200,169,110,0.22)',
+                boxShadow: '0 30px 70px -28px rgba(0,0,0,0.7)',
+              }}
+              role="dialog"
+              aria-modal="true"
+            >
+              <div className="px-6 pb-9" style={{ paddingTop: '94px' }}>
+                {/* language switcher — compact, tappable, active highlighted */}
+                <div
+                  className="flex items-center gap-2 pb-6 mb-6"
+                  style={{ borderBottom: '1px solid rgba(255,239,179,0.14)' }}
+                >
+                  {LANGS.map((l) => {
+                    const active = l === lang
+                    return (
+                      <Link
+                        key={l}
+                        to={buildPath(l, location.pathname)}
+                        aria-current={active ? 'true' : undefined}
+                        className="grid place-items-center rounded-full uppercase text-[13px] tracking-[0.2em] transition-colors"
+                        style={{
+                          minWidth: '46px',
+                          minHeight: '40px',
+                          padding: '0 16px',
+                          fontFamily: 'var(--font-body)',
+                          background: active ? 'var(--color-gold)' : 'transparent',
+                          color: active ? 'var(--color-forest)' : 'var(--color-cream)',
+                          border: active
+                            ? '1px solid var(--color-gold)'
+                            : '1px solid rgba(255,239,179,0.28)',
+                        }}
+                      >
+                        {l}
+                      </Link>
+                    )
+                  })}
+                </div>
+
+                {/* primary nav — large, airy, Cormorant headings */}
+                <nav className="flex flex-col">
+                  {linkKeys.map((key, i) => (
+                    <motion.div
+                      key={key}
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 8 }}
+                      transition={{ duration: 0.45, delay: 0.1 + i * 0.07, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      {l}
-                    </Link>
-                    {idx < LANGS.length - 1 && <span className="text-white/30">·</span>}
-                  </span>
-                ))}
-              </motion.div>
-            </div>
-          </motion.div>
+                      <Link
+                        to={`${prefix}/${key}`}
+                        className="flex items-center text-[2rem] leading-none tracking-wide"
+                        style={{
+                          fontFamily: 'var(--font-display)',
+                          color: 'var(--color-cream)',
+                          minHeight: '60px',
+                          borderBottom:
+                            i < linkKeys.length - 1
+                              ? '1px solid rgba(255,239,179,0.1)'
+                              : 'none',
+                        }}
+                      >
+                        {t(`nav.${key}`)}
+                      </Link>
+                    </motion.div>
+                  ))}
+                </nav>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

@@ -133,7 +133,7 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 0.85, y: 0 }}
               transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
-              className="mb-7 flex items-center gap-4 text-[11px] uppercase tracking-[0.32em]"
+              className="mb-10 md:mb-12 flex items-center gap-4 text-[11px] uppercase tracking-[0.32em]"
               style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-body)' }}
             >
               <span className="block h-px w-12" style={{ background: 'var(--color-gold)' }} />
