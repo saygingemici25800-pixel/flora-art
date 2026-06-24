@@ -8,6 +8,7 @@ import { useSEO } from '../hooks/useSEO'
 import ProductMotif from '../components/ui/ProductMotif'
 import ProductCard from '../components/ui/ProductCard'
 import TiltCard from '../components/ui/TiltCard'
+import { MagneticButton } from '../components/ui/magnetic-button'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -503,21 +504,38 @@ function ProductDetailContent({ product, similar, prefix, addItem, t }: ContentP
               >
                 {t('product.similarTitle')}
               </h2>
-              <Link
-                to={prefix || '/'}
-                className="back-to-collection group inline-flex w-full items-center justify-center gap-2 px-7 py-3 text-[12px] tracking-[0.2em] uppercase transition-colors duration-300 sm:w-auto"
-                style={{
-                  background: 'transparent',
-                  color: 'var(--color-forest)',
-                  border: '1px solid var(--color-gold)',
-                  fontFamily: 'var(--font-body)',
-                }}
-              >
-                <span>{t('product.backToCollection')}</span>
-                <span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-1">
-                  →
-                </span>
-              </Link>
+              <MagneticButton distance={0.4}>
+                <Link
+                  to={prefix || '/'}
+                  className="back-to-collection group inline-flex w-full items-center justify-center gap-2.5 rounded-full px-7 py-4 text-sm tracking-[0.22em] uppercase transition-colors duration-300 sm:w-auto"
+                  style={{
+                    background: 'transparent',
+                    color: 'var(--color-forest)',
+                    border: '1.5px solid var(--color-gold)',
+                    fontFamily: 'var(--font-body)',
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex transition-transform duration-300 group-hover:-translate-x-1"
+                  >
+                    <svg
+                      width="17"
+                      height="17"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="19" y1="12" x2="5" y2="12" />
+                      <polyline points="12 19 5 12 12 5" />
+                    </svg>
+                  </span>
+                  <span>{t('product.backToCollection')}</span>
+                </Link>
+              </MagneticButton>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-8 md:gap-y-16">
               {similar.map((p, i) => (
