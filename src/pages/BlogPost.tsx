@@ -55,65 +55,79 @@ function BlogPostContent({
   return (
     <>
       {/* Hero — full-bleed image under a forest gradient (keeps the navbar legible) */}
-      <section className="relative w-full overflow-hidden" style={{ minHeight: '58vh' }}>
+      <section
+        className="relative w-full overflow-hidden"
+        style={{ minHeight: '46vh' }}
+      >
         <img
           src={post.heroImage}
           alt={post.title[lang]}
           className="absolute inset-0 h-full w-full object-cover"
         />
+        {/* Top-weighted forest gradient keeps the fixed navbar legible over the image. */}
         <div
           aria-hidden="true"
           className="absolute inset-0"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(1,62,55,0.82) 0%, rgba(1,62,55,0.20) 38%, rgba(1,62,55,0.72) 100%)',
+              'linear-gradient(to bottom, rgba(1,62,55,0.72) 0%, rgba(1,62,55,0.12) 45%, rgba(1,62,55,0) 100%)',
           }}
         />
-        <div className="relative z-[2] mx-auto flex min-h-[58vh] max-w-[1100px] flex-col justify-end px-6 md:px-10 pt-[120px] md:pt-[140px] pb-12 md:pb-16">
+      </section>
+
+      {/* Article — centered reading column */}
+      <section className="relative w-full" style={{ background: 'var(--color-cream)' }}>
+        <article className="mx-auto max-w-3xl px-6 lg:px-8 py-12 md:py-20">
           <nav
             aria-label="Breadcrumb"
             className="mb-5 flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.25em]"
-            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-gold)' }}
+            style={{ fontFamily: 'var(--font-body)', color: 'var(--color-bronze)' }}
           >
-            <Link to={prefix || '/'} className="opacity-85 transition-opacity hover:opacity-100">
+            <Link to={prefix || '/'} className="transition-colors hover:text-[var(--color-gold)]">
               {t('shop.breadcrumbHome')}
             </Link>
-            <span aria-hidden="true" style={{ opacity: 0.55 }}>·</span>
-            <Link to={`${prefix}/blog`} className="opacity-85 transition-opacity hover:opacity-100">
+            <span aria-hidden="true" style={{ opacity: 0.5 }}>·</span>
+            <Link to={`${prefix}/blog`} className="transition-colors hover:text-[var(--color-gold)]">
               {t('blog.title')}
             </Link>
           </nav>
 
           <p
-            className="mb-3 text-[0.72rem] uppercase tracking-[0.32em]"
-            style={{ color: 'var(--color-gold)', fontFamily: 'var(--font-display)', fontVariant: 'small-caps' }}
+            className="mb-4 text-[0.72rem] uppercase tracking-[0.32em]"
+            style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-display)', fontVariant: 'small-caps' }}
           >
             {t(`blog.categories.${post.category}`)}
           </p>
 
+          {/* H1 — forest→gold gradient accent so the flower/topic title stands out */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE }}
+            transition={{ duration: 0.7, ease: EASE }}
             className="italic"
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.4rem, 6vw, 4.5rem)',
-              color: 'var(--color-cream)',
+              fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
               letterSpacing: '-0.02em',
-              lineHeight: 1.02,
-              maxWidth: '20ch',
+              lineHeight: 1.05,
+              backgroundImage:
+                'linear-gradient(92deg, var(--color-forest) 0%, var(--color-forest) 55%, var(--color-bronze) 80%, var(--color-gold) 100%)',
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent',
             }}
           >
             {post.title[lang]}
           </motion.h1>
-        </div>
-      </section>
 
-      {/* Body */}
-      <section className="relative w-full" style={{ background: 'var(--color-cream)' }}>
-        <div className="mx-auto max-w-[1100px] px-6 md:px-10 py-14 md:py-20">
-          <div className="mx-auto flex max-w-[68ch] flex-col gap-6">
+          {/* Gold accent + clear separation between the title block and the body */}
+          <span
+            aria-hidden="true"
+            className="mt-6 mb-8 block h-px w-16 lg:mb-10"
+            style={{ background: 'var(--color-gold)' }}
+          />
+
+          <div className="flex flex-col gap-6">
             {post.body[lang].map((paragraph, i) => (
               <p
                 key={i}
@@ -124,7 +138,7 @@ function BlogPostContent({
               </p>
             ))}
           </div>
-        </div>
+        </article>
       </section>
 
       {/* Related products */}
@@ -160,7 +174,7 @@ function BlogPostContent({
         <div className="mx-auto max-w-[1100px] px-6 md:px-10 pb-20 md:pb-28 text-center">
           <Link
             to={`${prefix}/blog`}
-            className="back-to-blog group inline-flex items-center justify-center gap-2 rounded-full px-8 py-4 text-sm uppercase tracking-[0.22em] transition-colors duration-300"
+            className="back-to-blog group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-4 text-base uppercase tracking-[0.22em] transition-colors duration-300"
             style={{
               background: 'transparent',
               color: 'var(--color-forest)',
