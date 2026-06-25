@@ -693,6 +693,201 @@ export const BLOG_POSTS: BlogPost[] = [
       ],
     },
   },
+
+  /* ── 18 · Antoryum ────────────────────────────────────────────── */
+  {
+    slug: 'antoryum',
+    category: 'bitki',
+    relatedKeywords: ['Antoryum', 'AntORyum'],
+    relatedCollection: 'plant',
+    heroImage: '/images/products/pexels/antoryum.webp',
+    title: {
+      tr: 'Antoryum: Misafirperverliğin ve Mutluluğun Bitkisi',
+      en: 'Anthurium: The Plant of Hospitality and Happiness',
+      ru: 'Антуриум: растение гостеприимства и счастья',
+    },
+    metaDescription: {
+      tr: "Antoryum misafirperverliği, mutluluğu ve bolluğu simgeleyen şık bir saksı bitkisidir. Antoryum bakımı ve Fethiye'de antoryum Flora Art'ta.",
+      en: 'Anthurium is a stylish potted plant symbolizing hospitality, happiness and abundance. Anthurium care and anthurium in Fethiye at Flora Art.',
+      ru: 'Антуриум — стильное горшечное растение, символизирующее гостеприимство, счастье и изобилие. Уход за антуриумом в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Antoryum, parlak kırmızı yaprakları ve zarif duruşuyla bir mekânı anında canlandıran şık bir saksı bitkisidir. Misafirperverliği, mutluluğu ve bolluğu simgeleyen antoryum, hem ev hem de ofis için ideal bir yeşil dosttur. Fethiye'de bir antoryum, uzun ömürlü ve bakımı kolay bir armağan sunar.",
+        'Antoryum çiçeği kalp şeklini andıran yaprağıyla sevgiyi ve sıcak duyguları da çağrıştırır. Bu yüzden bir açılış hediyesi, ev hediyesi ya da sevdiklerinize uzun ömürlü bir jest olarak antoryum mükemmel bir seçimdir.',
+        'Antoryum bakımı kolaydır; parlak ama dolaylı ışık sever, toprağı nemli tutulmalı ancak aşırı sulanmamalıdır. Yapraklarını ara sıra silerek parlaklığını koruyabilir, antoryumunuzun aylarca canlı kalmasını sağlayabilirsiniz.',
+        "Flora Art olarak Fethiye'de en sağlıklı antoryum bitkilerini özenle seçiyoruz. Antoryum aranjmanlarımız, hem şık bir dekor hem de uzun ömürlü bir sevgi armağanı olarak öne çıkar.",
+      ],
+      en: [
+        'The anthurium, with its glossy red spathes and elegant presence, is a stylish potted plant that instantly brightens a space. Symbolizing hospitality, happiness and abundance, the anthurium is an ideal green companion for both home and office. In Fethiye, an anthurium offers a long-lasting and easy-care gift.',
+        'The anthurium, with its heart-shaped spathe, also evokes love and warm emotions. This makes the anthurium a perfect choice as an opening gift, a housewarming gift, or a long-lasting gesture for your loved ones.',
+        'Caring for the anthurium is easy; it loves bright but indirect light, and its soil should be kept moist but not overwatered. By occasionally wiping its leaves you can maintain its shine and keep your anthurium alive for months.',
+        'At Flora Art, we carefully select the healthiest anthurium plants in Fethiye. Our anthurium arrangements stand out as both a stylish decoration and a long-lasting gift of love.',
+      ],
+      ru: [
+        'Антуриум со своими глянцевыми красными покрывалами и элегантным видом — стильное горшечное растение, которое мгновенно оживляет пространство. Символизируя гостеприимство, счастье и изобилие, антуриум — идеальный зелёный спутник как для дома, так и для офиса. В Фетхие антуриум — это долговечный и неприхотливый подарок.',
+        'Антуриум со своим покрывалом в форме сердца также напоминает о любви и тёплых чувствах. Это делает антуриум прекрасным выбором в качестве подарка на открытие, новоселье или долговечного жеста для близких.',
+        'Уход за антуриумом прост: он любит яркий, но рассеянный свет, а его почву следует держать влажной, но не переувлажнять. Периодически протирая листья, вы можете сохранить их блеск и поддерживать жизнь антуриума месяцами.',
+        'В Flora Art мы тщательно отбираем самые здоровые растения антуриума в Фетхие. Наши композиции с антуриумом выделяются как стильный декор и долговечный подарок любви.',
+      ],
+    },
+  },
+
+  /* ── 19 · Bonsai ──────────────────────────────────────────────── */
+  {
+    slug: 'bonsai',
+    category: 'bitki',
+    relatedKeywords: ['Bonsai'],
+    relatedCollection: 'plant',
+    heroImage: '/images/products/pexels/ficus-bonsai.webp',
+    title: {
+      tr: 'Bonsai: Sabrın ve Huzurun Minyatür Sanatı',
+      en: 'Bonsai: The Miniature Art of Patience and Peace',
+      ru: 'Бонсай: миниатюрное искусство терпения и покоя',
+    },
+    metaDescription: {
+      tr: "Bonsai sabrı, huzuru ve doğayla uyumu simgeleyen minyatür bir ağaçtır. Bonsai bakımı ve Fethiye'de bonsai Flora Art'ta.",
+      en: 'Bonsai is a miniature tree symbolizing patience, peace and harmony with nature. Bonsai care and bonsai in Fethiye at Flora Art.',
+      ru: 'Бонсай — миниатюрное дерево, символизирующее терпение, покой и гармонию с природой. Уход за бонсай в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Bonsai, yüzyıllar öncesine dayanan köklü bir sanatın ürünü olan minyatür bir ağaçtır. Sabrı, huzuru ve doğayla uyumu simgeleyen bonsai, bir mekâna sakinlik ve denge katar. Fethiye'de bir bonsai, sıradan bir bitkiden çok daha anlamlı, kalıcı bir armağandır.",
+        'Bonsai hediye etmek, karşınızdaki kişiye saygı, dileklerinizde kalıcılık ve içsel huzur dilemek anlamına gelir. Bu yüzden bonsai, bir iş açılışı, terfi ya da özel bir kutlama için zarif ve anlamlı bir seçimdir.',
+        'Bonsai bakımı özen ister; düzenli sulama, doğru ışık ve ara sıra budama ile bonsai ağacınız yıllarca yaşayabilir. Toprağını kurutmadan nemli tutmak ve dolaylı ışıkta bulundurmak bonsainin sağlığı için önemlidir.',
+        "Flora Art olarak Fethiye'de özenle yetiştirilmiş sağlıklı bonsai ağaçları sunuyoruz. Bonsai koleksiyonumuz, huzur ve zarafeti bir arada arayanlar için ideal bir armağandır.",
+      ],
+      en: [
+        'Bonsai is a miniature tree, the product of a deep-rooted art dating back centuries. Symbolizing patience, peace and harmony with nature, bonsai brings calm and balance to a space. In Fethiye, a bonsai is a far more meaningful and lasting gift than an ordinary plant.',
+        'Gifting a bonsai means wishing the recipient respect, permanence in your good wishes, and inner peace. This makes bonsai an elegant and meaningful choice for a business opening, a promotion or a special celebration.',
+        "Bonsai care requires attention; with regular watering, proper light and occasional pruning, your bonsai tree can live for years. Keeping its soil moist without drying out and placing it in indirect light is important for the bonsai's health.",
+        'At Flora Art, we offer healthy, carefully cultivated bonsai trees in Fethiye. Our bonsai collection is an ideal gift for those seeking peace and elegance together.',
+      ],
+      ru: [
+        'Бонсай — миниатюрное дерево, плод глубоко укоренившегося искусства, восходящего к векам. Символизируя терпение, покой и гармонию с природой, бонсай привносит в пространство спокойствие и равновесие. В Фетхие бонсай — гораздо более значимый и долговечный подарок, чем обычное растение.',
+        'Подарить бонсай — значит пожелать человеку уважения, постоянства в ваших добрых пожеланиях и внутреннего покоя. Это делает бонсай элегантным и значимым выбором для открытия бизнеса, повышения или особого торжества.',
+        'Уход за бонсай требует внимания: при регулярном поливе, правильном освещении и периодической обрезке ваше дерево бонсай может прожить годы. Поддерживать почву влажной, не пересушивая, и держать его при рассеянном свете важно для здоровья бонсай.',
+        'В Flora Art мы предлагаем здоровые, бережно выращенные деревья бонсай в Фетхие. Наша коллекция бонсай — идеальный подарок для тех, кто ищет покой и элегантность одновременно.',
+      ],
+    },
+  },
+
+  /* ── 20 · Sukulent & Kaktüs ───────────────────────────────────── */
+  {
+    slug: 'sukulent-kaktus',
+    category: 'bitki',
+    relatedKeywords: ['Sukulent', 'Kaktüs'],
+    relatedCollection: 'plant',
+    heroImage: '/images/products/pexels/kaktus-bahcesi.webp',
+    title: {
+      tr: 'Sukulent ve Kaktüs: Dayanıklılığın Minimal Güzelliği',
+      en: 'Succulents and Cacti: The Minimal Beauty of Resilience',
+      ru: 'Суккуленты и кактусы: минималистичная красота стойкости',
+    },
+    metaDescription: {
+      tr: "Sukulent ve kaktüs dayanıklılığı, sadeliği ve modern estetiği simgeler. Sukulent bakımı ve Fethiye'de kaktüs Flora Art'ta.",
+      en: 'Succulents and cacti symbolize resilience, simplicity and modern aesthetics. Succulent care and cacti in Fethiye at Flora Art.',
+      ru: 'Суккуленты и кактусы символизируют стойкость, простоту и современную эстетику. Уход за суккулентами в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Sukulent ve kaktüs, dayanıklı yapıları ve minimal güzellikleriyle modern dekorların vazgeçilmezidir. Az suyla yaşayabilen bu bitkiler; gücü, dayanıklılığı ve sade zarafeti simgeler. Fethiye'de bir sukulent ya da kaktüs, bakımı en kolay ve en uzun ömürlü yeşil armağanlardandır.",
+        "Sukulent ve kaktüs, 'her koşulda yanındayım' mesajını taşıyan anlamlı bitkilerdir. Bir öğrenciye, yoğun çalışan bir sevdiğinize ya da bitki bakmaya yeni başlayan birine sukulent hediye etmek hem şık hem de pratik bir jesttir.",
+        'Sukulent ve kaktüs bakımı oldukça kolaydır; bol güneş ister ve çok az sulama gerektirir. Toprağı tamamen kuruyunca sulamak, bu bitkilerin uzun yıllar sağlıklı kalmasını sağlar; fazla su en büyük düşmanlarıdır.',
+        "Flora Art olarak Fethiye'de şık saksılarda sukulent ve kaktüs aranjmanları hazırlıyoruz. Minimal ve modern koleksiyonumuz, hem dekoratif hem de uzun ömürlü bir hediye arayanlar için idealdir.",
+      ],
+      en: [
+        'Succulents and cacti, with their resilient structures and minimal beauty, are indispensable to modern decor. These plants, able to live on little water, symbolize strength, resilience and simple elegance. In Fethiye, a succulent or cactus is among the easiest-care and longest-lasting green gifts.',
+        "Succulents and cacti are meaningful plants that carry the message 'I am with you under any condition.' Gifting a succulent to a student, a hard-working loved one, or someone new to caring for plants is both a stylish and practical gesture.",
+        'Caring for succulents and cacti is quite easy; they need plenty of sun and very little watering. Watering only when the soil is completely dry keeps these plants healthy for many years; too much water is their greatest enemy.',
+        'At Flora Art, we prepare succulent and cactus arrangements in stylish pots in Fethiye. Our minimal and modern collection is ideal for those seeking a gift that is both decorative and long-lasting.',
+      ],
+      ru: [
+        'Суккуленты и кактусы со своими стойкими структурами и минималистичной красотой незаменимы в современном декоре. Эти растения, способные жить при малом количестве воды, символизируют силу, стойкость и простую элегантность. В Фетхие суккулент или кактус — один из самых неприхотливых и долговечных зелёных подарков.',
+        'Суккуленты и кактусы — значимые растения, несущие послание «я с тобой при любых обстоятельствах». Подарить суккулент студенту, много работающему близкому человеку или тому, кто только начинает ухаживать за растениями, — это стильный и практичный жест.',
+        'Уход за суккулентами и кактусами довольно прост: им нужно много солнца и совсем немного полива. Полив только тогда, когда почва полностью высохла, сохраняет эти растения здоровыми долгие годы; избыток воды — их злейший враг.',
+        'В Flora Art мы создаём композиции из суккулентов и кактусов в стильных горшках в Фетхие. Наша минималистичная и современная коллекция идеальна для тех, кто ищет подарок одновременно декоративный и долговечный.',
+      ],
+    },
+  },
+
+  /* ── 21 · Areka Palmiyesi ─────────────────────────────────────── */
+  {
+    slug: 'areka-palmiyesi',
+    category: 'bitki',
+    relatedKeywords: ['Areka', 'Palmiye'],
+    relatedCollection: 'plant',
+    heroImage: '/images/products/pexels/areka-palmiyesi.webp',
+    title: {
+      tr: 'Areka Palmiyesi: Tropik Ferahlığın Yeşil Dokunuşu',
+      en: 'Areca Palm: The Green Touch of Tropical Freshness',
+      ru: 'Арековая пальма: зелёный штрих тропической свежести',
+    },
+    metaDescription: {
+      tr: "Areka palmiyesi ferahlığı, bolluğu ve doğal havayı simgeleyen şık bir iç mekân bitkisidir. Areka palmiyesi bakımı Fethiye'de Flora Art'ta.",
+      en: 'The areca palm is a stylish indoor plant symbolizing freshness, abundance and natural air. Areca palm care in Fethiye at Flora Art.',
+      ru: 'Арековая пальма — стильное комнатное растение, символизирующее свежесть, изобилие и природную атмосферу. Уход за арековой пальмой в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Areka palmiyesi, zarif yaprakları ve tropik duruşuyla bir mekâna ferahlık ve doğallık katan şık bir iç mekân bitkisidir. Bolluğu, huzuru ve canlılığı simgeleyen areka palmiyesi, hem evler hem de ofisler için ideal bir yeşil seçimdir. Fethiye'de bir areka palmiyesi, mekânınıza tropik bir nefes getirir.",
+        'Areka palmiyesi havayı temizleyen özelliğiyle de bilinir; bu yüzden sağlıklı bir yaşam alanı arayanlar için anlamlı bir hediyedir. Bir açılış, yeni ev ya da ofis hediyesi olarak areka palmiyesi hem şık hem de faydalı bir jesttir.',
+        'Areka palmiyesi bakımı kolaydır; parlak dolaylı ışık sever ve toprağının hafif nemli kalmasını ister. Yapraklarını ara sıra nemlendirmek, areka palmiyenizin canlı ve sağlıklı kalmasını sağlar.',
+        "Flora Art olarak Fethiye'de sağlıklı ve gür areka palmiyeleri sunuyoruz. Areka palmiyesi koleksiyonumuz, mekânlara doğal bir ferahlık katmak isteyenler için ideal bir armağandır.",
+      ],
+      en: [
+        'The areca palm, with its elegant fronds and tropical presence, is a stylish indoor plant that brings freshness and naturalness to a space. Symbolizing abundance, peace and vitality, the areca palm is an ideal green choice for both homes and offices. In Fethiye, an areca palm brings a tropical breath to your space.',
+        'The areca palm is also known for its air-purifying quality, making it a meaningful gift for those seeking a healthy living space. As an opening, new home or office gift, the areca palm is both a stylish and useful gesture.',
+        'Caring for the areca palm is easy; it loves bright indirect light and likes its soil to stay slightly moist. Occasionally misting its leaves keeps your areca palm lively and healthy.',
+        'At Flora Art, we offer healthy and lush areca palms in Fethiye. Our areca palm collection is an ideal gift for those who want to add a natural freshness to their spaces.',
+      ],
+      ru: [
+        'Арековая пальма со своими элегантными листьями и тропическим видом — стильное комнатное растение, которое привносит в пространство свежесть и естественность. Символизируя изобилие, покой и жизненную силу, арековая пальма — идеальный зелёный выбор как для дома, так и для офиса. В Фетхие арековая пальма приносит в ваше пространство тропическое дыхание.',
+        'Арековая пальма также известна своим свойством очищать воздух, что делает её значимым подарком для тех, кто ищет здоровое жизненное пространство. В качестве подарка на открытие, новоселье или для офиса арековая пальма — это стильный и полезный жест.',
+        'Уход за арековой пальмой прост: она любит яркий рассеянный свет и предпочитает, чтобы её почва оставалась слегка влажной. Периодическое опрыскивание листьев сохраняет вашу арековую пальму живой и здоровой.',
+        'В Flora Art мы предлагаем здоровые и пышные арековые пальмы в Фетхие. Наша коллекция арековых пальм — идеальный подарок для тех, кто хочет добавить своему пространству естественной свежести.',
+      ],
+    },
+  },
+
+  /* ── 22 · Barış Çiçeği (Spathiphyllum) ────────────────────────── */
+  {
+    slug: 'baris-cicegi',
+    category: 'bitki',
+    relatedKeywords: ['Barış Çiçeği', 'Spathiphyllum', 'Spatifilyum'],
+    relatedCollection: 'plant',
+    heroImage: '/images/products/pexels/benekli-orkide-saksi.webp',
+    title: {
+      tr: 'Barış Çiçeği (Spathiphyllum): Huzurun ve Saflığın Bitkisi',
+      en: 'Peace Lily (Spathiphyllum): The Plant of Peace and Purity',
+      ru: 'Спатифиллум: растение мира и чистоты',
+    },
+    metaDescription: {
+      tr: "Barış çiçeği (spathiphyllum) huzuru, saflığı ve uyumu simgeleyen zarif bir saksı bitkisidir. Barış çiçeği bakımı Fethiye'de Flora Art'ta.",
+      en: 'The peace lily (spathiphyllum) is an elegant potted plant symbolizing peace, purity and harmony. Peace lily care in Fethiye at Flora Art.',
+      ru: 'Спатифиллум — изящное горшечное растение, символизирующее мир, чистоту и гармонию. Уход за спатифиллумом в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Barış çiçeği, beyaz zarif çiçekleri ve koyu yeşil yapraklarıyla huzurun ve saflığın simgesidir. Spathiphyllum olarak da bilinen bu zarif bitki; sükuneti, uyumu ve iyi niyeti anlatır. Fethiye'de bir barış çiçeği, bir mekâna hem zarafet hem de dinginlik katar.",
+        'Barış çiçeği adından da anlaşılacağı gibi huzur ve uzlaşma diler; bu yüzden bir özrü iletmek, geçmiş olsun demek ya da içten iyi dilekler sunmak için anlamlı bir hediyedir. Ev ve ofis için sağlıklı ve şık bir yeşil dosttur.',
+        "Barış çiçeği bakımı kolaydır; dolaylı ışık sever ve toprağının nemli kalmasını ister. Yaprakları sarktığında suya ihtiyacı olduğunu anlar, böylece barış çiçeğinizin bakımını kolayca takip edebilirsiniz.",
+        "Flora Art olarak Fethiye'de sağlıklı barış çiçeği bitkileri sunuyoruz. Barış çiçeği koleksiyonumuz, huzur ve saflığı bir armağanla iletmek isteyenler için ideal bir seçimdir.",
+      ],
+      en: [
+        'The peace lily, with its elegant white blooms and dark green leaves, is the symbol of peace and purity. Also known as spathiphyllum, this graceful plant expresses calm, harmony and goodwill. In Fethiye, a peace lily brings both elegance and serenity to a space.',
+        'As its name suggests, the peace lily wishes peace and reconciliation, making it a meaningful gift for conveying an apology, wishing a speedy recovery, or offering heartfelt good wishes. It is a healthy and stylish green companion for home and office.',
+        "Caring for the peace lily is easy; it loves indirect light and likes its soil to stay moist. When its leaves droop, you know it needs water, so you can easily keep track of your peace lily's care.",
+        'At Flora Art, we offer healthy peace lily plants in Fethiye. Our peace lily collection is an ideal choice for those who want to convey peace and purity with a gift.',
+      ],
+      ru: [
+        'Спатифиллум со своими изящными белыми цветками и тёмно-зелёными листьями — символ мира и чистоты. Это грациозное растение выражает спокойствие, гармонию и доброжелательность. В Фетхие спатифиллум привносит в пространство и элегантность, и безмятежность.',
+        'Как следует из его значения, спатифиллум желает мира и примирения, что делает его значимым подарком, чтобы выразить извинение, пожелать скорейшего выздоровления или преподнести искренние добрые пожелания. Это здоровый и стильный зелёный спутник для дома и офиса.',
+        'Уход за спатифиллумом прост: он любит рассеянный свет и предпочитает, чтобы почва оставалась влажной. Когда его листья опускаются, вы понимаете, что ему нужна вода, поэтому за уходом легко следить.',
+        'В Flora Art мы предлагаем здоровые растения спатифиллума в Фетхие. Наша коллекция спатифиллума — идеальный выбор для тех, кто хочет передать мир и чистоту в подарок.',
+      ],
+    },
+  },
 ]
 
 /** Find a post by its slug. */
