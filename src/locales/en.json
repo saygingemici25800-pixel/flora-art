@@ -5,7 +5,22 @@
     "delivery": "Delivery",
     "about": "About",
     "contact": "Contact",
+    "blog": "Blog",
     "cart": "Cart"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "The language of flowers, plant care and inspiration for special days. The Flora Art Fethiye journal.",
+    "metaDescription": "Flower meanings, care guides and inspiring stories — the Flora Art Fethiye blog.",
+    "relatedProducts": "Related Products",
+    "allPosts": "All Blog Posts",
+    "readMore": "Read More",
+    "categories": {
+      "all": "All",
+      "cicek": "Flowers",
+      "bitki": "Plants",
+      "rehber": "Guides"
+    }
   },
   "hero": {
     "headline": "The Art\nof Flowers.",

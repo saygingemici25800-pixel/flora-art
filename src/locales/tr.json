@@ -5,7 +5,22 @@
     "delivery": "Teslimat",
     "about": "Hakkımızda",
     "contact": "İletişim",
+    "blog": "Blog",
     "cart": "Sepet"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "Çiçeklerin dili, bitki bakımı ve özel günler için ilham. Flora Art Fethiye günlüğü.",
+    "metaDescription": "Çiçek anlamları, bakım rehberleri ve ilham veren yazılar — Flora Art Fethiye blog.",
+    "relatedProducts": "İlgili Ürünler",
+    "allPosts": "Tüm Blog Yazıları",
+    "readMore": "Devamını Oku",
+    "categories": {
+      "all": "Tümü",
+      "cicek": "Çiçekler",
+      "bitki": "Bitkiler",
+      "rehber": "Rehberler"
+    }
   },
   "hero": {
     "headline": "Çiçeğin\nSanatı.",

@@ -5,7 +5,22 @@
     "delivery": "Доставка",
     "about": "О нас",
     "contact": "Контакты",
+    "blog": "Блог",
     "cart": "Корзина"
+  },
+  "blog": {
+    "title": "Блог",
+    "intro": "Язык цветов, уход за растениями и вдохновение для особых дней. Журнал Flora Art Fethiye.",
+    "metaDescription": "Значения цветов, руководства по уходу и вдохновляющие статьи — блог Flora Art Fethiye.",
+    "relatedProducts": "Похожие товары",
+    "allPosts": "Все статьи блога",
+    "readMore": "Читать далее",
+    "categories": {
+      "all": "Все",
+      "cicek": "Цветы",
+      "bitki": "Растения",
+      "rehber": "Гиды"
+    }
   },
   "hero": {
     "headline": "Искусство\nЦветов.",

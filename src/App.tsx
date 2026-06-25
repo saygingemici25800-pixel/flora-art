@@ -16,6 +16,8 @@ const Delivery = lazy(() => import('./pages/Delivery'))
 const About = lazy(() => import('./pages/About'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Legal = lazy(() => import('./pages/Legal'))
+const BlogList = lazy(() => import('./pages/BlogList'))
+const BlogPost = lazy(() => import('./pages/BlogPost'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 // The admin panel is a self-contained app, lazily loaded so none of it ships
@@ -52,6 +54,8 @@ function Storefront() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/kvkk" element={<Legal />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success" element={<OrderSuccess />} />
           <Route path="/en/checkout" element={<Checkout />} />
@@ -66,6 +70,8 @@ function Storefront() {
           <Route path="/en/about" element={<About />} />
           <Route path="/en/contact" element={<Contact />} />
           <Route path="/en/kvkk" element={<Legal />} />
+          <Route path="/en/blog" element={<BlogList />} />
+          <Route path="/en/blog/:slug" element={<BlogPost />} />
 
           <Route path="/ru" element={<Home />} />
           <Route path="/ru/product/:id" element={<ProductDetail />} />
@@ -74,6 +80,8 @@ function Storefront() {
           <Route path="/ru/about" element={<About />} />
           <Route path="/ru/contact" element={<Contact />} />
           <Route path="/ru/kvkk" element={<Legal />} />
+          <Route path="/ru/blog" element={<BlogList />} />
+          <Route path="/ru/blog/:slug" element={<BlogPost />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
