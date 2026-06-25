@@ -225,6 +225,240 @@ export const BLOG_POSTS: BlogPost[] = [
       ],
     },
   },
+
+  /* ── 6 · Pembe Gül ────────────────────────────────────────────── */
+  {
+    slug: 'pembe-gul',
+    category: 'cicek',
+    relatedKeywords: ['Pembe Gül'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/pembe-gul-buket-keten.webp',
+    title: {
+      tr: 'Pembe Gül: Zarafetin ve Minnetin İfadesi',
+      en: 'Pink Roses: An Expression of Grace and Gratitude',
+      ru: 'Розовые розы: выражение изящества и благодарности',
+    },
+    metaDescription: {
+      tr: "Pembe gül zarafeti, minneti ve nazik sevgiyi anlatır. Pembe gül buketi anlamı ve Fethiye'de pembe gül siparişi Flora Art'ta.",
+      en: 'Pink roses express grace, gratitude and gentle love. Meaning of pink rose bouquets and pink rose delivery in Fethiye at Flora Art.',
+      ru: 'Розовые розы выражают изящество, благодарность и нежную любовь. Значение букетов розовых роз и доставка в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Pembe gül, zarafetin ve inceliğin en güzel ifadesidir. Kırmızı gülün tutkusu ile beyaz gülün saflığı arasında duran pembe gül, nazik bir sevgiyi, hayranlığı ve minnettarlığı anlatır. Fethiye'de sevdiklerinize bir pembe gül buketi göndermek, sözcüklere dökemediğiniz zarif duyguları aktarmanın en güzel yoludur.",
+        "Pembe gülün tonları da farklı anlamlar taşır. Açık pembe gül minnettarlık ve hayranlığı, koyu pembe gül ise teşekkürü ve takdiri simgeler. Anneler Günü'nden doğum günlerine, yeni bir başlangıcı kutlamaktan bir teşekkürü iletmeye kadar pembe gül her nazik duyguya eşlik eder.",
+        "Pembe gül bakımı diğer güllerde olduğu gibi özen ister. Saplarını çapraz kesin, vazo suyunu serin tutun ve doğrudan güneşten uzak bir yere yerleştirin. Bu küçük dokunuşlarla pembe güllerinizin tazeliği günlerce sürer.",
+        "Flora Art olarak Fethiye'de en taze pembe gülleri özenle seçiyor, zarif buketler halinde hazırlıyoruz. Pembe gül buketlerimiz, sevdiklerinize duyduğunuz nazik sevgiyi en şık biçimde ifade eder.",
+      ],
+      en: [
+        "The pink rose is one of the most beautiful expressions of grace and delicacy. Standing between the passion of the red rose and the purity of the white rose, the pink rose speaks of gentle love, admiration and gratitude. Sending a pink rose bouquet to your loved ones in Fethiye is a graceful way to convey the tender feelings that words cannot capture.",
+        "Different shades of the pink rose carry different meanings as well. A light pink rose symbolizes gratitude and admiration, while a deep pink rose represents thankfulness and appreciation. From Mother's Day to birthdays, from celebrating a new beginning to saying thank you, the pink rose accompanies every gentle emotion.",
+        "Caring for the pink rose requires the same attention as other roses. Cut the stems at an angle, keep the vase water cool, and place them away from direct sunlight. With these small touches, the freshness of your pink roses will last for days.",
+        "At Flora Art, we carefully select the freshest pink roses in Fethiye and arrange them into elegant bouquets. Our pink rose bouquets express the tender love you feel for your dear ones in the most stylish way.",
+      ],
+      ru: [
+        'Розовая роза — одно из самых прекрасных выражений изящества и нежности. Находясь между страстью красной розы и чистотой белой розы, розовая роза говорит о нежной любви, восхищении и благодарности. Отправить букет розовых роз близким в Фетхие — это изящный способ передать те тёплые чувства, которые невозможно выразить словами.',
+        'Разные оттенки розовой розы также несут разный смысл. Светло-розовая роза символизирует благодарность и восхищение, а тёмно-розовая роза выражает признательность и уважение. От Дня матери до дней рождения, от празднования нового начала до слов благодарности — розовая роза сопровождает каждое нежное чувство.',
+        'Уход за розовой розой требует такого же внимания, как и за другими розами. Подрезайте стебли под углом, держите воду в вазе прохладной и ставьте розы вдали от прямых солнечных лучей. Благодаря этим небольшим заботам свежесть ваших розовых роз сохранится надолго.',
+        'В Flora Art мы тщательно отбираем самые свежие розовые розы в Фетхие и составляем из них элегантные букеты. Наши букеты розовых роз самым стильным образом выражают нежную любовь к дорогим вам людям.',
+      ],
+    },
+  },
+
+  /* ── 7 · Beyaz Gül ────────────────────────────────────────────── */
+  {
+    slug: 'beyaz-gul',
+    category: 'cicek',
+    relatedKeywords: ['Beyaz Gül'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/beyaz-gul-vazo.webp',
+    title: {
+      tr: 'Beyaz Gül: Saflığın ve Yeni Başlangıçların Çiçeği',
+      en: 'White Roses: The Flower of Purity and New Beginnings',
+      ru: 'Белые розы: цветок чистоты и новых начинаний',
+    },
+    metaDescription: {
+      tr: "Beyaz gül saflığı, masumiyeti ve yeni başlangıçları simgeler. Beyaz gül buketi anlamı ve Fethiye'de beyaz gül Flora Art'ta.",
+      en: 'White roses symbolize purity, innocence and new beginnings. Meaning of white rose bouquets and white roses in Fethiye at Flora Art.',
+      ru: 'Белые розы символизируют чистоту, невинность и новые начинания. Значение букетов белых роз и белые розы в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Beyaz gül, saflığın ve masumiyetin en zarif simgesidir. Sade ama güçlü duruşuyla beyaz gül, yeni başlangıçları, içten saygıyı ve sonsuz sevgiyi anlatır. Fethiye'de bir beyaz gül buketi, düğünlerden anma törenlerine kadar en anlamlı anların vazgeçilmez çiçeğidir.",
+        'Beyaz gül çoğunlukla gelin buketlerinde tercih edilir, çünkü saflığı ve yeni bir hayatın başlangıcını temsil eder. Aynı zamanda bir özrü iletmek, huzur dilemek ya da derin saygı göstermek için de beyaz gül en doğru seçimdir.',
+        'Beyaz gül bakımında temizlik önemlidir; soluk yaprakları ayıklayın, saplarını çapraz kesin ve suyu düzenli değiştirin. Böylece beyaz güllerinizin lekesiz zarafeti uzun süre korunur.',
+        "Flora Art olarak Fethiye'de en taze beyaz gülleri seçip zarif aranjmanlar hazırlıyoruz. Beyaz gül buketlerimiz, saf ve içten duygularınızı en şık haliyle ifade eder.",
+      ],
+      en: [
+        'The white rose is the most elegant symbol of purity and innocence. With its simple yet powerful presence, the white rose speaks of new beginnings, sincere respect and everlasting love. In Fethiye, a white rose bouquet is the indispensable flower of the most meaningful moments, from weddings to memorial ceremonies.',
+        'The white rose is often chosen for bridal bouquets, as it represents purity and the start of a new life. It is also the perfect choice for conveying an apology, wishing peace, or showing deep respect with a white rose.',
+        'Cleanliness matters in white rose care; remove wilted petals, cut the stems at an angle and change the water regularly. This way, the flawless elegance of your white roses is preserved for a long time.',
+        'At Flora Art, we select the freshest white roses in Fethiye and prepare elegant arrangements. Our white rose bouquets express your pure and sincere feelings in the most stylish way.',
+      ],
+      ru: [
+        'Белая роза — самый элегантный символ чистоты и невинности. Своим простым, но сильным присутствием белая роза говорит о новых начинаниях, искреннем уважении и вечной любви. В Фетхие букет белых роз — незаменимый цветок самых значимых моментов, от свадеб до памятных церемоний.',
+        'Белую розу часто выбирают для свадебных букетов, так как она олицетворяет чистоту и начало новой жизни. Белая роза также станет идеальным выбором, чтобы выразить извинения, пожелать мира или проявить глубокое уважение.',
+        'В уходе за белой розой важна чистота: удаляйте увядшие лепестки, подрезайте стебли под углом и регулярно меняйте воду. Так безупречная элегантность ваших белых роз сохранится надолго.',
+        'В Flora Art мы отбираем самые свежие белые розы в Фетхие и создаём элегантные композиции. Наши букеты белых роз самым стильным образом выражают ваши чистые и искренние чувства.',
+      ],
+    },
+  },
+
+  /* ── 8 · Gerbera ──────────────────────────────────────────────── */
+  {
+    slug: 'gerbera',
+    category: 'cicek',
+    relatedKeywords: ['Gerbera'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/pembe-gul-gerbera-buket.webp',
+    title: {
+      tr: 'Gerbera: Neşenin ve Canlılığın Çiçeği',
+      en: 'Gerbera: The Flower of Joy and Vitality',
+      ru: 'Гербера: цветок радости и жизненной силы',
+    },
+    metaDescription: {
+      tr: "Gerbera neşeyi, canlılığı ve mutluluğu simgeleyen rengârenk bir çiçektir. Gerbera buketi ve Fethiye'de gerbera siparişi Flora Art'ta.",
+      en: 'Gerbera is a colorful flower symbolizing joy, vitality and happiness. Gerbera bouquets and gerbera delivery in Fethiye at Flora Art.',
+      ru: 'Гербера — яркий цветок, символизирующий радость, жизненную силу и счастье. Букеты гербер и доставка в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Gerbera, canlı renkleri ve neşeli duruşuyla mutluluğun çiçeğidir. Sarısından kırmızısına, pembesinden turuncusuna kadar her tonu pozitif bir enerji yayan gerbera, sevdiklerinize moral ve neşe göndermenin en güzel yoludur. Fethiye'de bir gerbera buketi, gülümseme hediye etmek gibidir.",
+        "Gerbera masumiyeti, saflığı ve neşeyi simgeler. Doğum günleri, kutlamalar ve 'iyi ki varsın' demek istediğiniz her an için gerbera ideal bir seçimdir. Rengârenk gerbera buketleri, girdiği her ortama enerji katar.",
+        'Gerbera bakımı kolaydır ama dikkat ister; saplarının dik durması için temiz su ve doğru kesim önemlidir. Suyu sık değiştirip serin ortamda tutarsanız gerberalarınız uzun süre canlı kalır.',
+        "Flora Art olarak Fethiye'de en taze ve renkli gerberaları seçip neşeli buketler hazırlıyoruz. Gerbera aranjmanlarımız, sevdiklerinize mutluluğu en canlı renklerle ulaştırır.",
+      ],
+      en: [
+        'With its vivid colors and cheerful presence, the gerbera is the flower of happiness. From yellow to red, from pink to orange, every shade of the gerbera radiates positive energy, making it the loveliest way to send cheer to your loved ones. In Fethiye, a gerbera bouquet is like gifting a smile.',
+        "The gerbera symbolizes innocence, purity and joy. For birthdays, celebrations and every moment you want to say 'I'm glad you exist,' the gerbera is an ideal choice. Colorful gerbera bouquets bring energy to every space they enter.",
+        'The gerbera is easy to care for but needs attention; clean water and a proper cut are important to keep the stems upright. If you change the water often and keep them in a cool place, your gerberas will stay fresh for a long time.',
+        'At Flora Art, we select the freshest and most colorful gerberas in Fethiye and create cheerful bouquets. Our gerbera arrangements deliver happiness to your loved ones in the most vibrant colors.',
+      ],
+      ru: [
+        'Своими яркими красками и жизнерадостным видом гербера является цветком счастья. От жёлтого до красного, от розового до оранжевого — каждый оттенок герберы излучает позитивную энергию, что делает её прекраснейшим способом подарить радость близким. В Фетхие букет гербер — это словно подарить улыбку.',
+        'Гербера символизирует невинность, чистоту и радость. Для дней рождения, праздников и каждого момента, когда хочется сказать «как хорошо, что ты есть», гербера — идеальный выбор. Яркие букеты гербер наполняют энергией любое пространство.',
+        'Гербера неприхотлива, но требует внимания: для того чтобы стебли стояли прямо, важны чистая вода и правильный срез. Если часто менять воду и держать цветы в прохладе, ваши герберы долго останутся свежими.',
+        'В Flora Art мы выбираем самые свежие и яркие герберы в Фетхие и создаём жизнерадостные букеты. Наши композиции из гербер дарят вашим близким счастье в самых сочных красках.',
+      ],
+    },
+  },
+
+  /* ── 9 · Papatya ──────────────────────────────────────────────── */
+  {
+    slug: 'papatya',
+    category: 'cicek',
+    relatedKeywords: ['Papatya'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/luks-papatya-buket.webp',
+    title: {
+      tr: 'Papatya: Sadeliğin ve Masumiyetin Zarafeti',
+      en: 'Daisies: The Grace of Simplicity and Innocence',
+      ru: 'Ромашки: изящество простоты и невинности',
+    },
+    metaDescription: {
+      tr: "Papatya sadeliği, masumiyeti ve içtenliği simgeler. Papatya buketi anlamı ve Fethiye'de papatya siparişi Flora Art'ta.",
+      en: 'Daisies symbolize simplicity, innocence and sincerity. Meaning of daisy bouquets and daisy delivery in Fethiye at Flora Art.',
+      ru: 'Ромашки символизируют простоту, невинность и искренность. Значение букетов ромашек и доставка в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Papatya, sadeliğin içindeki zarafeti en iyi anlatan çiçektir. Beyaz yaprakları ve sarı kalbiyle papatya, masumiyeti, içtenliği ve saf sevgiyi simgeler. Fethiye'de bir papatya buketi, gösterişsiz ama derin duyguları aktarmanın en samimi yoludur.",
+        "Papatya çoğu zaman 'seviyor, sevmiyor' oyununun çiçeği olarak bilinir; bu da onu masum aşkın sembolü yapar. Bir arkadaşa, sevgiliye ya da anneye papatya göndermek, sade ve içten bir sevgi mesajı verir.",
+        'Papatya bakımı oldukça kolaydır; bol ve temiz su sever. Saplarını kesip suyunu düzenli değiştirdiğinizde papatyalarınız uzun süre taze ve dik kalır.',
+        "Flora Art olarak Fethiye'de en taze papatyaları seçip zarif buketler hazırlıyoruz. Papatya buketlerimiz, sade ve içten duygularınızı en doğal haliyle ifade eder.",
+      ],
+      en: [
+        'The daisy is the flower that best expresses the elegance found within simplicity. With its white petals and yellow heart, the daisy symbolizes innocence, sincerity and pure love. In Fethiye, a daisy bouquet is the most heartfelt way to convey modest yet deep emotions.',
+        "The daisy is often known as the flower of the 'loves me, loves me not' game, which makes it a symbol of innocent love. Sending a daisy to a friend, a sweetheart or a mother delivers a simple and sincere message of love.",
+        'Caring for the daisy is quite easy; it loves plenty of clean water. When you trim the stems and change the water regularly, your daisies stay fresh and upright for a long time.',
+        'At Flora Art, we select the freshest daisies in Fethiye and prepare elegant bouquets. Our daisy bouquets express your simple and sincere feelings in their most natural form.',
+      ],
+      ru: [
+        'Ромашка — цветок, который лучше всего выражает изящество, скрытое в простоте. Своими белыми лепестками и жёлтой сердцевиной ромашка символизирует невинность, искренность и чистую любовь. В Фетхие букет ромашек — самый душевный способ передать скромные, но глубокие чувства.',
+        'Ромашку часто называют цветком игры «любит — не любит», что делает её символом невинной любви. Подарить ромашку другу, любимому человеку или маме — значит передать простое и искреннее послание любви.',
+        'Уход за ромашкой довольно прост: она любит обилие чистой воды. Если подрезать стебли и регулярно менять воду, ваши ромашки надолго останутся свежими и будут стоять прямо.',
+        'В Flora Art мы выбираем самые свежие ромашки в Фетхие и составляем элегантные букеты. Наши букеты ромашек выражают ваши простые и искренние чувства в их самом естественном виде.',
+      ],
+    },
+  },
+
+  /* ── 10 · Karanfil ────────────────────────────────────────────── */
+  {
+    slug: 'karanfil',
+    category: 'cicek',
+    relatedKeywords: ['Karanfil'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/pembe-karanfil-buket.webp',
+    title: {
+      tr: 'Karanfil: Sevginin ve Saygının Köklü Çiçeği',
+      en: 'Carnations: The Timeless Flower of Love and Respect',
+      ru: 'Гвоздики: вечный цветок любви и уважения',
+    },
+    metaDescription: {
+      tr: "Karanfil sevgiyi, saygıyı ve hayranlığı simgeleyen köklü bir çiçektir. Karanfil buketi ve Fethiye'de karanfil siparişi Flora Art'ta.",
+      en: 'The carnation is a timeless flower symbolizing love, respect and admiration. Carnation bouquets and carnation delivery in Fethiye at Flora Art.',
+      ru: 'Гвоздика — вечный цветок, символизирующий любовь, уважение и восхищение. Букеты гвоздик и доставка в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Karanfil, köklü tarihi ve zengin anlamıyla en sevilen çiçeklerden biridir. Kıvrımlı yaprakları ve dayanıklı yapısıyla karanfil; sevgiyi, saygıyı ve hayranlığı simgeler. Fethiye'de bir karanfil buketi, hem zarif hem de uzun ömürlü bir armağandır.",
+        "Karanfilin her rengi farklı bir mesaj taşır. Kırmızı karanfil derin sevgiyi ve hayranlığı, pembe karanfil minnettarlığı, beyaz karanfil ise saf sevgi ve iyi şansı anlatır. Anneler Günü'nün de simgesi olan karanfil, sevgi dolu her ana yakışır.",
+        'Karanfil bakımı kolaydır ve uzun ömürlüdür; bu yüzden vazoda haftalarca taze kalabilir. Saplarını çapraz kesip suyunu düzenli değiştirdiğinizde karanfillerinizin tazeliği şaşırtıcı derecede uzun sürer.',
+        "Flora Art olarak Fethiye'de en taze karanfilleri seçip zarif buketler hazırlıyoruz. Karanfil aranjmanlarımız, sevginizi ve saygınızı uzun süre solmayan bir güzellikle ifade eder.",
+      ],
+      en: [
+        'With its deep history and rich meaning, the carnation is one of the most beloved flowers. With its ruffled petals and resilient structure, the carnation symbolizes love, respect and admiration. In Fethiye, a carnation bouquet is both an elegant and long-lasting gift.',
+        "Each color of the carnation carries a different message. A red carnation expresses deep love and admiration, a pink carnation gratitude, and a white carnation pure love and good luck. Also a symbol of Mother's Day, the carnation suits every moment full of love.",
+        'The carnation is easy to care for and long-lasting, so it can stay fresh in a vase for weeks. When you cut the stems at an angle and change the water regularly, the freshness of your carnations lasts surprisingly long.',
+        'At Flora Art, we select the freshest carnations in Fethiye and prepare elegant bouquets. Our carnation arrangements express your love and respect with a beauty that does not fade for a long time.',
+      ],
+      ru: [
+        'Благодаря своей глубокой истории и богатому значению гвоздика — один из самых любимых цветов. Своими волнистыми лепестками и стойкой структурой гвоздика символизирует любовь, уважение и восхищение. В Фетхие букет гвоздик — это одновременно элегантный и долговечный подарок.',
+        'Каждый цвет гвоздики несёт своё послание. Красная гвоздика выражает глубокую любовь и восхищение, розовая гвоздика — благодарность, а белая гвоздика — чистую любовь и удачу. Будучи также символом Дня матери, гвоздика подходит для каждого момента, наполненного любовью.',
+        'Гвоздика неприхотлива и долговечна, поэтому может стоять в вазе свежей неделями. Если подрезать стебли под углом и регулярно менять воду, свежесть ваших гвоздик сохраняется удивительно долго.',
+        'В Flora Art мы выбираем самые свежие гвоздики в Фетхие и составляем элегантные букеты. Наши композиции из гвоздик выражают вашу любовь и уважение красотой, которая долго не увядает.',
+      ],
+    },
+  },
+
+  /* ── 11 · Şakayık ─────────────────────────────────────────────── */
+  {
+    slug: 'sakayik',
+    category: 'cicek',
+    relatedKeywords: ['Şakayık'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/sakayik-ranunculus-buket.webp',
+    title: {
+      tr: 'Şakayık: Zarafetin ve Bolluğun Çiçeği',
+      en: 'Peonies: The Flower of Elegance and Abundance',
+      ru: 'Пионы: цветок элегантности и изобилия',
+    },
+    metaDescription: {
+      tr: "Şakayık zarafeti, romantizmi ve bolluğu simgeleyen lüks bir çiçektir. Şakayık buketi ve Fethiye'de şakayık siparişi Flora Art'ta.",
+      en: 'The peony is a luxurious flower symbolizing elegance, romance and abundance. Peony bouquets and peony delivery in Fethiye at Flora Art.',
+      ru: 'Пион — роскошный цветок, символизирующий элегантность, романтику и изобилие. Букеты пионов и доставка в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Şakayık, dolgun yaprakları ve büyüleyici kokusuyla çiçeklerin en zarif ve lüks olanlarından biridir. Romantizmi, bolluğu ve mutlu bir evliliği simgeleyen şakayık, özel anların gözdesidir. Fethiye'de bir şakayık buketi, zarafeti ve cömertliği bir arada sunar.",
+        'Şakayık özellikle düğünlerde ve nişanlarda tercih edilir, çünkü mutluluğu ve bereketli bir geleceği temsil eder. Romantik bir jest yapmak ya da birini özel hissettirmek istediğinizde şakayık kusursuz bir seçimdir.',
+        'Şakayık bakımında nazik olmak gerekir; tomurcukları açarken bol temiz su ister. Saplarını çapraz kesip serin bir ortamda tuttuğunuzda şakayıklarınız ihtişamla açar ve uzun süre taze kalır.',
+        "Flora Art olarak Fethiye'de en taze şakayıkları özenle seçip lüks buketler hazırlıyoruz. Şakayık aranjmanlarımız, zarafetinizi ve sevginizi en görkemli haliyle ifade eder.",
+      ],
+      en: [
+        'With its full petals and enchanting fragrance, the peony is one of the most elegant and luxurious of flowers. Symbolizing romance, abundance and a happy marriage, the peony is the favorite of special moments. In Fethiye, a peony bouquet offers elegance and generosity together.',
+        'The peony is especially preferred for weddings and engagements, as it represents happiness and a prosperous future. When you want to make a romantic gesture or make someone feel special, the peony is a flawless choice.',
+        'Caring for the peony requires gentleness; it needs plenty of clean water as the buds open. When you cut the stems at an angle and keep them in a cool place, your peonies bloom magnificently and stay fresh for a long time.',
+        'At Flora Art, we carefully select the freshest peonies in Fethiye and prepare luxurious bouquets. Our peony arrangements express your elegance and love in their most magnificent form.',
+      ],
+      ru: [
+        'Своими пышными лепестками и чарующим ароматом пион — один из самых элегантных и роскошных цветов. Символизируя романтику, изобилие и счастливый брак, пион является фаворитом особых моментов. В Фетхие букет пионов сочетает в себе элегантность и щедрость.',
+        'Пион особенно предпочитают для свадеб и помолвок, так как он олицетворяет счастье и благополучное будущее. Когда вы хотите сделать романтический жест или дать кому-то почувствовать себя особенным, пион — безупречный выбор.',
+        'Уход за пионом требует деликатности: ему нужно много чистой воды, пока раскрываются бутоны. Если подрезать стебли под углом и держать их в прохладе, ваши пионы раскроются великолепно и долго будут свежими.',
+        'В Flora Art мы тщательно отбираем самые свежие пионы в Фетхие и создаём роскошные букеты. Наши композиции из пионов выражают вашу элегантность и любовь в их самом великолепном виде.',
+      ],
+    },
+  },
 ]
 
 /** Find a post by its slug. */
