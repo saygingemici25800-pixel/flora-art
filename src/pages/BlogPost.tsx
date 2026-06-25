@@ -138,6 +138,38 @@ function BlogPostContent({
               </p>
             ))}
           </div>
+
+          {/* Back to all posts — between the article body and related products */}
+          <div className="mt-12 flex justify-center md:mt-14">
+            <Link
+              to={`${prefix}/blog`}
+              className="back-to-blog group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-4 text-base uppercase tracking-[0.22em] transition-colors duration-300"
+              style={{
+                background: 'transparent',
+                color: 'var(--color-forest)',
+                border: '1.5px solid var(--color-gold)',
+                fontFamily: 'var(--font-body)',
+              }}
+            >
+              <span
+                aria-hidden="true"
+                className="inline-flex transition-transform duration-300 group-hover:-translate-x-1"
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+              </span>
+              <span>{t('blog.allPosts')}</span>
+            </Link>
+          </div>
+          <style>{`
+            .back-to-blog:hover {
+              background: var(--color-gold) !important;
+              border-color: var(--color-gold) !important;
+              color: var(--color-forest) !important;
+            }
+          `}</style>
         </article>
       </section>
 
@@ -168,41 +200,6 @@ function BlogPostContent({
           </div>
         </section>
       )}
-
-      {/* Back to all posts */}
-      <section className="relative w-full" style={{ background: 'var(--color-cream)' }}>
-        <div className="mx-auto max-w-[1100px] px-6 md:px-10 pb-20 md:pb-28 text-center">
-          <Link
-            to={`${prefix}/blog`}
-            className="back-to-blog group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-4 text-base uppercase tracking-[0.22em] transition-colors duration-300"
-            style={{
-              background: 'transparent',
-              color: 'var(--color-forest)',
-              border: '1.5px solid var(--color-gold)',
-              fontFamily: 'var(--font-body)',
-            }}
-          >
-            <span
-              aria-hidden="true"
-              className="inline-flex transition-transform duration-300 group-hover:-translate-x-1"
-            >
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12" />
-                <polyline points="12 19 5 12 12 5" />
-              </svg>
-            </span>
-            <span>{t('blog.allPosts')}</span>
-          </Link>
-        </div>
-
-        <style>{`
-          .back-to-blog:hover {
-            background: var(--color-gold) !important;
-            border-color: var(--color-gold) !important;
-            color: var(--color-forest) !important;
-          }
-        `}</style>
-      </section>
     </>
   )
 }

@@ -14,7 +14,7 @@ const WHATSAPP_NUMBER = '905015317748'
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`
 // Second line for foreign (EN/RU) guests — Aliona Akar.
 const ALIONA_TEL = '+905318448730'
-const INSTAGRAM_URL = 'https://instagram.com/floraartfethiye'
+const INSTAGRAM_URL = 'https://www.instagram.com/floraart.fethiye/'
 const FACEBOOK_URL = 'https://facebook.com/floraartfethiye'
 
 // Inline gutter so it can't be dropped by Tailwind purge (matches the rest of
