@@ -888,6 +888,240 @@ export const BLOG_POSTS: BlogPost[] = [
       ],
     },
   },
+
+  /* ── 23 · Begonvil ────────────────────────────────────────────── */
+  {
+    slug: 'begonvil',
+    category: 'cicek',
+    relatedKeywords: ['Begonvil'],
+    relatedCollection: 'plant',
+    heroImage: '/images/products/pexels/renkli-spray-gul-mavi.webp',
+    title: {
+      tr: "Begonvil: Akdeniz'in Rengârenk Tutkusu",
+      en: 'Bougainvillea: The Colorful Passion of the Mediterranean',
+      ru: 'Бугенвиллея: яркая страсть Средиземноморья',
+    },
+    metaDescription: {
+      tr: "Begonvil Akdeniz'in simgesi, canlı renkleri ve dayanıklılığıyla tutkuyu anlatır. Fethiye'de begonvil ve çiçek siparişi Flora Art'ta.",
+      en: 'Bougainvillea, the symbol of the Mediterranean, expresses passion with its vivid colors and resilience. Bougainvillea and flowers in Fethiye at Flora Art.',
+      ru: 'Бугенвиллея, символ Средиземноморья, выражает страсть своими яркими красками и стойкостью. Бугенвиллея и цветы в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Begonvil, Akdeniz'in ve Fethiye'nin sokaklarını süsleyen, rengârenk yapraklarıyla tutkuyu ve canlılığı simgeleyen büyüleyici bir bitkidir. Mor, pembe, turuncu ve kırmızı tonlarıyla begonvil, sıcak iklimin neşesini ve coşkusunu yansıtır. Fethiye'de begonvil, bu güzel beldenin doğal güzelliğinin bir parçasıdır.",
+        'Begonvil dayanıklılığı ve uzun ömrüyle de bilinir; sıcağa ve güneşe meydan okuyan yapısıyla gücü ve azmi simgeler. Bir mekâna Akdeniz ruhu katmak isteyenler için begonvil eşsiz bir ilham kaynağıdır.',
+        "Begonvil bakımı kolaydır; bol güneş ve ılıman iklim sever, az suyla bile gürbüz kalır. Fethiye'nin iklimi begonvil için idealdir, bu yüzden bahçelerde ve balkonlarda sıkça tercih edilir.",
+        "Flora Art olarak Fethiye'nin bu simge bitkisinden ilham alıyor, Akdeniz'in canlı renklerini çiçek aranjmanlarımıza taşıyoruz. Begonvilin coşkulu ruhunu yansıtan rengârenk buketlerimizle sevdiklerinize Fethiye'nin güzelliğini ulaştırın.",
+      ],
+      en: [
+        'Bougainvillea is an enchanting plant that adorns the streets of the Mediterranean and Fethiye, symbolizing passion and vitality with its colorful bracts. With its purple, pink, orange and red tones, bougainvillea reflects the joy and enthusiasm of the warm climate. In Fethiye, bougainvillea is part of the natural beauty of this lovely town.',
+        'Bougainvillea is also known for its resilience and longevity; with a structure that defies heat and sun, it symbolizes strength and perseverance. For those who want to add a Mediterranean spirit to a space, bougainvillea is a unique source of inspiration.',
+        'Caring for bougainvillea is easy; it loves plenty of sun and a mild climate, and stays lush even with little water. The climate of Fethiye is ideal for bougainvillea, which is why it is often preferred in gardens and on balconies.',
+        'At Flora Art, we draw inspiration from this iconic plant of Fethiye, bringing the vivid colors of the Mediterranean to our flower arrangements. With our colorful bouquets reflecting the exuberant spirit of bougainvillea, deliver the beauty of Fethiye to your loved ones.',
+      ],
+      ru: [
+        'Бугенвиллея — очаровательное растение, украшающее улицы Средиземноморья и Фетхие, символизирующее страсть и жизненную силу своими яркими прицветниками. Своими фиолетовыми, розовыми, оранжевыми и красными тонами бугенвиллея отражает радость и воодушевление тёплого климата. В Фетхие бугенвиллея — часть природной красоты этого прекрасного городка.',
+        'Бугенвиллея также известна своей стойкостью и долголетием; своей структурой, бросающей вызов жаре и солнцу, она символизирует силу и упорство. Для тех, кто хочет привнести средиземноморский дух в пространство, бугенвиллея — уникальный источник вдохновения.',
+        'Уход за бугенвиллеей прост: она любит обилие солнца и мягкий климат и остаётся пышной даже при малом поливе. Климат Фетхие идеален для бугенвиллеи, поэтому её часто предпочитают в садах и на балконах.',
+        'В Flora Art мы черпаем вдохновение в этом символичном растении Фетхие, привнося яркие краски Средиземноморья в наши цветочные композиции. С нашими красочными букетами, отражающими жизнерадостный дух бугенвиллеи, дарите красоту Фетхие своим близким.',
+      ],
+    },
+  },
+
+  /* ── 24 · Lavanta ─────────────────────────────────────────────── */
+  {
+    slug: 'lavanta',
+    category: 'cicek',
+    relatedKeywords: ['Lavanta'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/sumbul-aranjman.webp',
+    title: {
+      tr: 'Lavanta: Huzurun ve Sakinliğin Mor Kokusu',
+      en: 'Lavender: The Purple Scent of Peace and Calm',
+      ru: 'Лаванда: фиолетовый аромат покоя и спокойствия',
+    },
+    metaDescription: {
+      tr: "Lavanta huzuru, sakinliği ve zarafeti simgeleyen kokulu mor bir çiçektir. Lavanta aranjmanı ve Fethiye'de lavanta Flora Art'ta.",
+      en: 'Lavender is a fragrant purple flower symbolizing peace, calm and elegance. Lavender arrangements and lavender in Fethiye at Flora Art.',
+      ru: 'Лаванда — ароматный фиолетовый цветок, символизирующий покой, спокойствие и элегантность. Композиции из лаванды в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Lavanta, sakinleştirici kokusu ve zarif mor tonuyla huzurun simgesidir. Yüzyıllardır dinginlik ve rahatlama ile özdeşleşen lavanta, hem görünümü hem de kokusuyla bir mekâna sükunet katar. Fethiye'de bir lavanta aranjmanı, sevdiklerinize huzur ve zarafet göndermenin en güzel yoludur.",
+        'Lavanta sadakati, zarafeti ve içsel huzuru simgeler. Stresli bir dönem geçiren bir sevdiğinize ya da huzur dilemek istediğiniz birine lavanta, hem anlamlı hem de rahatlatıcı bir armağandır.',
+        'Lavanta kurutulduğunda bile kokusunu ve güzelliğini uzun süre korur; bu yüzden hem taze hem de kuru aranjmanlarda tercih edilir. Lavantayı serin ve havadar bir yerde tutmak, kokusunun kalıcılığını artırır.',
+        "Flora Art olarak Fethiye'de lavantanın huzur veren ruhunu aranjmanlarımıza taşıyoruz. Lavanta buketlerimiz, sakinlik ve zarafeti bir arada sunarak sevdiklerinize huzur dolu bir mesaj iletir.",
+      ],
+      en: [
+        'Lavender, with its calming scent and elegant purple tone, is the symbol of peace. Identified with serenity and relaxation for centuries, lavender brings tranquility to a space with both its appearance and its fragrance. In Fethiye, a lavender arrangement is the loveliest way to send peace and elegance to your loved ones.',
+        'Lavender symbolizes devotion, elegance and inner peace. For a loved one going through a stressful time, or for someone you wish peace, lavender is both a meaningful and soothing gift.',
+        'Lavender retains its scent and beauty for a long time even when dried, which is why it is preferred in both fresh and dried arrangements. Keeping lavender in a cool and airy place increases the longevity of its fragrance.',
+        'At Flora Art, we bring the peaceful spirit of lavender to our arrangements in Fethiye. Our lavender bouquets offer calm and elegance together, conveying a peaceful message to your loved ones.',
+      ],
+      ru: [
+        'Лаванда со своим успокаивающим ароматом и элегантным фиолетовым оттенком — символ покоя. Веками отождествляемая с безмятежностью и расслаблением, лаванда привносит в пространство спокойствие и своим видом, и своим ароматом. В Фетхие композиция из лаванды — прекраснейший способ подарить близким покой и элегантность.',
+        'Лаванда символизирует преданность, элегантность и внутренний покой. Для близкого человека, переживающего напряжённый период, или для того, кому вы желаете покоя, лаванда — это значимый и успокаивающий подарок.',
+        'Лаванда сохраняет свой аромат и красоту надолго даже в сухом виде, поэтому её предпочитают как в свежих, так и в сухих композициях. Хранение лаванды в прохладном и проветриваемом месте увеличивает стойкость её аромата.',
+        'В Flora Art мы привносим умиротворяющий дух лаванды в наши композиции в Фетхие. Наши букеты из лаванды сочетают спокойствие и элегантность, передавая вашим близким умиротворяющее послание.',
+      ],
+    },
+  },
+
+  /* ── 25 · Ayçiçeği ────────────────────────────────────────────── */
+  {
+    slug: 'aycicegi',
+    category: 'cicek',
+    relatedKeywords: ['Ayçiçeği'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/sari-turuncu-gul-vazo.webp',
+    title: {
+      tr: 'Ayçiçeği: Güneşin ve Mutluluğun Çiçeği',
+      en: 'Sunflowers: The Flower of Sun and Happiness',
+      ru: 'Подсолнухи: цветок солнца и счастья',
+    },
+    metaDescription: {
+      tr: "Ayçiçeği güneşi, mutluluğu ve sadakati simgeleyen neşeli bir çiçektir. Ayçiçeği buketi ve Fethiye'de ayçiçeği Flora Art'ta.",
+      en: 'The sunflower is a cheerful flower symbolizing the sun, happiness and loyalty. Sunflower bouquets and sunflowers in Fethiye at Flora Art.',
+      ru: 'Подсолнух — жизнерадостный цветок, символизирующий солнце, счастье и верность. Букеты подсолнухов в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Ayçiçeği, güneşi andıran parlak sarı yapraklarıyla mutluluğun ve pozitif enerjinin çiçeğidir. Hep güneşe dönen yapısıyla ayçiçeği; sadakati, hayranlığı ve neşeyi simgeler. Fethiye'de bir ayçiçeği buketi, sevdiklerinize bir parça güneş ışığı göndermek gibidir.",
+        "Ayçiçeği 'sen benim güneşimsin' mesajını taşır; bu yüzden hayranlık ve içten sevgi göstermek için ideal bir çiçektir. Doğum günleri, kutlamalar ve moral vermek istediğiniz her an için ayçiçeği neşeli bir seçimdir.",
+        'Ayçiçeği bakımı kolaydır ama bol su sever; uzun sapları nedeniyle düzenli su takviyesi gerektirir. Saplarını çapraz kesip suyunu sık değiştirdiğinizde ayçiçeklerinizin canlı sarısı uzun süre korunur.',
+        "Flora Art olarak Fethiye'de en taze ayçiçeklerini seçip neşeli buketler hazırlıyoruz. Ayçiçeği aranjmanlarımız, sevdiklerinize güneşin sıcaklığını ve mutluluğunu en canlı haliyle ulaştırır.",
+      ],
+      en: [
+        'The sunflower, with its bright yellow petals resembling the sun, is the flower of happiness and positive energy. With its structure that always turns toward the sun, the sunflower symbolizes loyalty, admiration and joy. In Fethiye, a sunflower bouquet is like sending a piece of sunshine to your loved ones.',
+        "The sunflower carries the message 'you are my sunshine,' making it an ideal flower for showing admiration and heartfelt love. For birthdays, celebrations and every moment you want to lift someone's spirits, the sunflower is a cheerful choice.",
+        'Caring for the sunflower is easy but it loves plenty of water; due to its long stems it requires regular watering. When you cut the stems at an angle and change the water often, the vivid yellow of your sunflowers is preserved for a long time.',
+        'At Flora Art, we select the freshest sunflowers in Fethiye and prepare cheerful bouquets. Our sunflower arrangements deliver the warmth and happiness of the sun to your loved ones in their most vibrant form.',
+      ],
+      ru: [
+        'Подсолнух со своими яркими жёлтыми лепестками, напоминающими солнце, — цветок счастья и позитивной энергии. Своей структурой, всегда обращённой к солнцу, подсолнух символизирует верность, восхищение и радость. В Фетхие букет подсолнухов — это словно отправить близким частичку солнечного света.',
+        'Подсолнух несёт послание «ты моё солнце», что делает его идеальным цветком для выражения восхищения и искренней любви. Для дней рождения, праздников и каждого момента, когда хочется поднять кому-то настроение, подсолнух — жизнерадостный выбор.',
+        'Уход за подсолнухом прост, но он любит обилие воды; из-за длинных стеблей ему требуется регулярный полив. Если подрезать стебли под углом и часто менять воду, яркая желтизна ваших подсолнухов сохранится надолго.',
+        'В Flora Art мы выбираем самые свежие подсолнухи в Фетхие и составляем жизнерадостные букеты. Наши композиции из подсолнухов дарят вашим близким тепло и счастье солнца в их самом ярком виде.',
+      ],
+    },
+  },
+
+  /* ── 26 · Nilüfer ─────────────────────────────────────────────── */
+  {
+    slug: 'nilufer',
+    category: 'cicek',
+    relatedKeywords: ['Nilüfer'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/beyaz-gul-vazo.webp',
+    title: {
+      tr: 'Nilüfer: Saflığın ve Aydınlanmanın Su Çiçeği',
+      en: 'Water Lily: The Aquatic Flower of Purity and Enlightenment',
+      ru: 'Кувшинка: водный цветок чистоты и просветления',
+    },
+    metaDescription: {
+      tr: "Nilüfer saflığı, huzuru ve aydınlanmayı simgeleyen zarif bir su çiçeğidir. Nilüfer temalı aranjmanlar Fethiye'de Flora Art'ta.",
+      en: 'The water lily is an elegant aquatic flower symbolizing purity, peace and enlightenment. Water lily themed arrangements in Fethiye at Flora Art.',
+      ru: 'Кувшинка — изящный водный цветок, символизирующий чистоту, покой и просветление. Композиции на тему кувшинки в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Nilüfer, durgun suların üzerinde açan zarif yapraklarıyla saflığın ve huzurun simgesidir. Birçok kültürde aydınlanmayı ve ruhsal arınmayı temsil eden nilüfer, dinginliği ve içsel güzelliği anlatır. Fethiye'de nilüfer temalı bir aranjman, huzur ve zarafeti bir arada sunar.",
+        'Nilüfer, çamurlu sulardan yükselip tertemiz açmasıyla yeniden doğuşu ve umudu simgeler. Zor bir dönemden geçen birine ya da yeni bir başlangıç dileyen sevdiklerinize nilüfer derin ve anlamlı bir mesaj iletir.',
+        'Nilüfer narin bir çiçektir ve serin, temiz su ister. Su çiçekleri zarif yapıları nedeniyle özel bakım gerektirir; serin ortamda ve temiz suda tutulduğunda nilüferin zarafeti uzun süre korunur.',
+        "Flora Art olarak Fethiye'de nilüferin huzur veren ruhundan ilham alıyoruz. Saf ve dingin aranjmanlarımız, nilüferin simgelediği zarafeti ve içsel güzelliği sevdiklerinize ulaştırır.",
+      ],
+      en: [
+        'The water lily, with its elegant petals blooming over still waters, is the symbol of purity and peace. Representing enlightenment and spiritual purification in many cultures, the water lily expresses serenity and inner beauty. In Fethiye, a water lily themed arrangement offers peace and elegance together.',
+        'The water lily, rising from muddy waters to bloom immaculately, symbolizes rebirth and hope. For someone going through a difficult time, or for loved ones wishing a new beginning, the water lily conveys a deep and meaningful message.',
+        'The water lily is a delicate flower and requires cool, clean water. Aquatic flowers need special care due to their graceful structure; when kept in a cool environment and clean water, the elegance of the water lily is preserved for a long time.',
+        'At Flora Art, we draw inspiration from the peaceful spirit of the water lily in Fethiye. Our pure and serene arrangements deliver the elegance and inner beauty symbolized by the water lily to your loved ones.',
+      ],
+      ru: [
+        'Кувшинка со своими изящными лепестками, распускающимися над спокойной водой, — символ чистоты и покоя. Олицетворяя во многих культурах просветление и духовное очищение, кувшинка выражает безмятежность и внутреннюю красоту. В Фетхие композиция на тему кувшинки сочетает покой и элегантность.',
+        'Кувшинка, поднимающаяся из мутной воды, чтобы безупречно расцвести, символизирует возрождение и надежду. Для того, кто переживает трудное время, или для близких, желающих нового начала, кувшинка передаёт глубокое и значимое послание.',
+        'Кувшинка — нежный цветок, которому нужна прохладная, чистая вода. Водные цветы требуют особого ухода из-за своей грациозной структуры; при содержании в прохладной среде и чистой воде элегантность кувшинки сохраняется надолго.',
+        'В Flora Art мы черпаем вдохновение в умиротворяющем духе кувшинки в Фетхие. Наши чистые и безмятежные композиции дарят вашим близким элегантность и внутреннюю красоту, которые символизирует кувшинка.',
+      ],
+    },
+  },
+
+  /* ── 27 · Rehber · Sevgiliye Çiçek Seçimi ─────────────────────── */
+  {
+    slug: 'sevgiliye-cicek-secimi',
+    category: 'rehber',
+    relatedKeywords: ['Gül', 'Kırmızı Gül'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/kirmizi-gul-buket-kurdele.webp',
+    title: {
+      tr: 'Sevgiliye Çiçek Seçimi: Hangi Çiçek Ne Anlatır?',
+      en: 'Choosing Flowers for Your Loved One: What Each Flower Says',
+      ru: 'Выбор цветов для любимого человека: о чём говорит каждый цветок',
+    },
+    metaDescription: {
+      tr: "Sevgiliye çiçek seçimi rehberi: hangi çiçek hangi duyguyu anlatır? Doğru çiçeği seçin, Fethiye'de Flora Art ile gönderin.",
+      en: 'A guide to choosing flowers for your loved one: which flower expresses which emotion? Choose the right flower and send it with Flora Art in Fethiye.',
+      ru: 'Руководство по выбору цветов для любимого человека: какой цветок выражает какое чувство? Выберите правильный цветок и отправьте с Flora Art в Фетхие.',
+    },
+    body: {
+      tr: [
+        "Sevgiliye çiçek seçimi, sözcüklerle anlatamadığınız duyguları aktarmanın en zarif yoludur. Doğru çiçeği seçmek, mesajınızı çok daha anlamlı kılar. Fethiye'de sevdiğinize çiçek gönderirken, her çiçeğin taşıdığı anlamı bilmek size yol gösterir.",
+        'Kırmızı gül tutkulu aşkın değişmez sembolüdür; sevgilinize derin aşkınızı anlatmak isterseniz kırmızı gül her zaman doğru seçimdir. Pembe gül nazik sevgiyi ve hayranlığı, beyaz gül saf ve sonsuz bağlılığı simgeler. Yeni başlayan bir ilişki için pembe güller, köklü bir aşk için kırmızı güller idealdir.',
+        'Aşkın yanında neşe de iletmek isterseniz, gerbera ve ayçiçeği gibi canlı çiçekler mutluluğu ve pozitif enerjiyi anlatır. Zarafeti öne çıkarmak isteyenler için lilyum, şakayık ve lisianthus sofistike birer seçimdir. Karanfil ise hem uzun ömrü hem de derin sevgi anlamıyla romantik bir alternatiftir.',
+        "Flora Art olarak Fethiye'de sevgilinize en uygun çiçeği seçmenize yardımcı oluyoruz. İster tutkulu kırmızı güller, ister zarif bir karışım olsun, duygularınızı en güzel biçimde ifade eden aranjmanları sizin için hazırlıyoruz.",
+      ],
+      en: [
+        'Choosing flowers for your loved one is the most elegant way to convey emotions you cannot express in words. Selecting the right flower makes your message far more meaningful. When sending flowers to your beloved in Fethiye, knowing the meaning each flower carries guides you.',
+        'The red rose is the unchanging symbol of passionate love; if you want to express your deep love to your sweetheart, the red rose is always the right choice. The pink rose symbolizes gentle love and admiration, and the white rose pure and eternal devotion. Pink roses are ideal for a new relationship, red roses for a deep-rooted love.',
+        'If you want to convey joy alongside love, vivid flowers like gerbera and sunflower express happiness and positive energy. For those who want to highlight elegance, lily, peony and lisianthus are sophisticated choices. The carnation, with both its long life and its meaning of deep love, is a romantic alternative.',
+        'At Flora Art, we help you choose the most suitable flower for your loved one in Fethiye. Whether passionate red roses or an elegant mix, we prepare arrangements that express your feelings in the most beautiful way.',
+      ],
+      ru: [
+        'Выбор цветов для любимого человека — самый изящный способ передать чувства, которые невозможно выразить словами. Выбор правильного цветка делает ваше послание гораздо более значимым. Отправляя цветы любимому в Фетхие, знание значения каждого цветка станет вашим ориентиром.',
+        'Красная роза — неизменный символ страстной любви; если вы хотите выразить любимому человеку свою глубокую любовь, красная роза всегда будет правильным выбором. Розовая роза символизирует нежную любовь и восхищение, а белая роза — чистую и вечную преданность. Розовые розы идеальны для новых отношений, красные розы — для глубокой любви.',
+        'Если вы хотите передать вместе с любовью и радость, яркие цветы, такие как гербера и подсолнух, выражают счастье и позитивную энергию. Для тех, кто хочет подчеркнуть элегантность, лилия, пион и лизиантус — утончённый выбор. Гвоздика же со своим долголетием и значением глубокой любви — романтическая альтернатива.',
+        'В Flora Art мы помогаем вам выбрать наиболее подходящий цветок для любимого человека в Фетхие. Будь то страстные красные розы или элегантное сочетание, мы создаём композиции, которые выражают ваши чувства самым прекрасным образом.',
+      ],
+    },
+  },
+
+  /* ── 28 · Rehber · Çiçek Bakımı ───────────────────────────────── */
+  {
+    slug: 'cicek-bakimi-rehberi',
+    category: 'rehber',
+    relatedKeywords: ['Gül'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/pembe-gul-vazo.webp',
+    title: {
+      tr: 'Çiçek Bakımı Rehberi: Kesme Çiçeklerin Ömrünü Uzatma',
+      en: 'Flower Care Guide: Extending the Life of Cut Flowers',
+      ru: 'Руководство по уходу за цветами: как продлить жизнь срезанных цветов',
+    },
+    metaDescription: {
+      tr: "Çiçek bakımı rehberi: kesme çiçeklerin ömrünü uzatmanın püf noktaları. Taze çiçekler ve bakım ipuçları Fethiye'de Flora Art'ta.",
+      en: 'Flower care guide: tips for extending the life of cut flowers. Fresh flowers and care tips in Fethiye at Flora Art.',
+      ru: 'Руководство по уходу за цветами: советы по продлению жизни срезанных цветов. Свежие цветы и советы по уходу в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Çiçek bakımı, sevdiklerinizden gelen ya da onlara gönderdiğiniz çiçeklerin güzelliğini günlerce korumanın anahtarıdır. Birkaç basit kuralla kesme çiçeklerin ömrünü önemli ölçüde uzatabilirsiniz. Fethiye'de Flora Art'tan aldığınız taze çiçekler, doğru bakımla çok daha uzun süre canlı kalır.",
+        'İlk kural temizliktir: vazoyu iyice yıkayın ve daima temiz, oda sıcaklığında su kullanın. Çiçeklerin saplarını 45 derecelik açıyla kesmek, suyu daha iyi emmelerini sağlar. Suyun içinde kalan yaprakları ayıklayın, çünkü bunlar bakteri üreterek çiçeklerin daha çabuk solmasına yol açar.',
+        'Suyu her iki günde bir değiştirin ve sapları her su değişiminde tazeleyin. Çiçekleri doğrudan güneş ışığından, ısı kaynaklarından ve olgun meyvelerden uzak tutun; meyvelerin saldığı gaz çiçekleri hızla yaşlandırır. Serin bir ortam, çiçek bakımının en önemli sırlarından biridir.',
+        "Flora Art olarak Fethiye'de en taze çiçekleri özenle hazırlıyoruz. Doğru çiçek bakımıyla aranjmanlarınızın tazeliğini en üst düzeyde tutabilir, sevdiklerinizin armağanının keyfini çok daha uzun süre yaşayabilirsiniz.",
+      ],
+      en: [
+        'Flower care is the key to preserving the beauty of flowers received from or sent to your loved ones for days. With a few simple rules, you can significantly extend the life of cut flowers. Fresh flowers from Flora Art in Fethiye stay alive much longer with proper care.',
+        'The first rule is cleanliness: wash the vase thoroughly and always use clean, room-temperature water. Cutting the flower stems at a 45-degree angle helps them absorb water better. Remove any leaves that remain underwater, as these breed bacteria and cause the flowers to wilt faster.',
+        'Change the water every two days and refresh the stems with each water change. Keep the flowers away from direct sunlight, heat sources and ripe fruit; the gas released by fruit ages flowers quickly. A cool environment is one of the most important secrets of flower care.',
+        'At Flora Art, we carefully prepare the freshest flowers in Fethiye. With proper flower care, you can keep your arrangements at peak freshness and enjoy the gift of your loved ones for much longer.',
+      ],
+      ru: [
+        'Уход за цветами — ключ к тому, чтобы на протяжении многих дней сохранять красоту цветов, полученных от близких или отправленных им. С помощью нескольких простых правил вы можете значительно продлить жизнь срезанных цветов. Свежие цветы от Flora Art в Фетхие при правильном уходе остаются живыми гораздо дольше.',
+        'Первое правило — чистота: тщательно вымойте вазу и всегда используйте чистую воду комнатной температуры. Срез стеблей под углом 45 градусов помогает им лучше впитывать воду. Удалите листья, остающиеся под водой, так как они разводят бактерии и заставляют цветы вянуть быстрее.',
+        'Меняйте воду каждые два дня и обновляйте срез стеблей при каждой смене воды. Держите цветы вдали от прямых солнечных лучей, источников тепла и спелых фруктов; газ, выделяемый фруктами, быстро состаривает цветы. Прохладная среда — один из важнейших секретов ухода за цветами.',
+        'В Flora Art мы бережно готовим самые свежие цветы в Фетхие. При правильном уходе за цветами вы можете поддерживать максимальную свежесть ваших композиций и наслаждаться подарком близких гораздо дольше.',
+      ],
+    },
+  },
 ]
 
 /** Find a post by its slug. */
