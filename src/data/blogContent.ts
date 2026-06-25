@@ -459,6 +459,240 @@ export const BLOG_POSTS: BlogPost[] = [
       ],
     },
   },
+
+  /* ── 12 · Sümbül ──────────────────────────────────────────────── */
+  {
+    slug: 'sumbul',
+    category: 'cicek',
+    relatedKeywords: ['Sümbül'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/sumbul-aranjman.webp',
+    title: {
+      tr: 'Sümbül: Baharın Kokulu Müjdecisi',
+      en: 'Hyacinths: The Fragrant Herald of Spring',
+      ru: 'Гиацинты: ароматный вестник весны',
+    },
+    metaDescription: {
+      tr: "Sümbül baharı, içtenliği ve yeniden doğuşu simgeleyen kokulu bir çiçektir. Sümbül aranjmanı ve Fethiye'de sümbül Flora Art'ta.",
+      en: 'The hyacinth is a fragrant flower symbolizing spring, sincerity and rebirth. Hyacinth arrangements and hyacinths in Fethiye at Flora Art.',
+      ru: 'Гиацинт — ароматный цветок, символизирующий весну, искренность и возрождение. Композиции из гиацинтов в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Sümbül, baharın gelişini müjdeleyen en kokulu çiçeklerden biridir. Yoğun ve büyüleyici kokusuyla sümbül, içtenliği, oyunculuğu ve yeniden doğuşu simgeler. Fethiye'de bir sümbül aranjmanı, bir mekânı hem renk hem de eşsiz bir koku ile doldurmanın en güzel yoludur.",
+        'Sümbülün her rengi farklı bir anlam taşır. Mor sümbül içtenlik ve özrü, mavi sümbül huzuru, beyaz sümbül ise güzelliği anlatır. Baharı kutlamak ya da sevdiklerinize taze bir başlangıç dilemek için sümbül ideal bir seçimdir.',
+        'Sümbül bakımında serinlik önemlidir; soğanlı yapısı bol su sever ama köklerinin çürümemesine dikkat edilmelidir. Saplarını kesip serin bir ortamda tuttuğunuzda sümbülleriniz kokusunu uzun süre korur.',
+        "Flora Art olarak Fethiye'de en taze sümbülleri seçip zarif aranjmanlar hazırlıyoruz. Sümbül aranjmanlarımız, baharın tazeliğini ve içten duygularınızı kokusuyla birlikte sunar.",
+      ],
+      en: [
+        'The hyacinth is one of the most fragrant flowers heralding the arrival of spring. With its intense and enchanting scent, the hyacinth symbolizes sincerity, playfulness and rebirth. In Fethiye, a hyacinth arrangement is the loveliest way to fill a space with both color and a unique fragrance.',
+        'Each color of the hyacinth carries a different meaning. A purple hyacinth expresses sincerity and apology, a blue hyacinth peace, and a white hyacinth beauty. To celebrate spring or wish your loved ones a fresh start, the hyacinth is an ideal choice.',
+        'Coolness matters in hyacinth care; its bulbous structure loves plenty of water, but care must be taken to prevent the roots from rotting. When you trim the stems and keep them in a cool place, your hyacinths retain their fragrance for a long time.',
+        'At Flora Art, we select the freshest hyacinths in Fethiye and prepare elegant arrangements. Our hyacinth arrangements present the freshness of spring and your sincere feelings together with their fragrance.',
+      ],
+      ru: [
+        'Гиацинт — один из самых ароматных цветов, возвещающих приход весны. Своим насыщенным и чарующим ароматом гиацинт символизирует искренность, игривость и возрождение. В Фетхие композиция из гиацинтов — прекраснейший способ наполнить пространство и цветом, и неповторимым ароматом.',
+        'Каждый цвет гиацинта несёт своё значение. Фиолетовый гиацинт выражает искренность и извинение, синий гиацинт — спокойствие, а белый гиацинт — красоту. Чтобы отпраздновать весну или пожелать близким нового начала, гиацинт — идеальный выбор.',
+        'В уходе за гиацинтом важна прохлада: его луковичная структура любит обилие воды, но нужно следить, чтобы корни не загнивали. Если подрезать стебли и держать их в прохладе, ваши гиацинты надолго сохранят свой аромат.',
+        'В Flora Art мы выбираем самые свежие гиацинты в Фетхие и создаём элегантные композиции. Наши композиции из гиацинтов дарят свежесть весны и ваши искренние чувства вместе с их ароматом.',
+      ],
+    },
+  },
+
+  /* ── 13 · Calla (Gala) ────────────────────────────────────────── */
+  {
+    slug: 'calla',
+    category: 'cicek',
+    relatedKeywords: ['Calla', 'Gala'],
+    relatedCollection: 'plant',
+    heroImage: '/images/products/pexels/pembe-calla-bahce.webp',
+    title: {
+      tr: 'Calla (Gala Çiçeği): Modern Zarafetin Simgesi',
+      en: 'Calla Lilies: The Symbol of Modern Elegance',
+      ru: 'Каллы: символ современной элегантности',
+    },
+    metaDescription: {
+      tr: "Calla (gala çiçeği) zarafeti, asaleti ve modern güzelliği simgeler. Calla çiçeği ve Fethiye'de gala siparişi Flora Art'ta.",
+      en: 'The calla lily symbolizes elegance, nobility and modern beauty. Calla lilies in Fethiye at Flora Art.',
+      ru: 'Калла символизирует элегантность, благородство и современную красоту. Каллы в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Calla, yani gala çiçeği, zarif kıvrımı ve sade duruşuyla modern zarafetin simgesidir. Asaleti, güzelliği ve takdiri anlatan calla, hem buketlerde hem de şık aranjmanlarda göz kamaştırır. Fethiye'de bir calla çiçeği, minimal ama güçlü bir estetik sunar.",
+        'Calla çiçeği özellikle düğünlerde ve özel davetlerde tercih edilir, çünkü asaleti ve sofistike güzelliği temsil eder. Beyaz calla saflığı, pembe calla zarafeti, koyu tonlu calla ise gizemi anlatır.',
+        'Calla bakımı kolaydır; saplarını çapraz kesip temiz suda tutmak yeterlidir. Suyu düzenli değiştirdiğinizde calla çiçeğiniz zarafetini uzun süre korur.',
+        "Flora Art olarak Fethiye'de en taze calla çiçeklerini seçip modern aranjmanlar hazırlıyoruz. Calla aranjmanlarımız, sade ve sofistike zevkinizi en şık biçimde yansıtır.",
+      ],
+      en: [
+        'The calla lily, with its graceful curve and minimalist presence, is the symbol of modern elegance. Expressing nobility, beauty and appreciation, the calla lily dazzles both in bouquets and in stylish arrangements. In Fethiye, a calla lily offers a minimal yet powerful aesthetic.',
+        'The calla lily is especially preferred for weddings and special events, as it represents nobility and sophisticated beauty. A white calla lily expresses purity, a pink one elegance, and a dark-toned calla lily mystery.',
+        'Caring for the calla lily is easy; it is enough to cut the stems at an angle and keep them in clean water. When you change the water regularly, your calla lily preserves its elegance for a long time.',
+        'At Flora Art, we select the freshest calla lilies in Fethiye and prepare modern arrangements. Our calla lily arrangements reflect your simple and sophisticated taste in the most stylish way.',
+      ],
+      ru: [
+        'Калла своим изящным изгибом и минималистичным видом является символом современной элегантности. Выражая благородство, красоту и признательность, калла восхищает и в букетах, и в стильных композициях. В Фетхие калла предлагает минималистичную, но выразительную эстетику.',
+        'Каллу особенно предпочитают для свадеб и особых мероприятий, так как она олицетворяет благородство и утончённую красоту. Белая калла выражает чистоту, розовая — элегантность, а калла тёмного оттенка — загадочность.',
+        'Уход за каллой прост: достаточно подрезать стебли под углом и держать их в чистой воде. Если регулярно менять воду, ваша калла надолго сохранит свою элегантность.',
+        'В Flora Art мы выбираем самые свежие каллы в Фетхие и создаём современные композиции. Наши композиции из калл отражают ваш простой и утончённый вкус в самом стильном виде.',
+      ],
+    },
+  },
+
+  /* ── 14 · Lisianthus ──────────────────────────────────────────── */
+  {
+    slug: 'lisianthus',
+    category: 'cicek',
+    relatedKeywords: ['Lisianthus'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/mor-lisianthus-gul-kutu.webp',
+    title: {
+      tr: 'Lisianthus: Zarif Bir Gül Alternatifi',
+      en: 'Lisianthus: An Elegant Rose Alternative',
+      ru: 'Лизиантус: изящная альтернатива розе',
+    },
+    metaDescription: {
+      tr: "Lisianthus zarafeti, minnettarlığı ve kalıcı sevgiyi simgeleyen narin bir çiçektir. Lisianthus buketi Fethiye'de Flora Art'ta.",
+      en: 'Lisianthus is a delicate flower symbolizing elegance, gratitude and lasting love. Lisianthus bouquets in Fethiye at Flora Art.',
+      ru: 'Лизиантус — нежный цветок, символизирующий элегантность, благодарность и прочную любовь. Букеты лизиантуса в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Lisianthus, gülü andıran narin yaprakları ve zarif duruşuyla son yılların en sevilen çiçeklerinden biridir. Minnettarlığı, kalıcı sevgiyi ve takdiri simgeleyen lisianthus, hem sade hem de sofistike bir güzellik sunar. Fethiye'de bir lisianthus buketi, gülün zarafetine farklı bir dokunuş arayanlar için idealdir.",
+        'Lisianthus mor, beyaz, pembe ve şampanya tonlarıyla her aranjmana şıklık katar. Bir teşekkürü iletmek, bir başarıyı kutlamak ya da kalıcı bir sevgiyi anlatmak için lisianthus zarif bir seçimdir.',
+        'Lisianthus bakımında nazik olmak gerekir; narin saplarını dikkatlice kesip temiz suda tutun. Suyu düzenli değiştirdiğinizde lisianthus çiçekleriniz şaşırtıcı derecede uzun süre taze kalır.',
+        "Flora Art olarak Fethiye'de en taze lisianthus çiçeklerini seçip zarif buketler hazırlıyoruz. Lisianthus aranjmanlarımız, narin ve sofistike zevkinizi en güzel biçimde yansıtır.",
+      ],
+      en: [
+        'Lisianthus, with its rose-like delicate petals and elegant presence, is one of the most beloved flowers of recent years. Symbolizing gratitude, lasting love and appreciation, lisianthus offers a beauty that is both simple and sophisticated. In Fethiye, a lisianthus bouquet is ideal for those seeking a different touch on the elegance of the rose.',
+        'Lisianthus adds chic to every arrangement with its purple, white, pink and champagne tones. To convey a thank you, celebrate a success, or express a lasting love, lisianthus is an elegant choice.',
+        'Caring for lisianthus requires gentleness; carefully cut its delicate stems and keep them in clean water. When you change the water regularly, your lisianthus flowers stay fresh for a surprisingly long time.',
+        'At Flora Art, we select the freshest lisianthus in Fethiye and prepare elegant bouquets. Our lisianthus arrangements reflect your delicate and sophisticated taste in the most beautiful way.',
+      ],
+      ru: [
+        'Лизиантус со своими похожими на розу нежными лепестками и изящным видом — один из самых любимых цветов последних лет. Символизируя благодарность, прочную любовь и признательность, лизиантус дарит красоту, одновременно простую и утончённую. В Фетхие букет лизиантуса идеален для тех, кто ищет иной оттенок элегантности розы.',
+        'Лизиантус добавляет шик любой композиции своими фиолетовыми, белыми, розовыми и шампанскими тонами. Чтобы выразить благодарность, отпраздновать успех или передать прочную любовь, лизиантус — изящный выбор.',
+        'Уход за лизиантусом требует деликатности: аккуратно подрежьте его нежные стебли и держите в чистой воде. Если регулярно менять воду, цветы лизиантуса остаются свежими удивительно долго.',
+        'В Flora Art мы выбираем самый свежий лизиантус в Фетхие и составляем изящные букеты. Наши композиции из лизиантуса отражают ваш нежный и утончённый вкус самым прекрасным образом.',
+      ],
+    },
+  },
+
+  /* ── 15 · Ranunculus ──────────────────────────────────────────── */
+  {
+    slug: 'ranunculus',
+    category: 'cicek',
+    relatedKeywords: ['Ranunculus'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/sakayik-ranunculus-buket.webp',
+    title: {
+      tr: 'Ranunculus: Katmanlı Yapraklarıyla Büyüleyen Çiçek',
+      en: 'Ranunculus: The Flower Captivating with Layered Petals',
+      ru: 'Ранункулюс: цветок, очаровывающий многослойными лепестками',
+    },
+    metaDescription: {
+      tr: "Ranunculus katmanlı yaprakları ve canlı renkleriyle çekiciliği simgeler. Ranunculus buketi Fethiye'de Flora Art'ta.",
+      en: 'Ranunculus symbolizes charm with its layered petals and vivid colors. Ranunculus bouquets in Fethiye at Flora Art.',
+      ru: 'Ранункулюс символизирует очарование своими многослойными лепестками и яркими красками. Букеты ранункулюса в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Ranunculus, ince ve katmanlı yapraklarıyla bir çiçekten çok bir sanat eserini andırır. Çekiciliği ve zarafeti simgeleyen ranunculus, pastel tonlarından canlı renklerine kadar her aranjmana romantik bir hava katar. Fethiye'de bir ranunculus buketi, ince zevkin en güzel ifadesidir.",
+        "Ranunculus 'sen göz kamaştırıcısın' mesajını taşır; bu yüzden hayranlık ve takdir göstermek için ideal bir çiçektir. Düğünlerden doğum günlerine kadar zarif bir dokunuş arayan herkes için ranunculus mükemmel bir seçimdir.",
+        'Ranunculus bakımında serinlik ve temiz su önemlidir. Narin saplarını dikkatlice kesip suyu düzenli değiştirdiğinizde ranunculus çiçekleriniz katmanlı güzelliğini uzun süre korur.',
+        "Flora Art olarak Fethiye'de en taze ranunculus çiçeklerini seçip romantik buketler hazırlıyoruz. Ranunculus aranjmanlarımız, ince ve zarif zevkinizi en büyüleyici haliyle sunar.",
+      ],
+      en: [
+        'Ranunculus, with its fine and layered petals, resembles a work of art more than a flower. Symbolizing charm and elegance, ranunculus adds a romantic air to every arrangement, from pastel tones to vivid colors. In Fethiye, a ranunculus bouquet is the loveliest expression of refined taste.',
+        "Ranunculus carries the message 'you are dazzling,' making it an ideal flower for showing admiration and appreciation. For anyone seeking an elegant touch, from weddings to birthdays, ranunculus is a perfect choice.",
+        'Coolness and clean water are important in ranunculus care. When you carefully cut its delicate stems and change the water regularly, your ranunculus flowers retain their layered beauty for a long time.',
+        'At Flora Art, we select the freshest ranunculus in Fethiye and prepare romantic bouquets. Our ranunculus arrangements present your refined and elegant taste in its most captivating form.',
+      ],
+      ru: [
+        'Ранункулюс со своими тонкими и многослойными лепестками напоминает скорее произведение искусства, чем цветок. Символизируя очарование и элегантность, ранункулюс добавляет романтическую атмосферу любой композиции — от пастельных тонов до ярких красок. В Фетхие букет ранункулюса — прекраснейшее выражение утончённого вкуса.',
+        'Ранункулюс несёт послание «ты ослепительна», что делает его идеальным цветком для выражения восхищения и признательности. Для всех, кто ищет элегантный штрих, от свадеб до дней рождения, ранункулюс — прекрасный выбор.',
+        'В уходе за ранункулюсом важны прохлада и чистая вода. Если аккуратно подрезать его нежные стебли и регулярно менять воду, цветы ранункулюса надолго сохранят свою многослойную красоту.',
+        'В Flora Art мы выбираем самый свежий ранункулюс в Фетхие и составляем романтические букеты. Наши композиции из ранункулюса представляют ваш утончённый и элегантный вкус в его самом обворожительном виде.',
+      ],
+    },
+  },
+
+  /* ── 16 · Ortanca ─────────────────────────────────────────────── */
+  {
+    slug: 'ortanca',
+    category: 'cicek',
+    relatedKeywords: ['Ortanca'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/pembe-gul-orkide-buket.webp',
+    title: {
+      tr: 'Ortanca: Bolluğun ve İçten Duyguların Çiçeği',
+      en: 'Hydrangeas: The Flower of Abundance and Heartfelt Emotions',
+      ru: 'Гортензии: цветок изобилия и душевных чувств',
+    },
+    metaDescription: {
+      tr: "Ortanca bolluğu, içten duyguları ve minnettarlığı simgeleyen gösterişli bir çiçektir. Ortanca buketi Fethiye'de Flora Art'ta.",
+      en: 'The hydrangea is a showy flower symbolizing abundance, heartfelt emotions and gratitude. Hydrangea bouquets in Fethiye at Flora Art.',
+      ru: 'Гортензия — пышный цветок, символизирующий изобилие, душевные чувства и благодарность. Букеты гортензии в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Ortanca, dolgun ve gösterişli görünümüyle bolluğun ve cömertliğin çiçeğidir. Küçük çiçeklerin bir araya gelerek oluşturduğu görkemli yapısıyla ortanca, içten duyguları ve minnettarlığı simgeler. Fethiye'de bir ortanca buketi, zengin ve etkileyici bir armağan sunar.",
+        'Ortancanın renkleri farklı anlamlar taşır. Mavi ortanca içtenliği, pembe ortanca samimi duyguları, beyaz ortanca ise saflığı anlatır. Bir teşekkürü iletmek ya da derin duygularınızı göstermek için ortanca etkileyici bir seçimdir.',
+        'Ortanca bol su seven bir çiçektir; susuz kaldığında çabuk solar. Saplarını çapraz kesip bol temiz suda tuttuğunuzda ve serin bir ortamda muhafaza ettiğinizde ortancalarınız uzun süre canlı kalır.',
+        "Flora Art olarak Fethiye'de en taze ortancaları seçip gösterişli buketler hazırlıyoruz. Ortanca aranjmanlarımız, cömert ve içten duygularınızı en görkemli haliyle ifade eder.",
+      ],
+      en: [
+        'The hydrangea, with its full and showy appearance, is the flower of abundance and generosity. With its magnificent structure formed by small flowers coming together, the hydrangea symbolizes heartfelt emotions and gratitude. In Fethiye, a hydrangea bouquet offers a rich and impressive gift.',
+        'The colors of the hydrangea carry different meanings. A blue hydrangea expresses sincerity, a pink one heartfelt emotions, and a white hydrangea purity. To convey a thank you or show your deep feelings, the hydrangea is an impressive choice.',
+        'The hydrangea is a flower that loves plenty of water; it wilts quickly when left without it. When you cut the stems at an angle, keep them in plenty of clean water and store them in a cool place, your hydrangeas stay fresh for a long time.',
+        'At Flora Art, we select the freshest hydrangeas in Fethiye and prepare showy bouquets. Our hydrangea arrangements express your generous and heartfelt emotions in their most magnificent form.',
+      ],
+      ru: [
+        'Гортензия своим пышным и эффектным видом является цветком изобилия и щедрости. Своей великолепной структурой, образованной множеством маленьких цветков, гортензия символизирует душевные чувства и благодарность. В Фетхие букет гортензии — это богатый и впечатляющий подарок.',
+        'Цвета гортензии несут разные значения. Синяя гортензия выражает искренность, розовая — душевные чувства, а белая гортензия — чистоту. Чтобы выразить благодарность или показать ваши глубокие чувства, гортензия — впечатляющий выбор.',
+        'Гортензия — цветок, который любит обилие воды; без неё она быстро вянет. Если подрезать стебли под углом, держать их в обилии чистой воды и хранить в прохладе, ваши гортензии надолго останутся свежими.',
+        'В Flora Art мы выбираем самые свежие гортензии в Фетхие и составляем эффектные букеты. Наши композиции из гортензии выражают ваши щедрые и душевные чувства в их самом великолепном виде.',
+      ],
+    },
+  },
+
+  /* ── 17 · Aster ───────────────────────────────────────────────── */
+  {
+    slug: 'aster',
+    category: 'cicek',
+    relatedKeywords: ['Aster'],
+    relatedCollection: 'bouquet',
+    heroImage: '/images/products/pexels/pembe-aster-buket.webp',
+    title: {
+      tr: 'Aster: Sevginin ve Sabrın Yıldız Çiçeği',
+      en: 'Asters: The Star Flower of Love and Patience',
+      ru: 'Астры: звёздный цветок любви и терпения',
+    },
+    metaDescription: {
+      tr: "Aster yıldızı andıran yapısıyla sevgiyi, sabrı ve zarafeti simgeler. Aster buketi Fethiye'de Flora Art'ta.",
+      en: 'The aster, with its star-like shape, symbolizes love, patience and elegance. Aster bouquets in Fethiye at Flora Art.',
+      ru: 'Астра своей звёздообразной формой символизирует любовь, терпение и элегантность. Букеты астр в Фетхие в Flora Art.',
+    },
+    body: {
+      tr: [
+        "Aster, yıldızı andıran narin yaprakları ile zarafetin ve içtenliğin çiçeğidir. Adını yıldız anlamına gelen kelimeden alan aster; sevgiyi, sabrı ve zarif bir güzelliği simgeler. Fethiye'de bir aster buketi, sade ama büyüleyici bir armağan sunar.",
+        'Aster çoğunlukla derin sevgiyi ve değer vermeyi anlatmak için tercih edilir. Pembe aster nazik sevgiyi, mor aster bilgeliği, beyaz aster ise masumiyeti simgeler. İçten bir mesaj vermek isteyenler için aster ideal bir çiçektir.',
+        'Aster bakımı kolaydır; bol su sever ve serin ortamda uzun süre taze kalır. Saplarını çapraz kesip suyunu düzenli değiştirdiğinizde asterlerinizin yıldız gibi parıltısı uzun süre korunur.',
+        "Flora Art olarak Fethiye'de en taze asterleri seçip zarif buketler hazırlıyoruz. Aster aranjmanlarımız, içten ve nazik duygularınızı en zarif haliyle ifade eder.",
+      ],
+      en: [
+        'The aster, with its star-like delicate petals, is the flower of elegance and sincerity. Taking its name from the word meaning star, the aster symbolizes love, patience and graceful beauty. In Fethiye, an aster bouquet offers a simple yet enchanting gift.',
+        'The aster is often chosen to express deep love and appreciation. A pink aster symbolizes gentle love, a purple aster wisdom, and a white aster innocence. For those who want to give a heartfelt message, the aster is an ideal flower.',
+        'Caring for the aster is easy; it loves plenty of water and stays fresh for a long time in a cool environment. When you cut the stems at an angle and change the water regularly, the star-like sparkle of your asters is preserved for a long time.',
+        'At Flora Art, we select the freshest asters in Fethiye and prepare elegant bouquets. Our aster arrangements express your heartfelt and gentle emotions in their most graceful form.',
+      ],
+      ru: [
+        'Астра со своими звёздообразными нежными лепестками — цветок элегантности и искренности. Получив название от слова, означающего «звезда», астра символизирует любовь, терпение и изящную красоту. В Фетхие букет астр — это простой, но обворожительный подарок.',
+        'Астру часто выбирают, чтобы выразить глубокую любовь и признательность. Розовая астра символизирует нежную любовь, фиолетовая астра — мудрость, а белая астра — невинность. Для тех, кто хочет передать душевное послание, астра — идеальный цветок.',
+        'Уход за астрой прост: она любит обилие воды и долго остаётся свежей в прохладе. Если подрезать стебли под углом и регулярно менять воду, звёздное сияние ваших астр сохранится надолго.',
+        'В Flora Art мы выбираем самые свежие астры в Фетхие и составляем изящные букеты. Наши композиции из астр выражают ваши душевные и нежные чувства в их самом изящном виде.',
+      ],
+    },
+  },
 ]
 
 /** Find a post by its slug. */
