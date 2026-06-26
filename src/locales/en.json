@@ -251,6 +251,7 @@
       "delivery": "Delivery Area",
       "deliveryFee": "Delivery Fee",
       "total": "Total",
+      "vatIncluded": "VAT included",
       "recipient": "Recipient",
       "address": "Address",
       "cardNote": "Card Note",

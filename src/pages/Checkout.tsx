@@ -189,7 +189,7 @@ export default function Checkout() {
     lines.push('')
     lines.push(`📍 ${L('delivery')}: ${form.deliveryArea}`)
     lines.push(`🚚 ${L('deliveryFee')}: ${deliveryFee}₺`)
-    lines.push(`💰 ${L('total')}: ${total}₺`)
+    lines.push(`💰 ${L('total')}: ${total}₺ (${L('vatIncluded')})`)
 
     if (form.isGift) {
       lines.push('')
@@ -712,6 +712,14 @@ function SummaryCard({
             label={t('checkout.summary.delivery') as string}
             value={deliveryArea ? `${currency}${deliveryFee}` : '—'}
           />
+          {deliveryArea && (
+            <p
+              className="mt-0.5 text-right text-[10px]"
+              style={{ fontFamily: 'var(--font-body)', color: 'var(--color-ink)', opacity: 0.5 }}
+            >
+              ({t('checkout.wa.vatIncluded')})
+            </p>
+          )}
           {deliveryArea && (
             <p
               className="mt-1 text-[11px] leading-snug"

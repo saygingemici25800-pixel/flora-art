@@ -251,6 +251,7 @@
       "delivery": "Зона доставки",
       "deliveryFee": "Стоимость доставки",
       "total": "Итого",
+      "vatIncluded": "НДС включён",
       "recipient": "Получатель",
       "address": "Адрес",
       "cardNote": "Текст открытки",

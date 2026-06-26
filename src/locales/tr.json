@@ -251,6 +251,7 @@
       "delivery": "Teslimat Bölgesi",
       "deliveryFee": "Teslimat Ücreti",
       "total": "Toplam",
+      "vatIncluded": "KDV dahil",
       "recipient": "Alıcı",
       "address": "Adres",
       "cardNote": "Kart Notu",
