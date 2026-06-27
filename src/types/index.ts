@@ -53,6 +53,8 @@ export interface Product {
   available: boolean
   /** Surface on the homepage / featured rails. */
   featured: boolean
+  /** Hide from every storefront list/detail without deleting (admin still sees it). */
+  hidden?: boolean
   seoTitle?: string
   seoDescription?: string
   /** ISO-8601 timestamp. */

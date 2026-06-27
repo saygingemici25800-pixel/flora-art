@@ -25,6 +25,7 @@ export interface StoreProduct {
   badge?: BadgeKind
   available: boolean
   featured: boolean
+  hidden?: boolean
   images: string[]
   createdAt: string
 }
@@ -49,6 +50,7 @@ function toStoreProduct(p: Product, locale: Locale): StoreProduct {
     badge: p.badge,
     available: p.available,
     featured: p.featured,
+    hidden: p.hidden,
     images: p.images,
     createdAt: p.createdAt,
   }
@@ -110,8 +112,12 @@ export function useProducts(query: ProductQuery = {}): UseProductsResult {
     }
   }, [category, featured, tick])
 
+  // Hidden products are dropped here — the single storefront source — so they
+  // never appear in any list/grid (Home, related, similar) and a direct
+  // /product/:id for a hidden item resolves to NotFound (find → undefined).
+  // Admin uses adminClient, not this hook, so it still sees hidden products.
   const products = useMemo(
-    () => (raw ?? []).map((p) => toStoreProduct(p, locale)),
+    () => (raw ?? []).filter((p) => !p.hidden).map((p) => toStoreProduct(p, locale)),
     [raw, locale],
   )
 

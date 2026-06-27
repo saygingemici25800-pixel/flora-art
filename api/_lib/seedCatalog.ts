@@ -121,6 +121,8 @@ interface Entry {
   image?: string
   /** Explicit Turkish description; falls back to the generated one when omitted. */
   desc?: string
+  /** Hide from every storefront list/detail without deleting (defaults to visible). */
+  hidden?: boolean
 }
 
 const BOUQUET: Entry[] = [
@@ -533,6 +535,7 @@ function addCategory(category: CategoryId, entries: Entry[]): void {
       badge: e.badge,
       available: true,
       featured: e.featured ?? false,
+      hidden: e.hidden ?? false,
     })
   }
 }
