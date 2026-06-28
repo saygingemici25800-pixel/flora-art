@@ -13,10 +13,9 @@ interface Category {
 type CategoryId =
   | 'bouquet'
   | 'box'
-  | 'wedding'
-  | 'corporate'
   | 'plant'
-  | 'international'
+  | 'wreath'
+  | 'weddingcar'
 
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'
@@ -25,12 +24,11 @@ function langPrefix(pathname: string): string {
 }
 
 const MOTIF_TINTS: Record<CategoryId, string> = {
-  bouquet:       'rgba(200, 169, 110, 0.55)',
-  box:           'rgba(1,62,55, 0.55)',
-  wedding:       'rgba(255,239,179, 0.85)',
-  corporate:     'rgba(1,62,55, 0.45)',
-  plant:         'rgba(200, 169, 110, 0.45)',
-  international: 'rgba(1,62,55, 0.55)',
+  bouquet:    'rgba(200, 169, 110, 0.55)',
+  box:        'rgba(1,62,55, 0.55)',
+  plant:      'rgba(200, 169, 110, 0.45)',
+  wreath:     'rgba(1,62,55, 0.45)',
+  weddingcar: 'rgba(255,239,179, 0.85)',
 }
 
 export default function CategoryGrid() {
@@ -236,7 +234,7 @@ function CategoryMotif({
           </g>
         </svg>
       )
-    case 'wedding':
+    case 'weddingcar':
       return (
         <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" {...common}>
           <g transform="translate(200 200)">
@@ -258,7 +256,7 @@ function CategoryMotif({
           </g>
         </svg>
       )
-    case 'corporate':
+    case 'wreath':
       return (
         <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" {...common}>
           <g transform="translate(200 200)">
@@ -288,25 +286,6 @@ function CategoryMotif({
               <ellipse cx="-30" cy="-110" rx="18" ry="7" transform="rotate(-20 -30 -110)" />
               <ellipse cx="30" cy="-110" rx="18" ry="7" transform="rotate(20 30 -110)" />
               <ellipse cx="0" cy="-140" rx="16" ry="7" />
-            </g>
-          </g>
-        </svg>
-      )
-    case 'international':
-      return (
-        <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" {...common}>
-          <g transform="translate(200 200)">
-            <circle r="100" />
-            <ellipse rx="100" ry="40" />
-            <ellipse rx="40" ry="100" />
-            <path d="M -100 -20 L 100 -20" opacity="0.5" />
-            <path d="M -100 20 L 100 20" opacity="0.5" />
-            <g>
-              <circle cx="-70" cy="-30" r="3" fill="currentColor" />
-              <circle cx="40" cy="20" r="3" fill="currentColor" />
-              <circle cx="60" cy="-60" r="3" fill="currentColor" />
-              <path d="M -70 -30 Q -15 -80, 60 -60" strokeDasharray="3 4" />
-              <path d="M 60 -60 Q 60 -10, 40 20" strokeDasharray="3 4" />
             </g>
           </g>
         </svg>

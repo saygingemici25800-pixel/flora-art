@@ -24,10 +24,9 @@ const SECTION_X_PAD = {
 const CATEGORY_ORDER: CategoryId[] = [
   'bouquet',
   'box',
-  'wedding',
-  'corporate',
   'plant',
-  'international',
+  'wreath',
+  'weddingcar',
 ]
 
 function langPrefix(pathname: string): string {

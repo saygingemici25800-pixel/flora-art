@@ -110,12 +110,11 @@
     "discover": "Discover"
   },
   "categories": [
-    { "id": "bouquet",       "name": "Bouquets" },
-    { "id": "box",           "name": "Box Arrangements" },
-    { "id": "wedding",       "name": "Wedding & Engagement" },
-    { "id": "corporate",     "name": "Corporate" },
-    { "id": "plant",         "name": "Plants & Pots" },
-    { "id": "international", "name": "International" }
+    { "id": "bouquet",    "name": "Bouquets" },
+    { "id": "box",        "name": "Flower Boxes" },
+    { "id": "plant",      "name": "Potted Plants" },
+    { "id": "wreath",     "name": "Wreaths" },
+    { "id": "weddingcar", "name": "Wedding Car" }
   ],
   "featured": {
     "title": "Featured",

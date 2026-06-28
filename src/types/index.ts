@@ -17,10 +17,9 @@ export type Localized = Record<Locale, string>
 export type CategoryId =
   | 'bouquet'
   | 'box'
-  | 'wedding'
-  | 'corporate'
   | 'plant'
-  | 'international'
+  | 'wreath'
+  | 'weddingcar'
 
 export type BadgeKind = 'holland' | 'new' | 'fast' | 'premium'
 

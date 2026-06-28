@@ -26,10 +26,9 @@ const VARIANTS: ImageVariant[] = [
 const CATEGORY_ORDER = [
   'bouquet',
   'box',
-  'wedding',
-  'corporate',
   'plant',
-  'international',
+  'wreath',
+  'weddingcar',
 ] as const
 
 function categoryIndex(id: string): number {

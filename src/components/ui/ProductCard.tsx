@@ -17,10 +17,9 @@ const EASE = [0.16, 1, 0.3, 1] as const
 const CATEGORY_ORDER = [
   'bouquet',
   'box',
-  'wedding',
-  'corporate',
   'plant',
-  'international',
+  'wreath',
+  'weddingcar',
 ] as const
 
 function categoryIndex(id: string): number {

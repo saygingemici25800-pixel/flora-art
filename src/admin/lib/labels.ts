@@ -13,11 +13,10 @@ import type {
 
 export const CATEGORY_LABELS: Record<CategoryId, string> = {
   bouquet: 'Buket',
-  box: 'Kutu',
-  wedding: 'Düğün',
-  corporate: 'Kurumsal',
-  plant: 'Bitki',
-  international: 'Uluslararası',
+  box: 'Kutuda Çiçek',
+  plant: 'Saksı Bitkileri',
+  wreath: 'Çelenkler',
+  weddingcar: 'Gelin Arabası',
 }
 
 export const BADGE_LABELS: Record<BadgeKind, string> = {

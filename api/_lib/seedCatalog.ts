@@ -21,9 +21,8 @@ const CATEGORY_IMAGE: Record<CategoryId, string> = {
   bouquet: '/images/categories/buket.webp',
   box: '/images/categories/kutu-cicek.webp',
   plant: '/images/categories/saksi-bitki.webp',
-  wedding: '/images/categories/dugun-nisan.webp',
-  corporate: '/images/categories/kurumsal.webp',
-  international: '/images/categories/buket.webp',
+  wreath: '/images/categories/kurumsal.webp',
+  weddingcar: '/images/categories/dugun-nisan.webp',
 }
 
 /* Fallback motif when a product has no real photo (rarely seen — every seed
@@ -32,9 +31,8 @@ const CATEGORY_MOTIF: Record<CategoryId, MotifKind> = {
   bouquet: 'rose',
   box: 'box',
   plant: 'orchid',
-  wedding: 'wedding',
-  corporate: 'premium',
-  international: 'premium',
+  wreath: 'premium',
+  weddingcar: 'wedding',
 }
 
 function tr(value: string): Localized {
@@ -100,9 +98,9 @@ const CORPORATE_CLOSE: string[] = [
 function descFor(name: string, index: number, category: CategoryId): string {
   const opener = DESC_OPEN[index % DESC_OPEN.length](name)
   const closePool =
-    category === 'wedding'
+    category === 'weddingcar'
       ? WEDDING_CLOSE
-      : category === 'corporate'
+      : category === 'wreath'
         ? CORPORATE_CLOSE
         : DESC_CLOSE
   const closer = closePool[(index * 3 + 1) % closePool.length]
@@ -452,18 +450,23 @@ function addCategory(category: CategoryId, entries: Entry[]): void {
   }
 }
 
-addCategory('bouquet', BOUQUET)
-addCategory('box', BOX)
-addCategory('plant', PLANT)
-addCategory('wedding', WEDDING)
-addCategory('corporate', CORPORATE)
+// The engagement wreath from the wedding batch joins the wreath category;
+// every other wedding entry (boutonnière, tray, bridal-car kits) is weddingcar.
+const WREATH_FROM_WEDDING = new Set(['Kırmızı Gül Nişan Çelengi'])
 
-// Batch 2 — real product photos appended at the end of each category.
-addCategory('plant', BATCH2_PLANT)
+addCategory('bouquet', BOUQUET)
 addCategory('bouquet', BATCH2_BOUQUET)
+addCategory('box', BOX)
 addCategory('box', BATCH2_BOX)
-addCategory('corporate', BATCH2_CORPORATE)
-addCategory('wedding', BATCH2_WEDDING)
+addCategory('plant', PLANT)
+addCategory('plant', BATCH2_PLANT)
+// Wreaths (çelenkler): all former corporate items + the engagement wreath.
+addCategory('wreath', CORPORATE)
+addCategory('wreath', BATCH2_CORPORATE)
+addCategory('wreath', BATCH2_WEDDING.filter((e) => WREATH_FROM_WEDDING.has(e.name)))
+// Wedding car (gelin arabası): boutonnière + tray + bridal-car decorations.
+addCategory('weddingcar', WEDDING)
+addCategory('weddingcar', BATCH2_WEDDING.filter((e) => !WREATH_FROM_WEDDING.has(e.name)))
 
 // Guarantee unique slugs (names are distinct, but be defensive).
 const seenSlugs = new Set<string>()

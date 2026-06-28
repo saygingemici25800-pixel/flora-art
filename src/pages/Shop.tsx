@@ -35,10 +35,9 @@ type Filter = 'all' | CategoryId
 const CATEGORY_ORDER: CategoryId[] = [
   'bouquet',
   'box',
-  'wedding',
-  'corporate',
   'plant',
-  'international',
+  'wreath',
+  'weddingcar',
 ]
 
 // Resolve the initial filter from a `?category=` query param (set by the

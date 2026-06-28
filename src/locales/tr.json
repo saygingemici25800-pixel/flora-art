@@ -110,12 +110,11 @@
     "discover": "Keşfet"
   },
   "categories": [
-    { "id": "bouquet",       "name": "Buket" },
-    { "id": "box",           "name": "Kutu Çiçek" },
-    { "id": "wedding",       "name": "Düğün & Nişan" },
-    { "id": "corporate",     "name": "Kurumsal" },
-    { "id": "plant",         "name": "Saksı & Bitki" },
-    { "id": "international", "name": "Uluslararası" }
+    { "id": "bouquet",    "name": "Buket" },
+    { "id": "box",        "name": "Kutuda Çiçek" },
+    { "id": "plant",      "name": "Saksı Bitkileri" },
+    { "id": "wreath",     "name": "Çelenkler" },
+    { "id": "weddingcar", "name": "Gelin Arabası" }
   ],
   "featured": {
     "title": "Öne Çıkanlar",

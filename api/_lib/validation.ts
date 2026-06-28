@@ -19,10 +19,9 @@ export type Result<T> = { ok: true; value: T } | { ok: false; error: string }
 const CATEGORIES: readonly CategoryId[] = [
   'bouquet',
   'box',
-  'wedding',
-  'corporate',
   'plant',
-  'international',
+  'wreath',
+  'weddingcar',
 ]
 
 const MOTIFS: readonly MotifKind[] = [

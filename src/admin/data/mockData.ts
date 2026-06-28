@@ -106,7 +106,7 @@ export const seedProducts: Product[] = [
     id: 'wedding-bq',
     name: { tr: 'Düğün Buketi', en: 'Wedding Bouquet', ru: 'Свадебный букет' },
     slug: 'dugun-buketi',
-    category: 'wedding',
+    category: 'weddingcar',
     price: 1200,
     description: {
       tr: 'Gelin için özel tasarım düğün buketi.',
@@ -162,7 +162,7 @@ export const seedProducts: Product[] = [
     id: 'office-orchid',
     name: { tr: 'Ofis Orkidesi', en: 'Office Orchid', ru: 'Офисная орхидея' },
     slug: 'ofis-orkidesi',
-    category: 'corporate',
+    category: 'wreath',
     price: 680,
     description: {
       tr: 'Kurumsal hediyeler için ideal orkide aranjmanı.',
@@ -200,7 +200,7 @@ export const seedProducts: Product[] = [
     id: 'intl-premium',
     name: { tr: 'Uluslararası Premium', en: 'International Premium', ru: 'Международный премиум' },
     slug: 'uluslararasi-premium',
-    category: 'international',
+    category: 'bouquet',
     price: 1500,
     description: {
       tr: 'Dünya geneline 1 günde teslim premium aranjman.',

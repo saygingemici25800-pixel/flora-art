@@ -94,9 +94,8 @@ const CATEGORY_DEFAULT_MOTIF: Record<CategoryId, MotifKind> = {
   bouquet: 'rose',
   box: 'box',
   plant: 'orchid',
-  wedding: 'wedding',
-  corporate: 'premium',
-  international: 'premium',
+  wreath: 'premium',
+  weddingcar: 'wedding',
 }
 
 /** Downscale to ~1200px on the longest side and re-encode as WebP, in-browser. */
