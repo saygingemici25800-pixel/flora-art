@@ -21,6 +21,9 @@ dist-ssr
 # Vercel
 .vercel
 
+# Local KV backups / data dumps (contain customer PII — never commit)
+backups/
+
 # Local agent tooling (skills installed via npx skills — not project code)
 .agents/
 .claude/
