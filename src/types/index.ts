@@ -54,6 +54,12 @@ export interface Product {
   featured: boolean
   /** Hide from every storefront list/detail without deleting (admin still sees it). */
   hidden?: boolean
+  /**
+   * Stable, seed-owned identity (slug of the seed name). Lets a re-seed find the
+   * same product across runs without relying on the random `id`, so admin edits
+   * are preserved instead of wiped. Absent on admin-only products.
+   */
+  seedKey?: string
   seoTitle?: string
   seoDescription?: string
   /** ISO-8601 timestamp. */

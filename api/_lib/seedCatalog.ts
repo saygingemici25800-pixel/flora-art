@@ -121,6 +121,8 @@ interface Entry {
   desc?: string
   /** Hide from every storefront list/detail without deleting (defaults to visible). */
   hidden?: boolean
+  /** Optional explicit stable key; defaults to slugify(name) in addCategory. */
+  seedKey?: string
 }
 
 const BOUQUET: Entry[] = [
@@ -446,6 +448,9 @@ function addCategory(category: CategoryId, entries: Entry[]): void {
       available: true,
       featured: e.featured ?? false,
       hidden: e.hidden ?? false,
+      // Permanent identity carried to KV so a re-seed can match this product
+      // across runs (derived from the seed name; stable unless the name changes).
+      seedKey: e.seedKey ?? slugify(e.name),
     })
   }
 }

@@ -7,6 +7,12 @@ export function sendJson(res: VercelResponse, status: number, data: unknown): vo
   res.status(status).json(data)
 }
 
+/** Like sendJson but indented — handy for human-read endpoints (e.g. /api/seed reports). */
+export function sendJsonPretty(res: VercelResponse, status: number, data: unknown): void {
+  res.status(status).setHeader('Content-Type', 'application/json; charset=utf-8')
+  res.send(JSON.stringify(data, null, 2))
+}
+
 export function sendError(
   res: VercelResponse,
   status: number,

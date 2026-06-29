@@ -5,9 +5,11 @@
 import { randomUUID } from 'node:crypto'
 import { kv, keys } from './kv'
 import type {
+  CategoryId,
   Coupon,
   CouponPatch,
   DailyStock,
+  Localized,
   Order,
   OrderInput,
   OrderPatch,
@@ -103,6 +105,231 @@ export async function replaceAllProducts(
   await pipeline.exec()
 
   return products.length
+}
+
+/* ── Safe seed (non-destructive upsert) ─────────────────────────────
+ * Alternative to replaceAllProducts that NEVER deletes. Each seed entry is
+ * matched to an existing product by, in order: seedKey → slug → normalized name.
+ * On a match it PRESERVES the admin-owned fields (name, price, oldPrice,
+ * available, featured, hidden), REFRESHES the seed-owned fields (category,
+ * motif, seedKey), and FILLS image/description/badge only when empty — keeping
+ * the same id + createdAt (no new UUID). Entries with no match are created.
+ * Products that no seed entry matches are left completely untouched.
+ */
+function normalizeName(s: string): string {
+  return s.toLowerCase().trim().replace(/\s+/g, ' ')
+}
+
+function isEmptyLocalized(loc?: Localized): boolean {
+  return !loc || (!loc.tr?.trim() && !loc.en?.trim() && !loc.ru?.trim())
+}
+
+function hasImage(images?: string[]): boolean {
+  return (
+    Array.isArray(images) &&
+    images.length > 0 &&
+    typeof images[0] === 'string' &&
+    images[0].trim() !== ''
+  )
+}
+
+/** Tiny Levenshtein distance, only for dry-run near-duplicate warnings. */
+function editDistance(a: string, b: string): number {
+  const m = a.length
+  const n = b.length
+  if (m === 0) return n
+  if (n === 0) return m
+  const dp = Array.from({ length: n + 1 }, (_, j) => j)
+  for (let i = 1; i <= m; i++) {
+    let prev = dp[0]
+    dp[0] = i
+    for (let j = 1; j <= n; j++) {
+      const tmp = dp[j]
+      dp[j] = a[i - 1] === b[j - 1] ? prev : 1 + Math.min(prev, dp[j], dp[j - 1])
+      prev = tmp
+    }
+  }
+  return dp[n]
+}
+
+export interface UpsertSeedOptions {
+  dryRun: boolean
+}
+
+export interface UpsertDryRunReport {
+  mode: 'dry-run'
+  summary: {
+    existingProducts: number
+    seedEntries: number
+    wouldMatch: number
+    wouldCreate: number
+    wouldPreserveUntouched: number
+    suspiciousNearMatches: number
+  }
+  wouldMatch: Array<{
+    seedKey: string
+    name: string
+    kvName: string
+    kvPrice: number
+    categoryChange: string | null
+  }>
+  wouldCreate: Array<{ name: string; category: CategoryId; price: number }>
+  wouldPreserveUntouched: Array<{ name: string; price: number; category: CategoryId }>
+  suspiciousNearMatches: Array<{
+    seedName: string
+    kvName: string
+    kvId: string
+    distance: number
+  }>
+}
+
+export interface UpsertLiveReport {
+  mode: 'live'
+  matched: number
+  created: number
+  untouched: number
+}
+
+export type UpsertSeedReport = UpsertDryRunReport | UpsertLiveReport
+
+export async function upsertSeed(
+  entries: ProductInput[],
+  opts: UpsertSeedOptions,
+): Promise<UpsertSeedReport> {
+  const existing = await listProducts()
+
+  const bySeedKey = new Map<string, Product>()
+  const bySlug = new Map<string, Product>()
+  const byNorm = new Map<string, Product>()
+  for (const p of existing) {
+    if (p.seedKey) bySeedKey.set(p.seedKey, p)
+    if (p.slug) bySlug.set(p.slug, p)
+    byNorm.set(normalizeName(p.name.tr), p)
+  }
+  // Normalized seed names that match some entry exactly — used to silence
+  // false near-duplicate warnings (those products are legit matches elsewhere).
+  const seedNormNames = new Set(entries.map((e) => normalizeName(e.name.tr)))
+
+  const matchedIds = new Set<string>()
+  const matchDecisions: Array<{ hit: Product; merged: Product }> = []
+  const newEntries: ProductInput[] = []
+  const nearWarnings: UpsertDryRunReport['suspiciousNearMatches'] = []
+
+  for (const entry of entries) {
+    const sk = entry.seedKey ?? entry.slug
+    const norm = normalizeName(entry.name.tr)
+    let hit =
+      bySeedKey.get(sk) ??
+      bySlug.get(entry.slug) ??
+      bySlug.get(sk) ??
+      byNorm.get(norm)
+    if (hit && matchedIds.has(hit.id)) hit = undefined // already claimed
+
+    if (hit) {
+      matchedIds.add(hit.id)
+      const merged: Product = {
+        ...hit, // PRESERVE: name, price, oldPrice, available, featured, hidden, slug, seo*
+        category: entry.category, // UPDATE (seed-owned)
+        motif: entry.motif, // UPDATE (seed-owned)
+        seedKey: sk, // stamp permanent key
+        images: hasImage(hit.images) ? hit.images : entry.images, // FILL if empty
+        description: isEmptyLocalized(hit.description)
+          ? entry.description
+          : hit.description, // FILL if empty
+        badge: hit.badge ?? entry.badge, // FILL if empty
+        id: hit.id,
+        createdAt: hit.createdAt,
+        updatedAt: nowIso(),
+      }
+      matchDecisions.push({ hit, merged })
+    } else {
+      newEntries.push(entry)
+      let best: { product: Product; distance: number } | null = null
+      for (const p of existing) {
+        const pn = normalizeName(p.name.tr)
+        if (seedNormNames.has(pn)) continue // matches some entry exactly → not suspicious
+        const d = editDistance(norm, pn)
+        if (best === null || d < best.distance) best = { product: p, distance: d }
+      }
+      if (best && best.distance > 0 && best.distance <= 3) {
+        nearWarnings.push({
+          seedName: entry.name.tr,
+          kvName: best.product.name.tr,
+          kvId: best.product.id,
+          distance: best.distance,
+        })
+      }
+    }
+  }
+
+  const untouched = existing.filter((p) => !matchedIds.has(p.id))
+
+  if (opts.dryRun) {
+    return {
+      mode: 'dry-run',
+      summary: {
+        existingProducts: existing.length,
+        seedEntries: entries.length,
+        wouldMatch: matchDecisions.length,
+        wouldCreate: newEntries.length,
+        wouldPreserveUntouched: untouched.length,
+        suspiciousNearMatches: nearWarnings.length,
+      },
+      wouldMatch: matchDecisions.map(({ hit, merged }) => ({
+        seedKey: merged.seedKey ?? '',
+        name: merged.name.tr,
+        kvName: hit.name.tr,
+        kvPrice: hit.price,
+        categoryChange:
+          hit.category !== merged.category
+            ? `${hit.category}→${merged.category}`
+            : null,
+      })),
+      wouldCreate: newEntries.map((e) => ({
+        name: e.name.tr,
+        category: e.category,
+        price: e.price,
+      })),
+      wouldPreserveUntouched: untouched.map((p) => ({
+        name: p.name.tr,
+        price: p.price,
+        category: p.category,
+      })),
+      suspiciousNearMatches: nearWarnings,
+    }
+  }
+
+  // Live apply — one batched pipeline. Only SET (matched + new) and SADD (new
+  // ids). No DEL anywhere, so nothing is ever destroyed.
+  const pipeline = kv.pipeline()
+  for (const { merged } of matchDecisions) {
+    pipeline.set(keys.product(merged.id), merged)
+  }
+  const createdIds: string[] = []
+  const ts = nowIso()
+  for (const entry of newEntries) {
+    const id = randomUUID()
+    const product: Product = {
+      ...entry,
+      seedKey: entry.seedKey ?? entry.slug,
+      id,
+      createdAt: ts,
+      updatedAt: ts,
+    }
+    pipeline.set(keys.product(id), product)
+    createdIds.push(id)
+  }
+  if (createdIds.length > 0) {
+    pipeline.sadd(keys.productsAll, ...(createdIds as [string, ...string[]]))
+  }
+  await pipeline.exec()
+
+  return {
+    mode: 'live',
+    matched: matchDecisions.length,
+    created: createdIds.length,
+    untouched: untouched.length,
+  }
 }
 
 /* ── Orders ─────────────────────────────────────────────────────── */
