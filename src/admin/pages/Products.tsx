@@ -40,11 +40,16 @@ export default function Products() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return products.filter((p) => {
-      if (category && p.category !== category) return false
-      if (q && !p.name.tr.toLowerCase().includes(q) && !p.slug.includes(q)) return false
-      return true
-    })
+    // Most-recently edited/created first, so a product Vahap just saved jumps to
+    // the top. ISO-8601 timestamps compare correctly as plain strings.
+    const ts = (p: Product) => p.updatedAt || p.createdAt || ''
+    return products
+      .filter((p) => {
+        if (category && p.category !== category) return false
+        if (q && !p.name.tr.toLowerCase().includes(q) && !p.slug.includes(q)) return false
+        return true
+      })
+      .sort((a, b) => ts(b).localeCompare(ts(a)))
   }, [products, category, query])
 
   function openCreate() {
