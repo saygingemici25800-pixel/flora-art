@@ -9,6 +9,7 @@ import ProductMotif from '../components/ui/ProductMotif'
 import ProductCard from '../components/ui/ProductCard'
 import TiltCard from '../components/ui/TiltCard'
 import { MagneticButton } from '../components/ui/magnetic-button'
+import { CATEGORY_ORDER } from '../data/categoryOrder'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -22,14 +23,6 @@ const VARIANTS: ImageVariant[] = [
   { color: 'var(--color-gold)',   opacity: 0.6 },
   { color: 'var(--color-forest)', opacity: 0.85 },
 ]
-
-const CATEGORY_ORDER = [
-  'bouquet',
-  'box',
-  'plant',
-  'wreath',
-  'weddingcar',
-] as const
 
 function categoryIndex(id: string): number {
   const idx = (CATEGORY_ORDER as readonly string[]).indexOf(id)

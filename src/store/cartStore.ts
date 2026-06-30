@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { MotifKind, Product } from '../data/products'
+import type { CategoryId } from '../types'
 
 export interface CartItem {
   id: string
@@ -7,6 +8,7 @@ export interface CartItem {
   price: number
   motif: MotifKind
   image?: string
+  category: CategoryId
   quantity: number
 }
 
@@ -49,6 +51,7 @@ export const useCartStore = create<CartState>((set) => ({
             price: product.price,
             motif: product.motif,
             image,
+            category: product.category,
             quantity: 1,
           },
         ],

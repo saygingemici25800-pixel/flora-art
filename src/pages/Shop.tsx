@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import type { CategoryId } from '../types'
+import { CATEGORY_ORDER } from '../data/categoryOrder'
 import { useProducts, type StoreProduct } from '../hooks/useProducts'
 import { useSEO } from '../hooks/useSEO'
 import ProductCard from '../components/ui/ProductCard'
@@ -31,14 +32,6 @@ function cardAspect(index: number): string {
 
 type SortKey = 'newest' | 'priceAsc' | 'priceDesc'
 type Filter = 'all' | CategoryId
-
-const CATEGORY_ORDER: CategoryId[] = [
-  'bouquet',
-  'box',
-  'plant',
-  'wreath',
-  'weddingcar',
-]
 
 // Resolve the initial filter from a `?category=` query param (set by the
 // homepage category links). Unknown/absent values fall back to 'all'.

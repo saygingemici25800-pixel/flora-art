@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useSEO } from '../hooks/useSEO'
 import { useProducts, type StoreProduct } from '../hooks/useProducts'
 import type { CategoryId } from '../types'
+import { CATEGORY_ORDER } from '../data/categoryOrder'
 import CaptionedVideo from '../components/ui/CaptionedVideo'
 import IntroLoader from '../components/ui/IntroLoader'
 import ProductCard from '../components/ui/ProductCard'
@@ -20,14 +21,6 @@ const SECTION_X_PAD = {
   paddingLeft: 'clamp(20px, 5vw, 64px)',
   paddingRight: 'clamp(20px, 5vw, 64px)',
 } as const
-
-const CATEGORY_ORDER: CategoryId[] = [
-  'bouquet',
-  'box',
-  'plant',
-  'wreath',
-  'weddingcar',
-]
 
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'

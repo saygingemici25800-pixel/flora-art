@@ -9,6 +9,7 @@ import {
   type CartItem,
 } from '../../store/cartStore'
 import ProductMotif from './ProductMotif'
+import { categoryRank } from '../../data/categoryOrder'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -31,6 +32,10 @@ export default function CartDrawer() {
   const itemCount = useCartStore(selectItemCount)
   const subtotal = useCartStore(selectSubtotal)
   const currency = t('featured.currency') as string
+
+  // Always list items in the fixed category order (buket → kutu → saksı →
+  // çelenk → gelin arabası). Stable sort keeps insertion order within a category.
+  const ordered = [...items].sort((a, b) => categoryRank(a.category) - categoryRank(b.category))
 
   useEffect(() => {
     if (!isOpen) return
@@ -128,12 +133,12 @@ export default function CartDrawer() {
                   style={{ background: 'var(--color-cream)' }}
                 >
                   <ul className="flex flex-col gap-5">
-                    {items.map((item, i) => (
+                    {ordered.map((item, i) => (
                       <CartRow
                         key={item.id}
                         item={item}
                         currency={currency}
-                        divider={i < items.length - 1}
+                        divider={i < ordered.length - 1}
                         onIncrement={() => updateQuantity(item.id, item.quantity + 1)}
                         onDecrement={() => updateQuantity(item.id, item.quantity - 1)}
                         onRemove={() => removeItem(item.id)}

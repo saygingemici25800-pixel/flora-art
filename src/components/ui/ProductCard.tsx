@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useCartStore } from '../../store/cartStore'
 import type { StoreProduct } from '../../hooks/useProducts'
 import ProductMotif from './ProductMotif'
+import { CATEGORY_ORDER } from '../../data/categoryOrder'
 
 function langPrefix(pathname: string): string {
   if (pathname.startsWith('/en')) return '/en'
@@ -13,14 +14,6 @@ function langPrefix(pathname: string): string {
 }
 
 const EASE = [0.16, 1, 0.3, 1] as const
-
-const CATEGORY_ORDER = [
-  'bouquet',
-  'box',
-  'plant',
-  'wreath',
-  'weddingcar',
-] as const
 
 function categoryIndex(id: string): number {
   const idx = (CATEGORY_ORDER as readonly string[]).indexOf(id)
