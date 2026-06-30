@@ -141,6 +141,7 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState<string | null>(null)
   const [showAdvanced, setShowAdvanced] = useState(false)
+  const [lightbox, setLightbox] = useState(false)
   const fileRef = useRef<HTMLInputElement | null>(null)
 
   const isEdit = product !== null
@@ -156,7 +157,18 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
     setErrors({})
     setUploadError(null)
     setShowAdvanced(false)
+    setLightbox(false)
   }, [open, product])
+
+  // Close the photo lightbox on Escape (only while it is open).
+  useEffect(() => {
+    if (!lightbox) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightbox])
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }))
@@ -258,6 +270,7 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
   }
 
   return (
+    <>
     <Modal
       open={open}
       onClose={saving ? () => {} : onClose}
@@ -323,7 +336,9 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
                 <img
                   src={firstImage}
                   alt="Ürün fotoğrafı"
-                  className="h-full w-full object-cover"
+                  onClick={() => setLightbox(true)}
+                  title="Büyütmek için tıklayın"
+                  className="h-full w-full cursor-pointer object-cover"
                 />
               ) : (
                 <span
@@ -480,6 +495,25 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
         </div>
       </form>
     </Modal>
+
+    {/* Photo lightbox — click the preview to enlarge; click outside or ESC closes. */}
+    {lightbox && firstImage && (
+      <div
+        className="admin-scope fixed inset-0 z-[1100] flex items-center justify-center bg-black/80 p-4"
+        onClick={() => setLightbox(false)}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Fotoğraf önizleme"
+      >
+        <img
+          src={firstImage}
+          alt="Ürün fotoğrafı — büyük"
+          onClick={(e) => e.stopPropagation()}
+          className="max-h-[90vh] max-w-[90vw] object-contain"
+        />
+      </div>
+    )}
+    </>
   )
 }
 
