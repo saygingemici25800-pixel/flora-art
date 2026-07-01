@@ -87,18 +87,26 @@ function Founder() {
             {t('about.founder.kicker')}
           </p>
 
-          <h2
-            className="italic mb-8"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(3rem, 6vw, 5rem)',
-              color: 'var(--color-cream)',
-              letterSpacing: '-0.02em',
-              lineHeight: 1,
-            }}
-          >
-            {t('about.founder.name')}
-          </h2>
+          <div className="mb-8 flex flex-wrap items-center gap-3">
+            <img
+              src="/images/vahap-aliona.webp"
+              alt="Vahap & Aliona Akar"
+              className="h-14 w-14 shrink-0 rounded-full border object-cover md:h-16 md:w-16"
+              style={{ borderColor: 'rgba(200, 169, 110, 0.45)' }}
+            />
+            <h2
+              className="italic"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(3rem, 6vw, 5rem)',
+                color: 'var(--color-cream)',
+                letterSpacing: '-0.02em',
+                lineHeight: 1,
+              }}
+            >
+              {t('about.founder.name')}
+            </h2>
+          </div>
 
           <p
             className="text-[16px] leading-relaxed max-w-[58ch] mb-5"
