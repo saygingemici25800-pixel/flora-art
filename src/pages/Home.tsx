@@ -136,9 +136,9 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
               className="italic"
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.85rem, 6vw, 5.5rem)',
+                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
                 letterSpacing: '-0.02em',
-                lineHeight: 0.98,
+                lineHeight: 1.05,
                 color: 'var(--color-cream)',
               }}
             >
