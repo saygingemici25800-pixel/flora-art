@@ -160,7 +160,7 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 0.78, y: 0 }}
               transition={{ duration: 0.8, ease: EASE, delay: 0.7 }}
-              className="mt-7 max-w-[42ch] text-[15px] leading-relaxed md:text-[16px]"
+              className="mt-10 max-w-[42ch] text-[13px] leading-relaxed md:text-[14px]"
               style={{ fontFamily: 'var(--font-body)', color: 'var(--color-cream)' }}
             >
               {t('homepage.header.sub')}
