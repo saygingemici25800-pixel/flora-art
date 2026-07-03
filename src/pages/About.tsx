@@ -40,7 +40,7 @@ function Founder() {
           className="md:col-span-5 md:order-2 flex justify-center md:justify-end"
         >
           <div
-            className="relative grid place-items-center"
+            className="relative grid place-items-center overflow-hidden"
             style={{
               width: 'min(78vw, 420px)',
               aspectRatio: '1 / 1',
@@ -54,18 +54,11 @@ function Founder() {
               className="absolute rounded-full"
               style={{ inset: '12%', border: '1px solid rgba(200, 169, 110, 0.2)' }}
             />
-            <div className="relative text-center px-6">
-              <FounderGlyph />
-              <p
-                className="mt-5 text-[10px] tracking-[0.3em] uppercase"
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  color: 'rgba(255,239,179, 0.55)',
-                }}
-              >
-                {t('about.founder.imagePlaceholder')}
-              </p>
-            </div>
+            <img
+              src="/images/vahap-aliona.webp"
+              alt="Vahap & Aliona Akar"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
           </div>
         </motion.div>
 
@@ -87,26 +80,18 @@ function Founder() {
             {t('about.founder.kicker')}
           </p>
 
-          <div className="mb-8 flex flex-wrap items-center gap-3">
-            <img
-              src="/images/vahap-aliona.webp"
-              alt="Vahap & Aliona Akar"
-              className="h-14 w-14 shrink-0 rounded-full border object-cover md:h-16 md:w-16"
-              style={{ borderColor: 'rgba(200, 169, 110, 0.45)' }}
-            />
-            <h2
-              className="italic"
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(3rem, 6vw, 5rem)',
-                color: 'var(--color-cream)',
-                letterSpacing: '-0.02em',
-                lineHeight: 1,
-              }}
-            >
-              {t('about.founder.name')}
-            </h2>
-          </div>
+          <h2
+            className="italic mb-8"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(3rem, 6vw, 5rem)',
+              color: 'var(--color-cream)',
+              letterSpacing: '-0.02em',
+              lineHeight: 1,
+            }}
+          >
+            {t('about.founder.name')}
+          </h2>
 
           <p
             className="text-[16px] leading-relaxed max-w-[58ch] mb-5"
@@ -142,35 +127,5 @@ function Founder() {
         </motion.div>
       </div>
     </section>
-  )
-}
-
-function FounderGlyph() {
-  return (
-    <svg
-      width="84"
-      height="84"
-      viewBox="0 0 100 100"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="0.9"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="mx-auto"
-      style={{ color: 'var(--color-gold)', opacity: 0.85 }}
-    >
-      <g transform="translate(50 50)">
-        {[0, 45, 90, 135, 180, 225, 270, 315].map((rot) => (
-          <ellipse key={rot} cx="0" cy="-22" rx="10" ry="20" transform={`rotate(${rot})`} />
-        ))}
-        <circle r="9" fill="currentColor" opacity="0.18" />
-        <circle r="4" />
-        <path d="M 0 22 C -6 36, -6 46, -6 50" />
-        <path d="M 0 22 C 6 36, 6 46, 6 50" />
-        <ellipse cx="-15" cy="40" rx="10" ry="4" transform="rotate(-25 -15 40)" />
-        <ellipse cx="15" cy="40" rx="10" ry="4" transform="rotate(25 15 40)" />
-      </g>
-    </svg>
   )
 }
