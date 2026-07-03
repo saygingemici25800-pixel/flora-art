@@ -305,7 +305,7 @@ function HeroBouquet3D() {
           }}
         >
           <img
-            src="/images/floraart_logo_white.png"
+            src="/images/floraart_logo_transparent.png"
             alt="Flora Art — logo"
             loading="eager"
             decoding="async"
