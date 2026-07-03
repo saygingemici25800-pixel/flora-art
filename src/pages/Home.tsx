@@ -247,7 +247,7 @@ function HeroBouquet3D() {
         if (cancelled || !hostRef.current) return
         mv = document.createElement('model-viewer')
         const attrs: Record<string, string> = {
-          src: '/models/floral-bouquet.glb',
+          src: '/models/floraart-logo-3d.glb',
           alt: 'Flora Art — 3D çiçek buketi',
           'auto-rotate': '',
           'auto-rotate-delay': '0',
@@ -305,8 +305,8 @@ function HeroBouquet3D() {
           }}
         >
           <img
-            src="/images/categories/buket.webp"
-            alt="Flora Art — el yapımı buket"
+            src="/images/floraart_logo_white.png"
+            alt="Flora Art — logo"
             loading="eager"
             decoding="async"
             className="block h-full w-full object-cover"
