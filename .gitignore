@@ -46,3 +46,6 @@ public/videos/*.webm
 public/images/categories/*.jpeg
 public/images/categories/*.jpg
 .env*
+
+# Local pre-optimize video backups (never commit)
+public/videos/aliona-*.orig.mp4
