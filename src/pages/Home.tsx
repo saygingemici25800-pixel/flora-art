@@ -84,8 +84,8 @@ function Hero({ prefix, desktop }: { prefix: string; desktop: boolean }) {
   // stepped down with a slight overlap for an editorial, layered feel.
   const videos: { base: string; w: string; align: 'flex-start' | 'flex-end'; mt: string }[] = [
     { base: 'about-vahap-tanitim', w: '64%', align: 'flex-end', mt: '0' },
-    { base: 'contact-vahap-mesaj', w: '48%', align: 'flex-start', mt: '-12%' },
-    { base: 'about-vahap-cicekler', w: '56%', align: 'flex-end', mt: '-8%' },
+    { base: 'aliona-rusca', w: '48%', align: 'flex-start', mt: '-12%' },
+    { base: 'aliona-ingilizce', w: '56%', align: 'flex-end', mt: '-8%' },
   ]
 
   return (
