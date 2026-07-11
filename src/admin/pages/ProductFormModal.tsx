@@ -214,6 +214,8 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
   function validate(): boolean {
     const next: Partial<Record<keyof FormState, string>> = {}
     if (!form.nameTr.trim()) next.nameTr = 'Zorunlu'
+    if (!form.nameEn.trim()) next.nameEn = 'Zorunlu'
+    if (!form.nameRu.trim()) next.nameRu = 'Zorunlu'
     const price = Number(form.price)
     if (!form.price.trim() || Number.isNaN(price) || price < 0) next.price = 'Geçerli bir fiyat girin'
     if (form.oldPrice.trim() && Number.isNaN(Number(form.oldPrice))) next.oldPrice = 'Geçersiz'
@@ -235,7 +237,7 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
       .map((s) => s.trim())
       .filter(Boolean)
     return {
-      name: { tr: nameTr, en: form.nameEn.trim() || nameTr, ru: form.nameRu.trim() || nameTr },
+      name: { tr: nameTr, en: form.nameEn.trim(), ru: form.nameRu.trim() },
       slug,
       category: form.category,
       price: Number(form.price),
@@ -289,11 +291,25 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
     >
       <form onSubmit={onSubmit} className="flex flex-col gap-5">
         {/* ── Simple fields (everything Vahap needs) ───────────────── */}
-        <Field label="Ürün Adı" required error={errors.nameTr}>
+        <Field label="Ürün Adı (TR)" required error={errors.nameTr}>
           <TextInput
             value={form.nameTr}
             onChange={(e) => set('nameTr', e.target.value)}
             placeholder="Kırmızı Gül Buketi"
+          />
+        </Field>
+        <Field label="Product Name (EN)" required error={errors.nameEn}>
+          <TextInput
+            value={form.nameEn}
+            onChange={(e) => set('nameEn', e.target.value)}
+            placeholder="Red Rose Bouquet"
+          />
+        </Field>
+        <Field label="Название (RU)" required error={errors.nameRu}>
+          <TextInput
+            value={form.nameRu}
+            onChange={(e) => set('nameRu', e.target.value)}
+            placeholder="Букет красных роз"
           />
         </Field>
 
@@ -414,7 +430,7 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
             </span>
           </button>
           <p className="mt-1 text-[0.66rem]" style={{ color: 'rgba(28,43,26,0.5)' }}>
-            SEO, slug, motif, rozet, diğer diller. Boş bırakırsanız otomatik doldurulur.
+            SEO, slug, motif, rozet ve açıklama çevirileri. Boş bırakırsanız otomatik doldurulur.
           </p>
 
           {showAdvanced && (
@@ -422,17 +438,6 @@ export default function ProductFormModal({ open, product, onClose, onSaved }: Pr
               className="mt-4 flex flex-col gap-5 rounded-lg p-4"
               style={{ border: '1px solid rgba(28,43,26,0.15)', background: 'rgba(28,43,26,0.03)' }}
             >
-              <Section title="Ürün Adı — Diğer Diller">
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <Field label="English" hint="Boşsa Türkçe kullanılır">
-                    <TextInput value={form.nameEn} onChange={(e) => set('nameEn', e.target.value)} placeholder="Red Rose Bouquet" />
-                  </Field>
-                  <Field label="Русский" hint="Boşsa Türkçe kullanılır">
-                    <TextInput value={form.nameRu} onChange={(e) => set('nameRu', e.target.value)} placeholder="Букет красных роз" />
-                  </Field>
-                </div>
-              </Section>
-
               <Section title="Açıklama — Diğer Diller">
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <Field label="English">
