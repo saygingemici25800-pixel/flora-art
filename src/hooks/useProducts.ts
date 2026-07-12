@@ -11,12 +11,14 @@
  */
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { BadgeKind, CategoryId, Locale, MotifKind, Product } from '../types'
+import type { BadgeKind, CategoryId, Locale, Localized, MotifKind, Product } from '../types'
 
 export interface StoreProduct {
   id: string
   slug: string
   name: string
+  /** Raw trilingual name, so the cart can re-resolve on language switch. */
+  nameLocalized: Localized
   description: string
   price: number
   oldPrice?: number
@@ -42,6 +44,7 @@ function toStoreProduct(p: Product, locale: Locale): StoreProduct {
     id: p.id,
     slug: p.slug,
     name: p.name?.[locale] ?? p.name?.tr ?? '',
+    nameLocalized: p.name ?? { tr: '', en: '', ru: '' },
     description: p.description?.[locale] ?? p.description?.tr ?? '',
     price: p.price,
     oldPrice: p.oldPrice,

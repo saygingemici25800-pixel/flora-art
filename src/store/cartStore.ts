@@ -1,10 +1,13 @@
 import { create } from 'zustand'
 import type { MotifKind, Product } from '../data/products'
-import type { CategoryId } from '../types'
+import type { CategoryId, Locale, Localized } from '../types'
 
 export interface CartItem {
   id: string
+  /** Locale-resolved name at add time — legacy fallback if nameLocalized absent. */
   name: string
+  /** Raw trilingual name so the cart can re-resolve live on language switch. */
+  nameLocalized?: Localized
   price: number
   motif: MotifKind
   image?: string
@@ -12,8 +15,13 @@ export interface CartItem {
   quantity: number
 }
 
-/** Accepts either the flat mock Product (image) or the locale view-model (images[]). */
-type AddableProduct = Product & { images?: string[] }
+/** Accepts either the flat mock Product (image) or the locale view-model (images[] + nameLocalized). */
+type AddableProduct = Product & { images?: string[]; nameLocalized?: Localized }
+
+/** Resolve a cart item's name for the given language (falls back to the frozen string). */
+export function itemName(it: CartItem, lang: Locale): string {
+  return it.nameLocalized?.[lang] || it.name
+}
 
 interface CartState {
   items: CartItem[]
@@ -48,6 +56,11 @@ export const useCartStore = create<CartState>((set) => ({
           {
             id: product.id,
             name: product.name,
+            nameLocalized: product.nameLocalized ?? {
+              tr: product.name,
+              en: product.name,
+              ru: product.name,
+            },
             price: product.price,
             motif: product.motif,
             image,

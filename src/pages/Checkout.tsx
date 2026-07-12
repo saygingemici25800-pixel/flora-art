@@ -3,11 +3,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
+  itemName,
   selectSubtotal,
   useCartStore,
   type CartItem,
 } from '../store/cartStore'
-import type { Order, OrderInput } from '../types'
+import type { Locale, Order, OrderInput } from '../types'
 import ProductMotif from '../components/ui/ProductMotif'
 import { FETHIYE_FEES, MUGLA_FEES, findDeliveryFee } from '../data/deliveryFees'
 
@@ -129,7 +130,7 @@ export default function Checkout() {
       },
       items: items.map((it) => ({
         productId: it.id,
-        name: it.name,
+        name: itemName(it, form.contactLang),
         price: it.price,
         quantity: it.quantity,
       })),
@@ -184,7 +185,7 @@ export default function Checkout() {
     lines.push('')
     lines.push(`📦 ${L('products')}:`)
     for (const it of items) {
-      lines.push(`• ${it.name} x${it.quantity} — ${it.price * it.quantity}₺`)
+      lines.push(`• ${itemName(it, form.contactLang)} x${it.quantity} — ${it.price * it.quantity}₺`)
     }
     lines.push('')
     lines.push(`📍 ${L('delivery')}: ${form.deliveryArea}`)
@@ -632,7 +633,9 @@ function SummaryCard({
   total: number
   currency: string
 }) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const rawLang = (i18n.language || 'tr').split('-')[0]
+  const lang: Locale = rawLang === 'en' || rawLang === 'ru' ? rawLang : 'tr'
   const badges = t('checkout.trustBadges', { returnObjects: true }) as string[]
 
   return (
@@ -675,7 +678,7 @@ function SummaryCard({
                   letterSpacing: '-0.005em',
                 }}
               >
-                {it.name}
+                {itemName(it, lang)}
               </p>
               <p
                 className="text-[11px] tracking-[0.18em] uppercase mt-1"

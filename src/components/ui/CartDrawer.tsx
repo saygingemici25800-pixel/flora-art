@@ -3,11 +3,13 @@ import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
+  itemName,
   selectItemCount,
   selectSubtotal,
   useCartStore,
   type CartItem,
 } from '../../store/cartStore'
+import type { Locale } from '../../types'
 import ProductMotif from './ProductMotif'
 import { categoryRank } from '../../data/categoryOrder'
 
@@ -20,9 +22,11 @@ function langPrefix(pathname: string): string {
 }
 
 export default function CartDrawer() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const location = useLocation()
   const prefix = langPrefix(location.pathname)
+  const rawLang = (i18n.language || 'tr').split('-')[0]
+  const lang: Locale = rawLang === 'en' || rawLang === 'ru' ? rawLang : 'tr'
 
   const isOpen = useCartStore((s) => s.isOpen)
   const items = useCartStore((s) => s.items)
@@ -137,6 +141,7 @@ export default function CartDrawer() {
                       <CartRow
                         key={item.id}
                         item={item}
+                        name={itemName(item, lang)}
                         currency={currency}
                         divider={i < ordered.length - 1}
                         onIncrement={() => updateQuantity(item.id, item.quantity + 1)}
@@ -233,6 +238,7 @@ export default function CartDrawer() {
 
 function CartRow({
   item,
+  name,
   currency,
   divider,
   onIncrement,
@@ -243,6 +249,7 @@ function CartRow({
   decLabel,
 }: {
   item: CartItem
+  name: string
   currency: string
   divider: boolean
   onIncrement: () => void
@@ -268,7 +275,7 @@ function CartRow({
         {item.image ? (
           <img
             src={item.image}
-            alt={item.name}
+            alt={name}
             className="absolute inset-0 h-full w-full object-cover"
           />
         ) : (
@@ -287,7 +294,7 @@ function CartRow({
               letterSpacing: '-0.005em',
             }}
           >
-            {item.name}
+            {name}
           </h3>
           <button
             type="button"
