@@ -242,6 +242,9 @@ export default function Navbar() {
               </AnimatePresence>
             </motion.button>
 
+            {/* Glowing language switcher — mobile only, right next to the cart. */}
+            <MobileLangSwitch lang={lang} pathname={location.pathname} />
+
             <button
               type="button"
               aria-label={mobileOpen ? t('common.close') : t('common.menu')}
@@ -311,38 +314,8 @@ export default function Navbar() {
               aria-modal="true"
             >
               <div className="px-6 pb-9" style={{ paddingTop: '94px' }}>
-                {/* language switcher — compact, tappable, active highlighted */}
-                <div
-                  className="flex items-center gap-2 pb-6 mb-6"
-                  style={{ borderBottom: '1px solid rgba(255,239,179,0.14)' }}
-                >
-                  {LANGS.map((l) => {
-                    const active = l === lang
-                    return (
-                      <Link
-                        key={l}
-                        to={buildPath(l, location.pathname)}
-                        aria-current={active ? 'true' : undefined}
-                        className="grid place-items-center rounded-full uppercase text-[13px] tracking-[0.2em] transition-colors"
-                        style={{
-                          minWidth: '46px',
-                          minHeight: '40px',
-                          padding: '0 16px',
-                          fontFamily: 'var(--font-body)',
-                          background: active ? 'var(--color-gold)' : 'transparent',
-                          color: active ? 'var(--color-forest)' : 'var(--color-cream)',
-                          border: active
-                            ? '1px solid var(--color-gold)'
-                            : '1px solid rgba(255,239,179,0.28)',
-                        }}
-                      >
-                        {l}
-                      </Link>
-                    )
-                  })}
-                </div>
-
-                {/* primary nav — large, airy, Cormorant headings */}
+                {/* primary nav — large, airy, Cormorant headings
+                    (language switcher now lives as a glowing button in the top bar) */}
                 <nav className="flex flex-col">
                   {linkKeys.map((key, i) => (
                     <motion.div
@@ -376,6 +349,87 @@ export default function Navbar() {
         )}
       </AnimatePresence>
     </>
+  )
+}
+
+/**
+ * Mobile-only language switcher: a single round button showing the current
+ * language code, gently pulsing with a gold glow so it's easy to find. Tapping
+ * reveals TR/EN/RU; picking one navigates to the language-prefixed path (the
+ * existing URL-driven i18n mechanism). Tapping outside or choosing closes it.
+ */
+function MobileLangSwitch({ lang, pathname }: { lang: Lang; pathname: string }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="relative">
+      <motion.button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Dil / Language"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        animate={{
+          boxShadow: [
+            '0 0 0 0 rgba(200,169,110,0.0)',
+            '0 0 0 5px rgba(200,169,110,0.30)',
+            '0 0 0 0 rgba(200,169,110,0.0)',
+          ],
+        }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+        className="relative grid place-items-center w-10 h-10 rounded-full text-white text-[11px] font-medium tracking-[0.06em]"
+        style={{ border: '1px solid var(--color-gold)', fontFamily: 'var(--font-body)' }}
+      >
+        {lang.toUpperCase()}
+      </motion.button>
+
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* click-outside backdrop */}
+            <div
+              className="fixed inset-0 z-[110]"
+              onClick={() => setOpen(false)}
+              aria-hidden="true"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -8, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.96 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute right-0 top-full mt-2 z-[120] flex flex-col overflow-hidden rounded-xl"
+              style={{
+                background: 'var(--color-forest)',
+                border: '1px solid rgba(200,169,110,0.35)',
+                boxShadow: '0 20px 50px -20px rgba(0,0,0,0.65)',
+              }}
+              role="menu"
+            >
+              {LANGS.map((l) => {
+                const active = l === lang
+                return (
+                  <Link
+                    key={l}
+                    to={buildPath(l, pathname)}
+                    onClick={() => setOpen(false)}
+                    role="menuitem"
+                    aria-current={active ? 'true' : undefined}
+                    className="px-6 py-3 text-[13px] text-center uppercase tracking-[0.24em] transition-colors"
+                    style={{
+                      minWidth: '104px',
+                      fontFamily: 'var(--font-body)',
+                      background: active ? 'var(--color-gold)' : 'transparent',
+                      color: active ? 'var(--color-forest)' : 'var(--color-cream)',
+                    }}
+                  >
+                    {l}
+                  </Link>
+                )
+              })}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 
