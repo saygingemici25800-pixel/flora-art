@@ -7,7 +7,7 @@ const LOCAL_BUSINESS = {
   '@type': 'Florist',
   name: 'Flora Art Çiçekçi Fethiye',
   alternateName: ['Flora Art Florist', 'Цветы Фетхие', 'Flora Art Fethiye'],
-  url: 'https://floraart.com.tr',
+  url: 'https://floraartfethiye.com',
   telephone: '+905015317748',
   contactPoint: [
     {
@@ -58,7 +58,7 @@ const LOCAL_BUSINESS = {
     reviewCount: '122',
   },
   priceRange: '₺₺',
-  image: 'https://floraart.com.tr/og-image.svg',
+  image: 'https://floraartfethiye.com/og-image.svg',
   sameAs: [
     'https://www.instagram.com/floraart.fethiye',
     'https://maps.google.com/?q=Atat%C3%BCrk+Cd.+98%2Fa+Kesikkap%C4%B1+Fethiye',

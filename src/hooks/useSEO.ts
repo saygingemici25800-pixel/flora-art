@@ -40,7 +40,7 @@ function setLink(rel: string, href: string) {
 export function useSEO({ title, description, image, canonicalPath }: SEOOptions) {
   const location = useLocation()
   const { t } = useTranslation()
-  const siteUrl = (t('seo.siteUrl') as string) || 'https://floraart.com.tr'
+  const siteUrl = (t('seo.siteUrl') as string) || 'https://floraartfethiye.com'
   const defaultImage = (t('seo.image') as string) || `${siteUrl}/og-image.svg`
   const siteName = (t('seo.siteName') as string) || 'Flora Art Fethiye'
 

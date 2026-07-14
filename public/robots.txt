@@ -7,4 +7,4 @@ Disallow: /order-success
 Disallow: /en/order-success
 Disallow: /ru/order-success
 
-Sitemap: https://floraart.com.tr/sitemap.xml
+Sitemap: https://floraartfethiye.com/sitemap.xml
