@@ -250,6 +250,16 @@ function ContactWidget() {
     }
   }, [])
 
+  // Report a WhatsApp tap as a Google Ads conversion. Non-blocking — the wa.me
+  // link still opens in a new tab as before.
+  const trackWhatsAppConversion = () => {
+    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'conversion', {
+        send_to: 'AW-18318204123/lVGACNvbp9AcENu55p5E',
+      })
+    }
+  }
+
   const pills = [
     { key: 'tr', href: WHATSAPP_URL, badge: 'TR', accent: '#25D366', number: '+90 501 531 77 48' },
     { key: 'intl', href: WHATSAPP_INTL_URL, badge: 'EN · RU', accent: '#2E7DD1', number: '+90 531 844 87 30' },
@@ -284,7 +294,10 @@ function ContactWidget() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`WhatsApp ${p.badge}: ${p.number}`}
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  trackWhatsAppConversion()
+                  setOpen(false)
+                }}
                 initial={{ opacity: 0, scale: 0.2, y: 56 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.15, y: 56, boxShadow: '0 0 22px 6px rgba(200,169,110,0.55)' }}
