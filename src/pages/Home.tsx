@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { motion } from 'framer-motion'
 import { useSEO } from '../hooks/useSEO'
@@ -319,11 +319,39 @@ function HeroBouquet3D() {
 
 /* ── Product catalogue (homepage showroom) ─────────────────────── */
 
+/** Map a `?category=` value to a filter — invalid/absent → 'all'. */
+function paramToFilter(value: string | null): 'all' | CategoryId {
+  return value && (CATEGORY_ORDER as string[]).includes(value)
+    ? (value as CategoryId)
+    : 'all'
+}
+
 function HomeCatalog() {
   const { t } = useTranslation()
   const { products: allProducts, loading, error } = useProducts()
-  const [filter, setFilter] = useState<'all' | CategoryId>('all')
+  const [searchParams, setSearchParams] = useSearchParams()
+  // Filter is derived from the URL so ad landings like /?category=bouquet (works
+  // under any /en, /ru prefix) open pre-filtered, and back/forward stay in sync.
+  const filter = paramToFilter(searchParams.get('category'))
   const [quickView, setQuickView] = useState<StoreProduct | null>(null)
+
+  function selectFilter(next: 'all' | CategoryId) {
+    const params = new URLSearchParams(searchParams)
+    if (next === 'all') params.delete('category')
+    else params.set('category', next)
+    setSearchParams(params)
+  }
+
+  // Arriving with a category param (an ad landing) → jump straight to the grid
+  // so the visitor sees the products, not the hero. Runs once on mount.
+  useEffect(() => {
+    if (!searchParams.get('category')) return
+    const id = window.setTimeout(() => {
+      document.getElementById('urunler')?.scrollIntoView({ behavior: 'smooth' })
+    }, 500)
+    return () => window.clearTimeout(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const visible = useMemo(
     () =>
@@ -354,14 +382,14 @@ function HomeCatalog() {
         >
           <FilterPill
             active={filter === 'all'}
-            onClick={() => setFilter('all')}
+            onClick={() => selectFilter('all')}
             label={t('shop.filterAll') as string}
           />
           {CATEGORY_ORDER.map((cat, i) => (
             <FilterPill
               key={cat}
               active={filter === cat}
-              onClick={() => setFilter(cat)}
+              onClick={() => selectFilter(cat)}
               label={t(`categories.${i}.name`) as string}
             />
           ))}
