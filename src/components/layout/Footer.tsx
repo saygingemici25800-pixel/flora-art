@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const linkKeys = ['about', 'delivery', 'blog', 'contact'] as const
 
@@ -14,6 +15,7 @@ const WHATSAPP_NUMBER = '905015317748'
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`
 // Second line for foreign (EN/RU) guests — Aliona Akar.
 const ALIONA_TEL = '+905318448730'
+const WHATSAPP_INTL_URL = 'https://wa.me/905318448730'
 const INSTAGRAM_URL = 'https://www.instagram.com/floraart.fethiye/'
 const FACEBOOK_URL = 'https://facebook.com/floraartfethiye'
 
@@ -197,7 +199,7 @@ export default function Footer() {
         `}</style>
       </footer>
 
-      <FloatingWhatsApp />
+      <ContactWidget />
     </>
   )
 }
@@ -217,73 +219,159 @@ function SocialCircle({ href, label, children }: { href: string; label: string; 
   )
 }
 
-function FloatingWhatsApp() {
-  const { t } = useTranslation()
-  const label = t('footer.whatsapp') as string
+/**
+ * Premium contact widget — a glowing gold-ringed "+" button (dark-green) fixed
+ * bottom-right. Tapping fans two WhatsApp number pills upward: TR line (green
+ * accent) on top, EN·RU line (blue accent) below. Pills emerge from the button
+ * as dots and expand into place; closing retracts them into the button with a
+ * brief gold shimmer. Closes on outside click or Escape. On first load it plays
+ * the reveal once as a teaser, then tucks itself away.
+ */
+function ContactWidget() {
+  const [open, setOpen] = useState(false)
+
+  // Escape closes.
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
+  // One-time teaser on first load: open ~1.5s in, auto-close ~3s later.
+  useEffect(() => {
+    const openT = setTimeout(() => setOpen(true), 1500)
+    const closeT = setTimeout(() => setOpen(false), 4500)
+    return () => {
+      clearTimeout(openT)
+      clearTimeout(closeT)
+    }
+  }, [])
+
+  const pills = [
+    { key: 'tr', href: WHATSAPP_URL, badge: 'TR', accent: '#25D366', number: '+90 501 531 77 48' },
+    { key: 'intl', href: WHATSAPP_INTL_URL, badge: 'EN · RU', accent: '#2E7DD1', number: '+90 531 844 87 30' },
+  ]
+
   return (
-    <div className="fixed bottom-6 right-6 z-[80] wa-float-group">
-      <motion.a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={label}
-        data-cursor-large
-        initial={{ opacity: 0, scale: 0.7 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        whileHover={{ scale: 1.06 }}
-        whileTap={{ scale: 0.94 }}
-        className="relative grid place-items-center w-14 h-14 rounded-full text-white shadow-lg"
-        style={{ background: '#25D366' }}
-      >
-        <motion.span
-          aria-hidden="true"
-          className="absolute inset-0 rounded-full"
-          style={{ background: '#25D366' }}
-          animate={{ scale: [1, 1.5, 1.8], opacity: [0.45, 0.1, 0] }}
-          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut' }}
-        />
-        <WhatsAppIcon size={26} />
-      </motion.a>
+    <>
+      {/* click-outside backdrop */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="contact-backdrop"
+            className="fixed inset-0 z-[79]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
 
-      <span
-        role="tooltip"
-        className="wa-tooltip absolute right-full mr-4 top-1/2 -translate-y-1/2 whitespace-nowrap px-4 py-2 text-[11px] tracking-[0.22em] uppercase pointer-events-none"
-        style={{
-          background: 'var(--color-cream)',
-          color: 'var(--color-forest)',
-          fontFamily: 'var(--font-body)',
-          boxShadow: '0 12px 24px -10px rgba(1,62,55,0.25)',
-        }}
-      >
-        {label}
-        <span
-          aria-hidden="true"
-          className="absolute top-1/2 -translate-y-1/2"
-          style={{
-            right: '-5px',
-            width: 0,
-            height: 0,
-            borderTop: '5px solid transparent',
-            borderBottom: '5px solid transparent',
-            borderLeft: '6px solid var(--color-cream)',
+      <div className="fixed bottom-6 right-6 z-[80] flex flex-col items-end gap-3">
+        {/* Number pills — emerge upward from the button as dots, then expand. */}
+        <AnimatePresence>
+          {open &&
+            pills.map((p, i) => (
+              <motion.a
+                key={p.key}
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`WhatsApp ${p.badge}: ${p.number}`}
+                onClick={() => setOpen(false)}
+                initial={{ opacity: 0, scale: 0.2, y: 56 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.15, y: 56, boxShadow: '0 0 22px 6px rgba(200,169,110,0.55)' }}
+                transition={{ type: 'spring', stiffness: 420, damping: 30, delay: i * 0.08 }}
+                className="flex items-center gap-3 rounded-full py-2 pl-2 pr-5"
+                style={{
+                  background: 'var(--color-cream)',
+                  border: '1px solid var(--color-gold)',
+                  boxShadow: '0 16px 34px -16px rgba(1,62,55,0.5)',
+                  transformOrigin: 'bottom right',
+                }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full text-white"
+                  style={{ background: p.accent }}
+                >
+                  <WhatsAppIcon size={18} />
+                </span>
+                <span className="flex flex-col leading-tight">
+                  <span
+                    className="text-[9px] tracking-[0.28em] uppercase"
+                    style={{ color: 'var(--color-bronze)', fontFamily: 'var(--font-body)' }}
+                  >
+                    {p.badge}
+                  </span>
+                  <span
+                    className="text-[14px] font-semibold"
+                    style={{ color: 'var(--color-forest)', fontFamily: 'var(--font-body)' }}
+                  >
+                    {p.number}
+                  </span>
+                </span>
+              </motion.a>
+            ))}
+        </AnimatePresence>
+
+        {/* Glowing + button (rotates to × when open; pulses when closed). */}
+        <motion.button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-label={open ? 'İletişimi kapat' : 'İletişim / Contact'}
+          aria-expanded={open}
+          aria-haspopup="menu"
+          data-cursor-large
+          whileTap={{ scale: 0.94 }}
+          animate={{
+            boxShadow: open
+              ? '0 12px 30px -10px rgba(1,62,55,0.6)'
+              : [
+                  '0 0 0 0 rgba(200,169,110,0.0)',
+                  '0 0 0 6px rgba(200,169,110,0.30)',
+                  '0 0 0 0 rgba(200,169,110,0.0)',
+                ],
           }}
-        />
-      </span>
+          transition={
+            open
+              ? { duration: 0.3 }
+              : { duration: 2.2, repeat: Infinity, ease: 'easeInOut' }
+          }
+          className="relative grid place-items-center w-14 h-14 rounded-full"
+          style={{
+            background: 'var(--color-forest)',
+            border: '1px solid var(--color-gold)',
+            color: 'var(--color-cream)',
+          }}
+        >
+          <motion.span
+            aria-hidden="true"
+            className="grid place-items-center"
+            animate={{ rotate: open ? 45 : 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <PlusIcon />
+          </motion.span>
+        </motion.button>
+      </div>
+    </>
+  )
+}
 
-      <style>{`
-        .wa-tooltip {
-          opacity: 0;
-          transform: translate(8px, -50%);
-          transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
-        }
-        .wa-float-group:hover .wa-tooltip,
-        .wa-float-group:focus-within .wa-tooltip {
-          opacity: 1;
-          transform: translate(0, -50%);
-        }
-      `}</style>
-    </div>
+function PlusIcon() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <line x1="12" y1="5" x2="12" y2="19" />
+      <line x1="5" y1="12" x2="19" y2="12" />
+    </svg>
   )
 }
 
