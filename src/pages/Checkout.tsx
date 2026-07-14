@@ -223,12 +223,31 @@ export default function Checkout() {
     return lines.join('\n')
   }
 
+  // Report a completed WhatsApp order as a Google Ads conversion. value = the
+  // amount the customer pays (subtotal + delivery, TRY); transaction_id = order
+  // number so the same order is never double-counted.
+  const trackOrderConversion = (total: number, orderId?: string) => {
+    if (typeof window !== 'undefined' && typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'conversion', {
+        send_to: 'AW-18318204123/ZW9YCPOXqNAcENu55p5E',
+        value: total,
+        currency: 'TRY',
+        transaction_id: orderId || '',
+      })
+    }
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!canSubmit || submitting) return
     setSubmitting(true)
 
     const orderNumber = await persistOrder()
+
+    // Order is persisted and WhatsApp is about to open → count the conversion
+    // once, with the real total and order number available right here.
+    trackOrderConversion(total, orderNumber ?? undefined)
+
     const href = `https://wa.me/${waNumber}?text=${encodeURIComponent(
       buildMessage(orderNumber),
     )}`
