@@ -240,10 +240,11 @@ function ContactWidget() {
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
-  // One-time teaser on first load: open ~1.5s in, auto-close ~3s later.
+  // One-time teaser on first load: wait 4s (let the page settle), open, stay
+  // open 2s, then auto-close.
   useEffect(() => {
-    const openT = setTimeout(() => setOpen(true), 1500)
-    const closeT = setTimeout(() => setOpen(false), 4500)
+    const openT = setTimeout(() => setOpen(true), 4000)
+    const closeT = setTimeout(() => setOpen(false), 6000)
     return () => {
       clearTimeout(openT)
       clearTimeout(closeT)
