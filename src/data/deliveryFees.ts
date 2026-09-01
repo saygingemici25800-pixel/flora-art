@@ -4,7 +4,6 @@
 // labels/notes around them are translated.
 //
 // Teslimat ücretleri KDV dahildir. Kesin ücret WhatsApp üzerinden teyit edilir.
-
 export interface DeliveryFee {
   area: string
   fee: number
@@ -12,36 +11,39 @@ export interface DeliveryFee {
 
 export const FETHIYE_FEES: DeliveryFee[] = [
   { area: 'Merkez', fee: 150 },
-  { area: 'Patlangıç', fee: 150 },
-  { area: 'Çalış', fee: 200 },
-  { area: 'Çamköy', fee: 250 },
-  { area: 'Çatalarık', fee: 250 },
-  { area: 'Esenköy', fee: 250 },
+  { area: 'Patlangıç', fee: 200 },
   { area: 'Karaçulha', fee: 250 },
-  { area: 'Koca Çalış', fee: 300 },
-  { area: 'XO Cape Arnna', fee: 300 },
-  { area: 'Aksazlar Koyu', fee: 350 },
-  { area: 'Çiftlik', fee: 350 },
+  { area: 'Çalış', fee: 300 },
+  { area: 'Çatalarık', fee: 350 },
   { area: 'Karagedik', fee: 350 },
-  { area: 'Liberty Signa', fee: 350 },
-  { area: 'Yanıklar', fee: 350 },
-  { area: 'Hisarönü', fee: 400 },
-  { area: 'Kargı', fee: 400 },
-  { area: 'Ovacık', fee: 400 },
-  { area: 'İnlice', fee: 450 },
-  { area: 'Ölüdeniz', fee: 500 },
+  { area: 'Aksazlar Koyu', fee: 400 },
+  { area: 'Çamköy', fee: 400 },
+  { area: 'Çiftlik', fee: 400 },
+  { area: 'Esenköy', fee: 400 },
+  { area: 'Koca Çalış', fee: 400 },
+  { area: 'Hisarönü', fee: 450 },
+  { area: 'Liberty Signa', fee: 500 },
+  { area: 'Ovacık', fee: 500 },
+  { area: 'XO Cape Arnna', fee: 500 },
+  { area: 'Boncuklu Koyu', fee: 600 },
+  { area: 'İnlice', fee: 600 },
+  { area: 'Kargı', fee: 600 },
   { area: 'Kayaköy', fee: 600 },
-  { area: 'Kıdrak Koyu', fee: 700 },
-  { area: 'Yeşil Üzümlü', fee: 750 },
-  { area: 'Göcek', fee: 800 },
+  { area: 'Letonya Tatil Köyü', fee: 600 },
+  { area: 'Yanıklar', fee: 600 },
+  { area: 'Ölüdeniz', fee: 750 },
   { area: 'Hillside', fee: 800 },
-  { area: 'Faralya', fee: 1500 },
+  { area: 'Kıdrak Koyu', fee: 800 },
+  { area: 'Liberty Likya', fee: 800 },
+  { area: 'Yeşil Üzümlü', fee: 800 },
+  { area: 'Göcek', fee: 1000 },
+  { area: 'Faralya', fee: 2000 },
 ]
 
 export const MUGLA_FEES: DeliveryFee[] = [
-  { area: 'Seydikemer', fee: 400 },
-  { area: 'Ortaca', fee: 800 },
-  { area: 'Dalaman', fee: 850 },
+  { area: 'Ortaca', fee: 2000 },
+  { area: 'Dalaman', fee: 2000 },
+  { area: 'Seydikemer', fee: 2500 },
 ]
 
 export const ALL_DELIVERY_FEES: DeliveryFee[] = [...FETHIYE_FEES, ...MUGLA_FEES]
